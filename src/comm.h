@@ -12,8 +12,9 @@ typedef struct CommHandlers {
 } CommHandlers;
 
 
+bool comm_pebkitReady();
 void comm_open();
 void comm_close();
 
-void comm_requestUpdate();
+void comm_sendUpdateRequest();
 void comm_setHandlers(const CommHandlers);

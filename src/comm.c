@@ -35,6 +35,8 @@ enum {
 
 static KivaModel* dataModel;
 static CommHandlers commHandlers;
+static bool pebkitReady;
+
 
 /**************************************************************************
  * Converts a tuple to a simple data type.
@@ -74,6 +76,12 @@ static bool unloadTupleLong(long int* buffer, Tuple* tuple, char readable[]) {
 static void inbox_received_callback(DictionaryIterator *iterator, void *context) {
   APP_LOG(APP_LOG_LEVEL_INFO, "Inbox receive successful.");
   
+  Tuple *ready_tuple = dict_find(iterator, KEY_PEBKIT_READY);
+  if (ready_tuple) {
+    // PebbleKit JS is ready! Safe to send messages
+    pebkitReady = true;
+  }
+
   Tuple *tuple = NULL;
   if ( (tuple = dict_find(iterator, KEY_LENDER_ID)) != NULL) {
     KivaModel_LenderId lenderIdBuf; KivaModel_LenderId compareBuf;
@@ -131,9 +139,22 @@ static void outbox_sent_callback(DictionaryIterator *iterator, void *context) {
 
 
 /**************************************************************************
+ * Returns whether the communication channel is ready for sending.
+ **************************************************************************/
+bool comm_pebkitReady() {
+  return pebkitReady;
+}
+
+
+/**************************************************************************
  * Request an update of data from PebbleKit.
  **************************************************************************/
-void comm_requestUpdate() {
+void comm_sendUpdateRequest() {
+  if (!pebkitReady) {
+    APP_LOG(APP_LOG_LEVEL_WARNING, "Tried to send a message from the watch before PebbleKit JS is ready.");
+    return;
+  }
+  
   DictionaryIterator *iter;
   AppMessageResult result = app_message_outbox_begin(&iter);
   if(result != APP_MSG_OK) {

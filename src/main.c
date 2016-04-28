@@ -22,7 +22,7 @@ static void tick_handler(struct tm *tick_time, TimeUnits units_changed) {
 
   // Get update every 30 minutes
   if(tick_time->tm_min % 30 == 0) {
-    comm_requestUpdate();
+    comm_sendUpdateRequest();
   }
 }
 

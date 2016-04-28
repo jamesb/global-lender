@@ -187,11 +187,14 @@ function getLoansForLender() {
 
 
 /**************************************************************************
- * Listen for when the watch opens communication.
+ * Listen for when the watch opens communication and inform the watch that
+ * the PebbleKit end of the channel is ready.
  **************************************************************************/
 Pebble.addEventListener('ready', 
   function(e) {
     console.log("PebbleKit JS ready!");
+    Pebble.sendAppMessage({"KEY_PEBKIT_READY": 1});
+    
     getLenderInfo();
     getLoansForLender();
   }
