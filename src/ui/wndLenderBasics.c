@@ -83,26 +83,27 @@ static void wndLenderBasics_load(Window* window) {
   window_set_background_color(window, COLOR_FALLBACK(GColorPictonBlue, GColorBlack));
   Layer* lyrRoot = window_get_root_layer(window); 
   GRect bounds = layer_get_bounds(lyrRoot);
+  GColor fontColor = GColorBlack;
 
   // Digital Time
   lyrDigitime_create(GRect(0, (int)(bounds.size.h * 0.05), bounds.size.w, 20), lyrRoot);
-  lyrDigitime_stylize(GColorClear, GColorWhite, GTextAlignmentCenter, fonts_get_system_font(FONT_KEY_GOTHIC_14));
+  lyrDigitime_stylize(GColorClear, fontColor, GTextAlignmentCenter, fonts_get_system_font(FONT_KEY_GOTHIC_14));
   
   // Lender Name
   lyrLenderName = text_layer_create( GRect(0, (int)(bounds.size.h * 0.3), bounds.size.w, 30) );
-  textLayer_stylize(lyrLenderName, GColorClear, GColorWhite, GTextAlignmentCenter, fonts_get_system_font(FONT_KEY_ROBOTO_CONDENSED_21));
+  textLayer_stylize(lyrLenderName, GColorClear, fontColor, GTextAlignmentCenter, fonts_get_system_font(FONT_KEY_ROBOTO_CONDENSED_21));
   text_layer_set_text(lyrLenderName, "Loading...");
   layer_add_child(lyrRoot, text_layer_get_layer(lyrLenderName));
 
   // Lender Location
   lyrLenderLoc = text_layer_create( GRect(0, (int)(bounds.size.h * 0.42), bounds.size.w, 30) );
-  textLayer_stylize(lyrLenderLoc, GColorClear, GColorWhite, GTextAlignmentCenter, fonts_get_system_font(FONT_KEY_GOTHIC_18));
+  textLayer_stylize(lyrLenderLoc, GColorClear, fontColor, GTextAlignmentCenter, fonts_get_system_font(FONT_KEY_GOTHIC_18));
   text_layer_set_text(lyrLenderLoc, "");
   layer_add_child(lyrRoot, text_layer_get_layer(lyrLenderLoc));
 
   // Lender Loan Summary
   lyrLenderLoanSummary = text_layer_create( GRect(0, (int)(bounds.size.h * 0.55), bounds.size.w, 40) );
-  textLayer_stylize(lyrLenderLoanSummary, GColorClear, GColorWhite, GTextAlignmentCenter, fonts_get_system_font(FONT_KEY_GOTHIC_18));
+  textLayer_stylize(lyrLenderLoanSummary, GColorClear, fontColor, GTextAlignmentCenter, fonts_get_system_font(FONT_KEY_GOTHIC_18));
   text_layer_set_text(lyrLenderLoanSummary, "");
   layer_add_child(lyrRoot, text_layer_get_layer(lyrLenderLoanSummary));
 }

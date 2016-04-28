@@ -27,7 +27,7 @@ typedef enum KivaModel_ErrCode {
   KIVA_MODEL_LAST_ERRCODE
 } KivaModel_ErrCode;
 
-  
+
 KivaModel* KivaModel_create(const KivaModel_LenderId);
 KivaModel_ErrCode KivaModel_destroy(KivaModel* this);
 

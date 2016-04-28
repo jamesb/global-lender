@@ -4,7 +4,7 @@
 
 #define KIVA_MODEL_RETURN_IF_NULL(var)                                        \
     if (var == NULL) {                                                        \
-      APP_LOG(APP_LOG_LEVEL_ERROR, "Attempted operation on NULL pointer."); \
+      APP_LOG(APP_LOG_LEVEL_ERROR, "Attempted operation on NULL pointer.");   \
       return KIVA_MODEL_NULL_POINTER_ERR;                                     \
     }
 

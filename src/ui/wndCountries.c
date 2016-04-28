@@ -45,16 +45,17 @@ static void wndCountries_load(Window* window) {
   window_set_background_color(window, COLOR_FALLBACK(GColorPictonBlue, GColorBlack));
   Layer* lyrRoot = window_get_root_layer(window); 
   GRect bounds = layer_get_bounds(lyrRoot);
+  GColor fontColor = GColorBlack;
 
   // lyrCountries
   lyrCountries = text_layer_create( GRect(0, (int)(bounds.size.h * 0.3), bounds.size.w, 30) );
-  textLayer_stylize(lyrCountries, GColorClear, GColorBlack, GTextAlignmentCenter, fonts_get_system_font(FONT_KEY_ROBOTO_CONDENSED_21));
+  textLayer_stylize(lyrCountries, GColorClear, fontColor, GTextAlignmentCenter, fonts_get_system_font(FONT_KEY_ROBOTO_CONDENSED_21));
   text_layer_set_text(lyrCountries, "Loading...");
   layer_add_child(lyrRoot, text_layer_get_layer(lyrCountries));
 
   // lyrCountrySummary
   lyrCountrySummary = text_layer_create( GRect(0, (int)(bounds.size.h * 0.55), bounds.size.w, 40) );
-  textLayer_stylize(lyrCountrySummary, GColorClear, GColorBlack, GTextAlignmentCenter, fonts_get_system_font(FONT_KEY_GOTHIC_18));
+  textLayer_stylize(lyrCountrySummary, GColorClear, fontColor, GTextAlignmentCenter, fonts_get_system_font(FONT_KEY_GOTHIC_18));
   text_layer_set_text(lyrCountrySummary, "");
   layer_add_child(lyrRoot, text_layer_get_layer(lyrCountrySummary));
 }
