@@ -1,0 +1,9 @@
+# Ignore top-level build directory
+/build/
+
+# Ignore top-level lock file
+/.lock-waf_linux2_build
+
+# Ignore the top-level docs directory (will be pushed to gh-pages separately)
+/docs
+
