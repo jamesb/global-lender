@@ -1,8 +1,6 @@
 #include <pebble.h>
 
 // Deactivate APP_LOG in this file.
-#undef APP_LOG
-#define APP_LOG(...)
 
 #include "data/KivaModel.h"
 #include "misc.h"
@@ -42,7 +40,7 @@ void wndLenderBasics_updateView(const KivaModel* km) {
   
   KivaModel_ErrCode kmret;  int loanQty = 0;
   if ( (kmret = KivaModel_getLenderLoanQty(km, &loanQty)) != KIVA_MODEL_SUCCESS) {
-    APP_LOG(APP_LOG_LEVEL_ERROR, "Kiva Model error: %s", KivaModel_getErrorMsg(kmret));
+    APP_LOG(APP_LOG_LEVEL_ERROR, "Kiva Model error: %s", KivaModel_getErrMsg(kmret));
     return;
   }
   

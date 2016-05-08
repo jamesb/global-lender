@@ -7,14 +7,6 @@
 #include "data-processor.h"
 
 
-// Presently, Kiva recognizes 91 countries. Country codes have a length
-// of 2. Country codes are separated by a pipe character (length = 1).
-// So, if n = 91:
-// (n * 2) + (n-1) + 1 = 273
-// Giving ourselves a little room to grow...
-#define COMM_COUNTRY_SET_SERIALIZED_LEN 300
-
-
 enum {
   KEY_PEBKIT_READY = 0,
   KEY_PEBBLE_READY,
@@ -50,9 +42,8 @@ static bool pebkitReady;
 /**************************************************************************
  * Converts a tuple to a simple data type.
  **************************************************************************/
-// JRB TODO: This is crap.
-static bool unloadTupleStr(char** buffer, size_t bufsize, Tuple* tuple, char* readable) {
-  if (tuple) {
+static bool unloadTupleStr(char** buffer, size_t bufsize, Tuple* tuple, const char* readable) {
+  if (tuple != NULL) {
     long ret = 0;
     if ((ret = snprintf(*buffer, bufsize, "%s", tuple->value->cstring)) < 0) {
       APP_LOG(APP_LOG_LEVEL_ERROR, "%s string was not written correctly. Ret=%ld", readable, ret);
@@ -70,7 +61,7 @@ static bool unloadTupleStr(char** buffer, size_t bufsize, Tuple* tuple, char* re
 /**************************************************************************
  * Converts a tuple to a simple data type.
  **************************************************************************/
-static bool unloadTupleLong(long int* buffer, Tuple* tuple, char* readable) {
+static bool unloadTupleLong(long int* buffer, Tuple* tuple, const char* readable) {
   if (tuple) {
     *buffer = (long int)tuple->value->int32;
     APP_LOG(APP_LOG_LEVEL_DEBUG, "unloadTupleLong %s: %ld", readable, *buffer);
@@ -85,20 +76,21 @@ static bool unloadTupleLong(long int* buffer, Tuple* tuple, char* readable) {
  **************************************************************************/
 static void inbox_received_callback(DictionaryIterator *iterator, void *context) {
   APP_LOG(APP_LOG_LEVEL_INFO, "Inbox receive successful.");
-  
+
+  KivaModel_ErrCode kmret;
   Tuple *tuple = NULL;
   if ( (tuple = dict_find(iterator, KEY_PEBKIT_READY)) != NULL ) {
     // PebbleKit JS is ready! Safe to send messages
     pebkitReady = true;
   }
   
-  APP_LOG(APP_LOG_LEVEL_DEBUG, "Made it here.");
-  
   if ( (tuple = dict_find(iterator, KEY_LENDER_ID)) != NULL ) {
     char* lenderIdBuf = NULL;
     size_t bufsize = strlen(tuple->value->cstring)+1;
     lenderIdBuf = malloc(bufsize);
-    if (unloadTupleStr(&lenderIdBuf, bufsize, tuple, "Lender ID")) {
+    if (!unloadTupleStr(&lenderIdBuf, bufsize, tuple, "Lender ID")) {
+      APP_LOG(APP_LOG_LEVEL_ERROR, "Error in unloadTupleStr.");
+    } else {
       // lenderIdBuf contains the tuple string
       APP_LOG(APP_LOG_LEVEL_INFO, "lenderIdBuf = %s", lenderIdBuf);
       char* compareBuf = NULL;
@@ -127,39 +119,58 @@ static void inbox_received_callback(DictionaryIterator *iterator, void *context)
     free(lenderIdBuf); lenderIdBuf = NULL;
   }
   
-  char* lenderNameBuf = NULL;
   if ( (tuple = dict_find(iterator, KEY_LENDER_NAME)) != NULL ) {
+    const char* readable = "Lender Name";
     size_t bufsize = strlen(tuple->value->cstring)+1;
+    char* lenderNameBuf = NULL;
     lenderNameBuf = malloc(bufsize);
-    if (unloadTupleStr(&lenderNameBuf, bufsize, tuple, "Lender Name")) {
+    if (!unloadTupleStr(&lenderNameBuf, bufsize, tuple, readable)) {
+      APP_LOG(APP_LOG_LEVEL_ERROR, "Error in unloadTupleStr.");
+    } else {
       APP_LOG(APP_LOG_LEVEL_INFO, "lenderNameBuf = %s", lenderNameBuf);
-      KivaModel_setLenderName(dataModel, lenderNameBuf);
+      if ( (kmret = KivaModel_setLenderName(dataModel, lenderNameBuf)) != KIVA_MODEL_SUCCESS) {
+        APP_LOG(APP_LOG_LEVEL_ERROR, "Error setting %s in data model: %s", readable, KivaModel_getErrMsg(kmret));
+      }
     }
     free(lenderNameBuf); lenderNameBuf = NULL;
   }
     
-  char* lenderLocBuf = NULL;
   if ( (tuple = dict_find(iterator, KEY_LENDER_LOC)) != NULL ) {
+    const char* readable = "Lender Location";
     size_t bufsize = strlen(tuple->value->cstring)+1;
+    char* lenderLocBuf = NULL;
     lenderLocBuf = malloc(bufsize);
-    if (unloadTupleStr(&lenderLocBuf, bufsize, tuple, "Lender Location")) {
+    if (!unloadTupleStr(&lenderLocBuf, bufsize, tuple, readable)) {
+      APP_LOG(APP_LOG_LEVEL_ERROR, "Error in unloadTupleStr.");
+    } else {
       APP_LOG(APP_LOG_LEVEL_INFO, "lenderLocBuf = %s", lenderLocBuf);
-      KivaModel_setLenderLoc(dataModel, lenderLocBuf);
+      if ( (kmret = KivaModel_setLenderLoc(dataModel, lenderLocBuf)) != KIVA_MODEL_SUCCESS) {
+        APP_LOG(APP_LOG_LEVEL_ERROR, "Error setting %s in data model: %s", readable, KivaModel_getErrMsg(kmret));
+      }
     }
     free(lenderLocBuf); lenderLocBuf = NULL;
   }
     
-  long int lenderLoanQty = 0;
   if ( (tuple = dict_find(iterator, KEY_LENDER_LOAN_QTY)) != NULL ) {
-    if (unloadTupleLong(&lenderLoanQty, tuple, "Lender Loan Quantity")) {
-      KivaModel_setLenderLoanQty(dataModel, (int)lenderLoanQty);
+    const char* readable = "Lender Loan Quantity";
+    long int lenderLoanQty = 0;
+    if (unloadTupleLong(&lenderLoanQty, tuple, readable)) {
+      if ( (kmret = KivaModel_setLenderLoanQty(dataModel, (int)lenderLoanQty)) != KIVA_MODEL_SUCCESS) {
+        APP_LOG(APP_LOG_LEVEL_ERROR, "Error setting %s in data model: %s", readable, KivaModel_getErrMsg(kmret));
+      }
     }
   }
-    
-  char countrySetBuf[COMM_COUNTRY_SET_SERIALIZED_LEN];
+
   if ( (tuple = dict_find(iterator, KEY_LENDER_COUNTRY_SET)) != NULL ) {
-    if (unloadTupleStr((char**)&countrySetBuf, COMM_COUNTRY_SET_SERIALIZED_LEN, tuple, "Lender Supported Countries")) {
-      APP_LOG(APP_LOG_LEVEL_INFO, "Lender Supported Countries are %s", countrySetBuf);
+    const char* readable = "Lender-Supported Countries";
+    size_t bufsize = strlen(tuple->value->cstring)+1;
+    char* countrySetBuf = NULL;
+    countrySetBuf = malloc(bufsize);
+    APP_LOG(APP_LOG_LEVEL_DEBUG, "About to deserialize countries!");
+    if (!unloadTupleStr(&countrySetBuf, bufsize, tuple, readable)) {
+      APP_LOG(APP_LOG_LEVEL_ERROR, "Error in unloadTupleStr.");
+    } else {
+      APP_LOG(APP_LOG_LEVEL_INFO, "%s are %s", readable, countrySetBuf);
       ProcessingState* state = data_processor_create(countrySetBuf, '|');
       uint8_t num_strings = data_processor_count(state);
       char** strings = malloc(sizeof(char*) * num_strings);
@@ -167,7 +178,7 @@ static void inbox_received_callback(DictionaryIterator *iterator, void *context)
         strings[n] = data_processor_get_string(state);
         const char* countryName = NULL;
         if (KivaModel_getKivaCountryName(dataModel, strings[n], &countryName) == KIVA_MODEL_SUCCESS) {
-          APP_LOG(APP_LOG_LEVEL_DEBUG, "COMM %s = %s", strings[n], countryName);
+//          APP_LOG(APP_LOG_LEVEL_DEBUG, "COMM %s = %s", strings[n], countryName);
           KivaModel_addLenderCountryId(dataModel, strings[n]);
         }
         free(strings[n]);
@@ -175,6 +186,7 @@ static void inbox_received_callback(DictionaryIterator *iterator, void *context)
       free(strings);
       free(state);
     }
+    free(countrySetBuf); countrySetBuf = NULL;
   }
     
   if (!commHandlers.notifyApp) {

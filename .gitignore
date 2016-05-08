@@ -7,3 +7,8 @@
 # Ignore the top-level docs directory (will be pushed to gh-pages separately)
 /docs
 
+# Ignore vim swap files
+*.swp
+
+# Ignore core files
+core

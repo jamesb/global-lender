@@ -301,8 +301,9 @@ KivaModel_ErrCode KivaModel_setLenderId(KivaModel* this, const char* lenderId) {
   this->lenderInfo.id = tmp;
   
   if (!strxcpy(this->lenderInfo.id, bufsize, lenderId, "Lender ID")) { return KIVA_MODEL_STRING_ERR; }
-  this->lenderInfo.name = NULL;
-  this->lenderInfo.loc = NULL;
+  // Clear out any lender-dependent fields since the lender ID has changed.
+  if (this->lenderInfo.name != NULL) { free(this->lenderInfo.name); this->lenderInfo.name = NULL; }
+  if (this->lenderInfo.loc != NULL)  { free(this->lenderInfo.loc);  this->lenderInfo.loc = NULL; }
   this->lenderInfo.loanQty = 0;
   // JRB TODO: reset the CountryRec lender-supported fields to NULL
   
@@ -318,11 +319,12 @@ KivaModel_ErrCode KivaModel_setLenderName(KivaModel* this, const char* lenderNam
   
   if (lenderName == NULL) { return KIVA_MODEL_INVALID_INPUT_ERR; }
   if (this->lenderInfo.name != NULL) { free(this->lenderInfo.name); this->lenderInfo.name = NULL; }
-  char* tmp = realloc(this->lenderInfo.name, strlen(lenderName) + 1);
+  size_t bufsize = strlen(lenderName) + 1;
+  char* tmp = realloc(this->lenderInfo.name, bufsize);
   if (tmp == NULL) { return KIVA_MODEL_OUT_OF_MEMORY_ERR; }
   this->lenderInfo.name = tmp;
   
-  if (!strxcpy(this->lenderInfo.name, strlen(lenderName), lenderName, "Lender Name")) {
+  if (!strxcpy(this->lenderInfo.name, bufsize, lenderName, "Lender Name")) {
     return KIVA_MODEL_STRING_ERR;
   }
   return KIVA_MODEL_SUCCESS;
@@ -337,11 +339,12 @@ KivaModel_ErrCode KivaModel_setLenderLoc(KivaModel* this, const char* lenderLoc)
   
   if (lenderLoc == NULL) { return KIVA_MODEL_INVALID_INPUT_ERR; }
   if (this->lenderInfo.loc != NULL) { free(this->lenderInfo.loc); this->lenderInfo.loc = NULL; }
-  char* tmp = realloc(this->lenderInfo.loc, strlen(lenderLoc) + 1);
+  size_t bufsize = strlen(lenderLoc) + 1;
+  char* tmp = realloc(this->lenderInfo.loc, bufsize);
   if (tmp == NULL) { return KIVA_MODEL_OUT_OF_MEMORY_ERR; }
   this->lenderInfo.loc = tmp;
   
-  if (!strxcpy(this->lenderInfo.loc, strlen(lenderLoc), lenderLoc, "Lender Loc")) {
+  if (!strxcpy(this->lenderInfo.loc, bufsize, lenderLoc, "Lender Loc")) {
     return KIVA_MODEL_STRING_ERR;
   }
   return KIVA_MODEL_SUCCESS;
