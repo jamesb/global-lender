@@ -159,6 +159,11 @@ KivaModel_ErrCode KivaModel_init(KivaModel* this, const char* lenderId) {
   APP_LOG(APP_LOG_LEVEL_DEBUG, "Initializing KivaModel [%s]", lenderId);
   KivaModel_ErrCode kmret;
   
+  this->lenderInfo.id = NULL;
+  this->lenderInfo.name = NULL;
+  this->lenderInfo.loc = NULL;
+  this->lenderInfo.loanQty = 0;
+
   this->kivaCountries = NULL;
   
   if ( (kmret = KivaModel_initKivaCountries(this)) != KIVA_MODEL_SUCCESS) { 
