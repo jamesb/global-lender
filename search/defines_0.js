@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['get_5fmacro',['GET_MACRO',['../misc_8h.html#a8ff1830422a3ba9663c5a8a8985f3850',1,'misc.h']]]
+  ['app_5flog',['APP_LOG',['../main_8c.html#a19cc34ebde0b2378e48ce60bc92c0a5c',1,'APP_LOG():&#160;main.c'],['../lyr_digitime_8c.html#a19cc34ebde0b2378e48ce60bc92c0a5c',1,'APP_LOG():&#160;lyrDigitime.c'],['../wnd_countries_8c.html#a19cc34ebde0b2378e48ce60bc92c0a5c',1,'APP_LOG():&#160;wndCountries.c'],['../wnd_main_menu_8c.html#a19cc34ebde0b2378e48ce60bc92c0a5c',1,'APP_LOG():&#160;wndMainMenu.c']]]
 ];

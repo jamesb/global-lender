@@ -88,18 +88,22 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Data Structures</a> &#124;
+<a href="#typedef-members">Typedefs</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">KivaModel_Internal.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="_kiva_model_8h_source.html">data/KivaModel.h</a>&quot;</code><br />
+<div class="textblock"><code>#include &lt;pebble.h&gt;</code><br />
+<code>#include &quot;<a class="el" href="_kiva_model_8h_source.html">data/KivaModel.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="uthash_8h_source.html">libs/uthash.h</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for KivaModel_Internal.h:</div>
 <div class="dyncontent">
 <div class="center"><img src="_kiva_model___internal_8h__incl.png" border="0" usemap="#src_2data_2_kiva_model___internal_8h" alt=""/></div>
 <map name="src_2data_2_kiva_model___internal_8h" id="src_2data_2_kiva_model___internal_8h">
-<area shape="rect" id="node2" href="_kiva_model_8h.html" title="data/KivaModel.h" alt="" coords="11,95,134,121"/>
+<area shape="rect" id="node3" href="_kiva_model_8h.html" title="data/KivaModel.h" alt="" coords="101,95,223,121"/>
+<area shape="rect" id="node4" href="uthash_8h.html" title="libs/uthash.h" alt="" coords="247,95,343,121"/>
 </map>
 </div>
 </div><div class="textblock"><div class="dynheader">
@@ -117,16 +121,39 @@ This graph shows which files directly or indirectly include this file:</div>
 Data Structures</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_lender_info.html">LenderInfo</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_country_rec.html">CountryRec</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_kiva_model.html">KivaModel</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:a09dfd12d1e1d6a8eda4f99bafc299ee1"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="struct_country_rec.html">CountryRec</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_kiva_model___internal_8h.html#a09dfd12d1e1d6a8eda4f99bafc299ee1">CountryRec</a></td></tr>
+<tr class="separator:a09dfd12d1e1d6a8eda4f99bafc299ee1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a73783bcc3206d2d68f96244373431e34"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_kiva_model_8h.html#aa4c109eff106cf22169394f4fc6357bc">KivaModel_ErrCode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_kiva_model___internal_8h.html#a73783bcc3206d2d68f96244373431e34">KivaModel_init</a> (<a class="el" href="struct_kiva_model.html">KivaModel</a> *this, const <a class="el" href="_kiva_model_8h.html#a7e1015acefeda9cb4f22539ed7c189ad">KivaModel_LenderId</a>)</td></tr>
-<tr class="separator:a73783bcc3206d2d68f96244373431e34"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac2e95bb58567180179472f16994f3604"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_kiva_model_8h.html#aa4c109eff106cf22169394f4fc6357bc">KivaModel_ErrCode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_kiva_model___internal_8h.html#ac2e95bb58567180179472f16994f3604">KivaModel_init</a> (<a class="el" href="struct_kiva_model.html">KivaModel</a> *this, const char *)</td></tr>
+<tr class="memdesc:ac2e95bb58567180179472f16994f3604"><td class="mdescLeft">&#160;</td><td class="mdescRight">Internal initialization.  <a href="#ac2e95bb58567180179472f16994f3604">More...</a><br /></td></tr>
+<tr class="separator:ac2e95bb58567180179472f16994f3604"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae78944340a58a4a3c29d269eb9102c2d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_kiva_model_8h.html#aa4c109eff106cf22169394f4fc6357bc">KivaModel_ErrCode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_kiva_model___internal_8h.html#ae78944340a58a4a3c29d269eb9102c2d">KivaModel_initKivaCountries</a> (<a class="el" href="struct_kiva_model.html">KivaModel</a> *this)</td></tr>
+<tr class="separator:ae78944340a58a4a3c29d269eb9102c2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Typedef Documentation</h2>
+<a class="anchor" id="a09dfd12d1e1d6a8eda4f99bafc299ee1"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef struct <a class="el" href="struct_country_rec.html">CountryRec</a>  <a class="el" href="struct_country_rec.html">CountryRec</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <h2 class="groupheader">Function Documentation</h2>
-<a class="anchor" id="a73783bcc3206d2d68f96244373431e34"></a>
+<a class="anchor" id="ac2e95bb58567180179472f16994f3604"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -139,7 +166,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="_kiva_model_8h.html#a7e1015acefeda9cb4f22539ed7c189ad">KivaModel_LenderId</a>&#160;</td>
+          <td class="paramtype">const char *&#160;</td>
           <td class="paramname">&#160;</td>
         </tr>
         <tr>
@@ -149,6 +176,30 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Internal initialization. </p>
+
+</div>
+</div>
+<a class="anchor" id="ae78944340a58a4a3c29d269eb9102c2d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="_kiva_model_8h.html#aa4c109eff106cf22169394f4fc6357bc">KivaModel_ErrCode</a> KivaModel_initKivaCountries </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_kiva_model.html">KivaModel</a> *&#160;</td>
+          <td class="paramname"><em>this</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Country hash table initialization </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">this</td><td>Pointer to <a class="el" href="struct_kiva_model.html">KivaModel</a>; must be already allocated; this-&gt;kivaCountries must be NULL </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>

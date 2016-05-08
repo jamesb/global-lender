@@ -119,12 +119,14 @@ Variables</h2></td></tr>
 <tr class="separator:a203e9d218c27851765106c4236a13a09"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a521195d84112f11fa6a94864d942e2f2"><td class="memItemLeft" align="right" valign="top">var&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="app_8js.html#a521195d84112f11fa6a94864d942e2f2">jsonExt</a> = &quot;.json&quot;</td></tr>
 <tr class="separator:a521195d84112f11fa6a94864d942e2f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af1d3943da3fadb713acd1e3c5d4d41fd"><td class="memItemLeft" align="right" valign="top">var&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="app_8js.html#af1d3943da3fadb713acd1e3c5d4d41fd">myAPIKey</a> = ''</td></tr>
-<tr class="separator:af1d3943da3fadb713acd1e3c5d4d41fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aca27c5aeb2c7a53c422651acbed41d64"><td class="memItemLeft" align="right" valign="top">var&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="app_8js.html#aca27c5aeb2c7a53c422651acbed41d64">kivaAppId</a> = 'com.magnosity.global-lender'</td></tr>
+<tr class="separator:aca27c5aeb2c7a53c422651acbed41d64"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5e4bf1d89e1aae83b014c99c4dfeacc3"><td class="memItemLeft" align="right" valign="top">var&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="app_8js.html#a5e4bf1d89e1aae83b014c99c4dfeacc3">lenderId</a> = 'jdb'</td></tr>
 <tr class="separator:a5e4bf1d89e1aae83b014c99c4dfeacc3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a747f82a9558624c96f74f6afbc639660"><td class="memItemLeft" align="right" valign="top">var&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="app_8js.html#a747f82a9558624c96f74f6afbc639660">pages</a> = []</td></tr>
 <tr class="separator:a747f82a9558624c96f74f6afbc639660"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4278121f2146f44a9896ca0d9a46c827"><td class="memItemLeft" align="right" valign="top">Array prototype&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="app_8js.html#a4278121f2146f44a9896ca0d9a46c827">unique</a></td></tr>
+<tr class="separator:a4278121f2146f44a9896ca0d9a46c827"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a95e8ee81171c3c0c9478b89a196ee90b"><td class="memItemLeft" align="right" valign="top">var&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="app_8js.html#a95e8ee81171c3c0c9478b89a196ee90b">xhrRequest</a></td></tr>
 <tr class="separator:a95e8ee81171c3c0c9478b89a196ee90b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -260,6 +262,18 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="aca27c5aeb2c7a53c422651acbed41d64"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">var kivaAppId = 'com.magnosity.global-lender'</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="ae55147f775040cba33aa39fe52ce5a42"></a>
 <div class="memitem">
 <div class="memproto">
@@ -296,18 +310,6 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="af1d3943da3fadb713acd1e3c5d4d41fd"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">var myAPIKey = ''</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a class="anchor" id="a747f82a9558624c96f74f6afbc639660"></a>
 <div class="memitem">
 <div class="memproto">
@@ -318,6 +320,18 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+</div>
+</div>
+<a class="anchor" id="a4278121f2146f44a9896ca0d9a46c827"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Array prototype unique</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">= <span class="keyword">function</span>() {</div><div class="line">    var a = [], l = this.length;</div><div class="line">    <span class="keywordflow">for</span>(var i=0; i&lt;l; i++) {</div><div class="line">      <span class="keywordflow">for</span>(var j=i+1; j&lt;l; j++)</div><div class="line">            <span class="keywordflow">if</span> (<span class="keyword">this</span>[i] === <span class="keyword">this</span>[j]) j = ++i;</div><div class="line">      a.push(<span class="keyword">this</span>[i]);</div><div class="line">    }</div><div class="line">    <span class="keywordflow">return</span> a;</div><div class="line">}</div></div><!-- fragment -->
 </div>
 </div>
 <a class="anchor" id="a95e8ee81171c3c0c9478b89a196ee90b"></a>

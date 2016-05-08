@@ -1,16 +1,4 @@
 var searchData=
 [
-  ['len_5flender_5fid',['LEN_LENDER_ID',['../_kiva_model_8h.html#ac15d601cf18fca73979a691d44e19afe',1,'KivaModel.h']]],
-  ['len_5flender_5floc',['LEN_LENDER_LOC',['../_kiva_model_8h.html#a31e80272ec681cabf98990a0d951f8f4',1,'KivaModel.h']]],
-  ['len_5flender_5fname',['LEN_LENDER_NAME',['../_kiva_model_8h.html#a07e98a2d81654ee06e3337d4f9b7206a',1,'KivaModel.h']]],
-  ['lenderid',['lenderId',['../app_8js.html#a5e4bf1d89e1aae83b014c99c4dfeacc3',1,'app.js']]],
-  ['lenderinfo',['LenderInfo',['../struct_lender_info.html',1,'LenderInfo'],['../struct_kiva_model.html#a3c040d87149160141fb03f8954c27707',1,'KivaModel::lenderInfo()']]],
-  ['loanqty',['loanQty',['../struct_lender_info.html#a68b13e9a8bb93c56a712d72f0ab08be6',1,'LenderInfo']]],
-  ['loc',['loc',['../struct_lender_info.html#a298efe5e950ab541fbe9bf1dba19ecfd',1,'LenderInfo']]],
-  ['lyrdigitime_2ec',['lyrDigitime.c',['../lyr_digitime_8c.html',1,'']]],
-  ['lyrdigitime_2eh',['lyrDigitime.h',['../lyr_digitime_8h.html',1,'']]],
-  ['lyrdigitime_5fcreate',['lyrDigitime_create',['../lyr_digitime_8c.html#aa2ae71b97a082f8247ae0f150f705e9d',1,'lyrDigitime_create(const GRect position, Layer *lyrParent):&#160;lyrDigitime.c'],['../lyr_digitime_8h.html#aa2ae71b97a082f8247ae0f150f705e9d',1,'lyrDigitime_create(const GRect position, Layer *lyrParent):&#160;lyrDigitime.c']]],
-  ['lyrdigitime_5fdestroy',['lyrDigitime_destroy',['../lyr_digitime_8c.html#a905f8b6a3caeba9c6599a41e6665afc4',1,'lyrDigitime_destroy():&#160;lyrDigitime.c'],['../lyr_digitime_8h.html#a905f8b6a3caeba9c6599a41e6665afc4',1,'lyrDigitime_destroy():&#160;lyrDigitime.c']]],
-  ['lyrdigitime_5fstylize',['lyrDigitime_stylize',['../lyr_digitime_8c.html#a8fad1257f78f5b57f76712e840a69dfc',1,'lyrDigitime_stylize(const GColor bgcolor, const GColor txtColor, const GTextAlignment txtAlign, const GFont txtFont):&#160;lyrDigitime.c'],['../lyr_digitime_8h.html#aff16a931c3c9ec6c1974fab3bc40d648',1,'lyrDigitime_stylize(const GColor, const GColor, const GTextAlignment, const GFont):&#160;lyrDigitime.c']]],
-  ['lyrdigitime_5fupdatetime',['lyrDigitime_updateTime',['../lyr_digitime_8c.html#a26bc4f9de4a03902019fc5afd3e2be67',1,'lyrDigitime_updateTime():&#160;lyrDigitime.c'],['../lyr_digitime_8h.html#a26bc4f9de4a03902019fc5afd3e2be67',1,'lyrDigitime_updateTime():&#160;lyrDigitime.c']]]
+  ['jsonext',['jsonExt',['../app_8js.html#a521195d84112f11fa6a94864d942e2f2',1,'app.js']]]
 ];

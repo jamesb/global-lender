@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['jsonext',['jsonExt',['../app_8js.html#a521195d84112f11fa6a94864d942e2f2',1,'app.js']]]
+  ['getcountrycodes',['getCountryCodes',['../iso3166_8js.html#a555a226a7aa865dd8f84e9c753c702d2',1,'getCountryCodes():&#160;iso3166.js'],['../kiva_data_8js.html#a555a226a7aa865dd8f84e9c753c702d2',1,'getCountryCodes():&#160;kivaData.js']]]
 ];

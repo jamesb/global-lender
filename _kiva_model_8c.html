@@ -101,9 +101,10 @@ Include dependency graph for KivaModel.c:</div>
 <div class="dyncontent">
 <div class="center"><img src="_kiva_model_8c__incl.png" border="0" usemap="#src_2data_2_kiva_model_8c" alt=""/></div>
 <map name="src_2data_2_kiva_model_8c" id="src_2data_2_kiva_model_8c">
-<area shape="rect" id="node3" href="_kiva_model___internal_8h.html" title="data/KivaModel_Internal.h" alt="" coords="101,80,274,107"/>
-<area shape="rect" id="node5" href="misc_8h.html" title="misc.h" alt="" coords="298,80,359,107"/>
-<area shape="rect" id="node4" href="_kiva_model_8h.html" title="data/KivaModel.h" alt="" coords="126,155,249,181"/>
+<area shape="rect" id="node3" href="_kiva_model___internal_8h.html" title="data/KivaModel_Internal.h" alt="" coords="78,80,251,107"/>
+<area shape="rect" id="node8" href="misc_8h.html" title="misc.h" alt="" coords="275,80,337,107"/>
+<area shape="rect" id="node4" href="_kiva_model_8h.html" title="data/KivaModel.h" alt="" coords="102,155,225,181"/>
+<area shape="rect" id="node5" href="uthash_8h.html" title="libs/uthash.h" alt="" coords="249,155,345,181"/>
 </map>
 </div>
 </div><table class="memberdecls">
@@ -114,34 +115,41 @@ Macros</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a04555c915226d93a9a7119c8ecb3429e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_kiva_model.html">KivaModel</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_kiva_model_8c.html#a04555c915226d93a9a7119c8ecb3429e">KivaModel_create</a> (const <a class="el" href="_kiva_model_8h.html#a7e1015acefeda9cb4f22539ed7c189ad">KivaModel_LenderId</a> <a class="el" href="app_8js.html#a5e4bf1d89e1aae83b014c99c4dfeacc3">lenderId</a>)</td></tr>
-<tr class="separator:a04555c915226d93a9a7119c8ecb3429e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a319d61b2ead696df93da1577353872e1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_kiva_model_8h.html#aa4c109eff106cf22169394f4fc6357bc">KivaModel_ErrCode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_kiva_model_8c.html#a319d61b2ead696df93da1577353872e1">KivaModel_init</a> (<a class="el" href="struct_kiva_model.html">KivaModel</a> *this, const <a class="el" href="_kiva_model_8h.html#a7e1015acefeda9cb4f22539ed7c189ad">KivaModel_LenderId</a> <a class="el" href="app_8js.html#a5e4bf1d89e1aae83b014c99c4dfeacc3">lenderId</a>)</td></tr>
-<tr class="separator:a319d61b2ead696df93da1577353872e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac4ae02f6a5efac960121fefbdef034d8"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_kiva_model_8c.html#ac4ae02f6a5efac960121fefbdef034d8">KivaModel_getErrMsg</a> (const <a class="el" href="_kiva_model_8h.html#aa4c109eff106cf22169394f4fc6357bc">KivaModel_ErrCode</a> errCode)</td></tr>
+<tr class="separator:ac4ae02f6a5efac960121fefbdef034d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a530f16953c493ea419a1c73b150035ca"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_kiva_model.html">KivaModel</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_kiva_model_8c.html#a530f16953c493ea419a1c73b150035ca">KivaModel_create</a> (const char *<a class="el" href="app_8js.html#a5e4bf1d89e1aae83b014c99c4dfeacc3">lenderId</a>)</td></tr>
+<tr class="separator:a530f16953c493ea419a1c73b150035ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a561be866dfebb93039f40af42a20998e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_kiva_model_8h.html#aa4c109eff106cf22169394f4fc6357bc">KivaModel_ErrCode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_kiva_model_8c.html#a561be866dfebb93039f40af42a20998e">KivaModel_destroy</a> (<a class="el" href="struct_kiva_model.html">KivaModel</a> *this)</td></tr>
 <tr class="separator:a561be866dfebb93039f40af42a20998e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a496a9a9f4e203bfa99f8ab323fb3971f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_kiva_model_8h.html#aa4c109eff106cf22169394f4fc6357bc">KivaModel_ErrCode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_kiva_model_8c.html#a496a9a9f4e203bfa99f8ab323fb3971f">KivaModel_setLenderName</a> (<a class="el" href="struct_kiva_model.html">KivaModel</a> *this, const <a class="el" href="_kiva_model_8h.html#a69d51cc0824a8723f908d8cb9470ca40">KivaModel_LenderName</a> lenderName)</td></tr>
-<tr class="separator:a496a9a9f4e203bfa99f8ab323fb3971f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a85bb06caf9d35f744039fb69e4452d83"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_kiva_model_8h.html#aa4c109eff106cf22169394f4fc6357bc">KivaModel_ErrCode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_kiva_model_8c.html#a85bb06caf9d35f744039fb69e4452d83">KivaModel_setLenderLoc</a> (<a class="el" href="struct_kiva_model.html">KivaModel</a> *this, const <a class="el" href="_kiva_model_8h.html#a16be70888a8d06f3aae9e12c19831b28">KivaModel_LenderLoc</a> lenderLoc)</td></tr>
-<tr class="separator:a85bb06caf9d35f744039fb69e4452d83"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ada97745e5ad8137afa074a0c8667889d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_kiva_model_8h.html#aa4c109eff106cf22169394f4fc6357bc">KivaModel_ErrCode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_kiva_model_8c.html#ada97745e5ad8137afa074a0c8667889d">KivaModel_init</a> (<a class="el" href="struct_kiva_model.html">KivaModel</a> *this, const char *<a class="el" href="app_8js.html#a5e4bf1d89e1aae83b014c99c4dfeacc3">lenderId</a>)</td></tr>
+<tr class="memdesc:ada97745e5ad8137afa074a0c8667889d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Internal initialization.  <a href="#ada97745e5ad8137afa074a0c8667889d">More...</a><br /></td></tr>
+<tr class="separator:ada97745e5ad8137afa074a0c8667889d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae78944340a58a4a3c29d269eb9102c2d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_kiva_model_8h.html#aa4c109eff106cf22169394f4fc6357bc">KivaModel_ErrCode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_kiva_model_8c.html#ae78944340a58a4a3c29d269eb9102c2d">KivaModel_initKivaCountries</a> (<a class="el" href="struct_kiva_model.html">KivaModel</a> *this)</td></tr>
+<tr class="separator:ae78944340a58a4a3c29d269eb9102c2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aea3680b93c7898fdbb2d1f11e4e7feca"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_kiva_model_8h.html#aa4c109eff106cf22169394f4fc6357bc">KivaModel_ErrCode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_kiva_model_8c.html#aea3680b93c7898fdbb2d1f11e4e7feca">KivaModel_setLenderId</a> (<a class="el" href="struct_kiva_model.html">KivaModel</a> *this, const char *<a class="el" href="app_8js.html#a5e4bf1d89e1aae83b014c99c4dfeacc3">lenderId</a>)</td></tr>
+<tr class="separator:aea3680b93c7898fdbb2d1f11e4e7feca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5bf7910d4f697079e764d2af22f371b9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_kiva_model_8h.html#aa4c109eff106cf22169394f4fc6357bc">KivaModel_ErrCode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_kiva_model_8c.html#a5bf7910d4f697079e764d2af22f371b9">KivaModel_setLenderName</a> (<a class="el" href="struct_kiva_model.html">KivaModel</a> *this, const char *lenderName)</td></tr>
+<tr class="separator:a5bf7910d4f697079e764d2af22f371b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae08ef7b73381e00195fb829f902410db"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_kiva_model_8h.html#aa4c109eff106cf22169394f4fc6357bc">KivaModel_ErrCode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_kiva_model_8c.html#ae08ef7b73381e00195fb829f902410db">KivaModel_setLenderLoc</a> (<a class="el" href="struct_kiva_model.html">KivaModel</a> *this, const char *lenderLoc)</td></tr>
+<tr class="separator:ae08ef7b73381e00195fb829f902410db"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5f4a95623067e3e132f5cca2f91e6ffc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_kiva_model_8h.html#aa4c109eff106cf22169394f4fc6357bc">KivaModel_ErrCode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_kiva_model_8c.html#a5f4a95623067e3e132f5cca2f91e6ffc">KivaModel_setLenderLoanQty</a> (<a class="el" href="struct_kiva_model.html">KivaModel</a> *this, const int lenderLoanQty)</td></tr>
 <tr class="separator:a5f4a95623067e3e132f5cca2f91e6ffc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad3a7a68b6ecf336d7a337a47a0b619e5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_kiva_model_8h.html#aa4c109eff106cf22169394f4fc6357bc">KivaModel_ErrCode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_kiva_model_8c.html#ad3a7a68b6ecf336d7a337a47a0b619e5">KivaModel_setLenderCountryQty</a> (<a class="el" href="struct_kiva_model.html">KivaModel</a> *this, const int lenderCountryQty)</td></tr>
-<tr class="separator:ad3a7a68b6ecf336d7a337a47a0b619e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad3c28331ad627b9c314823da714543b9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_kiva_model_8h.html#aa4c109eff106cf22169394f4fc6357bc">KivaModel_ErrCode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_kiva_model_8c.html#ad3c28331ad627b9c314823da714543b9">KivaModel_setKivaCountryQty</a> (<a class="el" href="struct_kiva_model.html">KivaModel</a> *this, const int kivaCountryQty)</td></tr>
-<tr class="separator:ad3c28331ad627b9c314823da714543b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaec89d28671c5e08b7f72230314c1517"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_kiva_model_8h.html#aa4c109eff106cf22169394f4fc6357bc">KivaModel_ErrCode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_kiva_model_8c.html#aaec89d28671c5e08b7f72230314c1517">KivaModel_getLenderId</a> (const <a class="el" href="struct_kiva_model.html">KivaModel</a> *this, <a class="el" href="_kiva_model_8h.html#a7e1015acefeda9cb4f22539ed7c189ad">KivaModel_LenderId</a> buffer)</td></tr>
-<tr class="separator:aaec89d28671c5e08b7f72230314c1517"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab796640a659b0429675923026c05b360"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_kiva_model_8h.html#aa4c109eff106cf22169394f4fc6357bc">KivaModel_ErrCode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_kiva_model_8c.html#ab796640a659b0429675923026c05b360">KivaModel_getLenderName</a> (const <a class="el" href="struct_kiva_model.html">KivaModel</a> *this, <a class="el" href="_kiva_model_8h.html#a69d51cc0824a8723f908d8cb9470ca40">KivaModel_LenderName</a> buffer)</td></tr>
-<tr class="separator:ab796640a659b0429675923026c05b360"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a82ce910bf3e407ec4c87865973d52268"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_kiva_model_8h.html#aa4c109eff106cf22169394f4fc6357bc">KivaModel_ErrCode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_kiva_model_8c.html#a82ce910bf3e407ec4c87865973d52268">KivaModel_getLenderLoc</a> (const <a class="el" href="struct_kiva_model.html">KivaModel</a> *this, <a class="el" href="_kiva_model_8h.html#a16be70888a8d06f3aae9e12c19831b28">KivaModel_LenderLoc</a> buffer)</td></tr>
-<tr class="separator:a82ce910bf3e407ec4c87865973d52268"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8ee64ac2a366519bacd9ed5f78c87bc0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_kiva_model_8h.html#aa4c109eff106cf22169394f4fc6357bc">KivaModel_ErrCode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_kiva_model_8c.html#a8ee64ac2a366519bacd9ed5f78c87bc0">KivaModel_getLenderLoanQty</a> (const <a class="el" href="struct_kiva_model.html">KivaModel</a> *this, int *outval)</td></tr>
-<tr class="separator:a8ee64ac2a366519bacd9ed5f78c87bc0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a07b6c03506a30c2bbf6f16b4a501ab5d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_kiva_model_8h.html#aa4c109eff106cf22169394f4fc6357bc">KivaModel_ErrCode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_kiva_model_8c.html#a07b6c03506a30c2bbf6f16b4a501ab5d">KivaModel_getLenderCountryQty</a> (const <a class="el" href="struct_kiva_model.html">KivaModel</a> *this, int *outval)</td></tr>
-<tr class="separator:a07b6c03506a30c2bbf6f16b4a501ab5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3dc847c15781f2012cf40866b59643cd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_kiva_model_8h.html#aa4c109eff106cf22169394f4fc6357bc">KivaModel_ErrCode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_kiva_model_8c.html#a3dc847c15781f2012cf40866b59643cd">KivaModel_getKivaCountryQty</a> (const <a class="el" href="struct_kiva_model.html">KivaModel</a> *this, int *outval)</td></tr>
-<tr class="separator:a3dc847c15781f2012cf40866b59643cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0842d6f4d1dc4eb178efdcb123b72117"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_kiva_model_8h.html#aa4c109eff106cf22169394f4fc6357bc">KivaModel_ErrCode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_kiva_model_8c.html#a0842d6f4d1dc4eb178efdcb123b72117">KivaModel_addLenderCountryId</a> (<a class="el" href="struct_kiva_model.html">KivaModel</a> *this, const char *countryId)</td></tr>
+<tr class="separator:a0842d6f4d1dc4eb178efdcb123b72117"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abe1b547a07b565f1237cb366ea50cdd6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_kiva_model_8h.html#aa4c109eff106cf22169394f4fc6357bc">KivaModel_ErrCode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_kiva_model_8c.html#abe1b547a07b565f1237cb366ea50cdd6">KivaModel_getLenderId</a> (const <a class="el" href="struct_kiva_model.html">KivaModel</a> *this, char **<a class="el" href="app_8js.html#a5e4bf1d89e1aae83b014c99c4dfeacc3">lenderId</a>)</td></tr>
+<tr class="separator:abe1b547a07b565f1237cb366ea50cdd6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad2854f47bda48c3d8c0cf704cfa1b061"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_kiva_model_8h.html#aa4c109eff106cf22169394f4fc6357bc">KivaModel_ErrCode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_kiva_model_8c.html#ad2854f47bda48c3d8c0cf704cfa1b061">KivaModel_getLenderName</a> (const <a class="el" href="struct_kiva_model.html">KivaModel</a> *this, char **lenderName)</td></tr>
+<tr class="separator:ad2854f47bda48c3d8c0cf704cfa1b061"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2dd08a81f4f2ed91749edefe68851bcd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_kiva_model_8h.html#aa4c109eff106cf22169394f4fc6357bc">KivaModel_ErrCode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_kiva_model_8c.html#a2dd08a81f4f2ed91749edefe68851bcd">KivaModel_getLenderLoc</a> (const <a class="el" href="struct_kiva_model.html">KivaModel</a> *this, char **lenderLoc)</td></tr>
+<tr class="separator:a2dd08a81f4f2ed91749edefe68851bcd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9cba9e2aea066db437cde862957bef2f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_kiva_model_8h.html#aa4c109eff106cf22169394f4fc6357bc">KivaModel_ErrCode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_kiva_model_8c.html#a9cba9e2aea066db437cde862957bef2f">KivaModel_getLenderLoanQty</a> (const <a class="el" href="struct_kiva_model.html">KivaModel</a> *this, int *lenderLoanQty)</td></tr>
+<tr class="separator:a9cba9e2aea066db437cde862957bef2f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a709a045189f43a7c9d8d920623a57a3a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_kiva_model_8h.html#aa4c109eff106cf22169394f4fc6357bc">KivaModel_ErrCode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_kiva_model_8c.html#a709a045189f43a7c9d8d920623a57a3a">KivaModel_getLenderCountryQty</a> (const <a class="el" href="struct_kiva_model.html">KivaModel</a> *this, int *lenderCountryQty)</td></tr>
+<tr class="separator:a709a045189f43a7c9d8d920623a57a3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aecd5f37650d70a85a3d3aca6d7c39780"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_kiva_model_8h.html#aa4c109eff106cf22169394f4fc6357bc">KivaModel_ErrCode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_kiva_model_8c.html#aecd5f37650d70a85a3d3aca6d7c39780">KivaModel_addKivaCountry</a> (<a class="el" href="struct_kiva_model.html">KivaModel</a> *this, const char *countryId, const char *countryName)</td></tr>
+<tr class="separator:aecd5f37650d70a85a3d3aca6d7c39780"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8c9797b0b5c15e92fe9f48738249008d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_kiva_model_8h.html#aa4c109eff106cf22169394f4fc6357bc">KivaModel_ErrCode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_kiva_model_8c.html#a8c9797b0b5c15e92fe9f48738249008d">KivaModel_getKivaCountryName</a> (const <a class="el" href="struct_kiva_model.html">KivaModel</a> *this, const char *countryId, const char **countryName)</td></tr>
+<tr class="separator:a8c9797b0b5c15e92fe9f48738249008d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
 <a class="anchor" id="a90ad44ea4ee92c02f69a942d84f0bec2"></a>
@@ -157,19 +165,86 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><span class="keywordflow">if</span> (var == NULL) {                                                        \</div><div class="line">      APP_LOG(APP_LOG_LEVEL_ERROR, <span class="stringliteral">&quot;Attempted operation on NULL pointer.&quot;</span>);   \</div><div class="line">      return <a class="code" href="_kiva_model_8h.html#aa4c109eff106cf22169394f4fc6357bcaae4786b32f365674d151ad99eb5485af">KIVA_MODEL_NULL_POINTER_ERR</a>;                                     \</div><div class="line">    }</div><div class="ttc" id="_kiva_model_8h_html_aa4c109eff106cf22169394f4fc6357bcaae4786b32f365674d151ad99eb5485af"><div class="ttname"><a href="_kiva_model_8h.html#aa4c109eff106cf22169394f4fc6357bcaae4786b32f365674d151ad99eb5485af">KIVA_MODEL_NULL_POINTER_ERR</a></div><div class="ttdef"><b>Definition:</b> KivaModel.h:24</div></div>
+<b>Value:</b><div class="fragment"><div class="line"><span class="keywordflow">if</span> (var == NULL) {                                                        <a class="code" href="main_8c.html#a19cc34ebde0b2378e48ce60bc92c0a5c">\</a></div><div class="line"><a class="code" href="main_8c.html#a19cc34ebde0b2378e48ce60bc92c0a5c">      APP_LOG</a>(APP_LOG_LEVEL_ERROR, <span class="stringliteral">&quot;Attempted operation on NULL pointer.&quot;</span>);   \</div><div class="line">      return <a class="code" href="_kiva_model_8h.html#aa4c109eff106cf22169394f4fc6357bcaae4786b32f365674d151ad99eb5485af">KIVA_MODEL_NULL_POINTER_ERR</a>;                                     \</div><div class="line">    }</div><div class="ttc" id="main_8c_html_a19cc34ebde0b2378e48ce60bc92c0a5c"><div class="ttname"><a href="main_8c.html#a19cc34ebde0b2378e48ce60bc92c0a5c">APP_LOG</a></div><div class="ttdeci">#define APP_LOG(...)</div><div class="ttdef"><b>Definition:</b> main.c:5</div></div>
+<div class="ttc" id="_kiva_model_8h_html_aa4c109eff106cf22169394f4fc6357bcaae4786b32f365674d151ad99eb5485af"><div class="ttname"><a href="_kiva_model_8h.html#aa4c109eff106cf22169394f4fc6357bcaae4786b32f365674d151ad99eb5485af">KIVA_MODEL_NULL_POINTER_ERR</a></div><div class="ttdef"><b>Definition:</b> KivaModel.h:11</div></div>
 </div><!-- fragment -->
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
-<a class="anchor" id="a04555c915226d93a9a7119c8ecb3429e"></a>
+<a class="anchor" id="aecd5f37650d70a85a3d3aca6d7c39780"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="_kiva_model_8h.html#aa4c109eff106cf22169394f4fc6357bc">KivaModel_ErrCode</a> KivaModel_addKivaCountry </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_kiva_model.html">KivaModel</a> *&#160;</td>
+          <td class="paramname"><em>this</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>countryId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>countryName</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Adds a new country to the list of Kiva-recognized countries. The countryId and countryName parameters are copied; ownership of those parameters is not transferred by this function. The caller is still responsible for freeing that data. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">this</td><td>Pointer to <a class="el" href="struct_kiva_model.html">KivaModel</a>; must be already allocated </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">countryId</td><td>ID of the country to add; a two-character ISO-3361 country code </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">countryName</td><td>Name of the country to add </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a0842d6f4d1dc4eb178efdcb123b72117"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="_kiva_model_8h.html#aa4c109eff106cf22169394f4fc6357bc">KivaModel_ErrCode</a> KivaModel_addLenderCountryId </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_kiva_model.html">KivaModel</a> *&#160;</td>
+          <td class="paramname"><em>this</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>countryId</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a530f16953c493ea419a1c73b150035ca"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname"><a class="el" href="struct_kiva_model.html">KivaModel</a>* KivaModel_create </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="_kiva_model_8h.html#a7e1015acefeda9cb4f22539ed7c189ad">KivaModel_LenderId</a>&#160;</td>
+          <td class="paramtype">const char *&#160;</td>
           <td class="paramname"><em>lenderId</em></td><td>)</td>
           <td></td>
         </tr>
@@ -194,12 +269,28 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a3dc847c15781f2012cf40866b59643cd"></a>
+<a class="anchor" id="ac4ae02f6a5efac960121fefbdef034d8"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="_kiva_model_8h.html#aa4c109eff106cf22169394f4fc6357bc">KivaModel_ErrCode</a> KivaModel_getKivaCountryQty </td>
+          <td class="memname">const char* KivaModel_getErrMsg </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="_kiva_model_8h.html#aa4c109eff106cf22169394f4fc6357bc">KivaModel_ErrCode</a>&#160;</td>
+          <td class="paramname"><em>errCode</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a8c9797b0b5c15e92fe9f48738249008d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="_kiva_model_8h.html#aa4c109eff106cf22169394f4fc6357bc">KivaModel_ErrCode</a> KivaModel_getKivaCountryName </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="struct_kiva_model.html">KivaModel</a> *&#160;</td>
           <td class="paramname"><em>this</em>, </td>
@@ -207,8 +298,14 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int *&#160;</td>
-          <td class="paramname"><em>outval</em>&#160;</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>countryId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char **&#160;</td>
+          <td class="paramname"><em>countryName</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -220,7 +317,7 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a07b6c03506a30c2bbf6f16b4a501ab5d"></a>
+<a class="anchor" id="a709a045189f43a7c9d8d920623a57a3a"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -234,7 +331,7 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int *&#160;</td>
-          <td class="paramname"><em>outval</em>&#160;</td>
+          <td class="paramname"><em>lenderCountryQty</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -246,7 +343,7 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="aaec89d28671c5e08b7f72230314c1517"></a>
+<a class="anchor" id="abe1b547a07b565f1237cb366ea50cdd6"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -259,8 +356,8 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="_kiva_model_8h.html#a7e1015acefeda9cb4f22539ed7c189ad">KivaModel_LenderId</a>&#160;</td>
-          <td class="paramname"><em>buffer</em>&#160;</td>
+          <td class="paramtype">char **&#160;</td>
+          <td class="paramname"><em>lenderId</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -269,10 +366,17 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Gets the currently-stored lender ID. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">this</td><td>Pointer to <a class="el" href="struct_kiva_model.html">KivaModel</a>; must be already allocated </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">lenderId</td><td>Pointer to the lender ID C-string; must be NULL on entry. Ownership is not transferred to the caller, so the caller should not free this variable. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
-<a class="anchor" id="a8ee64ac2a366519bacd9ed5f78c87bc0"></a>
+<a class="anchor" id="a9cba9e2aea066db437cde862957bef2f"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -286,7 +390,7 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int *&#160;</td>
-          <td class="paramname"><em>outval</em>&#160;</td>
+          <td class="paramname"><em>lenderLoanQty</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -298,7 +402,7 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a82ce910bf3e407ec4c87865973d52268"></a>
+<a class="anchor" id="a2dd08a81f4f2ed91749edefe68851bcd"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -311,8 +415,8 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="_kiva_model_8h.html#a16be70888a8d06f3aae9e12c19831b28">KivaModel_LenderLoc</a>&#160;</td>
-          <td class="paramname"><em>buffer</em>&#160;</td>
+          <td class="paramtype">char **&#160;</td>
+          <td class="paramname"><em>lenderLoc</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -321,10 +425,17 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Gets the currently-stored lender location. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">this</td><td>Pointer to <a class="el" href="struct_kiva_model.html">KivaModel</a>; must be already allocated </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">lenderLoc</td><td>Pointer to the lender location C-string; must be NULL on entry. Ownership is not transferred to the caller, so the caller should not free this variable. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
-<a class="anchor" id="ab796640a659b0429675923026c05b360"></a>
+<a class="anchor" id="ad2854f47bda48c3d8c0cf704cfa1b061"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -337,8 +448,8 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="_kiva_model_8h.html#a69d51cc0824a8723f908d8cb9470ca40">KivaModel_LenderName</a>&#160;</td>
-          <td class="paramname"><em>buffer</em>&#160;</td>
+          <td class="paramtype">char **&#160;</td>
+          <td class="paramname"><em>lenderName</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -347,10 +458,17 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Gets the currently-stored lender name. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">this</td><td>Pointer to <a class="el" href="struct_kiva_model.html">KivaModel</a>; must be already allocated </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">lenderName</td><td>Pointer to the lender name C-string; must be NULL on entry. Ownership is not transferred to the caller, so the caller should not free this variable. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
-<a class="anchor" id="a319d61b2ead696df93da1577353872e1"></a>
+<a class="anchor" id="ada97745e5ad8137afa074a0c8667889d"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -363,7 +481,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="_kiva_model_8h.html#a7e1015acefeda9cb4f22539ed7c189ad">KivaModel_LenderId</a>&#160;</td>
+          <td class="paramtype">const char *&#160;</td>
           <td class="paramname"><em>lenderId</em>&#160;</td>
         </tr>
         <tr>
@@ -374,40 +492,38 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-</div>
-</div>
-<a class="anchor" id="ad3c28331ad627b9c314823da714543b9"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="_kiva_model_8h.html#aa4c109eff106cf22169394f4fc6357bc">KivaModel_ErrCode</a> KivaModel_setKivaCountryQty </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="struct_kiva_model.html">KivaModel</a> *&#160;</td>
-          <td class="paramname"><em>this</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const int&#160;</td>
-          <td class="paramname"><em>kivaCountryQty</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
+<p>Internal initialization. </p>
 
 </div>
 </div>
-<a class="anchor" id="ad3a7a68b6ecf336d7a337a47a0b619e5"></a>
+<a class="anchor" id="ae78944340a58a4a3c29d269eb9102c2d"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="_kiva_model_8h.html#aa4c109eff106cf22169394f4fc6357bc">KivaModel_ErrCode</a> KivaModel_setLenderCountryQty </td>
+          <td class="memname"><a class="el" href="_kiva_model_8h.html#aa4c109eff106cf22169394f4fc6357bc">KivaModel_ErrCode</a> KivaModel_initKivaCountries </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_kiva_model.html">KivaModel</a> *&#160;</td>
+          <td class="paramname"><em>this</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Country hash table initialization </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">this</td><td>Pointer to <a class="el" href="struct_kiva_model.html">KivaModel</a>; must be already allocated; this-&gt;kivaCountries must be NULL </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="aea3680b93c7898fdbb2d1f11e4e7feca"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="_kiva_model_8h.html#aa4c109eff106cf22169394f4fc6357bc">KivaModel_ErrCode</a> KivaModel_setLenderId </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="struct_kiva_model.html">KivaModel</a> *&#160;</td>
           <td class="paramname"><em>this</em>, </td>
@@ -415,8 +531,8 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const int&#160;</td>
-          <td class="paramname"><em>lenderCountryQty</em>&#160;</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>lenderId</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -454,7 +570,7 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a85bb06caf9d35f744039fb69e4452d83"></a>
+<a class="anchor" id="ae08ef7b73381e00195fb829f902410db"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -467,7 +583,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="_kiva_model_8h.html#a16be70888a8d06f3aae9e12c19831b28">KivaModel_LenderLoc</a>&#160;</td>
+          <td class="paramtype">const char *&#160;</td>
           <td class="paramname"><em>lenderLoc</em>&#160;</td>
         </tr>
         <tr>
@@ -480,7 +596,7 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a496a9a9f4e203bfa99f8ab323fb3971f"></a>
+<a class="anchor" id="a5bf7910d4f697079e764d2af22f371b9"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -493,7 +609,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="_kiva_model_8h.html#a69d51cc0824a8723f908d8cb9470ca40">KivaModel_LenderName</a>&#160;</td>
+          <td class="paramtype">const char *&#160;</td>
           <td class="paramname"><em>lenderName</em>&#160;</td>
         </tr>
         <tr>

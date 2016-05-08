@@ -113,9 +113,9 @@ This graph shows which files directly or indirectly include this file:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:a42b76163fda3d9c91ca7a2965ddd534c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="misc_8h.html#a42b76163fda3d9c91ca7a2965ddd534c">HEAP_LOG_0</a>()&#160;&#160;&#160;APP_LOG(APP_LOG_LEVEL_DEBUG, &quot;Free Heap: %zu b, Used Heap: %zu b&quot;, heap_bytes_free(), heap_bytes_used())</td></tr>
+<tr class="memitem:a42b76163fda3d9c91ca7a2965ddd534c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="misc_8h.html#a42b76163fda3d9c91ca7a2965ddd534c">HEAP_LOG_0</a>()&#160;&#160;&#160;<a class="el" href="wnd_main_menu_8c.html#a19cc34ebde0b2378e48ce60bc92c0a5c">APP_LOG</a>(APP_LOG_LEVEL_DEBUG, &quot;Free Heap: %zu b, Used Heap: %zu b&quot;, heap_bytes_free(), heap_bytes_used())</td></tr>
 <tr class="separator:a42b76163fda3d9c91ca7a2965ddd534c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a624c31c83b16aef7fba84400a2a1fc9c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="misc_8h.html#a624c31c83b16aef7fba84400a2a1fc9c">HEAP_LOG_1</a>(str)&#160;&#160;&#160;if (str != NULL) APP_LOG(APP_LOG_LEVEL_DEBUG, &quot;Free Heap: %zu b, Used Heap: %zu b -- %s&quot;, heap_bytes_free(), heap_bytes_used(), str)</td></tr>
+<tr class="memitem:a624c31c83b16aef7fba84400a2a1fc9c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="misc_8h.html#a624c31c83b16aef7fba84400a2a1fc9c">HEAP_LOG_1</a>(str)&#160;&#160;&#160;if (str != NULL) { <a class="el" href="wnd_main_menu_8c.html#a19cc34ebde0b2378e48ce60bc92c0a5c">APP_LOG</a>(APP_LOG_LEVEL_DEBUG, &quot;Free Heap: %zu b, Used Heap: %zu b -- %s&quot;, heap_bytes_free(), heap_bytes_used(), str); }</td></tr>
 <tr class="separator:a624c31c83b16aef7fba84400a2a1fc9c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8ff1830422a3ba9663c5a8a8985f3850"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="misc_8h.html#a8ff1830422a3ba9663c5a8a8985f3850">GET_MACRO</a>(_0,  _1,  NAME, ...)&#160;&#160;&#160;NAME</td></tr>
 <tr class="separator:a8ff1830422a3ba9663c5a8a8985f3850"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -126,8 +126,8 @@ Macros</h2></td></tr>
 Functions</h2></td></tr>
 <tr class="memitem:ac03bdde1351009a9f004c301144bdd85"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="misc_8h.html#ac03bdde1351009a9f004c301144bdd85">textLayer_stylize</a> (TextLayer *, const GColor, const GColor, const GTextAlignment, const GFont)</td></tr>
 <tr class="separator:ac03bdde1351009a9f004c301144bdd85"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaa947d303802df6c8d6e476210af2bef"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="misc_8h.html#aaa947d303802df6c8d6e476210af2bef">strxcpy</a> (char buffer[], size_t bufsize, const char source[], const char readable[])</td></tr>
-<tr class="separator:aaa947d303802df6c8d6e476210af2bef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af4df0e73abf84eedd72e5a3e75e67935"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="misc_8h.html#af4df0e73abf84eedd72e5a3e75e67935">strxcpy</a> (char *buffer, size_t bufsize, const char *source, const char *readable)</td></tr>
+<tr class="separator:af4df0e73abf84eedd72e5a3e75e67935"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
 <a class="anchor" id="a8ff1830422a3ba9663c5a8a8985f3850"></a>
@@ -192,7 +192,7 @@ Functions</h2></td></tr>
           <td class="memname">#define HEAP_LOG_0</td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
-          <td>&#160;&#160;&#160;APP_LOG(APP_LOG_LEVEL_DEBUG, &quot;Free Heap: %zu b, Used Heap: %zu b&quot;, heap_bytes_free(), heap_bytes_used())</td>
+          <td>&#160;&#160;&#160;<a class="el" href="wnd_main_menu_8c.html#a19cc34ebde0b2378e48ce60bc92c0a5c">APP_LOG</a>(APP_LOG_LEVEL_DEBUG, &quot;Free Heap: %zu b, Used Heap: %zu b&quot;, heap_bytes_free(), heap_bytes_used())</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -208,7 +208,7 @@ Functions</h2></td></tr>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname">str</td><td>)</td>
-          <td>&#160;&#160;&#160;if (str != NULL) APP_LOG(APP_LOG_LEVEL_DEBUG, &quot;Free Heap: %zu b, Used Heap: %zu b -- %s&quot;, heap_bytes_free(), heap_bytes_used(), str)</td>
+          <td>&#160;&#160;&#160;if (str != NULL) { <a class="el" href="wnd_main_menu_8c.html#a19cc34ebde0b2378e48ce60bc92c0a5c">APP_LOG</a>(APP_LOG_LEVEL_DEBUG, &quot;Free Heap: %zu b, Used Heap: %zu b -- %s&quot;, heap_bytes_free(), heap_bytes_used(), str); }</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -216,15 +216,15 @@ Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
-<a class="anchor" id="aaa947d303802df6c8d6e476210af2bef"></a>
+<a class="anchor" id="af4df0e73abf84eedd72e5a3e75e67935"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">bool strxcpy </td>
           <td>(</td>
-          <td class="paramtype">char&#160;</td>
-          <td class="paramname"><em>buffer</em>[], </td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>buffer</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -235,14 +235,14 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const char&#160;</td>
-          <td class="paramname"><em>source</em>[], </td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>source</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const char&#160;</td>
-          <td class="paramname"><em>readable</em>[]&#160;</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>readable</em>&#160;</td>
         </tr>
         <tr>
           <td></td>

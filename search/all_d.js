@@ -1,4 +1,6 @@
 var searchData=
 [
-  ['textlayer_5fstylize',['textLayer_stylize',['../misc_8c.html#a12735d734270b9bbfe1616d61d42e31d',1,'textLayer_stylize(TextLayer *textLayer, const GColor bgcolor, const GColor txtColor, const GTextAlignment txtAlign, const GFont txtFont):&#160;misc.c'],['../misc_8h.html#ac03bdde1351009a9f004c301144bdd85',1,'textLayer_stylize(TextLayer *, const GColor, const GColor, const GTextAlignment, const GFont):&#160;misc.c']]]
+  ['pages',['pages',['../app_8js.html#a747f82a9558624c96f74f6afbc639660',1,'app.js']]],
+  ['prev',['prev',['../struct_u_t__hash__handle.html#af714e69444763fb9a76ec901a014baf1',1,'UT_hash_handle']]],
+  ['processingstate',['ProcessingState',['../struct_processing_state.html',1,'ProcessingState'],['../data-processor_8h.html#a2399f3af1122ead65fb0df2166113f7b',1,'ProcessingState():&#160;data-processor.h']]]
 ];

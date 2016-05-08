@@ -18,8 +18,10 @@ var searchData=
   ['key_5fpebble_5fready',['KEY_PEBBLE_READY',['../comm_8c.html#a06fc87d81c62e9abb8790b6e5713c55bac3d337827cccfdcc3b9f48f5ff8be7f0',1,'comm.c']]],
   ['key_5fpebkit_5fready',['KEY_PEBKIT_READY',['../comm_8c.html#a06fc87d81c62e9abb8790b6e5713c55ba74437e1dfe99bfa21aaa0668018841aa',1,'comm.c']]],
   ['key_5fput_5floans_5fin_5fbasket',['KEY_PUT_LOANS_IN_BASKET',['../comm_8c.html#a06fc87d81c62e9abb8790b6e5713c55ba3ea6bae3a2e17db1a3009fedacc21210',1,'comm.c']]],
+  ['kiva_5fmodel_5finvalid_5finput_5ferr',['KIVA_MODEL_INVALID_INPUT_ERR',['../_kiva_model_8h.html#aa4c109eff106cf22169394f4fc6357bca536656ae41210cec348b0c8760184df6',1,'KivaModel.h']]],
   ['kiva_5fmodel_5flast_5ferrcode',['KIVA_MODEL_LAST_ERRCODE',['../_kiva_model_8h.html#aa4c109eff106cf22169394f4fc6357bcad4c5ca75bbc4808eacf33acc372228bc',1,'KivaModel.h']]],
   ['kiva_5fmodel_5fnull_5fpointer_5ferr',['KIVA_MODEL_NULL_POINTER_ERR',['../_kiva_model_8h.html#aa4c109eff106cf22169394f4fc6357bcaae4786b32f365674d151ad99eb5485af',1,'KivaModel.h']]],
+  ['kiva_5fmodel_5fout_5fof_5fmemory_5ferr',['KIVA_MODEL_OUT_OF_MEMORY_ERR',['../_kiva_model_8h.html#aa4c109eff106cf22169394f4fc6357bcae1f55896d4a9dad8926f5f048d2afb5b',1,'KivaModel.h']]],
   ['kiva_5fmodel_5fstring_5ferr',['KIVA_MODEL_STRING_ERR',['../_kiva_model_8h.html#aa4c109eff106cf22169394f4fc6357bca20928d0b2a7ba2656314ce5430cb68a7',1,'KivaModel.h']]],
   ['kiva_5fmodel_5fsuccess',['KIVA_MODEL_SUCCESS',['../_kiva_model_8h.html#aa4c109eff106cf22169394f4fc6357bca172e64d58c3978928bded79a25dba510',1,'KivaModel.h']]],
   ['kiva_5fmodel_5funknown_5ferr',['KIVA_MODEL_UNKNOWN_ERR',['../_kiva_model_8h.html#aa4c109eff106cf22169394f4fc6357bcae6817d852ce214eb8c6cd7ea9409c22d',1,'KivaModel.h']]]
