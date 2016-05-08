@@ -1,4 +1,9 @@
 #include <pebble.h>
+
+// Deactivate APP_LOG in this file.
+#undef APP_LOG
+#define APP_LOG(...)
+
 #include "data/KivaModel.h"
 #include "misc.h"
 #include "ui/wndLenderBasics.h"
@@ -26,27 +31,29 @@ void wndLenderBasics_updateView(const KivaModel* km) {
   if (!wndLenderBasics) return;
   if (!window_is_loaded(wndLenderBasics)) return;
   
-  static KivaModel_LenderName lenName = "";
-  if (KivaModel_getLenderName(km, lenName) == KIVA_MODEL_SUCCESS) 
+  // JRB TODO: Do lenName and lenLoc need to be malloc'd and freed?
+  static char* lenName = NULL;
+  if (KivaModel_getLenderName(km, &lenName) == KIVA_MODEL_SUCCESS) 
     text_layer_set_text(lyrLenderName, lenName);
   
-  static KivaModel_LenderLoc lenLoc = "";
-  if (KivaModel_getLenderLoc(km, lenLoc) == KIVA_MODEL_SUCCESS) 
+  static char* lenLoc = NULL;
+  if (KivaModel_getLenderLoc(km, &lenLoc) == KIVA_MODEL_SUCCESS) 
     text_layer_set_text(lyrLenderLoc, lenLoc);
   
   KivaModel_ErrCode kmret;  int loanQty = 0;
   if ( (kmret = KivaModel_getLenderLoanQty(km, &loanQty)) != KIVA_MODEL_SUCCESS) {
-    APP_LOG(APP_LOG_LEVEL_ERROR, "Kiva Model error. Ret=%d", kmret);
+    APP_LOG(APP_LOG_LEVEL_ERROR, "Kiva Model error: %s", KivaModel_getErrorMsg(kmret));
     return;
   }
   
-  long lret = 0;  static char buffer[100];  const char readable[] = "Lender Summary";
-  if ( (lret = snprintf(buffer, sizeof(buffer), "%d Loans", loanQty)) < 0) 
-      APP_LOG(APP_LOG_LEVEL_ERROR, "%s string was not written correctly. Ret=%ld", readable, lret);
-  else if ((size_t)lret > sizeof(buffer)) 
-      APP_LOG(APP_LOG_LEVEL_WARNING, "%s string was truncated. %ld characters required.", readable, lret);
-  else   
-      text_layer_set_text(lyrLenderLoanSummary, buffer);
+  long lret = 0;  static char buffer[100]; 
+  if ( (lret = snprintf(buffer, sizeof(buffer), "%d Loans", loanQty)) < 0) {
+    APP_LOG(APP_LOG_LEVEL_ERROR, "Lender Summary string was not written correctly. Ret=%ld", lret);
+  } else if ((size_t)lret > sizeof(buffer)) {
+    APP_LOG(APP_LOG_LEVEL_WARNING, "Lender Summary string was truncated. %ld characters required.", lret);
+  } else { 
+    text_layer_set_text(lyrLenderLoanSummary, buffer);
+  }
 }
 
 

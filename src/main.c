@@ -1,5 +1,9 @@
 #include <pebble.h>
 
+// Deactivate APP_LOG in this file.
+#undef APP_LOG
+#define APP_LOG(...)
+
 #include "comm.h"
 #include "misc.h"
 #include "ui/wndMainMenu.h"
@@ -61,7 +65,7 @@ int main(void) {
   init();
   HEAP_LOG("after init");
 
-  /* wait for system events until exit*/
+  /* wait for system events until exit */
   app_event_loop();
   
   deinit();

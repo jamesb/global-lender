@@ -1,4 +1,9 @@
 #include <pebble.h>
+
+// Deactivate APP_LOG in this file.
+#undef APP_LOG
+#define APP_LOG(...)
+
 #include "misc.h"
 #include "data/KivaModel.h"
 #include "ui/wndLenderBasics.h"
@@ -117,7 +122,12 @@ static void wndMainMenu_select_callback(MenuLayer* menu_layer, MenuIndex* cell_i
       break;
     }
     case MNU_ITEM_ACKNOWLEDGEMENTS: {
+      // Matthew Tole - Data-Processor (MIT License)
+      // Troy D. Hanson - uthash (BSD License)
       // Blake Swopes - Kiva Country Collector
+      // Helpful Pebble Forums posts by:
+      //   @LeFauve, @allan, @Christian Reinbacher
+      
       break;
     }
   }

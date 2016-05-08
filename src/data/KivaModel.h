@@ -1,18 +1,5 @@
 #pragma once
 
-#define LEN_LENDER_ID     25
-  // "3 to 24 characters long and consist of only letters and numbers."
-  // https://groups.google.com/d/msg/build-kiva/9BTQKT40Wq0/S2GJrDVwDZsJ
-typedef char KivaModel_LenderId[LEN_LENDER_ID];
-
-#define LEN_LENDER_NAME   50
-typedef char KivaModel_LenderName[LEN_LENDER_NAME];
-
-#define LEN_LENDER_LOC    50
-  // This is the general location string: "Lexington, KY"
-typedef char KivaModel_LenderLoc[LEN_LENDER_LOC];
-
-
 // Model struct typedef
 typedef struct KivaModel KivaModel;
   
@@ -23,27 +10,32 @@ typedef enum KivaModel_ErrCode {
   KIVA_MODEL_UNKNOWN_ERR,
   KIVA_MODEL_NULL_POINTER_ERR,
   KIVA_MODEL_STRING_ERR,
+  KIVA_MODEL_INVALID_INPUT_ERR,
+  KIVA_MODEL_OUT_OF_MEMORY_ERR,
   
   KIVA_MODEL_LAST_ERRCODE
 } KivaModel_ErrCode;
 
+const char* KivaModel_getErrMsg(const KivaModel_ErrCode);
 
-KivaModel* KivaModel_create(const KivaModel_LenderId);
+KivaModel* KivaModel_create(const char*);
 KivaModel_ErrCode KivaModel_destroy(KivaModel* this);
 
 // Setters
-KivaModel_ErrCode KivaModel_setLenderName(KivaModel* this, const KivaModel_LenderName);  
-KivaModel_ErrCode KivaModel_setLenderLoc(KivaModel* this, const KivaModel_LenderLoc);
+KivaModel_ErrCode KivaModel_setLenderId(KivaModel* this, const char*);
+KivaModel_ErrCode KivaModel_setLenderName(KivaModel* const this, const char*);  
+KivaModel_ErrCode KivaModel_setLenderLoc(KivaModel* this, const char*);
 KivaModel_ErrCode KivaModel_setLenderLoanQty(KivaModel* this, const int);
-KivaModel_ErrCode KivaModel_setLenderCountryQty(KivaModel* this, const int);
 
-KivaModel_ErrCode KivaModel_setKivaCountryQty(KivaModel* this, const int);
+KivaModel_ErrCode KivaModel_addKivaCountry(KivaModel* this, const char*, const char*);
+KivaModel_ErrCode KivaModel_addLenderCountryId(KivaModel* this, const char*);
 
 // Getters
-KivaModel_ErrCode KivaModel_getLenderId(const KivaModel* this, KivaModel_LenderId);
-KivaModel_ErrCode KivaModel_getLenderName(const KivaModel* this, KivaModel_LenderName);  
-KivaModel_ErrCode KivaModel_getLenderLoc(const KivaModel* this, KivaModel_LenderLoc);
+KivaModel_ErrCode KivaModel_getLenderId(const KivaModel* this, char**);
+KivaModel_ErrCode KivaModel_getLenderName(const KivaModel* this, char**);  
+KivaModel_ErrCode KivaModel_getLenderLoc(const KivaModel* this, char**);
 KivaModel_ErrCode KivaModel_getLenderLoanQty(const KivaModel* this, int*);
-KivaModel_ErrCode KivaModel_getLenderCountryQty(const KivaModel* this, int*);
 
-KivaModel_ErrCode KivaModel_getKivaCountryQty(const KivaModel* this, int*);
+KivaModel_ErrCode KivaModel_getLenderCountryQty(const KivaModel* this, int*);
+KivaModel_ErrCode KivaModel_getKivaCountryName(const KivaModel* this, const char*, const char**);
+

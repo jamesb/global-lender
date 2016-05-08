@@ -21,7 +21,7 @@ void textLayer_stylize(TextLayer* textLayer, const GColor bgcolor, const GColor 
 /**************************************************************************
  * Copies a string with error handling and logging.
  **************************************************************************/
-bool strxcpy(char buffer[], size_t bufsize, const char source[], const char readable[]) {
+bool strxcpy(char* buffer, size_t bufsize, const char* source, const char* readable) {
   if (source) {
     long ret = 0;
     if ((ret = snprintf(buffer, bufsize, "%s", source)) < 0) {

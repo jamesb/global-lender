@@ -34,20 +34,11 @@
                 "name": "IMG_LOGO_WIDE",
                 "targetPlatforms": null,
                 "type": "bitmap"
-            },
-            {
-                "file": "images/globe.png",
-                "name": "IMG_GLOBE",
-                "targetPlatforms": [
-                    "basalt",
-                    "chalk"
-                ],
-                "type": "bitmap"
             }
         ]
     },
     "sdkVersion": "3",
-    "shortName": "Global Lender",
+    "shortName": "GLend",
     "targetPlatforms": [
         "aplite",
         "basalt",

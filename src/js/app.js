@@ -7,15 +7,28 @@ var kivaCC = KivaData.getCountryCodes();
 
 var baseKivaUrl = "http://api.kivaws.org/v1/";
 var jsonExt = ".json";
-// Kiva API Key for James Bernsen
-var myAPIKey = '';
-var lenderId = 'jdb';
 
+var kivaAppId = 'com.magnosity.global-lender';
+var lenderId = 'jdb';
 
 
 // Global variable to store results from multi-page API calls
 // Stored with keys equal to the page number (eg. range = [1 .. n pages])
 var pages = [];
+
+
+/**************************************************************************
+ * Array extension to return the unique values of an array.
+ **************************************************************************/
+Array.prototype.unique = function() {
+    var a = [], l = this.length;
+    for(var i=0; i<l; i++) {
+      for(var j=i+1; j<l; j++)
+            if (this[i] === this[j]) j = ++i;
+      a.push(this[i]);
+    }
+    return a;
+};
 
 
 /**************************************************************************
@@ -87,6 +100,8 @@ function callKivaApiAsync(url, parseFxn) {
         // Parse results, send to Pebble, and reset the pages variable.
         console.log("Ready to parse JSON array of size " + Object.keys(jsonPageArray).length);
         dictionary = parseFxn(jsonPageArray);
+        // Print all key pairs
+        for (var key in dictionary) { if (dictionary.hasOwnProperty(key)) console.log(key + " -> " + dictionary[key]); }
         Pebble.sendAppMessage(dictionary,
           function(e) {
             console.log("Data sent to Pebble successfully!");
@@ -147,7 +162,7 @@ function getLoansForLender() {
     // pageNum range = [1 .. n pages];   pageIter range = [0 .. n-1 pages]
     var pageNum, pageSize, pageTotal, pageIter;
     var lenderLoanQty;
-    var lenderCountryArray = [];
+    var lenderCC = [];
     
     for (pageIter=0; pageIter < Object.keys(jsonPageArray).length; pageIter++) {
       json = JSON.parse(jsonPageArray[pageIter]);
@@ -158,7 +173,6 @@ function getLoansForLender() {
       console.log("Parsing Page " + pageNum + " of " + pageTotal);
 
       lenderLoanQty = json.paging.total;
-      console.log("Lender Loan Qty = " + lenderLoanQty);
       
       // Iterate through each loan. 
       for (var loanIter = 0; loanIter < pageSize && (pageSize * pageIter + loanIter) < lenderLoanQty; loanIter++) { 
@@ -168,7 +182,7 @@ function getLoansForLender() {
           kivaCC[countryCode] = countryName;
           console.log("NEW KIVA COUNTRY CODE: " + countryCode + " = " + countryName + " { ISO-3166 = " + iso3166[countryCode] + "}");
         }
-        lenderCountryArray[countryCode] = countryName;
+        lenderCC.push(countryCode);
       }
     
     } // end page iteration
@@ -176,7 +190,8 @@ function getLoansForLender() {
     // Assemble dictionary using our keys
     dictionary = {
       "KEY_LENDER_ID"          : lenderId,
-      "KEY_LENDER_LOAN_QTY"    : lenderLoanQty
+      "KEY_LENDER_LOAN_QTY"    : lenderLoanQty,
+      "KEY_LENDER_COUNTRY_SET" : lenderCC.unique().sort().join('|')
     };
 
     return dictionary;
