@@ -446,9 +446,9 @@ KivaModel_ErrCode KivaModel_getLenderCountryQty(const KivaModel* this, int* lend
 
 /////////////////////////////////////////////////////////////////////////////
 /// Adds a new country to the list of Kiva-recognized countries.
-/// The countryId and countryName parameters are copied; ownership of those
+/// The countryId and countryName parameters are copied; <em>ownership of those
 /// parameters is not transferred by this function. The caller is still
-/// responsible for freeing that data.
+/// responsible for freeing that data.</em>
 /// @param[in,out]  this  Pointer to KivaModel; must be already allocated
 /// @param[in]      countryId  ID of the country to add; a two-character 
 ///       ISO-3361 country code
