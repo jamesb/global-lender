@@ -1,7 +1,0 @@
-<map id="src/ui/wndMainMenu.c" name="src/ui/wndMainMenu.c">
-<area shape="rect" id="node3" href="$misc_8h.html" title="misc.h" alt="" coords="23,80,85,107"/>
-<area shape="rect" id="node4" href="$_kiva_model_8h.html" title="data/KivaModel.h" alt="" coords="271,155,394,181"/>
-<area shape="rect" id="node5" href="$wnd_lender_basics_8h.html" title="ui/wndLenderBasics.h" alt="" coords="315,80,465,107"/>
-<area shape="rect" id="node6" href="$wnd_countries_8h.html" title="ui/wndCountries.h" alt="" coords="489,80,616,107"/>
-<area shape="rect" id="node7" href="$wnd_main_menu_8h.html" title="ui/wndMainMenu.h" alt="" coords="109,80,239,107"/>
-</map>
