@@ -375,8 +375,8 @@ KivaModel_ErrCode KivaModel_addLenderCountryId(KivaModel* this, const char* coun
 /// Gets the currently-stored lender ID. 
 /// @param[in,out]  this  Pointer to KivaModel; must be already allocated
 /// @param[out]     lenderId   Pointer to the lender ID C-string; must be 
-///       NULL on entry. Ownership is not transferred to the caller, so
-///       the caller should not free this variable.
+///       NULL on entry. <em>Ownership is not transferred to the caller, so
+///       the caller should not free this variable.</em>
 /////////////////////////////////////////////////////////////////////////////
 KivaModel_ErrCode KivaModel_getLenderId(const KivaModel* this, char** lenderId) {
   KIVA_MODEL_RETURN_IF_NULL(this);
@@ -391,8 +391,8 @@ KivaModel_ErrCode KivaModel_getLenderId(const KivaModel* this, char** lenderId) 
 /// Gets the currently-stored lender name. 
 /// @param[in,out]  this  Pointer to KivaModel; must be already allocated
 /// @param[out]     lenderName   Pointer to the lender name C-string; must 
-///       be NULL on entry. Ownership is not transferred to the caller, so
-///       the caller should not free this variable.
+///       be NULL on entry. <em>Ownership is not transferred to the caller, so
+///       the caller should not free this variable.</em>
 /////////////////////////////////////////////////////////////////////////////
 KivaModel_ErrCode KivaModel_getLenderName(const KivaModel* this, char** lenderName) {
   KIVA_MODEL_RETURN_IF_NULL(this);
@@ -407,8 +407,8 @@ KivaModel_ErrCode KivaModel_getLenderName(const KivaModel* this, char** lenderNa
 /// Gets the currently-stored lender location. 
 /// @param[in,out]  this  Pointer to KivaModel; must be already allocated
 /// @param[out]     lenderLoc   Pointer to the lender location C-string; 
-///       must be NULL on entry. Ownership is not transferred to the 
-///       caller, so the caller should not free this variable.
+///       must be NULL on entry. <em>Ownership is not transferred to the 
+///       caller, so the caller should not free this variable.</em>
 /////////////////////////////////////////////////////////////////////////////
 KivaModel_ErrCode KivaModel_getLenderLoc(const KivaModel* this, char** lenderLoc) {
   KIVA_MODEL_RETURN_IF_NULL(this);
