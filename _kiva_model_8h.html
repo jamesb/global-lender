@@ -155,8 +155,8 @@ Functions</h2></td></tr>
 <tr class="separator:a1f6ee87537b685be49becb9219c92b34"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abddc4385de01014a2c5d8cde932ce57a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_kiva_model_8h.html#aa4c109eff106cf22169394f4fc6357bc">KivaModel_ErrCode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_kiva_model_8h.html#abddc4385de01014a2c5d8cde932ce57a">KivaModel_addKivaCountry</a> (<a class="el" href="struct_kiva_model.html">KivaModel</a> *this, const char *, const char *)</td></tr>
 <tr class="separator:abddc4385de01014a2c5d8cde932ce57a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a030ad560e2d19d9071da6a55cf82f629"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_kiva_model_8h.html#aa4c109eff106cf22169394f4fc6357bc">KivaModel_ErrCode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_kiva_model_8h.html#a030ad560e2d19d9071da6a55cf82f629">KivaModel_addLenderCountryId</a> (<a class="el" href="struct_kiva_model.html">KivaModel</a> *this, const char *)</td></tr>
-<tr class="separator:a030ad560e2d19d9071da6a55cf82f629"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a73b644994ebc348e2264fdf449521eab"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_kiva_model_8h.html#aa4c109eff106cf22169394f4fc6357bc">KivaModel_ErrCode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_kiva_model_8h.html#a73b644994ebc348e2264fdf449521eab">KivaModel_addLenderCountry</a> (<a class="el" href="struct_kiva_model.html">KivaModel</a> *this, const char *, const char *)</td></tr>
+<tr class="separator:a73b644994ebc348e2264fdf449521eab"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad88202918b7881a367926cc6b9f96128"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_kiva_model_8h.html#aa4c109eff106cf22169394f4fc6357bc">KivaModel_ErrCode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_kiva_model_8h.html#ad88202918b7881a367926cc6b9f96128">KivaModel_getLenderId</a> (const <a class="el" href="struct_kiva_model.html">KivaModel</a> *this, char **)</td></tr>
 <tr class="separator:ad88202918b7881a367926cc6b9f96128"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a172b42adfc0ef2a820db1b1e50399895"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_kiva_model_8h.html#aa4c109eff106cf22169394f4fc6357bc">KivaModel_ErrCode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_kiva_model_8h.html#a172b42adfc0ef2a820db1b1e50399895">KivaModel_getLenderName</a> (const <a class="el" href="struct_kiva_model.html">KivaModel</a> *this, char **)</td></tr>
@@ -254,7 +254,7 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Adds a new country to the list of Kiva-recognized countries. The countryId and countryName parameters are copied; ownership of those parameters is not transferred by this function. The caller is still responsible for freeing that data. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Adds a new country to the list of Kiva-recognized countries. The countryId and countryName parameters are copied; <em>ownership of those parameters is not transferred by this function. The caller is still responsible for freeing that data.</em> </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in,out]</td><td class="paramname">this</td><td>Pointer to <a class="el" href="struct_kiva_model.html">KivaModel</a>; must be already allocated </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">countryId</td><td>ID of the country to add; a two-character ISO-3361 country code </td></tr>
@@ -265,12 +265,12 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a030ad560e2d19d9071da6a55cf82f629"></a>
+<a class="anchor" id="a73b644994ebc348e2264fdf449521eab"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="_kiva_model_8h.html#aa4c109eff106cf22169394f4fc6357bc">KivaModel_ErrCode</a> KivaModel_addLenderCountryId </td>
+          <td class="memname"><a class="el" href="_kiva_model_8h.html#aa4c109eff106cf22169394f4fc6357bc">KivaModel_ErrCode</a> KivaModel_addLenderCountry </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="struct_kiva_model.html">KivaModel</a> *&#160;</td>
           <td class="paramname"><em>this</em>, </td>
@@ -279,7 +279,13 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const char *&#160;</td>
-          <td class="paramname">&#160;</td>
+          <td class="paramname"><em>countryId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>countryName</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -288,6 +294,14 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Adds a country ID to the list of countries supported by the lender. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">this</td><td>Pointer to <a class="el" href="struct_kiva_model.html">KivaModel</a>; must be already allocated </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">countryId</td><td>ID of the country to add; a two-character ISO-3361 country code. <em>Ownership is not transferred from the caller, so the caller should free this variable.</em> If the countryId is not yet in the list of recognized Kiva countries, then it will be added to the hash. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">countryName</td><td>Name of the country to add. If countryId is already a recognized Kiva country, then the countryName will be ignored. If the countryId is not yet in the list of countries that this <a class="el" href="struct_kiva_model.html">KivaModel</a> recognizes, then this will be the new country name for this ID. If NULL, then the countryId will be used as the name. <em>Ownership is not transferred from the caller, so the caller should free this variable.</em> </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -353,13 +367,13 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const char *&#160;</td>
-          <td class="paramname">, </td>
+          <td class="paramname"><em>countryId</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const char **&#160;</td>
-          <td class="paramname">&#160;</td>
+          <td class="paramname"><em>countryName</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -368,6 +382,15 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Provides a pointer to the country name identified by the specified ID. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">this</td><td>Pointer to <a class="el" href="struct_kiva_model.html">KivaModel</a>; must be already allocated </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">countryId</td><td>ID of the country to add; a two-character ISO-3361 country code. <em>Ownership of this parameter is not transferred, so the caller is still responsible for freeing this variable. </em></td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">countryName</td><td><em> If the country ID is recognized by this <a class="el" href="struct_kiva_model.html">KivaModel</a>, this parameter will be replaced with a pointer to the recognized country name. Must be NULL upon entry to this function. If the country ID is not recognized, then this parameter will remain NULL. <em>Caller does not own (should not free) the memory associated with countryName.</em> </em></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><em> KIVA_MODEL_SUCCESS on success KIVA_MODEL_INVALID_INPUT_ERR if countryName is not NULL on entry </em></dd></dl>
 
 </div>
 </div>
@@ -423,7 +446,7 @@ Functions</h2></td></tr>
 <p>Gets the currently-stored lender ID. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in,out]</td><td class="paramname">this</td><td>Pointer to <a class="el" href="struct_kiva_model.html">KivaModel</a>; must be already allocated </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">lenderId</td><td>Pointer to the lender ID C-string; must be NULL on entry. Ownership is not transferred to the caller, so the caller should not free this variable. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">lenderId</td><td>Pointer to the lender ID C-string; must be NULL on entry. <em>Ownership is not transferred to the caller, so the caller should not free this variable.</em> </td></tr>
   </table>
   </dd>
 </dl>
@@ -482,7 +505,7 @@ Functions</h2></td></tr>
 <p>Gets the currently-stored lender location. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in,out]</td><td class="paramname">this</td><td>Pointer to <a class="el" href="struct_kiva_model.html">KivaModel</a>; must be already allocated </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">lenderLoc</td><td>Pointer to the lender location C-string; must be NULL on entry. Ownership is not transferred to the caller, so the caller should not free this variable. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">lenderLoc</td><td>Pointer to the lender location C-string; must be NULL on entry. <em>Ownership is not transferred to the caller, so the caller should not free this variable.</em> </td></tr>
   </table>
   </dd>
 </dl>
@@ -515,7 +538,7 @@ Functions</h2></td></tr>
 <p>Gets the currently-stored lender name. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in,out]</td><td class="paramname">this</td><td>Pointer to <a class="el" href="struct_kiva_model.html">KivaModel</a>; must be already allocated </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">lenderName</td><td>Pointer to the lender name C-string; must be NULL on entry. Ownership is not transferred to the caller, so the caller should not free this variable. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">lenderName</td><td>Pointer to the lender name C-string; must be NULL on entry. <em>Ownership is not transferred to the caller, so the caller should not free this variable.</em> </td></tr>
   </table>
   </dd>
 </dl>
