@@ -28,27 +28,27 @@ const char* KivaModel_getErrMsg(const KivaModel_ErrCode errCode) {
 
 
 /////////////////////////////////////////////////////////////////////////////
-/// Allocates a CountryRec pointer. 
+/// Allocates a CountryRec pointer.
 /// @param[out]     cntry   double-pointer to CountryRec; must be NULL on entry
 /////////////////////////////////////////////////////////////////////////////
 static KivaModel_ErrCode KivaModel_CountryRec_create(CountryRec** cntry) {
   if (*cntry != NULL) { return KIVA_MODEL_INVALID_INPUT_ERR; }
-  
+
   *cntry = (CountryRec*) malloc(sizeof(CountryRec));
   if (*cntry == NULL) { goto lowmem; }
   (*cntry)->id = NULL;
   (*cntry)->name = NULL;
-    
-  return KIVA_MODEL_SUCCESS;   
-  
+
+  return KIVA_MODEL_SUCCESS;
+
 lowmem:
   if (*cntry != NULL) { free(*cntry); }
   return KIVA_MODEL_OUT_OF_MEMORY_ERR;
 }
 
-  
+
 /////////////////////////////////////////////////////////////////////////////
-/// Initializes a CountryRec pointer and its members. 
+/// Initializes a CountryRec pointer and its members.
 /// @param[in,out]  this  Pointer to CountryRec; must be already
 ///       allocated upon entry, but heap-allocated members must be NULL
 /// @param[in]      countryId  ID of country (ISO-3316); must be non-null;
@@ -56,40 +56,40 @@ lowmem:
 /////////////////////////////////////////////////////////////////////////////
 static KivaModel_ErrCode KivaModel_CountryRec_init(CountryRec* this, const char* countryId, const char* countryName) {
   KIVA_MODEL_RETURN_IF_NULL(this);
-  if (this->id != NULL)   { 
+  if (this->id != NULL)   {
     APP_LOG(APP_LOG_LEVEL_ERROR, "CountryRec id must be NULL.");
-    return KIVA_MODEL_INVALID_INPUT_ERR; 
+    return KIVA_MODEL_INVALID_INPUT_ERR;
   }
-  if (this->name != NULL) { 
+  if (this->name != NULL) {
     APP_LOG(APP_LOG_LEVEL_ERROR, "CountryRec name must be NULL.");
-    return KIVA_MODEL_INVALID_INPUT_ERR; 
+    return KIVA_MODEL_INVALID_INPUT_ERR;
   }
-  if (countryId == NULL)   { 
+  if (countryId == NULL)   {
     APP_LOG(APP_LOG_LEVEL_ERROR, "Init parameter countryId must not be NULL.");
-    return KIVA_MODEL_INVALID_INPUT_ERR; 
+    return KIVA_MODEL_INVALID_INPUT_ERR;
   }
-  if (countryName == NULL) { 
+  if (countryName == NULL) {
     APP_LOG(APP_LOG_LEVEL_ERROR, "Init parameter countryName must not be NULL.");
-    return KIVA_MODEL_INVALID_INPUT_ERR; 
+    return KIVA_MODEL_INVALID_INPUT_ERR;
   }
-    
+
   if ( (this->id = malloc(strlen(countryId) + 1)) == NULL) { goto lowmem; }
   strcpy(this->id, countryId);
-  
+
   if ( (this->name = malloc(strlen(countryName) + 1)) == NULL) { goto lowmem; }
   strcpy(this->name, countryName);
-  
-  return KIVA_MODEL_SUCCESS;   
-  
+
+  return KIVA_MODEL_SUCCESS;
+
 lowmem:
   if (this->id != NULL)   { free(this->id);   this->id = NULL; }
   if (this->name != NULL) { free(this->name); this->name = NULL; }
   return KIVA_MODEL_OUT_OF_MEMORY_ERR;
 }
 
-  
+
 /////////////////////////////////////////////////////////////////////////////
-/// Frees all memory associated with a CountryRec pointer. 
+/// Frees all memory associated with a CountryRec pointer.
 /// @param[in,out]  this  Pointer to CountryRec; must be already allocated
 /////////////////////////////////////////////////////////////////////////////
 static KivaModel_ErrCode KivaModel_CountryRec_destroy(CountryRec* this) {
@@ -98,7 +98,7 @@ static KivaModel_ErrCode KivaModel_CountryRec_destroy(CountryRec* this) {
   if (this->id != NULL)   { free(this->id);   this->id = NULL; }
   if (this->name != NULL) { free(this->name); this->name = NULL; }
   free(this); this = NULL;
-  return KIVA_MODEL_SUCCESS;   
+  return KIVA_MODEL_SUCCESS;
 }
 
 
@@ -110,13 +110,13 @@ static KivaModel_ErrCode KivaModel_CountryRec_destroy(CountryRec* this) {
 KivaModel* KivaModel_create(const char* lenderId) {
   APP_LOG(APP_LOG_LEVEL_DEBUG, "Creating KivaModel [%s]", lenderId);
   int kmret;
-  
+
   KivaModel* newKivaModel = malloc(sizeof(KivaModel));
   if ( (kmret = KivaModel_init(newKivaModel, lenderId)) != KIVA_MODEL_SUCCESS) {
     APP_LOG(APP_LOG_LEVEL_ERROR, "Could not initialize Kiva Model: %s", KivaModel_getErrMsg(kmret));
     KivaModel_destroy(newKivaModel);  newKivaModel = NULL;
   }
-  
+
   return newKivaModel;
 }
 
@@ -128,7 +128,7 @@ KivaModel_ErrCode KivaModel_destroy(KivaModel* this) {
   KIVA_MODEL_RETURN_IF_NULL(this);
   APP_LOG(APP_LOG_LEVEL_DEBUG, "Destroying KivaModel [%s]", this->lenderInfo.id);
   KivaModel_ErrCode kmret;
-  
+
   // Free memory for this->kivaCountries and its data
   CountryRec* cntry = NULL; CountryRec* tmp = NULL;
   HASH_ITER(hh, this->kivaCountries, cntry, tmp) {
@@ -139,13 +139,13 @@ KivaModel_ErrCode KivaModel_destroy(KivaModel* this) {
     cntry = NULL;
   }
   HEAP_LOG("Freed kivaCountries and its data.");
-  
+
   if (this->lenderInfo.loc != NULL)  { free(this->lenderInfo.loc);  this->lenderInfo.loc = NULL; }
   if (this->lenderInfo.name != NULL) { free(this->lenderInfo.name); this->lenderInfo.name = NULL; }
   if (this->lenderInfo.id != NULL)   { free(this->lenderInfo.id);   this->lenderInfo.id = NULL; }
-  
+
   HEAP_LOG("Freed lenderInfo and its data.");
-  
+
   free(this); this = NULL;
   return KIVA_MODEL_SUCCESS;
 }
@@ -158,24 +158,24 @@ KivaModel_ErrCode KivaModel_init(KivaModel* this, const char* lenderId) {
   KIVA_MODEL_RETURN_IF_NULL(this);
   APP_LOG(APP_LOG_LEVEL_DEBUG, "Initializing KivaModel [%s]", lenderId);
   KivaModel_ErrCode kmret;
-  
+
   this->lenderInfo.id = NULL;
   this->lenderInfo.name = NULL;
   this->lenderInfo.loc = NULL;
   this->lenderInfo.loanQty = 0;
 
   this->kivaCountries = NULL;
-  
-  if ( (kmret = KivaModel_initKivaCountries(this)) != KIVA_MODEL_SUCCESS) { 
+
+  if ( (kmret = KivaModel_initKivaCountries(this)) != KIVA_MODEL_SUCCESS) {
     APP_LOG(APP_LOG_LEVEL_ERROR, "Could not initialize Kiva countries: %s", KivaModel_getErrMsg(kmret));
-    return kmret; 
+    return kmret;
   }
-  
+
   if ( (kmret = KivaModel_setLenderId(this, lenderId)) != KIVA_MODEL_SUCCESS) {
     APP_LOG(APP_LOG_LEVEL_ERROR, "Could not set Lender ID. Destroying Kiva model.");
     KivaModel_destroy(this);  this = NULL;
   }
-  
+
   APP_LOG(APP_LOG_LEVEL_DEBUG, "Kiva Model [%s] initialized with %d countries.", this->lenderInfo.id, HASH_COUNT(this->kivaCountries));
   return KIVA_MODEL_SUCCESS;
 }
@@ -190,7 +190,7 @@ KivaModel_ErrCode KivaModel_initKivaCountries(KivaModel* this) {
   KIVA_MODEL_RETURN_IF_NULL(this);
   if (this->kivaCountries != NULL) { return KIVA_MODEL_INVALID_INPUT_ERR; }
   APP_LOG(APP_LOG_LEVEL_DEBUG, "Initializing Kiva countries...");
-  KivaModel_ErrCode kmret; 
+  KivaModel_ErrCode kmret;
   if ( (kmret = KivaModel_addKivaCountry(this, "AF", "Afghanistan")) != KIVA_MODEL_SUCCESS) { return kmret; }
   if ( (kmret = KivaModel_addKivaCountry(this, "AL", "Albania")) != KIVA_MODEL_SUCCESS) { return kmret; }
   if ( (kmret = KivaModel_addKivaCountry(this, "AM", "Armenia")) != KIVA_MODEL_SUCCESS) { return kmret; }
@@ -292,38 +292,38 @@ KivaModel_ErrCode KivaModel_initKivaCountries(KivaModel* this) {
  **************************************************************************/
 KivaModel_ErrCode KivaModel_setLenderId(KivaModel* this, const char* lenderId) {
   KIVA_MODEL_RETURN_IF_NULL(this);
-  
+
   if (lenderId == NULL) { return KIVA_MODEL_INVALID_INPUT_ERR; }
   if (this->lenderInfo.id != NULL) { free(this->lenderInfo.id); this->lenderInfo.id = NULL; }
   size_t bufsize = strlen(lenderId)+1;
   char* tmp = realloc(this->lenderInfo.id, bufsize);
   if (tmp == NULL) { return KIVA_MODEL_OUT_OF_MEMORY_ERR; }
   this->lenderInfo.id = tmp;
-  
+
   if (!strxcpy(this->lenderInfo.id, bufsize, lenderId, "Lender ID")) { return KIVA_MODEL_STRING_ERR; }
   // Clear out any lender-dependent fields since the lender ID has changed.
   if (this->lenderInfo.name != NULL) { free(this->lenderInfo.name); this->lenderInfo.name = NULL; }
   if (this->lenderInfo.loc != NULL)  { free(this->lenderInfo.loc);  this->lenderInfo.loc = NULL; }
   this->lenderInfo.loanQty = 0;
   // JRB TODO: reset the CountryRec lender-supported fields to NULL
-  
+
   return KIVA_MODEL_SUCCESS;
 }
 
 
 /**************************************************************************
- * 
+ *
  **************************************************************************/
-KivaModel_ErrCode KivaModel_setLenderName(KivaModel* this, const char* lenderName) {  
+KivaModel_ErrCode KivaModel_setLenderName(KivaModel* this, const char* lenderName) {
   KIVA_MODEL_RETURN_IF_NULL(this);
-  
+
   if (lenderName == NULL) { return KIVA_MODEL_INVALID_INPUT_ERR; }
   if (this->lenderInfo.name != NULL) { free(this->lenderInfo.name); this->lenderInfo.name = NULL; }
   size_t bufsize = strlen(lenderName) + 1;
   char* tmp = realloc(this->lenderInfo.name, bufsize);
   if (tmp == NULL) { return KIVA_MODEL_OUT_OF_MEMORY_ERR; }
   this->lenderInfo.name = tmp;
-  
+
   if (!strxcpy(this->lenderInfo.name, bufsize, lenderName, "Lender Name")) {
     return KIVA_MODEL_STRING_ERR;
   }
@@ -332,18 +332,18 @@ KivaModel_ErrCode KivaModel_setLenderName(KivaModel* this, const char* lenderNam
 
 
 /**************************************************************************
- * 
+ *
  **************************************************************************/
 KivaModel_ErrCode KivaModel_setLenderLoc(KivaModel* this, const char* lenderLoc) {
   KIVA_MODEL_RETURN_IF_NULL(this);
-  
+
   if (lenderLoc == NULL) { return KIVA_MODEL_INVALID_INPUT_ERR; }
   if (this->lenderInfo.loc != NULL) { free(this->lenderInfo.loc); this->lenderInfo.loc = NULL; }
   size_t bufsize = strlen(lenderLoc) + 1;
   char* tmp = realloc(this->lenderInfo.loc, bufsize);
   if (tmp == NULL) { return KIVA_MODEL_OUT_OF_MEMORY_ERR; }
   this->lenderInfo.loc = tmp;
-  
+
   if (!strxcpy(this->lenderInfo.loc, bufsize, lenderLoc, "Lender Loc")) {
     return KIVA_MODEL_STRING_ERR;
   }
@@ -352,75 +352,114 @@ KivaModel_ErrCode KivaModel_setLenderLoc(KivaModel* this, const char* lenderLoc)
 
 
 /**************************************************************************
- * 
+ *
  **************************************************************************/
 KivaModel_ErrCode KivaModel_setLenderLoanQty(KivaModel* this, const int lenderLoanQty) {
   KIVA_MODEL_RETURN_IF_NULL(this);
-  this->lenderInfo.loanQty = lenderLoanQty; 
-  return KIVA_MODEL_SUCCESS;
-}
-
-
-/**************************************************************************
- * 
- **************************************************************************/
-KivaModel_ErrCode KivaModel_addLenderCountryId(KivaModel* this, const char* countryId) {
-  KIVA_MODEL_RETURN_IF_NULL(this);
-  // JRB TODO: do stuff 
+  this->lenderInfo.loanQty = lenderLoanQty;
   return KIVA_MODEL_SUCCESS;
 }
 
 
 /////////////////////////////////////////////////////////////////////////////
-/// Gets the currently-stored lender ID. 
+/// Adds a country ID to the list of countries supported by the lender.
 /// @param[in,out]  this  Pointer to KivaModel; must be already allocated
-/// @param[out]     lenderId   Pointer to the lender ID C-string; must be 
+/// @param[in]      countryId  ID of the country to add; a two-character
+///       ISO-3361 country code. <em>Ownership is not transferred from the
+///       caller, so the caller should free this variable.</em>
+///       If the countryId is not yet in the list of recognized Kiva
+///       countries, then it will be added to the hash.
+/// @param[in]      countryName  Name of the country to add. If countryId
+///       is already a recognized Kiva country, then the countryName will be
+///       ignored. If the countryId is not yet in the list of countries that
+///       this KivaModel recognizes, then this will be the new country name
+///       for this ID. If NULL, then the countryId will be used as the name.
+///       <em>Ownership is not transferred from the caller, so
+///       the caller should free this variable.</em>
+/////////////////////////////////////////////////////////////////////////////
+KivaModel_ErrCode KivaModel_addLenderCountry(KivaModel* this, const char* countryId, const char* countryName) {
+  KIVA_MODEL_RETURN_IF_NULL(this);
+  KivaModel_ErrCode kmret;
+
+  CountryRec *cntry = NULL;
+  HASH_FIND_STR(this->kivaCountries, countryId, cntry);
+
+  if (cntry == NULL) {
+    // Value of countryId is not already a key in the hash table; add new record.
+    APP_LOG(APP_LOG_LEVEL_INFO, "Lender supports a country (%s -> %s) that isn't in our official Kiva list!!!", countryId, countryName);
+
+    const char* tmpName = NULL;
+    tmpName = (countryName == NULL ? countryId : countryName);
+
+    if ( (kmret = KivaModel_addKivaCountry(this, countryId, tmpName)) != KIVA_MODEL_SUCCESS) {
+      APP_LOG(APP_LOG_LEVEL_ERROR, "Error adding new country (%s): %s", countryId, KivaModel_getErrMsg(kmret));
+      return kmret;
+    }
+
+    HASH_FIND_STR(this->kivaCountries, countryId, cntry);
+    if (cntry == NULL) {
+      return KIVA_MODEL_NULL_POINTER_ERR;
+    }
+
+  }
+
+  // We have the correct country from the hash table; mark it lender-supported.
+  cntry->lenderSupports = true;
+
+  return KIVA_MODEL_SUCCESS;
+}
+
+
+/////////////////////////////////////////////////////////////////////////////
+/// Gets the currently-stored lender ID.
+/// @param[in,out]  this  Pointer to KivaModel; must be already allocated
+/// @param[out]     lenderId   Pointer to the lender ID C-string; must be
 ///       NULL on entry. <em>Ownership is not transferred to the caller, so
 ///       the caller should not free this variable.</em>
 /////////////////////////////////////////////////////////////////////////////
 KivaModel_ErrCode KivaModel_getLenderId(const KivaModel* this, char** lenderId) {
   KIVA_MODEL_RETURN_IF_NULL(this);
   if (*lenderId != NULL) { return KIVA_MODEL_INVALID_INPUT_ERR; }
-  
+
   *lenderId = this->lenderInfo.id;
   return KIVA_MODEL_SUCCESS;
 }
 
 
 /////////////////////////////////////////////////////////////////////////////
-/// Gets the currently-stored lender name. 
+/// Gets the currently-stored lender name.
 /// @param[in,out]  this  Pointer to KivaModel; must be already allocated
-/// @param[out]     lenderName   Pointer to the lender name C-string; must 
+/// @param[out]     lenderName   Pointer to the lender name C-string; must
 ///       be NULL on entry. <em>Ownership is not transferred to the caller, so
 ///       the caller should not free this variable.</em>
 /////////////////////////////////////////////////////////////////////////////
 KivaModel_ErrCode KivaModel_getLenderName(const KivaModel* this, char** lenderName) {
   KIVA_MODEL_RETURN_IF_NULL(this);
   if (*lenderName != NULL) { return KIVA_MODEL_INVALID_INPUT_ERR; }
-  
+
   *lenderName = this->lenderInfo.name;
   return KIVA_MODEL_SUCCESS;
-} 
+}
 
 
 /////////////////////////////////////////////////////////////////////////////
-/// Gets the currently-stored lender location. 
+/// Gets the currently-stored lender location.
 /// @param[in,out]  this  Pointer to KivaModel; must be already allocated
-/// @param[out]     lenderLoc   Pointer to the lender location C-string; 
-///       must be NULL on entry. <em>Ownership is not transferred to the 
+/// @param[out]     lenderLoc   Pointer to the lender location C-string;
+///       must be NULL on entry. <em>Ownership is not transferred to the
 ///       caller, so the caller should not free this variable.</em>
 /////////////////////////////////////////////////////////////////////////////
 KivaModel_ErrCode KivaModel_getLenderLoc(const KivaModel* this, char** lenderLoc) {
   KIVA_MODEL_RETURN_IF_NULL(this);
   if (*lenderLoc != NULL) { return KIVA_MODEL_INVALID_INPUT_ERR; }
-  
+
   *lenderLoc = this->lenderInfo.loc;
   return KIVA_MODEL_SUCCESS;
 }
 
 
 /**************************************************************************
- * 
+ *
  **************************************************************************/
 KivaModel_ErrCode KivaModel_getLenderLoanQty(const KivaModel* this, int* lenderLoanQty) {
   KIVA_MODEL_RETURN_IF_NULL(this);
@@ -430,7 +469,7 @@ KivaModel_ErrCode KivaModel_getLenderLoanQty(const KivaModel* this, int* lenderL
 
 
 /**************************************************************************
- * 
+ *
  **************************************************************************/
 KivaModel_ErrCode KivaModel_getLenderCountryQty(const KivaModel* this, int* lenderCountryQty) {
   KIVA_MODEL_RETURN_IF_NULL(this);
@@ -450,28 +489,28 @@ KivaModel_ErrCode KivaModel_getLenderCountryQty(const KivaModel* this, int* lend
 /// parameters is not transferred by this function. The caller is still
 /// responsible for freeing that data.</em>
 /// @param[in,out]  this  Pointer to KivaModel; must be already allocated
-/// @param[in]      countryId  ID of the country to add; a two-character 
+/// @param[in]      countryId  ID of the country to add; a two-character
 ///       ISO-3361 country code
 /// @param[in]      countryName  Name of the country to add
 /////////////////////////////////////////////////////////////////////////////
 KivaModel_ErrCode KivaModel_addKivaCountry(KivaModel* this, const char* countryId, const char* countryName) {
   KIVA_MODEL_RETURN_IF_NULL(this);
   KivaModel_ErrCode kmret;
-  
+
   CountryRec *newCntry = NULL;
-  if ( (kmret = KivaModel_CountryRec_create(&newCntry)) != KIVA_MODEL_SUCCESS) { 
+  if ( (kmret = KivaModel_CountryRec_create(&newCntry)) != KIVA_MODEL_SUCCESS) {
     APP_LOG(APP_LOG_LEVEL_ERROR, "Could not create new country record (%s): %s", countryId, KivaModel_getErrMsg(kmret));
-    return kmret; 
+    return kmret;
   }
   if ( (kmret = KivaModel_CountryRec_init(newCntry, countryId, countryName)) != KIVA_MODEL_SUCCESS) {
     APP_LOG(APP_LOG_LEVEL_ERROR, "Could not initialize new country record (%s): %s", countryId, KivaModel_getErrMsg(kmret));
     KivaModel_CountryRec_destroy(newCntry);  newCntry = NULL;
     return kmret;
   }
-  
+
   CountryRec *cntry = NULL;
   HASH_FIND_STR(this->kivaCountries, countryId, cntry);
-  
+
   if (cntry == NULL) {
     // Value of countryId is not already a key in the hash table; add new record.
     HEAP_LOG("adding new record...");
@@ -489,19 +528,36 @@ KivaModel_ErrCode KivaModel_addKivaCountry(KivaModel* this, const char* countryI
 }
 
 
-/**************************************************************************
- * Returns a pointer to the country name identified by the specified ID.
- * Caller does not own (should not free) countryName.
- **************************************************************************/
+/////////////////////////////////////////////////////////////////////////////
+/// Provides a pointer to the country name identified by the specified ID.
+/// @param[in,out]  this  Pointer to KivaModel; must be already allocated
+/// @param[in]      countryId  ID of the country to add; a two-character
+///       ISO-3361 country code. <em>Ownership of this parameter is not
+///       transferred, so the caller is still responsible for freeing this
+///       variable.
+/// @param[out]     countryName  If the country ID is recognized by this
+///       KivaModel, this parameter will be replaced with a pointer to the
+///       recognized country name. Must be NULL upon entry to this function.
+///       If the country ID is not recognized, then this parameter will
+///       remain NULL.
+///       <em>Caller does not own (should not free) the memory associated
+///       with countryName.</em>
+/// @return  KIVA_MODEL_SUCCESS on success
+///          KIVA_MODEL_INVALID_INPUT_ERR if countryName is not NULL on entry
+/////////////////////////////////////////////////////////////////////////////
 KivaModel_ErrCode KivaModel_getKivaCountryName(const KivaModel* this, const char* countryId, const char** countryName) {
+  KIVA_MODEL_RETURN_IF_NULL(this);
+  if (*countryName != NULL) { return KIVA_MODEL_INVALID_INPUT_ERR; }
+
   CountryRec* cntry = NULL;
-  
+
   HASH_FIND_STR(this->kivaCountries, countryId, cntry);
   if (cntry == NULL) {
     *countryName = NULL;
-    return KIVA_MODEL_INVALID_INPUT_ERR;
+    return KIVA_MODEL_SUCCESS;
   }
   *countryName = cntry->name;
   return KIVA_MODEL_SUCCESS;
 }
+
 

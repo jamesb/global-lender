@@ -11,10 +11,10 @@ struct LenderInfo {
 };
 
 
-typedef struct CountryRec { 
+typedef struct CountryRec {
   char* id;              ///< the two-character ISO-3361 code
-  char* name; 
-  bool lenderSupports;
+  char* name;            ///< the name of the country
+  bool lenderSupports;   ///< indicates if the lender supports this country
   UT_hash_handle hh;
 } CountryRec;
 

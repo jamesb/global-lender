@@ -176,11 +176,8 @@ static void inbox_received_callback(DictionaryIterator *iterator, void *context)
       char** strings = malloc(sizeof(char*) * num_strings);
       for (uint8_t n = 0; n < num_strings; n += 1) {
         strings[n] = data_processor_get_string(state);
-        const char* countryName = NULL;
-        if (KivaModel_getKivaCountryName(dataModel, strings[n], &countryName) == KIVA_MODEL_SUCCESS) {
-//          APP_LOG(APP_LOG_LEVEL_DEBUG, "COMM %s = %s", strings[n], countryName);
-          KivaModel_addLenderCountryId(dataModel, strings[n]);
-        }
+        // JRB TODO: If it's not in the recognized Kiva list, try to get the ISO 3316 name for this country ID.
+        KivaModel_addLenderCountry(dataModel, strings[n], NULL);
         free(strings[n]);
       }
       free(strings);
