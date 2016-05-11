@@ -16,17 +16,17 @@ enum MenuItems {
   MNU_ITEM_LENDER_INFO = 0,
   MNU_ITEM_LOANS_FOR_YOU,
   MNU_ITEM_ACHIEVEMENTS,
-  MNU_ITEM_TEAMS, 
-  MNU_ITEM_COUNTRIES, 
-  MNU_ITEM_SECTORS, 
-  MNU_ITEM_ACTIVITIES, 
-  MNU_ITEM_FIELD_PARTNERS, 
+  MNU_ITEM_TEAMS,
+  MNU_ITEM_COUNTRIES,
+  MNU_ITEM_SECTORS,
+  MNU_ITEM_ACTIVITIES,
+  MNU_ITEM_FIELD_PARTNERS,
   MNU_ITEM_ACKNOWLEDGEMENTS,
-    
+
   NUM_MENU_ITEMS
 };
-  
-  
+
+
 static Window* wndMainMenu;
 static MenuLayer* lyrMainMenu;
 static GBitmap* bmpLogo;
@@ -34,7 +34,7 @@ static const KivaModel* kivaModel;
 
 
 /**************************************************************************
- * 
+ *
  **************************************************************************/
 static uint16_t wndMainMenu_get_num_sections_callback(MenuLayer* menu_layer, void* data) {
   return NUM_MENU_SECTIONS;
@@ -42,7 +42,7 @@ static uint16_t wndMainMenu_get_num_sections_callback(MenuLayer* menu_layer, voi
 
 
 /**************************************************************************
- * 
+ *
  **************************************************************************/
 static uint16_t wndMainMenu_get_num_rows_callback(MenuLayer* menu_layer, uint16_t section_index, void* data) {
   switch (section_index) {
@@ -55,12 +55,12 @@ static uint16_t wndMainMenu_get_num_rows_callback(MenuLayer* menu_layer, uint16_
 
 
 /**************************************************************************
- * 
+ *
  **************************************************************************/
 static void wndMainMenu_draw_row_callback(GContext* ctx, const Layer* cell_layer, MenuIndex* cell_index, void* data) {
   GSize size = layer_get_frame(cell_layer).size;
   GRect drawRect = GRect(0, 0, size.w, size.h);
-  
+
   switch (cell_index->section) {
     case 0: {
       switch (cell_index->row) {
@@ -70,7 +70,7 @@ static void wndMainMenu_draw_row_callback(GContext* ctx, const Layer* cell_layer
             graphics_context_set_stroke_color(ctx, COLOR_FALLBACK(GColorPictonBlue, GColorWhite));
             graphics_context_set_stroke_width(ctx, 6);
             graphics_context_set_antialiased(ctx, true);
-            graphics_draw_round_rect(ctx, drawRect, 3); 
+            graphics_draw_round_rect(ctx, drawRect, 3);
           } else {
             menu_cell_basic_draw(ctx, cell_layer, "Global Lender", NULL, NULL);
           }
@@ -81,22 +81,22 @@ static void wndMainMenu_draw_row_callback(GContext* ctx, const Layer* cell_layer
         case MNU_ITEM_ACHIEVEMENTS:
           menu_cell_basic_draw(ctx, cell_layer, "Achievements", NULL, NULL);
           break;
-        case MNU_ITEM_TEAMS: 
+        case MNU_ITEM_TEAMS:
           menu_cell_basic_draw(ctx, cell_layer, "Teams", NULL, NULL);
           break;
-        case MNU_ITEM_COUNTRIES: 
+        case MNU_ITEM_COUNTRIES:
           menu_cell_basic_draw(ctx, cell_layer, "Countries", NULL, NULL);
           break;
-        case MNU_ITEM_SECTORS: 
+        case MNU_ITEM_SECTORS:
           menu_cell_basic_draw(ctx, cell_layer, "Sectors", NULL, NULL);
           break;
-        case MNU_ITEM_ACTIVITIES: 
+        case MNU_ITEM_ACTIVITIES:
           menu_cell_basic_draw(ctx, cell_layer, "Activities", NULL, NULL);
           break;
-        case MNU_ITEM_FIELD_PARTNERS: 
+        case MNU_ITEM_FIELD_PARTNERS:
           menu_cell_basic_draw(ctx, cell_layer, "Field Partners", NULL, NULL);
           break;
-        case MNU_ITEM_ACKNOWLEDGEMENTS: 
+        case MNU_ITEM_ACKNOWLEDGEMENTS:
           menu_cell_basic_draw(ctx, cell_layer, "Acknowledgements", NULL, NULL);
           break;
       }
@@ -107,7 +107,7 @@ static void wndMainMenu_draw_row_callback(GContext* ctx, const Layer* cell_layer
 
 
 /**************************************************************************
- * 
+ *
  **************************************************************************/
 static void wndMainMenu_select_callback(MenuLayer* menu_layer, MenuIndex* cell_index, void* data) {
   // Use the row to specify which item will receive the select action
@@ -127,7 +127,7 @@ static void wndMainMenu_select_callback(MenuLayer* menu_layer, MenuIndex* cell_i
       // Blake Swopes - Kiva Country Collector
       // Helpful Pebble Forums posts by:
       //   @LeFauve, @allan, @Christian Reinbacher
-      
+
       break;
     }
   }
@@ -136,10 +136,10 @@ static void wndMainMenu_select_callback(MenuLayer* menu_layer, MenuIndex* cell_i
 
 #if defined(PBL_ROUND)
 /**************************************************************************
- * 
+ *
  **************************************************************************/
-static int16_t wndMainMenu_get_cell_height_callback(MenuLayer* menu_layer, MenuIndex* cell_index, void* callback_context) { 
-  Layer* lyrRoot = window_get_root_layer(wndMainMenu); 
+static int16_t wndMainMenu_get_cell_height_callback(MenuLayer* menu_layer, MenuIndex* cell_index, void* callback_context) {
+  Layer* lyrRoot = window_get_root_layer(wndMainMenu);
   GRect bounds = layer_get_bounds(lyrRoot);
   return (int)(bounds.size.h / 3);
 }
@@ -161,7 +161,7 @@ void wndMainMenu_updateView(const KivaModel* km) {
  **************************************************************************/
 static void wndMainMenu_load(Window* window) {
   window_set_background_color(window, COLOR_FALLBACK(GColorDarkGreen, GColorBlack));
-  Layer* lyrRoot = window_get_root_layer(window); 
+  Layer* lyrRoot = window_get_root_layer(window);
   GRect bounds = layer_get_bounds(lyrRoot);
 
   if (lyrMainMenu) {
@@ -180,10 +180,10 @@ static void wndMainMenu_load(Window* window) {
     menu_layer_set_highlight_colors(lyrMainMenu, COLOR_FALLBACK(GColorPictonBlue, GColorWhite), GColorBlack);
     menu_layer_set_click_config_onto_window(lyrMainMenu, window);
     layer_add_child(lyrRoot, menu_layer_get_layer(lyrMainMenu));
-    
+
     bmpLogo = gbitmap_create_with_resource(RESOURCE_ID_IMG_LOGO_WIDE);
     HEAP_LOG("after bmpLogo created");
-    
+
     wndLenderBasics_create();
     wndCountries_create();
   }
@@ -197,7 +197,7 @@ static void wndMainMenu_unload(Window* window) {
   wndCountries_destroy();
   wndLenderBasics_destroy();
   gbitmap_destroy(bmpLogo);   bmpLogo = NULL;
-  
+
   if (!lyrMainMenu) {
     APP_LOG(APP_LOG_LEVEL_WARNING, "Attempting to destroy a null pointer!");
   } else {
@@ -221,7 +221,7 @@ void wndMainMenu_createPush() {
       .unload = wndMainMenu_unload
     });
   }
-  
+
   // Show the Window on the watch, with animated=true
   window_stack_push(wndMainMenu, true);
 }

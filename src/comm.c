@@ -10,14 +10,14 @@
 enum {
   KEY_PEBKIT_READY = 0,
   KEY_PEBBLE_READY,
-  
+
   KEY_KIVA_COUNTRY_SET = 10,
   KEY_KIVA_SECTOR_SET,
   KEY_KIVA_ACTIVITY_SET,
   KEY_KIVA_FIELD_PARTNER_SET,
-  
+
   APP_ACHIEVEMENT_SET = 20,
-  
+
   KEY_LENDER_ID = 30,
   KEY_LENDER_NAME,
   KEY_LENDER_LOC,
@@ -29,7 +29,7 @@ enum {
   KEY_LENDER_FIELD_PARTNER_SET,
   KEY_LENDER_TARGET_LOAN_SET,
   KEY_LENDER_ACHIEVEMENT_SET,
-  
+
   KEY_PUT_LOANS_IN_BASKET = 100,
 };
 
@@ -83,7 +83,7 @@ static void inbox_received_callback(DictionaryIterator *iterator, void *context)
     // PebbleKit JS is ready! Safe to send messages
     pebkitReady = true;
   }
-  
+
   if ( (tuple = dict_find(iterator, KEY_LENDER_ID)) != NULL ) {
     char* lenderIdBuf = NULL;
     size_t bufsize = strlen(tuple->value->cstring)+1;
@@ -118,7 +118,7 @@ static void inbox_received_callback(DictionaryIterator *iterator, void *context)
     }
     free(lenderIdBuf); lenderIdBuf = NULL;
   }
-  
+
   if ( (tuple = dict_find(iterator, KEY_LENDER_NAME)) != NULL ) {
     const char* readable = "Lender Name";
     size_t bufsize = strlen(tuple->value->cstring)+1;
@@ -134,7 +134,7 @@ static void inbox_received_callback(DictionaryIterator *iterator, void *context)
     }
     free(lenderNameBuf); lenderNameBuf = NULL;
   }
-    
+
   if ( (tuple = dict_find(iterator, KEY_LENDER_LOC)) != NULL ) {
     const char* readable = "Lender Location";
     size_t bufsize = strlen(tuple->value->cstring)+1;
@@ -150,7 +150,7 @@ static void inbox_received_callback(DictionaryIterator *iterator, void *context)
     }
     free(lenderLocBuf); lenderLocBuf = NULL;
   }
-    
+
   if ( (tuple = dict_find(iterator, KEY_LENDER_LOAN_QTY)) != NULL ) {
     const char* readable = "Lender Loan Quantity";
     long int lenderLoanQty = 0;
@@ -188,13 +188,13 @@ static void inbox_received_callback(DictionaryIterator *iterator, void *context)
     }
     free(countrySetBuf); countrySetBuf = NULL;
   }
-    
+
   if (!commHandlers.notifyApp) {
-    APP_LOG(APP_LOG_LEVEL_ERROR, "Attempted operation on NULL pointer.");   
+    APP_LOG(APP_LOG_LEVEL_ERROR, "Attempted operation on NULL pointer.");
   } else {
     (*commHandlers.notifyApp)(dataModel);
   }
-  
+
 }
 
 
@@ -229,7 +229,7 @@ void comm_sendUpdateRequest() {
     APP_LOG(APP_LOG_LEVEL_WARNING, "Tried to send a message from the watch before PebbleKit JS is ready.");
     return;
   }
-  
+
   DictionaryIterator *iter;
   AppMessageResult result = app_message_outbox_begin(&iter);
   if(result != APP_MSG_OK) {
@@ -256,7 +256,7 @@ void comm_setHandlers(const CommHandlers cmh) {
 void comm_open() {
   dataModel = NULL;
   if ( (dataModel = KivaModel_create("")) == NULL) { APP_LOG(APP_LOG_LEVEL_ERROR, "Could not initialize data model."); }
-  
+
   // Register callbacks
   app_message_register_inbox_received(inbox_received_callback);
   app_message_register_inbox_dropped(inbox_dropped_callback);
@@ -267,8 +267,8 @@ void comm_open() {
   // JRB TODO: Consider optimizing buffer sizes in the future if memory is constrained.
   app_message_open(app_message_inbox_size_maximum(), app_message_outbox_size_maximum());
 }
-  
-  
+
+
 /**************************************************************************
  * Closes communication and frees memory.
  **************************************************************************/
@@ -277,4 +277,4 @@ void comm_close() {
     KivaModel_destroy(dataModel);  dataModel = NULL;
   }
 }
-  
+

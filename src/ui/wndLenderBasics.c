@@ -15,7 +15,7 @@ static TextLayer* lyrLenderLoanSummary;
 
 
 /**************************************************************************
- * Updates the displayed digital time 
+ * Updates the displayed digital time
  **************************************************************************/
 void wndLenderBasics_updateTime() {
   lyrDigitime_updateTime();
@@ -28,28 +28,36 @@ void wndLenderBasics_updateTime() {
 void wndLenderBasics_updateView(const KivaModel* km) {
   if (!wndLenderBasics) return;
   if (!window_is_loaded(wndLenderBasics)) return;
-  
-  // JRB TODO: Do lenName and lenLoc need to be malloc'd and freed?
+
+  KivaModel_ErrCode kmret;
   static char* lenName = NULL;
-  if (KivaModel_getLenderName(km, &lenName) == KIVA_MODEL_SUCCESS) 
+  lenName = NULL;
+  if ( (kmret = KivaModel_getLenderName(km, &lenName)) != KIVA_MODEL_SUCCESS ) {
+      APP_LOG(APP_LOG_LEVEL_ERROR, "KivaModel error: %s", KivaModel_getErrMsg(kmret));
+  } else {
     text_layer_set_text(lyrLenderName, lenName);
-  
+  }
+
   static char* lenLoc = NULL;
-  if (KivaModel_getLenderLoc(km, &lenLoc) == KIVA_MODEL_SUCCESS) 
+  lenLoc = NULL;
+  if ( (kmret = KivaModel_getLenderLoc(km, &lenLoc)) != KIVA_MODEL_SUCCESS ) {
+      APP_LOG(APP_LOG_LEVEL_ERROR, "Kiva Model error: %s", KivaModel_getErrMsg(kmret));
+  } else {
     text_layer_set_text(lyrLenderLoc, lenLoc);
-  
-  KivaModel_ErrCode kmret;  int loanQty = 0;
+  }
+
+  int loanQty = 0;
   if ( (kmret = KivaModel_getLenderLoanQty(km, &loanQty)) != KIVA_MODEL_SUCCESS) {
     APP_LOG(APP_LOG_LEVEL_ERROR, "Kiva Model error: %s", KivaModel_getErrMsg(kmret));
     return;
   }
-  
-  long lret = 0;  static char buffer[100]; 
+
+  long lret = 0;  static char buffer[100];
   if ( (lret = snprintf(buffer, sizeof(buffer), "%d Loans", loanQty)) < 0) {
     APP_LOG(APP_LOG_LEVEL_ERROR, "Lender Summary string was not written correctly. Ret=%ld", lret);
   } else if ((size_t)lret > sizeof(buffer)) {
     APP_LOG(APP_LOG_LEVEL_WARNING, "Lender Summary string was truncated. %ld characters required.", lret);
-  } else { 
+  } else {
     text_layer_set_text(lyrLenderLoanSummary, buffer);
   }
 }
@@ -86,14 +94,14 @@ void wndLenderBasics_createPush() {
  **************************************************************************/
 static void wndLenderBasics_load(Window* window) {
   window_set_background_color(window, COLOR_FALLBACK(GColorPictonBlue, GColorBlack));
-  Layer* lyrRoot = window_get_root_layer(window); 
+  Layer* lyrRoot = window_get_root_layer(window);
   GRect bounds = layer_get_bounds(lyrRoot);
   GColor fontColor = GColorBlack;
 
   // Digital Time
   lyrDigitime_create(GRect(0, (int)(bounds.size.h * 0.05), bounds.size.w, 20), lyrRoot);
   lyrDigitime_stylize(GColorClear, fontColor, GTextAlignmentCenter, fonts_get_system_font(FONT_KEY_GOTHIC_14));
-  
+
   // Lender Name
   lyrLenderName = text_layer_create( GRect(0, (int)(bounds.size.h * 0.3), bounds.size.w, 30) );
   textLayer_stylize(lyrLenderName, GColorClear, fontColor, GTextAlignmentCenter, fonts_get_system_font(FONT_KEY_ROBOTO_CONDENSED_21));
@@ -122,7 +130,7 @@ static void wndLenderBasics_unload(Window* window) {
   text_layer_destroy(lyrLenderLoanSummary);  lyrLenderLoanSummary = NULL;
   text_layer_destroy(lyrLenderLoc);          lyrLenderLoc = NULL;
   text_layer_destroy(lyrLenderName);         lyrLenderName = NULL;
-  
+
   lyrDigitime_destroy();
 }
 
