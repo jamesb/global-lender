@@ -12,9 +12,10 @@ struct LenderInfo {
 
 
 typedef struct CountryRec {
-  char* id;              ///< the two-character ISO-3361 code
-  char* name;            ///< the name of the country
-  bool lenderSupports;   ///< indicates if the lender supports this country
+  char* id;                 ///< the two-character ISO-3361 code
+  char* name;               ///< the name of the country
+  bool lenderSupport : 1;   ///< indicates if the lender has supported any loans in this country
+  bool kivaActive : 1;      ///< indicates if Kiva actively serves loans in this country;
   UT_hash_handle hh;
 } CountryRec;
 
@@ -26,6 +27,3 @@ struct KivaModel {
 
 
 KivaModel_ErrCode KivaModel_init(KivaModel* this, const char*);
-
-KivaModel_ErrCode KivaModel_initKivaCountries(KivaModel* this);
-

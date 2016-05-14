@@ -27,8 +27,8 @@ KivaModel_ErrCode KivaModel_setLenderName(KivaModel* const this, const char*);
 KivaModel_ErrCode KivaModel_setLenderLoc(KivaModel* this, const char*);
 KivaModel_ErrCode KivaModel_setLenderLoanQty(KivaModel* this, const int);
 
-KivaModel_ErrCode KivaModel_addKivaCountry(KivaModel* this, const char*, const char*);
 KivaModel_ErrCode KivaModel_addLenderCountry(KivaModel* this, const char*, const char*);
+KivaModel_ErrCode KivaModel_addKivaCountry(KivaModel* this, const char*, const char*);
 
 // Getters
 KivaModel_ErrCode KivaModel_getLenderId(const KivaModel* this, char**);
@@ -37,5 +37,6 @@ KivaModel_ErrCode KivaModel_getLenderLoc(const KivaModel* this, char**);
 KivaModel_ErrCode KivaModel_getLenderLoanQty(const KivaModel* this, int*);
 
 KivaModel_ErrCode KivaModel_getLenderCountryQty(const KivaModel* this, int*);
+KivaModel_ErrCode KivaModel_getKivaCountryQty(const KivaModel* this, int*);
 KivaModel_ErrCode KivaModel_getKivaCountryName(const KivaModel* this, const char*, const char**);
 

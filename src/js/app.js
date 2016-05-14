@@ -2,8 +2,7 @@
 // Country Codes
 var Iso3166 = require('iso3166');
 var iso3166 = Iso3166.getCountryCodes();
-var KivaData = require('kivaData');
-var kivaCC = KivaData.getCountryCodes();
+var kivaCC = {};
 
 var baseKivaUrl = "http://api.kivaws.org/v1/";
 var jsonExt = ".json";
@@ -162,7 +161,7 @@ function getLoansForLender() {
     // pageNum range = [1 .. n pages];   pageIter range = [0 .. n-1 pages]
     var pageNum, pageSize, pageTotal, pageIter;
     var lenderLoanQty;
-    var lenderCC = [];
+    var lenderCC = {};
     
     for (pageIter=0; pageIter < Object.keys(jsonPageArray).length; pageIter++) {
       json = JSON.parse(jsonPageArray[pageIter]);
@@ -175,23 +174,96 @@ function getLoansForLender() {
       lenderLoanQty = json.paging.total;
       
       // Iterate through each loan. 
-      for (var loanIter = 0; loanIter < pageSize && (pageSize * pageIter + loanIter) < lenderLoanQty; loanIter++) { 
-        var countryCode = json.loans[loanIter].location.country_code;
-        var countryName = json.loans[loanIter].location.country;
+      for (var lidx = 0; lidx < pageSize && (pageSize * pageIter + lidx) < lenderLoanQty; lidx++) { 
+        var countryCode = json.loans[lidx].location.country_code;
+        var countryName = json.loans[lidx].location.country;
+        lenderCC[countryCode] = countryName;
         if (!(countryCode in kivaCC)) {
+          // JRB TODO: store the country ID and name in a delta list for sending to the watch.
           kivaCC[countryCode] = countryName;
-          console.log("NEW KIVA COUNTRY CODE: " + countryCode + " = " + countryName + " { ISO-3166 = " + iso3166[countryCode] + "}");
+          console.log("(LENDER LOAN) NEW KIVA COUNTRY CODE: " + countryCode + " = " + countryName + " { ISO-3166 = " + iso3166[countryCode] + " }");
         }
-        lenderCC.push(countryCode);
       }
-    
     } // end page iteration
+    
+    // Assemble Lender's Kiva countries
+    var lenderCCFlat = "";
+    for (var key in lenderCC) { 
+      if (lenderCC.hasOwnProperty(key)) {
+        lenderCCFlat = lenderCCFlat + key + "|" + lenderCC[key] + "|";
+      }
+    }
+    lenderCCFlat = lenderCCFlat.substring(0, lenderCCFlat.length - 1);
     
     // Assemble dictionary using our keys
     dictionary = {
       "KEY_LENDER_ID"          : lenderId,
       "KEY_LENDER_LOAN_QTY"    : lenderLoanQty,
-      "KEY_LENDER_COUNTRY_SET" : lenderCC.unique().sort().join('|')
+      "KEY_LENDER_COUNTRY_SET" : lenderCCFlat
+    };
+
+    return dictionary;
+  }; // end parseFxn
+
+  callKivaApiAsync(url, parseFxn);
+}
+
+
+/**************************************************************************
+ **************************************************************************/
+function getKivaActiveFieldPartners() {
+  var url = baseKivaUrl + "partners" + jsonExt;
+
+  var parseFxn = function(jsonPageArray) {
+    var dictionary = {};
+    var json = "";
+    // pageNum range = [1 .. n pages];   pageIter range = [0 .. n-1 pages]
+    var pageNum, pageSize, pageTotal, pageIter;
+    var partnerQty;
+    var deltaKivaCC = {};
+    
+    for (pageIter=0; pageIter < Object.keys(jsonPageArray).length; pageIter++) {
+      json = JSON.parse(jsonPageArray[pageIter]);
+      
+      pageNum = parseInt(json.paging.page, 10);
+      pageSize = parseInt(json.paging.page_size, 10);
+      pageTotal = parseInt(json.paging.pages, 10);
+      console.log("Parsing Page " + pageNum + " of " + pageTotal);
+
+      partnerQty = json.paging.total;
+      
+      // Iterate through each partner. 
+      for (var pidx = 0; pidx < pageSize && (pageSize * pageIter + pidx) < partnerQty; pidx++) { 
+        var partnerCountryQty = json.partners[pidx].countries.length;
+        var partnerStatus = json.partners[pidx].status;
+        
+        for (var cidx=0; cidx < partnerCountryQty; cidx++) {
+          var countryCode = json.partners[pidx].countries[cidx].iso_code;
+          var countryName = json.partners[pidx].countries[cidx].name;
+          if (!(countryCode in kivaCC) && partnerStatus.toLowerCase() === "active") {
+            // JRB TODO: store the country ID and name in a delta list for sending to the watch.
+            kivaCC[countryCode] = countryName;
+            deltaKivaCC[countryCode] = countryName;
+            console.log("(PARTNER) NEW KIVA COUNTRY CODE: " + countryCode + " = " + countryName + " { ISO-3166 = " + iso3166[countryCode] + " }");
+          }
+        }
+      }
+    
+    } // end page iteration
+    
+    
+    // Assemble Kiva countries not previously sent to watch
+    var deltaKivaCCFlat = "";
+    for (var key in deltaKivaCC) { 
+      if (deltaKivaCC.hasOwnProperty(key)) {
+        deltaKivaCCFlat = deltaKivaCCFlat + key + "|" + deltaKivaCC[key] + "|";
+      }
+    }
+    deltaKivaCCFlat = deltaKivaCCFlat.substring(0, deltaKivaCCFlat.length - 1);
+    
+    // Assemble dictionary using our keys
+    dictionary = {
+      "KEY_KIVA_COUNTRY_SET" : deltaKivaCCFlat
     };
 
     return dictionary;
@@ -210,8 +282,7 @@ Pebble.addEventListener('ready',
     console.log("PebbleKit JS ready!");
     Pebble.sendAppMessage({"KEY_PEBKIT_READY": 1});
     
-    getLenderInfo();
-    getLoansForLender();
+    getKivaActiveFieldPartners();
   }
 );
 
@@ -222,7 +293,11 @@ Pebble.addEventListener('ready',
 Pebble.addEventListener('appmessage',
   function(e) {
     console.log("AppMessage received!");
-    getLenderInfo();
-    getLoansForLender();
+    if ('KEY_GET_LENDER_INFO' in e.payload) {
+      getLenderInfo();
+      getLoansForLender();
+    } else {
+      console.log("Unrecognized app message: " + JSON.stringify(e.payload));
+    }
   }                     
 );
