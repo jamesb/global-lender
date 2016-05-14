@@ -13,5 +13,6 @@ var searchData=
   ['mnu_5fitem_5flender_5finfo',['MNU_ITEM_LENDER_INFO',['../wnd_main_menu_8c.html#aeda06dd7bf5623d17fd1ff42166d0f25af779da58458770043e6cebe84a6209bb',1,'wndMainMenu.c']]],
   ['mnu_5fitem_5floans_5ffor_5fyou',['MNU_ITEM_LOANS_FOR_YOU',['../wnd_main_menu_8c.html#aeda06dd7bf5623d17fd1ff42166d0f25a354639496bce6e337c94aa725bb1d5ca',1,'wndMainMenu.c']]],
   ['mnu_5fitem_5fsectors',['MNU_ITEM_SECTORS',['../wnd_main_menu_8c.html#aeda06dd7bf5623d17fd1ff42166d0f25a77777195abfe1d09819a2ed559a7b44b',1,'wndMainMenu.c']]],
-  ['mnu_5fitem_5fteams',['MNU_ITEM_TEAMS',['../wnd_main_menu_8c.html#aeda06dd7bf5623d17fd1ff42166d0f25a3d1d3974b61fcb44895236b2634df752',1,'wndMainMenu.c']]]
+  ['mnu_5fitem_5fteams',['MNU_ITEM_TEAMS',['../wnd_main_menu_8c.html#aeda06dd7bf5623d17fd1ff42166d0f25a3d1d3974b61fcb44895236b2634df752',1,'wndMainMenu.c']]],
+  ['msgkey',['MsgKey',['../comm_8h.html#ad4843d812d90ec4f7e8726a2755f8e7c',1,'MsgKey():&#160;comm.h'],['../comm_8h.html#a62c86b93b49ea9f777a157c9aa3eb995',1,'MsgKey():&#160;comm.h']]]
 ];

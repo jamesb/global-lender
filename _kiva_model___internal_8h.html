@@ -134,10 +134,7 @@ Typedefs</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:ac2e95bb58567180179472f16994f3604"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_kiva_model_8h.html#aa4c109eff106cf22169394f4fc6357bc">KivaModel_ErrCode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_kiva_model___internal_8h.html#ac2e95bb58567180179472f16994f3604">KivaModel_init</a> (<a class="el" href="struct_kiva_model.html">KivaModel</a> *this, const char *)</td></tr>
-<tr class="memdesc:ac2e95bb58567180179472f16994f3604"><td class="mdescLeft">&#160;</td><td class="mdescRight">Internal initialization.  <a href="#ac2e95bb58567180179472f16994f3604">More...</a><br /></td></tr>
 <tr class="separator:ac2e95bb58567180179472f16994f3604"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae78944340a58a4a3c29d269eb9102c2d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_kiva_model_8h.html#aa4c109eff106cf22169394f4fc6357bc">KivaModel_ErrCode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_kiva_model___internal_8h.html#ae78944340a58a4a3c29d269eb9102c2d">KivaModel_initKivaCountries</a> (<a class="el" href="struct_kiva_model.html">KivaModel</a> *this)</td></tr>
-<tr class="separator:ae78944340a58a4a3c29d269eb9102c2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Typedef Documentation</h2>
 <a class="anchor" id="a09dfd12d1e1d6a8eda4f99bafc299ee1"></a>
@@ -167,7 +164,7 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const char *&#160;</td>
-          <td class="paramname">&#160;</td>
+          <td class="paramname"><em>lenderId</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -176,27 +173,10 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>Internal initialization. </p>
-
-</div>
-</div>
-<a class="anchor" id="ae78944340a58a4a3c29d269eb9102c2d"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="_kiva_model_8h.html#aa4c109eff106cf22169394f4fc6357bc">KivaModel_ErrCode</a> KivaModel_initKivaCountries </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="struct_kiva_model.html">KivaModel</a> *&#160;</td>
-          <td class="paramname"><em>this</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Country hash table initialization </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Internal initialization </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in,out]</td><td class="paramname">this</td><td>Pointer to <a class="el" href="struct_kiva_model.html">KivaModel</a>; must be already allocated; this-&gt;kivaCountries must be NULL </td></tr>
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">this</td><td>Pointer to <a class="el" href="struct_kiva_model.html">KivaModel</a>; must be already allocated </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">lenderId</td><td>Pointer to the lender ID C-string. Identifies the lender uniquely on kiva.org. <em>Ownership is not transferred to this function, so the caller is still responsible for freeing this variable.</em> </td></tr>
   </table>
   </dd>
 </dl>

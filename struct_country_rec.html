@@ -110,9 +110,12 @@ Data Fields</h2></td></tr>
 <tr class="memitem:a5ac083a645d964373f022d03df4849c8"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_country_rec.html#a5ac083a645d964373f022d03df4849c8">name</a></td></tr>
 <tr class="memdesc:a5ac083a645d964373f022d03df4849c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">the name of the country  <a href="#a5ac083a645d964373f022d03df4849c8">More...</a><br /></td></tr>
 <tr class="separator:a5ac083a645d964373f022d03df4849c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8cd8650837c9cf7fa38f5d687defc3a1"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_country_rec.html#a8cd8650837c9cf7fa38f5d687defc3a1">lenderSupports</a></td></tr>
-<tr class="memdesc:a8cd8650837c9cf7fa38f5d687defc3a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">indicates if the lender supports this country  <a href="#a8cd8650837c9cf7fa38f5d687defc3a1">More...</a><br /></td></tr>
-<tr class="separator:a8cd8650837c9cf7fa38f5d687defc3a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a72d0363c35a5fdd1c5ac0476df42be31"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_country_rec.html#a72d0363c35a5fdd1c5ac0476df42be31">lenderSupport</a>: 1</td></tr>
+<tr class="memdesc:a72d0363c35a5fdd1c5ac0476df42be31"><td class="mdescLeft">&#160;</td><td class="mdescRight">indicates if the lender has supported any loans in this country  <a href="#a72d0363c35a5fdd1c5ac0476df42be31">More...</a><br /></td></tr>
+<tr class="separator:a72d0363c35a5fdd1c5ac0476df42be31"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1f6060a7216079a5dc1203bb2caa3d93"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_country_rec.html#a1f6060a7216079a5dc1203bb2caa3d93">kivaActive</a>: 1</td></tr>
+<tr class="memdesc:a1f6060a7216079a5dc1203bb2caa3d93"><td class="mdescLeft">&#160;</td><td class="mdescRight">indicates if Kiva actively serves loans in this country;  <a href="#a1f6060a7216079a5dc1203bb2caa3d93">More...</a><br /></td></tr>
+<tr class="separator:a1f6060a7216079a5dc1203bb2caa3d93"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a67d3d81a4f9a9622b0befade8d131661"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_u_t__hash__handle.html">UT_hash_handle</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_country_rec.html#a67d3d81a4f9a9622b0befade8d131661">hh</a></td></tr>
 <tr class="separator:a67d3d81a4f9a9622b0befade8d131661"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -143,17 +146,31 @@ Data Fields</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a8cd8650837c9cf7fa38f5d687defc3a1"></a>
+<a class="anchor" id="a1f6060a7216079a5dc1203bb2caa3d93"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool lenderSupports</td>
+          <td class="memname">bool kivaActive</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>indicates if the lender supports this country </p>
+<p>indicates if Kiva actively serves loans in this country; </p>
+
+</div>
+</div>
+<a class="anchor" id="a72d0363c35a5fdd1c5ac0476df42be31"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool lenderSupport</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>indicates if the lender has supported any loans in this country </p>
 
 </div>
 </div>

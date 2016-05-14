@@ -89,6 +89,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div class="summary">
 <a href="#nested-classes">Data Structures</a> &#124;
 <a href="#typedef-members">Typedefs</a> &#124;
+<a href="#enum-members">Enumerations</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">comm.h File Reference</div>  </div>
@@ -122,10 +123,43 @@ Data Structures</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
+<tr class="memitem:a62c86b93b49ea9f777a157c9aa3eb995"><td class="memItemLeft" align="right" valign="top">typedef enum <a class="el" href="comm_8h.html#ad4843d812d90ec4f7e8726a2755f8e7c">MsgKey</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="comm_8h.html#a62c86b93b49ea9f777a157c9aa3eb995">MsgKey</a></td></tr>
+<tr class="separator:a62c86b93b49ea9f777a157c9aa3eb995"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a52d2083c2501086f80ba2f65357b2193"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="comm_8h.html#a52d2083c2501086f80ba2f65357b2193">NotifyAppHandler</a>) (const <a class="el" href="struct_kiva_model.html">KivaModel</a> *)</td></tr>
 <tr class="separator:a52d2083c2501086f80ba2f65357b2193"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1771a82e459e44bd4f3729c3c06af84c"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="struct_comm_handlers.html">CommHandlers</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="comm_8h.html#a1771a82e459e44bd4f3729c3c06af84c">CommHandlers</a></td></tr>
 <tr class="separator:a1771a82e459e44bd4f3729c3c06af84c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:ad4843d812d90ec4f7e8726a2755f8e7c"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="comm_8h.html#ad4843d812d90ec4f7e8726a2755f8e7c">MsgKey</a> { <br />
+&#160;&#160;<a class="el" href="comm_8h.html#ad4843d812d90ec4f7e8726a2755f8e7ca74437e1dfe99bfa21aaa0668018841aa">KEY_PEBKIT_READY</a> = 0, 
+<a class="el" href="comm_8h.html#ad4843d812d90ec4f7e8726a2755f8e7cac3d337827cccfdcc3b9f48f5ff8be7f0">KEY_PEBBLE_READY</a>, 
+<a class="el" href="comm_8h.html#ad4843d812d90ec4f7e8726a2755f8e7ca5b543121157fee3fa2afd3e3cb0d06da">KEY_GET_LENDER_INFO</a>, 
+<a class="el" href="comm_8h.html#ad4843d812d90ec4f7e8726a2755f8e7cae1b07f5dcd481508085a18735f98119a">KEY_KIVA_COUNTRY_SET</a> = 10, 
+<br />
+&#160;&#160;<a class="el" href="comm_8h.html#ad4843d812d90ec4f7e8726a2755f8e7cab71271fb7493a8c0092f4e5dcecd1ac4">KEY_KIVA_SECTOR_SET</a>, 
+<a class="el" href="comm_8h.html#ad4843d812d90ec4f7e8726a2755f8e7ca970da98e7279a1003f043ff60e6d68b6">KEY_KIVA_ACTIVITY_SET</a>, 
+<a class="el" href="comm_8h.html#ad4843d812d90ec4f7e8726a2755f8e7ca0e2c0fd06df3ca702261933870f31434">KEY_KIVA_FIELD_PARTNER_SET</a>, 
+<a class="el" href="comm_8h.html#ad4843d812d90ec4f7e8726a2755f8e7ca28686da990a6b39d7b92ca9ccf95083b">APP_ACHIEVEMENT_SET</a> = 20, 
+<br />
+&#160;&#160;<a class="el" href="comm_8h.html#ad4843d812d90ec4f7e8726a2755f8e7caba212cd323865e59d1e885b756c8f7a8">KEY_LENDER_ID</a> = 30, 
+<a class="el" href="comm_8h.html#ad4843d812d90ec4f7e8726a2755f8e7ca44fdfaef077cdf38d7768a5bb8f88e46">KEY_LENDER_NAME</a>, 
+<a class="el" href="comm_8h.html#ad4843d812d90ec4f7e8726a2755f8e7cadcd195837b3afc3b0113f55d56174dfe">KEY_LENDER_LOC</a>, 
+<a class="el" href="comm_8h.html#ad4843d812d90ec4f7e8726a2755f8e7ca17a7ad7db691228d64913e2005c572f6">KEY_LENDER_LOAN_QTY</a>, 
+<br />
+&#160;&#160;<a class="el" href="comm_8h.html#ad4843d812d90ec4f7e8726a2755f8e7cae9ff719a01aca0f84714f19742bafbba">KEY_LENDER_TEAM_SET</a>, 
+<a class="el" href="comm_8h.html#ad4843d812d90ec4f7e8726a2755f8e7caf7f87de63f31ff97434fe45a20c323e7">KEY_LENDER_COUNTRY_SET</a>, 
+<a class="el" href="comm_8h.html#ad4843d812d90ec4f7e8726a2755f8e7ca7b83ea1276f89e702a32b1debabd2956">KEY_LENDER_SECTOR_SET</a>, 
+<a class="el" href="comm_8h.html#ad4843d812d90ec4f7e8726a2755f8e7cae632393d207fab47fa57e437deaa606e">KEY_LENDER_ACTIVITY_SET</a>, 
+<br />
+&#160;&#160;<a class="el" href="comm_8h.html#ad4843d812d90ec4f7e8726a2755f8e7ca0f6aec0509093ff34a5bcb9a4f5b2854">KEY_LENDER_FIELD_PARTNER_SET</a>, 
+<a class="el" href="comm_8h.html#ad4843d812d90ec4f7e8726a2755f8e7ca00d5d632f431b22a2ef02ee343963794">KEY_LENDER_TARGET_LOAN_SET</a>, 
+<a class="el" href="comm_8h.html#ad4843d812d90ec4f7e8726a2755f8e7ca5d0c74bc68355212c2c17e50af16c2d5">KEY_LENDER_ACHIEVEMENT_SET</a>, 
+<a class="el" href="comm_8h.html#ad4843d812d90ec4f7e8726a2755f8e7ca3ea6bae3a2e17db1a3009fedacc21210">KEY_PUT_LOANS_IN_BASKET</a> = 100
+<br />
+ }</td></tr>
+<tr class="separator:ad4843d812d90ec4f7e8726a2755f8e7c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
@@ -135,8 +169,8 @@ Functions</h2></td></tr>
 <tr class="separator:a59afc3904fa73fece5c655d782d42efb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af6d147624e80153bc57e8e5b65125d5c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="comm_8h.html#af6d147624e80153bc57e8e5b65125d5c">comm_close</a> ()</td></tr>
 <tr class="separator:af6d147624e80153bc57e8e5b65125d5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a18c5911a011f018204f50a35225b0c37"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="comm_8h.html#a18c5911a011f018204f50a35225b0c37">comm_sendUpdateRequest</a> ()</td></tr>
-<tr class="separator:a18c5911a011f018204f50a35225b0c37"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5d114fc9b2d50ea606d8f6c270c58c09"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="comm_8h.html#a5d114fc9b2d50ea606d8f6c270c58c09">comm_sendMessage</a> (const <a class="el" href="comm_8h.html#ad4843d812d90ec4f7e8726a2755f8e7c">MsgKey</a>)</td></tr>
+<tr class="separator:a5d114fc9b2d50ea606d8f6c270c58c09"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6a67f0d244db4a95d9a14bbcf10a601d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="comm_8h.html#a6a67f0d244db4a95d9a14bbcf10a601d">comm_setHandlers</a> (const <a class="el" href="struct_comm_handlers.html">CommHandlers</a>)</td></tr>
 <tr class="separator:a6a67f0d244db4a95d9a14bbcf10a601d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -153,6 +187,18 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a62c86b93b49ea9f777a157c9aa3eb995"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef enum <a class="el" href="comm_8h.html#ad4843d812d90ec4f7e8726a2755f8e7c">MsgKey</a>  <a class="el" href="comm_8h.html#ad4843d812d90ec4f7e8726a2755f8e7c">MsgKey</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="a52d2083c2501086f80ba2f65357b2193"></a>
 <div class="memitem">
 <div class="memproto">
@@ -162,6 +208,61 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Enumeration Type Documentation</h2>
+<a class="anchor" id="ad4843d812d90ec4f7e8726a2755f8e7c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="comm_8h.html#ad4843d812d90ec4f7e8726a2755f8e7c">MsgKey</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a class="anchor" id="ad4843d812d90ec4f7e8726a2755f8e7ca74437e1dfe99bfa21aaa0668018841aa"></a>KEY_PEBKIT_READY&#160;</td><td class="fielddoc">
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="ad4843d812d90ec4f7e8726a2755f8e7cac3d337827cccfdcc3b9f48f5ff8be7f0"></a>KEY_PEBBLE_READY&#160;</td><td class="fielddoc">
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="ad4843d812d90ec4f7e8726a2755f8e7ca5b543121157fee3fa2afd3e3cb0d06da"></a>KEY_GET_LENDER_INFO&#160;</td><td class="fielddoc">
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="ad4843d812d90ec4f7e8726a2755f8e7cae1b07f5dcd481508085a18735f98119a"></a>KEY_KIVA_COUNTRY_SET&#160;</td><td class="fielddoc">
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="ad4843d812d90ec4f7e8726a2755f8e7cab71271fb7493a8c0092f4e5dcecd1ac4"></a>KEY_KIVA_SECTOR_SET&#160;</td><td class="fielddoc">
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="ad4843d812d90ec4f7e8726a2755f8e7ca970da98e7279a1003f043ff60e6d68b6"></a>KEY_KIVA_ACTIVITY_SET&#160;</td><td class="fielddoc">
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="ad4843d812d90ec4f7e8726a2755f8e7ca0e2c0fd06df3ca702261933870f31434"></a>KEY_KIVA_FIELD_PARTNER_SET&#160;</td><td class="fielddoc">
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="ad4843d812d90ec4f7e8726a2755f8e7ca28686da990a6b39d7b92ca9ccf95083b"></a>APP_ACHIEVEMENT_SET&#160;</td><td class="fielddoc">
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="ad4843d812d90ec4f7e8726a2755f8e7caba212cd323865e59d1e885b756c8f7a8"></a>KEY_LENDER_ID&#160;</td><td class="fielddoc">
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="ad4843d812d90ec4f7e8726a2755f8e7ca44fdfaef077cdf38d7768a5bb8f88e46"></a>KEY_LENDER_NAME&#160;</td><td class="fielddoc">
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="ad4843d812d90ec4f7e8726a2755f8e7cadcd195837b3afc3b0113f55d56174dfe"></a>KEY_LENDER_LOC&#160;</td><td class="fielddoc">
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="ad4843d812d90ec4f7e8726a2755f8e7ca17a7ad7db691228d64913e2005c572f6"></a>KEY_LENDER_LOAN_QTY&#160;</td><td class="fielddoc">
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="ad4843d812d90ec4f7e8726a2755f8e7cae9ff719a01aca0f84714f19742bafbba"></a>KEY_LENDER_TEAM_SET&#160;</td><td class="fielddoc">
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="ad4843d812d90ec4f7e8726a2755f8e7caf7f87de63f31ff97434fe45a20c323e7"></a>KEY_LENDER_COUNTRY_SET&#160;</td><td class="fielddoc">
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="ad4843d812d90ec4f7e8726a2755f8e7ca7b83ea1276f89e702a32b1debabd2956"></a>KEY_LENDER_SECTOR_SET&#160;</td><td class="fielddoc">
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="ad4843d812d90ec4f7e8726a2755f8e7cae632393d207fab47fa57e437deaa606e"></a>KEY_LENDER_ACTIVITY_SET&#160;</td><td class="fielddoc">
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="ad4843d812d90ec4f7e8726a2755f8e7ca0f6aec0509093ff34a5bcb9a4f5b2854"></a>KEY_LENDER_FIELD_PARTNER_SET&#160;</td><td class="fielddoc">
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="ad4843d812d90ec4f7e8726a2755f8e7ca00d5d632f431b22a2ef02ee343963794"></a>KEY_LENDER_TARGET_LOAN_SET&#160;</td><td class="fielddoc">
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="ad4843d812d90ec4f7e8726a2755f8e7ca5d0c74bc68355212c2c17e50af16c2d5"></a>KEY_LENDER_ACHIEVEMENT_SET&#160;</td><td class="fielddoc">
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="ad4843d812d90ec4f7e8726a2755f8e7ca3ea6bae3a2e17db1a3009fedacc21210"></a>KEY_PUT_LOANS_IN_BASKET&#160;</td><td class="fielddoc">
+</td></tr>
+</table>
 
 </div>
 </div>
@@ -211,13 +312,14 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a18c5911a011f018204f50a35225b0c37"></a>
+<a class="anchor" id="a5d114fc9b2d50ea606d8f6c270c58c09"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void comm_sendUpdateRequest </td>
+          <td class="memname">void comm_sendMessage </td>
           <td>(</td>
+          <td class="paramtype">const <a class="el" href="comm_8h.html#ad4843d812d90ec4f7e8726a2755f8e7c">MsgKey</a>&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
