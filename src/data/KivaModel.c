@@ -534,7 +534,7 @@ KivaModel_ErrCode KivaModel_addKivaCountry(KivaModel* this, const char* countryI
 /// @param[in]      countryId  ID of the country to add; a two-character
 ///       ISO-3361 country code. <em>Ownership of this parameter is not
 ///       transferred, so the caller is still responsible for freeing this
-///       variable.
+///       variable.</em>
 /// @param[out]     countryName  If the country ID is recognized by this
 ///       KivaModel, this parameter will be replaced with a pointer to the
 ///       recognized country name. Must be NULL upon entry to this function.
