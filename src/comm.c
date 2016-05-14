@@ -7,33 +7,6 @@
 #include "data-processor.h"
 
 
-enum {
-  KEY_PEBKIT_READY = 0,
-  KEY_PEBBLE_READY,
-
-  KEY_KIVA_COUNTRY_SET = 10,
-  KEY_KIVA_SECTOR_SET,
-  KEY_KIVA_ACTIVITY_SET,
-  KEY_KIVA_FIELD_PARTNER_SET,
-
-  APP_ACHIEVEMENT_SET = 20,
-
-  KEY_LENDER_ID = 30,
-  KEY_LENDER_NAME,
-  KEY_LENDER_LOC,
-  KEY_LENDER_LOAN_QTY,
-  KEY_LENDER_TEAM_SET,
-  KEY_LENDER_COUNTRY_SET,
-  KEY_LENDER_SECTOR_SET,
-  KEY_LENDER_ACTIVITY_SET,
-  KEY_LENDER_FIELD_PARTNER_SET,
-  KEY_LENDER_TARGET_LOAN_SET,
-  KEY_LENDER_ACHIEVEMENT_SET,
-
-  KEY_PUT_LOANS_IN_BASKET = 100,
-};
-
-
 static KivaModel* dataModel;
 static CommHandlers commHandlers;
 static bool pebkitReady;
@@ -84,36 +57,51 @@ static void inbox_received_callback(DictionaryIterator *iterator, void *context)
     pebkitReady = true;
   }
 
-  if ( (tuple = dict_find(iterator, KEY_LENDER_ID)) != NULL ) {
-    char* lenderIdBuf = NULL;
+  if ( (tuple = dict_find(iterator, KEY_KIVA_COUNTRY_SET)) != NULL ) {
+    const char* readable = "Kiva-Served Countries";
     size_t bufsize = strlen(tuple->value->cstring)+1;
-    lenderIdBuf = malloc(bufsize);
-    if (!unloadTupleStr(&lenderIdBuf, bufsize, tuple, "Lender ID")) {
+    char* countrySetBuf = NULL;
+    countrySetBuf = malloc(bufsize);
+    APP_LOG(APP_LOG_LEVEL_DEBUG, "About to deserialize countries!");
+    if (!unloadTupleStr(&countrySetBuf, bufsize, tuple, readable)) {
       APP_LOG(APP_LOG_LEVEL_ERROR, "Error in unloadTupleStr.");
     } else {
-      // lenderIdBuf contains the tuple string
-      APP_LOG(APP_LOG_LEVEL_INFO, "lenderIdBuf = %s", lenderIdBuf);
-      char* compareBuf = NULL;
-      if (KivaModel_getLenderId(dataModel, &compareBuf) != KIVA_MODEL_SUCCESS) {
-        APP_LOG(APP_LOG_LEVEL_ERROR, "String copy error into compareBuf.");
-      } else {
-        // compareBuf contains our currently-known lender ID
-        APP_LOG(APP_LOG_LEVEL_INFO, "compareBuf = %s", compareBuf);
-        if (strcmp(compareBuf, lenderIdBuf) != 0) {
-          APP_LOG(APP_LOG_LEVEL_INFO, "Different Lender IDs: %s != %s", lenderIdBuf, compareBuf);
-          // If we have a new Lender ID, then we need to reload everything.
-          if (dataModel != NULL) {
-            APP_LOG(APP_LOG_LEVEL_INFO, "Destroying data model...");
-            KivaModel_destroy(dataModel);  dataModel = NULL;
-          }
-          APP_LOG(APP_LOG_LEVEL_INFO, "Creating new data model with lenderIdBuf = %s.", lenderIdBuf);
-          dataModel = KivaModel_create(lenderIdBuf);
-          if (dataModel == NULL) {
-            APP_LOG(APP_LOG_LEVEL_ERROR, "Could not create data model.");
-            window_stack_pop_all(false);
-          }
-          APP_LOG(APP_LOG_LEVEL_INFO, "now lenderIdBuf = %s", lenderIdBuf);
+      APP_LOG(APP_LOG_LEVEL_INFO, "%s are %s", readable, countrySetBuf);
+      ProcessingState* state = data_processor_create(countrySetBuf, '|');
+      uint8_t num_strings = data_processor_count(state);
+      char** strings = malloc(sizeof(char*) * num_strings);
+      for (uint8_t n = 0; n < num_strings; n += 2) {
+        strings[n] = data_processor_get_string(state);
+        strings[n+1] = data_processor_get_string(state);
+        if ( (kmret = KivaModel_addKivaCountry(dataModel, strings[n], strings[n+1])) != KIVA_MODEL_SUCCESS) {
+            APP_LOG(APP_LOG_LEVEL_ERROR, "Error adding Kiva country to data model: %s", KivaModel_getErrMsg(kmret));
         }
+        free(strings[n]);
+        free(strings[n+1]);
+      }
+      free(strings);
+      free(state);
+    }
+    free(countrySetBuf); countrySetBuf = NULL;
+    int kivaCountryQty = 0;
+    if ( (kmret = KivaModel_getKivaCountryQty(dataModel, &kivaCountryQty)) != KIVA_MODEL_SUCCESS) {
+        APP_LOG(APP_LOG_LEVEL_ERROR, "Error getting Kiva country quantity from data model: %s", KivaModel_getErrMsg(kmret));
+    }
+    APP_LOG(APP_LOG_LEVEL_INFO, "Kiva active country total: %d", kivaCountryQty);
+    comm_sendMessage(KEY_GET_LENDER_INFO);
+  }
+
+  if ( (tuple = dict_find(iterator, KEY_LENDER_ID)) != NULL ) {
+    const char* readable = "Lender Id";
+    size_t bufsize = strlen(tuple->value->cstring)+1;
+    char* lenderIdBuf = NULL;
+    lenderIdBuf = malloc(bufsize);
+    if (!unloadTupleStr(&lenderIdBuf, bufsize, tuple, readable)) {
+      APP_LOG(APP_LOG_LEVEL_ERROR, "Error in unloadTupleStr.");
+    } else {
+      APP_LOG(APP_LOG_LEVEL_INFO, "lenderIdBuf = %s", lenderIdBuf);
+      if ( (kmret = KivaModel_setLenderId(dataModel, lenderIdBuf)) != KIVA_MODEL_SUCCESS) {
+        APP_LOG(APP_LOG_LEVEL_ERROR, "Error setting %s in data model: %s", readable, KivaModel_getErrMsg(kmret));
       }
     }
     free(lenderIdBuf); lenderIdBuf = NULL;
@@ -174,11 +162,14 @@ static void inbox_received_callback(DictionaryIterator *iterator, void *context)
       ProcessingState* state = data_processor_create(countrySetBuf, '|');
       uint8_t num_strings = data_processor_count(state);
       char** strings = malloc(sizeof(char*) * num_strings);
-      for (uint8_t n = 0; n < num_strings; n += 1) {
+      for (uint8_t n = 0; n < num_strings; n += 2) {
         strings[n] = data_processor_get_string(state);
-        // JRB TODO: If it's not in the recognized Kiva list, try to get the ISO 3316 name for this country ID.
-        KivaModel_addLenderCountry(dataModel, strings[n], NULL);
+        strings[n+1] = data_processor_get_string(state);
+        if ( (kmret = KivaModel_addLenderCountry(dataModel, strings[n], strings[n+1])) != KIVA_MODEL_SUCCESS) {
+            APP_LOG(APP_LOG_LEVEL_ERROR, "Error adding Lender country to data model: %s", KivaModel_getErrMsg(kmret));
+        }
         free(strings[n]);
+        free(strings[n+1]);
       }
       free(strings);
       free(state);
@@ -219,9 +210,9 @@ bool comm_pebkitReady() {
 
 
 /**************************************************************************
- * Request an update of data from PebbleKit.
+ * Request data from PebbleKit.
  **************************************************************************/
-void comm_sendUpdateRequest() {
+void comm_sendMessage(const MsgKey msgKey) {
   if (!pebkitReady) {
     APP_LOG(APP_LOG_LEVEL_WARNING, "Tried to send a message from the watch before PebbleKit JS is ready.");
     return;
@@ -233,7 +224,7 @@ void comm_sendUpdateRequest() {
     // The outbox cannot be used right now
     APP_LOG(APP_LOG_LEVEL_ERROR, "Error preparing the outbox: %d", (int)result);
   } else {
-    dict_write_uint8(iter, KEY_PEBBLE_READY, 0);
+    dict_write_uint8(iter, msgKey, 0);
     app_message_outbox_send();
   }
 }

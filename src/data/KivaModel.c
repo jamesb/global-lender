@@ -9,9 +9,9 @@
     }
 
 
-/**************************************************************************
- * Returns error messages for data model error codes.
- **************************************************************************/
+/////////////////////////////////////////////////////////////////////////////
+/// Returns error messages for data model error codes.
+/////////////////////////////////////////////////////////////////////////////
 const char* KivaModel_getErrMsg(const KivaModel_ErrCode errCode) {
   switch (errCode) {
     case KIVA_MODEL_SUCCESS:           return "success";
@@ -94,7 +94,7 @@ lowmem:
 /////////////////////////////////////////////////////////////////////////////
 static KivaModel_ErrCode KivaModel_CountryRec_destroy(CountryRec* this) {
   KIVA_MODEL_RETURN_IF_NULL(this);
-  HEAP_LOG("Freeing CountryRec");
+  //HEAP_LOG("Freeing CountryRec");
   if (this->id != NULL)   { free(this->id);   this->id = NULL; }
   if (this->name != NULL) { free(this->name); this->name = NULL; }
   free(this); this = NULL;
@@ -104,9 +104,13 @@ static KivaModel_ErrCode KivaModel_CountryRec_destroy(CountryRec* this) {
 
 
 
-/**************************************************************************
- * Constructor
- **************************************************************************/
+/////////////////////////////////////////////////////////////////////////////
+/// Constructor
+/// @param[in]      lenderId   Pointer to the lender ID C-string. Identifies
+///       the lender uniquely on kiva.org. <em>Ownership is not transferred 
+///       to this function, so the caller is still responsible for freeing
+///       this variable.</em>
+/////////////////////////////////////////////////////////////////////////////
 KivaModel* KivaModel_create(const char* lenderId) {
   APP_LOG(APP_LOG_LEVEL_DEBUG, "Creating KivaModel [%s]", lenderId);
   int kmret;
@@ -121,9 +125,10 @@ KivaModel* KivaModel_create(const char* lenderId) {
 }
 
 
-/**************************************************************************
- * Destroys KivaModel and frees allocated memory.
- **************************************************************************/
+/////////////////////////////////////////////////////////////////////////////
+/// Destroys KivaModel and frees allocated memory.
+/// @param[in,out]  this  Pointer to KivaModel; must be already allocated
+/////////////////////////////////////////////////////////////////////////////
 KivaModel_ErrCode KivaModel_destroy(KivaModel* this) {
   KIVA_MODEL_RETURN_IF_NULL(this);
   APP_LOG(APP_LOG_LEVEL_DEBUG, "Destroying KivaModel [%s]", this->lenderInfo.id);
@@ -153,6 +158,11 @@ KivaModel_ErrCode KivaModel_destroy(KivaModel* this) {
 
 /////////////////////////////////////////////////////////////////////////////
 /// Internal initialization
+/// @param[in,out]  this  Pointer to KivaModel; must be already allocated
+/// @param[in]      lenderId   Pointer to the lender ID C-string. Identifies
+///       the lender uniquely on kiva.org. <em>Ownership is not transferred 
+///       to this function, so the caller is still responsible for freeing
+///       this variable.</em>
 /////////////////////////////////////////////////////////////////////////////
 KivaModel_ErrCode KivaModel_init(KivaModel* this, const char* lenderId) {
   KIVA_MODEL_RETURN_IF_NULL(this);
@@ -166,135 +176,32 @@ KivaModel_ErrCode KivaModel_init(KivaModel* this, const char* lenderId) {
 
   this->kivaCountries = NULL;
 
-  if ( (kmret = KivaModel_initKivaCountries(this)) != KIVA_MODEL_SUCCESS) {
-    APP_LOG(APP_LOG_LEVEL_ERROR, "Could not initialize Kiva countries: %s", KivaModel_getErrMsg(kmret));
-    return kmret;
-  }
-
   if ( (kmret = KivaModel_setLenderId(this, lenderId)) != KIVA_MODEL_SUCCESS) {
     APP_LOG(APP_LOG_LEVEL_ERROR, "Could not set Lender ID. Destroying Kiva model.");
     KivaModel_destroy(this);  this = NULL;
   }
 
-  APP_LOG(APP_LOG_LEVEL_DEBUG, "Kiva Model [%s] initialized with %d countries.", this->lenderInfo.id, HASH_COUNT(this->kivaCountries));
   return KIVA_MODEL_SUCCESS;
 }
 
 
 /////////////////////////////////////////////////////////////////////////////
-/// Country hash table initialization
-/// @param[in,out]  this  Pointer to KivaModel; must be already allocated;
-///       this->kivaCountries must be NULL
+/// Sets the Lender ID and resets any lender-specific data so that it
+/// will be NULL or empty until it is reloaded.
+/// @param[in,out]  this  Pointer to KivaModel; must be already allocated
+/// @param[in]      lenderId   Pointer to the lender ID C-string. Identifies
+///       the lender uniquely on kiva.org. <em>Ownership is not transferred 
+///       to this function, so the caller is still responsible for freeing
+///       this variable.</em>
 /////////////////////////////////////////////////////////////////////////////
-KivaModel_ErrCode KivaModel_initKivaCountries(KivaModel* this) {
-  KIVA_MODEL_RETURN_IF_NULL(this);
-  if (this->kivaCountries != NULL) { return KIVA_MODEL_INVALID_INPUT_ERR; }
-  APP_LOG(APP_LOG_LEVEL_DEBUG, "Initializing Kiva countries...");
-  KivaModel_ErrCode kmret;
-  if ( (kmret = KivaModel_addKivaCountry(this, "AF", "Afghanistan")) != KIVA_MODEL_SUCCESS) { return kmret; }
-  if ( (kmret = KivaModel_addKivaCountry(this, "AL", "Albania")) != KIVA_MODEL_SUCCESS) { return kmret; }
-  if ( (kmret = KivaModel_addKivaCountry(this, "AM", "Armenia")) != KIVA_MODEL_SUCCESS) { return kmret; }
-  if ( (kmret = KivaModel_addKivaCountry(this, "AZ", "Azerbaijan")) != KIVA_MODEL_SUCCESS) { return kmret; }
-  if ( (kmret = KivaModel_addKivaCountry(this, "BA", "Bosnia and Herzegovina")) != KIVA_MODEL_SUCCESS) { return kmret; }
-  if ( (kmret = KivaModel_addKivaCountry(this, "BF", "Burkina Faso")) != KIVA_MODEL_SUCCESS) { return kmret; }
-  if ( (kmret = KivaModel_addKivaCountry(this, "BG", "Bulgaria")) != KIVA_MODEL_SUCCESS) { return kmret; }
-  if ( (kmret = KivaModel_addKivaCountry(this, "BI", "Burundi")) != KIVA_MODEL_SUCCESS) { return kmret; }
-  if ( (kmret = KivaModel_addKivaCountry(this, "BJ", "Benin")) != KIVA_MODEL_SUCCESS) { return kmret; }
-  if ( (kmret = KivaModel_addKivaCountry(this, "BO", "Bolivia")) != KIVA_MODEL_SUCCESS) { return kmret; }
-  if ( (kmret = KivaModel_addKivaCountry(this, "BR", "Brazil")) != KIVA_MODEL_SUCCESS) { return kmret; }
-  if ( (kmret = KivaModel_addKivaCountry(this, "BW", "Botswana")) != KIVA_MODEL_SUCCESS) { return kmret; }
-  if ( (kmret = KivaModel_addKivaCountry(this, "BZ", "Belize")) != KIVA_MODEL_SUCCESS) { return kmret; }
-  if ( (kmret = KivaModel_addKivaCountry(this, "CD", "Congo (Dem. Rep.)")) != KIVA_MODEL_SUCCESS) { return kmret; }
-  if ( (kmret = KivaModel_addKivaCountry(this, "CG", "Congo (Rep.)")) != KIVA_MODEL_SUCCESS) { return kmret; }
-  if ( (kmret = KivaModel_addKivaCountry(this, "CI", "Cote D'Ivoire")) != KIVA_MODEL_SUCCESS) { return kmret; }
-  if ( (kmret = KivaModel_addKivaCountry(this, "CL", "Chile")) != KIVA_MODEL_SUCCESS) { return kmret; }
-  if ( (kmret = KivaModel_addKivaCountry(this, "CM", "Cameroon")) != KIVA_MODEL_SUCCESS) { return kmret; }
-  if ( (kmret = KivaModel_addKivaCountry(this, "CN", "China")) != KIVA_MODEL_SUCCESS) { return kmret; }
-  if ( (kmret = KivaModel_addKivaCountry(this, "CO", "Colombia")) != KIVA_MODEL_SUCCESS) { return kmret; }
-  if ( (kmret = KivaModel_addKivaCountry(this, "CR", "Costa Rica")) != KIVA_MODEL_SUCCESS) { return kmret; }
-  if ( (kmret = KivaModel_addKivaCountry(this, "DO", "Dominican Republic")) != KIVA_MODEL_SUCCESS) { return kmret; }
-  if ( (kmret = KivaModel_addKivaCountry(this, "EC", "Ecuador")) != KIVA_MODEL_SUCCESS) { return kmret; }
-  if ( (kmret = KivaModel_addKivaCountry(this, "EG", "Egypt")) != KIVA_MODEL_SUCCESS) { return kmret; }
-  if ( (kmret = KivaModel_addKivaCountry(this, "GE", "Georgia")) != KIVA_MODEL_SUCCESS) { return kmret; }
-  if ( (kmret = KivaModel_addKivaCountry(this, "GH", "Ghana")) != KIVA_MODEL_SUCCESS) { return kmret; }
-  if ( (kmret = KivaModel_addKivaCountry(this, "GT", "Guatemala")) != KIVA_MODEL_SUCCESS) { return kmret; }
-  if ( (kmret = KivaModel_addKivaCountry(this, "GZ", "Gaza")) != KIVA_MODEL_SUCCESS) { return kmret; }
-  if ( (kmret = KivaModel_addKivaCountry(this, "HN", "Honduras")) != KIVA_MODEL_SUCCESS) { return kmret; }
-  if ( (kmret = KivaModel_addKivaCountry(this, "HT", "Haiti")) != KIVA_MODEL_SUCCESS) { return kmret; }
-  if ( (kmret = KivaModel_addKivaCountry(this, "ID", "Indonesia")) != KIVA_MODEL_SUCCESS) { return kmret; }
-  if ( (kmret = KivaModel_addKivaCountry(this, "IL", "Israel")) != KIVA_MODEL_SUCCESS) { return kmret; }
-  if ( (kmret = KivaModel_addKivaCountry(this, "IN", "India")) != KIVA_MODEL_SUCCESS) { return kmret; }
-  if ( (kmret = KivaModel_addKivaCountry(this, "IQ", "Iraq")) != KIVA_MODEL_SUCCESS) { return kmret; }
-  if ( (kmret = KivaModel_addKivaCountry(this, "JO", "Jordan")) != KIVA_MODEL_SUCCESS) { return kmret; }
-  if ( (kmret = KivaModel_addKivaCountry(this, "KE", "Kenya")) != KIVA_MODEL_SUCCESS) { return kmret; }
-  if ( (kmret = KivaModel_addKivaCountry(this, "KG", "Kyrgyzstan")) != KIVA_MODEL_SUCCESS) { return kmret; }
-  if ( (kmret = KivaModel_addKivaCountry(this, "KH", "Cambodia")) != KIVA_MODEL_SUCCESS) { return kmret; }
-  if ( (kmret = KivaModel_addKivaCountry(this, "LA", "Lao PDR")) != KIVA_MODEL_SUCCESS) { return kmret; }
-  if ( (kmret = KivaModel_addKivaCountry(this, "LB", "Lebanon")) != KIVA_MODEL_SUCCESS) { return kmret; }
-  if ( (kmret = KivaModel_addKivaCountry(this, "LK", "Sri Lanka")) != KIVA_MODEL_SUCCESS) { return kmret; }
-  if ( (kmret = KivaModel_addKivaCountry(this, "LR", "Liberia")) != KIVA_MODEL_SUCCESS) { return kmret; }
-  if ( (kmret = KivaModel_addKivaCountry(this, "MD", "Moldova")) != KIVA_MODEL_SUCCESS) { return kmret; }
-  if ( (kmret = KivaModel_addKivaCountry(this, "MG", "Madagascar")) != KIVA_MODEL_SUCCESS) { return kmret; }
-  if ( (kmret = KivaModel_addKivaCountry(this, "ML", "Mali")) != KIVA_MODEL_SUCCESS) { return kmret; }
-  if ( (kmret = KivaModel_addKivaCountry(this, "MM", "Myanmar (Burma)")) != KIVA_MODEL_SUCCESS) { return kmret; }
-  if ( (kmret = KivaModel_addKivaCountry(this, "MN", "Mongolia")) != KIVA_MODEL_SUCCESS) { return kmret; }
-  if ( (kmret = KivaModel_addKivaCountry(this, "MR", "Mauritania")) != KIVA_MODEL_SUCCESS) { return kmret; }
-  if ( (kmret = KivaModel_addKivaCountry(this, "MW", "Malawi")) != KIVA_MODEL_SUCCESS) { return kmret; }
-  if ( (kmret = KivaModel_addKivaCountry(this, "MX", "Mexico")) != KIVA_MODEL_SUCCESS) { return kmret; }
-  if ( (kmret = KivaModel_addKivaCountry(this, "MZ", "Mozambique")) != KIVA_MODEL_SUCCESS) { return kmret; }
-  if ( (kmret = KivaModel_addKivaCountry(this, "NA", "Namibia")) != KIVA_MODEL_SUCCESS) { return kmret; }
-  if ( (kmret = KivaModel_addKivaCountry(this, "NG", "Nigeria")) != KIVA_MODEL_SUCCESS) { return kmret; }
-  if ( (kmret = KivaModel_addKivaCountry(this, "NI", "Nicaragua")) != KIVA_MODEL_SUCCESS) { return kmret; }
-  if ( (kmret = KivaModel_addKivaCountry(this, "NP", "Nepal")) != KIVA_MODEL_SUCCESS) { return kmret; }
-  if ( (kmret = KivaModel_addKivaCountry(this, "PA", "Panama")) != KIVA_MODEL_SUCCESS) { return kmret; }
-  if ( (kmret = KivaModel_addKivaCountry(this, "PE", "Peru")) != KIVA_MODEL_SUCCESS) { return kmret; }
-  if ( (kmret = KivaModel_addKivaCountry(this, "PG", "Papua New Guinea")) != KIVA_MODEL_SUCCESS) { return kmret; }
-  if ( (kmret = KivaModel_addKivaCountry(this, "PH", "Philippines")) != KIVA_MODEL_SUCCESS) { return kmret; }
-  if ( (kmret = KivaModel_addKivaCountry(this, "PK", "Pakistan")) != KIVA_MODEL_SUCCESS) { return kmret; }
-  if ( (kmret = KivaModel_addKivaCountry(this, "PS", "Palestine")) != KIVA_MODEL_SUCCESS) { return kmret; }
-  if ( (kmret = KivaModel_addKivaCountry(this, "PY", "Paraguay")) != KIVA_MODEL_SUCCESS) { return kmret; }
-  if ( (kmret = KivaModel_addKivaCountry(this, "QS", "South Sudan")) != KIVA_MODEL_SUCCESS) { return kmret; }
-  if ( (kmret = KivaModel_addKivaCountry(this, "RW", "Rwanda")) != KIVA_MODEL_SUCCESS) { return kmret; }
-  if ( (kmret = KivaModel_addKivaCountry(this, "SB", "Solomon Islands")) != KIVA_MODEL_SUCCESS) { return kmret; }
-  if ( (kmret = KivaModel_addKivaCountry(this, "SG", "Singapore")) != KIVA_MODEL_SUCCESS) { return kmret; }
-  if ( (kmret = KivaModel_addKivaCountry(this, "SL", "Sierra Leone")) != KIVA_MODEL_SUCCESS) { return kmret; }
-  if ( (kmret = KivaModel_addKivaCountry(this, "SN", "Senegal")) != KIVA_MODEL_SUCCESS) { return kmret; }
-  if ( (kmret = KivaModel_addKivaCountry(this, "SO", "Somalia")) != KIVA_MODEL_SUCCESS) { return kmret; }
-  if ( (kmret = KivaModel_addKivaCountry(this, "SR", "Suriname")) != KIVA_MODEL_SUCCESS) { return kmret; }
-  if ( (kmret = KivaModel_addKivaCountry(this, "SV", "El Salvador")) != KIVA_MODEL_SUCCESS) { return kmret; }
-  if ( (kmret = KivaModel_addKivaCountry(this, "TD", "Chad")) != KIVA_MODEL_SUCCESS) { return kmret; }
-  if ( (kmret = KivaModel_addKivaCountry(this, "TG", "Togo")) != KIVA_MODEL_SUCCESS) { return kmret; }
-  if ( (kmret = KivaModel_addKivaCountry(this, "TH", "Thailand")) != KIVA_MODEL_SUCCESS) { return kmret; }
-  if ( (kmret = KivaModel_addKivaCountry(this, "TJ", "Tajikistan")) != KIVA_MODEL_SUCCESS) { return kmret; }
-  if ( (kmret = KivaModel_addKivaCountry(this, "TL", "Timor-Leste")) != KIVA_MODEL_SUCCESS) { return kmret; }
-  if ( (kmret = KivaModel_addKivaCountry(this, "TN", "Tunisia")) != KIVA_MODEL_SUCCESS) { return kmret; }
-  if ( (kmret = KivaModel_addKivaCountry(this, "TR", "Turkey")) != KIVA_MODEL_SUCCESS) { return kmret; }
-  if ( (kmret = KivaModel_addKivaCountry(this, "TZ", "Tanzania")) != KIVA_MODEL_SUCCESS) { return kmret; }
-  if ( (kmret = KivaModel_addKivaCountry(this, "UA", "Ukraine")) != KIVA_MODEL_SUCCESS) { return kmret; }
-  if ( (kmret = KivaModel_addKivaCountry(this, "UG", "Uganda")) != KIVA_MODEL_SUCCESS) { return kmret; }
-  if ( (kmret = KivaModel_addKivaCountry(this, "US", "United States")) != KIVA_MODEL_SUCCESS) { return kmret; }
-  if ( (kmret = KivaModel_addKivaCountry(this, "VC", "St Vincent")) != KIVA_MODEL_SUCCESS) { return kmret; }
-  if ( (kmret = KivaModel_addKivaCountry(this, "VN", "Vietnam")) != KIVA_MODEL_SUCCESS) { return kmret; }
-  if ( (kmret = KivaModel_addKivaCountry(this, "VU", "Vanuatu")) != KIVA_MODEL_SUCCESS) { return kmret; }
-  if ( (kmret = KivaModel_addKivaCountry(this, "WS", "Samoa")) != KIVA_MODEL_SUCCESS) { return kmret; }
-  if ( (kmret = KivaModel_addKivaCountry(this, "XK", "Kosovo")) != KIVA_MODEL_SUCCESS) { return kmret; }
-  if ( (kmret = KivaModel_addKivaCountry(this, "YE", "Yemen")) != KIVA_MODEL_SUCCESS) { return kmret; }
-  if ( (kmret = KivaModel_addKivaCountry(this, "ZA", "South Africa")) != KIVA_MODEL_SUCCESS) { return kmret; }
-  if ( (kmret = KivaModel_addKivaCountry(this, "ZM", "Zambia")) != KIVA_MODEL_SUCCESS) { return kmret; }
-  if ( (kmret = KivaModel_addKivaCountry(this, "ZW", "Zimbabwe")) != KIVA_MODEL_SUCCESS) { return kmret; }
-  return KIVA_MODEL_SUCCESS;
-}
-
-
-/**************************************************************************
- * Sets the Lender ID and resets any lender-specific data so that it
- * will be NULL or empty until it is reloaded.
- **************************************************************************/
 KivaModel_ErrCode KivaModel_setLenderId(KivaModel* this, const char* lenderId) {
   KIVA_MODEL_RETURN_IF_NULL(this);
 
   if (lenderId == NULL) { return KIVA_MODEL_INVALID_INPUT_ERR; }
-  if (this->lenderInfo.id != NULL) { free(this->lenderInfo.id); this->lenderInfo.id = NULL; }
+  if ( (this->lenderInfo.id != NULL) && (strcmp(lenderId, this->lenderInfo.id) == 0) ) { 
+    return KIVA_MODEL_SUCCESS;
+  }
+  
   size_t bufsize = strlen(lenderId)+1;
   char* tmp = realloc(this->lenderInfo.id, bufsize);
   if (tmp == NULL) { return KIVA_MODEL_OUT_OF_MEMORY_ERR; }
@@ -305,15 +212,26 @@ KivaModel_ErrCode KivaModel_setLenderId(KivaModel* this, const char* lenderId) {
   if (this->lenderInfo.name != NULL) { free(this->lenderInfo.name); this->lenderInfo.name = NULL; }
   if (this->lenderInfo.loc != NULL)  { free(this->lenderInfo.loc);  this->lenderInfo.loc = NULL; }
   this->lenderInfo.loanQty = 0;
-  // JRB TODO: reset the CountryRec lender-supported fields to NULL
+  
+  // Reset the CountryRec lender-dependent fields to NULL
+  CountryRec* cntry = NULL;
+  for (cntry=this->kivaCountries; cntry!=NULL; cntry=cntry->hh.next) {
+    cntry->lenderSupport = false;
+  }
 
   return KIVA_MODEL_SUCCESS;
 }
 
 
-/**************************************************************************
- *
- **************************************************************************/
+/////////////////////////////////////////////////////////////////////////////
+/// Sets the lender name for the registered lender.
+/// @param[in,out]  this  Pointer to KivaModel; must be already allocated
+/// @param[in]      lenderName   Pointer to the lender name C-string, as it 
+///       is written on kiva.org. This may be a first name and last name,
+///       but is not limited to that format. <em>Ownership is not transferred 
+///       to this function, so the caller is still responsible for freeing
+///       this variable.</em>
+/////////////////////////////////////////////////////////////////////////////
 KivaModel_ErrCode KivaModel_setLenderName(KivaModel* this, const char* lenderName) {
   KIVA_MODEL_RETURN_IF_NULL(this);
 
@@ -331,9 +249,14 @@ KivaModel_ErrCode KivaModel_setLenderName(KivaModel* this, const char* lenderNam
 }
 
 
-/**************************************************************************
- *
- **************************************************************************/
+/////////////////////////////////////////////////////////////////////////////
+/// Sets the lender location for the registered lender.
+/// @param[in,out]  this  Pointer to KivaModel; must be already allocated
+/// @param[in]      lenderName   Pointer to the lender location C-string, as 
+///       it appears on kiva.org. This is a free format text field.
+///       <em>Ownership is not transferred to this function, so the caller 
+///       is still responsible for freeing this variable.</em>
+/////////////////////////////////////////////////////////////////////////////
 KivaModel_ErrCode KivaModel_setLenderLoc(KivaModel* this, const char* lenderLoc) {
   KIVA_MODEL_RETURN_IF_NULL(this);
 
@@ -386,7 +309,7 @@ KivaModel_ErrCode KivaModel_addLenderCountry(KivaModel* this, const char* countr
 
   if (cntry == NULL) {
     // Value of countryId is not already a key in the hash table; add new record.
-    APP_LOG(APP_LOG_LEVEL_INFO, "Lender supports a country (%s -> %s) that isn't in our official Kiva list!!!", countryId, countryName);
+    APP_LOG(APP_LOG_LEVEL_INFO, "Lender supports a country (%s -> %s) that isn't in our official Kiva list.", countryId, countryName);
 
     const char* tmpName = NULL;
     tmpName = (countryName == NULL ? countryId : countryName);
@@ -400,11 +323,13 @@ KivaModel_ErrCode KivaModel_addLenderCountry(KivaModel* this, const char* countr
     if (cntry == NULL) {
       return KIVA_MODEL_NULL_POINTER_ERR;
     }
-
+    
+    // This country wasn't in the Kiva list. Mark it as inactive.
+    cntry->kivaActive = false;
   }
 
   // We have the correct country from the hash table; mark it lender-supported.
-  cntry->lenderSupports = true;
+  cntry->lenderSupport = true;
 
   return KIVA_MODEL_SUCCESS;
 }
@@ -458,9 +383,12 @@ KivaModel_ErrCode KivaModel_getLenderLoc(const KivaModel* this, char** lenderLoc
 }
 
 
-/**************************************************************************
- *
- **************************************************************************/
+/////////////////////////////////////////////////////////////////////////////
+/// Gets the quantity of loans by the registered lender. 
+/// @param[in,out]  this  Pointer to KivaModel; must be already allocated
+/// @param[out]     lenderQty   Pointer to the lender loan quantity int
+///       variable
+/////////////////////////////////////////////////////////////////////////////
 KivaModel_ErrCode KivaModel_getLenderLoanQty(const KivaModel* this, int* lenderLoanQty) {
   KIVA_MODEL_RETURN_IF_NULL(this);
   *lenderLoanQty = this->lenderInfo.loanQty;
@@ -468,14 +396,51 @@ KivaModel_ErrCode KivaModel_getLenderLoanQty(const KivaModel* this, int* lenderL
 }
 
 
-/**************************************************************************
- *
- **************************************************************************/
-KivaModel_ErrCode KivaModel_getLenderCountryQty(const KivaModel* this, int* lenderCountryQty) {
+/////////////////////////////////////////////////////////////////////////////
+/// Gets the quantity of countries actively served by Kiva.
+/// @param[in,out]  this  Pointer to KivaModel; must be already allocated
+/// @param[out]     kivaCountryQty   Pointer to the Kiva country quantity
+///       int variable
+/////////////////////////////////////////////////////////////////////////////
+KivaModel_ErrCode KivaModel_getKivaCountryQty(const KivaModel* this, int* kivaCountryQty) {
   KIVA_MODEL_RETURN_IF_NULL(this);
-  // JRB TODO: do stuff
+  
+  int kivaCntryCount = 0;
+  CountryRec* cntry = NULL;
+  for (cntry=this->kivaCountries; cntry!=NULL; cntry=cntry->hh.next) {
+    if (cntry->kivaActive) {
+      APP_LOG(APP_LOG_LEVEL_INFO, "Active Kiva Country: %s", cntry->name);
+      kivaCntryCount++;
+    }
+  }
+  *kivaCountryQty = kivaCntryCount;
+  
   return KIVA_MODEL_SUCCESS;
 }
+
+
+/////////////////////////////////////////////////////////////////////////////
+/// Gets the quantity of countries supported by the registered lender. 
+/// @param[in,out]  this  Pointer to KivaModel; must be already allocated
+/// @param[out]     lenderCountryQty   Pointer to the lender country quantity
+///       int variable
+/////////////////////////////////////////////////////////////////////////////
+KivaModel_ErrCode KivaModel_getLenderCountryQty(const KivaModel* this, int* lenderCountryQty) {
+  KIVA_MODEL_RETURN_IF_NULL(this);
+  
+  int lenderCntryCount = 0;
+  CountryRec* cntry = NULL;
+  for (cntry=this->kivaCountries; cntry!=NULL; cntry=cntry->hh.next) {
+    if (cntry->lenderSupport) {
+      //APP_LOG(APP_LOG_LEVEL_INFO, "Lender supports %s", cntry->name);
+      lenderCntryCount++;
+    }
+  }
+  *lenderCountryQty = lenderCntryCount;
+  
+  return KIVA_MODEL_SUCCESS;
+}
+
 
 
 
@@ -513,7 +478,7 @@ KivaModel_ErrCode KivaModel_addKivaCountry(KivaModel* this, const char* countryI
 
   if (cntry == NULL) {
     // Value of countryId is not already a key in the hash table; add new record.
-    HEAP_LOG("adding new record...");
+    //HEAP_LOG("adding new record...");
     HASH_ADD_KEYPTR(hh, this->kivaCountries, newCntry->id, strlen(newCntry->id), newCntry);
   } else {
     // Value of countryId was already a key in the hash table; replace it.
@@ -524,6 +489,8 @@ KivaModel_ErrCode KivaModel_addKivaCountry(KivaModel* this, const char* countryI
       APP_LOG(APP_LOG_LEVEL_WARNING, "This shouldn't happen. The CountryRec we just found (%s) is no longer in the hash.", countryId);
     }
   }
+  // Mark as active in Kiva
+  newCntry->kivaActive = true;
   return KIVA_MODEL_SUCCESS;
 }
 
@@ -534,7 +501,7 @@ KivaModel_ErrCode KivaModel_addKivaCountry(KivaModel* this, const char* countryI
 /// @param[in]      countryId  ID of the country to add; a two-character
 ///       ISO-3361 country code. <em>Ownership of this parameter is not
 ///       transferred, so the caller is still responsible for freeing this
-///       variable.
+///       variable.</em>
 /// @param[out]     countryName  If the country ID is recognized by this
 ///       KivaModel, this parameter will be replaced with a pointer to the
 ///       recognized country name. Must be NULL upon entry to this function.
