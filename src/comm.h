@@ -6,6 +6,7 @@ typedef enum MsgKey {
   KEY_PEBKIT_READY = 0,
   KEY_PEBBLE_READY,
   KEY_GET_LENDER_INFO,
+  KEY_GET_PREFERRED_LOANS,
 
   KEY_KIVA_COUNTRY_SET = 10,
   KEY_KIVA_SECTOR_SET,
@@ -25,6 +26,7 @@ typedef enum MsgKey {
   KEY_LENDER_FIELD_PARTNER_SET,
   KEY_LENDER_TARGET_LOAN_SET,
   KEY_LENDER_ACHIEVEMENT_SET,
+  KEY_LOAN_SET,
 
   KEY_PUT_LOANS_IN_BASKET = 100,
 } MsgKey;
@@ -47,3 +49,7 @@ void comm_close();
 
 void comm_sendMessage(const MsgKey);
 void comm_setHandlers(const CommHandlers);
+
+void comm_getPreferredLoans();
+
+

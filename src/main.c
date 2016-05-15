@@ -36,7 +36,10 @@ static void tick_handler(struct tm *tick_time, TimeUnits units_changed) {
  **************************************************************************/
 static void init() {
   wndMainMenu_createPush();
-  
+  wndMainMenu_setHandlers( (wndMainMenuHandlers) {
+    .getPrefLoans = comm_getPreferredLoans
+  });
+
   comm_setHandlers( (CommHandlers) {
     .notifyView = wndMainMenu_updateView
   });

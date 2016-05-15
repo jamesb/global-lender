@@ -1,8 +1,6 @@
 #include <pebble.h>
 
 // Deactivate APP_LOG in this file.
-#undef APP_LOG
-#define APP_LOG(...)
 
 #include "misc.h"
 #include "data/KivaModel.h"
@@ -31,6 +29,7 @@ static Window* wndMainMenu;
 static MenuLayer* lyrMainMenu;
 static GBitmap* bmpLogo;
 static const KivaModel* kivaModel;
+static wndMainMenuHandlers myHandlers;
 
 
 /**************************************************************************
@@ -117,6 +116,14 @@ static void wndMainMenu_select_callback(MenuLayer* menu_layer, MenuIndex* cell_i
       wndLenderBasics_updateView(kivaModel);
       break;
     }
+    case MNU_ITEM_LOANS_FOR_YOU: {
+      if (!myHandlers.getPrefLoans) {
+        APP_LOG(APP_LOG_LEVEL_ERROR, "Attempted operation on NULL pointer.");
+      } else {
+        (*myHandlers.getPrefLoans)();
+      }
+      break;
+    }
     case MNU_ITEM_COUNTRIES: {
       wndCountries_push();
       break;
@@ -144,6 +151,14 @@ static int16_t wndMainMenu_get_cell_height_callback(MenuLayer* menu_layer, MenuI
   return (int)(bounds.size.h / 3);
 }
 #endif
+
+
+/////////////////////////////////////////////////////////////////////////////
+/// Set our callback handlers.
+/////////////////////////////////////////////////////////////////////////////
+void wndMainMenu_setHandlers(const wndMainMenuHandlers wmmh) {
+  myHandlers = wmmh;
+}
 
 
 /**************************************************************************

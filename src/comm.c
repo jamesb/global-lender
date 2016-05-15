@@ -230,9 +230,17 @@ void comm_sendMessage(const MsgKey msgKey) {
 }
 
 
-/**************************************************************************
- * Set our callback handlers.
- **************************************************************************/
+/////////////////////////////////////////////////////////////////////////////
+/// Requests PebbleKit to send a list of preferred loans for the lender.
+/////////////////////////////////////////////////////////////////////////////
+void comm_getPreferredLoans() {
+    comm_sendMessage(KEY_GET_PREFERRED_LOANS);
+}
+
+
+/////////////////////////////////////////////////////////////////////////////
+/// Set our callback handlers.
+/////////////////////////////////////////////////////////////////////////////
 void comm_setHandlers(const CommHandlers cmh) {
   commHandlers = cmh;
 }
