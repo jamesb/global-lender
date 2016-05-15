@@ -19,9 +19,9 @@ static void tick_handler(struct tm *tick_time, TimeUnits units_changed) {
       APP_LOG(APP_LOG_LEVEL_ERROR, "strftime() returned 0");
     } else {
       APP_LOG(APP_LOG_LEVEL_DEBUG, "tick_handler (%s) -- units_changed = %d", timebuf, units_changed);
-    }  
-  } 
-  
+    }
+  }
+
 //  wndLenderBasics_updateTime();
 
   // Get update every 30 minutes
@@ -38,10 +38,10 @@ static void init() {
   wndMainMenu_createPush();
   
   comm_setHandlers( (CommHandlers) {
-    .notifyApp = wndMainMenu_updateView
-  }); 
+    .notifyView = wndMainMenu_updateView
+  });
   comm_open();
-    
+
   // Register with TickTimerService
   tick_timer_service_subscribe(MINUTE_UNIT, tick_handler);
 }
@@ -52,7 +52,7 @@ static void init() {
  **************************************************************************/
 static void deinit() {
   wndMainMenu_destroy();
-  
+
   comm_close();
 }
 
@@ -67,6 +67,6 @@ int main(void) {
 
   /* wait for system events until exit */
   app_event_loop();
-  
+
   deinit();
 }

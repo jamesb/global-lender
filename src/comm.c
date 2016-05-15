@@ -177,10 +177,10 @@ static void inbox_received_callback(DictionaryIterator *iterator, void *context)
     free(countrySetBuf); countrySetBuf = NULL;
   }
 
-  if (!commHandlers.notifyApp) {
+  if (!commHandlers.notifyView) {
     APP_LOG(APP_LOG_LEVEL_ERROR, "Attempted operation on NULL pointer.");
   } else {
-    (*commHandlers.notifyApp)(dataModel);
+    (*commHandlers.notifyView)(dataModel);
   }
 
 }

@@ -31,13 +31,13 @@ typedef enum MsgKey {
 
 
 
-// NotifyAppHandler is a pointer to a function that takes a single
+// NotifyViewHandler is a pointer to a function that takes a single
 // parameter (const KivaModel pointer) and returns nothing.
-typedef void (*NotifyAppHandler)(const KivaModel*);
+typedef void (*NotifyViewHandler)(const KivaModel*);
 
 // CommHandlers is a struct that contains the values of the handlers.
 typedef struct CommHandlers {
-  NotifyAppHandler notifyApp;
+  NotifyViewHandler notifyView;     ///< Function that Comm calls to notify the View of a data model update.
 } CommHandlers;
 
 
