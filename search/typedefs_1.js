@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['kivamodel',['KivaModel',['../_kiva_model_8h.html#ac10211667a9098d43053243e3b4559a0',1,'KivaModel.h']]],
-  ['kivamodel_5ferrcode',['KivaModel_ErrCode',['../_kiva_model_8h.html#a40f19d969ff3c70daf9db9b42399f15f',1,'KivaModel.h']]]
+  ['getprefloanshandler',['GetPrefLoansHandler',['../wnd_main_menu_8h.html#a3edde619d5b8d1044bf4570f65f0ef61',1,'wndMainMenu.h']]]
 ];

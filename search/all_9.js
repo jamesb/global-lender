@@ -2,6 +2,7 @@ var searchData=
 [
   ['key',['key',['../struct_u_t__hash__handle.html#ab5c000aec752f2206131e183daf5efbf',1,'UT_hash_handle']]],
   ['key_5fget_5flender_5finfo',['KEY_GET_LENDER_INFO',['../comm_8h.html#ad4843d812d90ec4f7e8726a2755f8e7ca5b543121157fee3fa2afd3e3cb0d06da',1,'comm.h']]],
+  ['key_5fget_5fpreferred_5floans',['KEY_GET_PREFERRED_LOANS',['../comm_8h.html#ad4843d812d90ec4f7e8726a2755f8e7cac80e553fa2772d56e66751b8e5dc4775',1,'comm.h']]],
   ['key_5fkiva_5factivity_5fset',['KEY_KIVA_ACTIVITY_SET',['../comm_8h.html#ad4843d812d90ec4f7e8726a2755f8e7ca970da98e7279a1003f043ff60e6d68b6',1,'comm.h']]],
   ['key_5fkiva_5fcountry_5fset',['KEY_KIVA_COUNTRY_SET',['../comm_8h.html#ad4843d812d90ec4f7e8726a2755f8e7cae1b07f5dcd481508085a18735f98119a',1,'comm.h']]],
   ['key_5fkiva_5ffield_5fpartner_5fset',['KEY_KIVA_FIELD_PARTNER_SET',['../comm_8h.html#ad4843d812d90ec4f7e8726a2755f8e7ca0e2c0fd06df3ca702261933870f31434',1,'comm.h']]],
@@ -17,6 +18,7 @@ var searchData=
   ['key_5flender_5fsector_5fset',['KEY_LENDER_SECTOR_SET',['../comm_8h.html#ad4843d812d90ec4f7e8726a2755f8e7ca7b83ea1276f89e702a32b1debabd2956',1,'comm.h']]],
   ['key_5flender_5ftarget_5floan_5fset',['KEY_LENDER_TARGET_LOAN_SET',['../comm_8h.html#ad4843d812d90ec4f7e8726a2755f8e7ca00d5d632f431b22a2ef02ee343963794',1,'comm.h']]],
   ['key_5flender_5fteam_5fset',['KEY_LENDER_TEAM_SET',['../comm_8h.html#ad4843d812d90ec4f7e8726a2755f8e7cae9ff719a01aca0f84714f19742bafbba',1,'comm.h']]],
+  ['key_5floan_5fset',['KEY_LOAN_SET',['../comm_8h.html#ad4843d812d90ec4f7e8726a2755f8e7caf7e9008d597c226ecaf75484e2a8dd96',1,'comm.h']]],
   ['key_5fpebble_5fready',['KEY_PEBBLE_READY',['../comm_8h.html#ad4843d812d90ec4f7e8726a2755f8e7cac3d337827cccfdcc3b9f48f5ff8be7f0',1,'comm.h']]],
   ['key_5fpebkit_5fready',['KEY_PEBKIT_READY',['../comm_8h.html#ad4843d812d90ec4f7e8726a2755f8e7ca74437e1dfe99bfa21aaa0668018841aa',1,'comm.h']]],
   ['key_5fput_5floans_5fin_5fbasket',['KEY_PUT_LOANS_IN_BASKET',['../comm_8h.html#ad4843d812d90ec4f7e8726a2755f8e7ca3ea6bae3a2e17db1a3009fedacc21210',1,'comm.h']]],
@@ -31,6 +33,7 @@ var searchData=
   ['kiva_5fmodel_5funknown_5ferr',['KIVA_MODEL_UNKNOWN_ERR',['../_kiva_model_8h.html#aa4c109eff106cf22169394f4fc6357bcae6817d852ce214eb8c6cd7ea9409c22d',1,'KivaModel.h']]],
   ['kivaactive',['kivaActive',['../struct_country_rec.html#a1f6060a7216079a5dc1203bb2caa3d93',1,'CountryRec']]],
   ['kivaappid',['kivaAppId',['../app_8js.html#aca27c5aeb2c7a53c422651acbed41d64',1,'app.js']]],
+  ['kivaappidparam',['kivaAppIdParam',['../app_8js.html#a8c4e967627ef2f5784f60cd1ad02267d',1,'app.js']]],
   ['kivacc',['kivaCC',['../app_8js.html#ae55147f775040cba33aa39fe52ce5a42',1,'app.js']]],
   ['kivacountries',['kivaCountries',['../struct_kiva_model.html#a8aaa4107d9eefbe83d05cb7cc4583254',1,'KivaModel']]],
   ['kivamodel',['KivaModel',['../struct_kiva_model.html',1,'KivaModel'],['../_kiva_model_8h.html#ac10211667a9098d43053243e3b4559a0',1,'KivaModel():&#160;KivaModel.h']]],

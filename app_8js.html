@@ -96,14 +96,16 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ae64586f21f0ecefd6277c73207463900"><td class="memItemLeft" align="right" valign="top">function&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="app_8js.html#ae64586f21f0ecefd6277c73207463900">callKivaApiAsync</a> (url, parseFxn)</td></tr>
-<tr class="separator:ae64586f21f0ecefd6277c73207463900"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae3a96e3ac0575ac3211720af101242d6"><td class="memItemLeft" align="right" valign="top">function&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="app_8js.html#ae3a96e3ac0575ac3211720af101242d6">callKivaApiAsync</a> (url, parseFxn, maxResults)</td></tr>
+<tr class="separator:ae3a96e3ac0575ac3211720af101242d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac6502f909d3cd81be1b6ed9339cb92ab"><td class="memItemLeft" align="right" valign="top">function&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="app_8js.html#ac6502f909d3cd81be1b6ed9339cb92ab">getLenderInfo</a> ()</td></tr>
 <tr class="separator:ac6502f909d3cd81be1b6ed9339cb92ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0349825e466fa95d3410e48f75107ef7"><td class="memItemLeft" align="right" valign="top">function&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="app_8js.html#a0349825e466fa95d3410e48f75107ef7">getLoansForLender</a> ()</td></tr>
 <tr class="separator:a0349825e466fa95d3410e48f75107ef7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2a5ff393ab80cef57c756237c6ae3a07"><td class="memItemLeft" align="right" valign="top">function&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="app_8js.html#a2a5ff393ab80cef57c756237c6ae3a07">getKivaActiveFieldPartners</a> ()</td></tr>
 <tr class="separator:a2a5ff393ab80cef57c756237c6ae3a07"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8b0faa37afaf571b79185b4910365b2e"><td class="memItemLeft" align="right" valign="top">function&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="app_8js.html#a8b0faa37afaf571b79185b4910365b2e">getPreferredLoans</a> (prefCC, maxResults)</td></tr>
+<tr class="separator:a8b0faa37afaf571b79185b4910365b2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab0c614d28be782cf186fe433406288f7"><td class="memItemLeft" align="right" valign="top">Pebble&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="app_8js.html#ab0c614d28be782cf186fe433406288f7">addEventListener</a> ('ready', function(e){console.log(&quot;PebbleKit JS ready!&quot;);Pebble.sendAppMessage({&quot;KEY_PEBKIT_READY&quot;:1});getKivaActiveFieldPartners();})</td></tr>
 <tr class="separator:ab0c614d28be782cf186fe433406288f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -121,10 +123,12 @@ Variables</h2></td></tr>
 <tr class="separator:a521195d84112f11fa6a94864d942e2f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aca27c5aeb2c7a53c422651acbed41d64"><td class="memItemLeft" align="right" valign="top">var&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="app_8js.html#aca27c5aeb2c7a53c422651acbed41d64">kivaAppId</a> = 'com.magnosity.global-lender'</td></tr>
 <tr class="separator:aca27c5aeb2c7a53c422651acbed41d64"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8c4e967627ef2f5784f60cd1ad02267d"><td class="memItemLeft" align="right" valign="top">var&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="app_8js.html#a8c4e967627ef2f5784f60cd1ad02267d">kivaAppIdParam</a> = &quot;appId=&quot; + kivaAppId</td></tr>
+<tr class="separator:a8c4e967627ef2f5784f60cd1ad02267d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5e4bf1d89e1aae83b014c99c4dfeacc3"><td class="memItemLeft" align="right" valign="top">var&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="app_8js.html#a5e4bf1d89e1aae83b014c99c4dfeacc3">lenderId</a> = 'jdb'</td></tr>
 <tr class="separator:a5e4bf1d89e1aae83b014c99c4dfeacc3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a747f82a9558624c96f74f6afbc639660"><td class="memItemLeft" align="right" valign="top">var&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="app_8js.html#a747f82a9558624c96f74f6afbc639660">pages</a> = []</td></tr>
-<tr class="separator:a747f82a9558624c96f74f6afbc639660"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2021cfe05b76494e9da6899b136dbda0"><td class="memItemLeft" align="right" valign="top">var&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="app_8js.html#a2021cfe05b76494e9da6899b136dbda0">pageArray</a> = []</td></tr>
+<tr class="separator:a2021cfe05b76494e9da6899b136dbda0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4278121f2146f44a9896ca0d9a46c827"><td class="memItemLeft" align="right" valign="top">Array prototype&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="app_8js.html#a4278121f2146f44a9896ca0d9a46c827">unique</a></td></tr>
 <tr class="separator:a4278121f2146f44a9896ca0d9a46c827"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a95e8ee81171c3c0c9478b89a196ee90b"><td class="memItemLeft" align="right" valign="top">var&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="app_8js.html#a95e8ee81171c3c0c9478b89a196ee90b">xhrRequest</a></td></tr>
@@ -157,7 +161,7 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="ae64586f21f0ecefd6277c73207463900"></a>
+<a class="anchor" id="ae3a96e3ac0575ac3211720af101242d6"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -171,7 +175,13 @@ Variables</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>parseFxn</em>&#160;</td>
+          <td class="paramname"><em>parseFxn</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>maxResults</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -222,6 +232,32 @@ Variables</h2></td></tr>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a8b0faa37afaf571b79185b4910365b2e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">function getPreferredLoans </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>prefCC</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>maxResults</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -289,6 +325,18 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a8c4e967627ef2f5784f60cd1ad02267d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">var kivaAppIdParam = &quot;appId=&quot; + kivaAppId</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="ae55147f775040cba33aa39fe52ce5a42"></a>
 <div class="memitem">
 <div class="memproto">
@@ -313,12 +361,12 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a747f82a9558624c96f74f6afbc639660"></a>
+<a class="anchor" id="a2021cfe05b76494e9da6899b136dbda0"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">var pages = []</td>
+          <td class="memname">var pageArray = []</td>
         </tr>
       </table>
 </div><div class="memdoc">
