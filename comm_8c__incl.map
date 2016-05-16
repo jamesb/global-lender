@@ -1,6 +1,6 @@
 <map id="src/comm.c" name="src/comm.c">
 <area shape="rect" id="node3" href="$misc_8h.html" title="misc.h" alt="" coords="23,80,84,107"/>
-<area shape="rect" id="node4" href="$comm_8h.html" title="comm.h" alt="" coords="252,80,321,107"/>
-<area shape="rect" id="node5" href="$_kiva_model_8h.html" title="data/KivaModel.h" alt="" coords="261,155,384,181"/>
-<area shape="rect" id="node6" href="$data-processor_8h.html" title="data&#45;processor.h" alt="" coords="109,80,227,107"/>
+<area shape="rect" id="node4" href="$comm_8h.html" title="comm.h" alt="" coords="276,80,346,107"/>
+<area shape="rect" id="node5" href="$_kiva_model_8h.html" title="data/KivaModel.h" alt="" coords="286,155,408,181"/>
+<area shape="rect" id="node6" href="$data-processor_8h.html" title="libs/data&#45;processor.h" alt="" coords="109,80,252,107"/>
 </map>
