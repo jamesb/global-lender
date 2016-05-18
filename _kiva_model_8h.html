@@ -168,6 +168,8 @@ Functions</h2></td></tr>
 <tr class="separator:ae4629feea0da1cd2bccceaf0c088accd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4995586f83002a0c5c9876db09812dd8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_kiva_model_8h.html#aa4c109eff106cf22169394f4fc6357bc">KivaModel_ErrCode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_kiva_model_8h.html#a4995586f83002a0c5c9876db09812dd8">KivaModel_getLenderCountryQty</a> (const <a class="el" href="struct_kiva_model.html">KivaModel</a> *this, int *)</td></tr>
 <tr class="separator:a4995586f83002a0c5c9876db09812dd8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af9ea2fff8efd2965932456c4c9dafc6a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_kiva_model_8h.html#aa4c109eff106cf22169394f4fc6357bc">KivaModel_ErrCode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_kiva_model_8h.html#af9ea2fff8efd2965932456c4c9dafc6a">KivaModel_getLenderCountryCodes</a> (const <a class="el" href="struct_kiva_model.html">KivaModel</a> *this, const bool, char **)</td></tr>
+<tr class="separator:af9ea2fff8efd2965932456c4c9dafc6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8590ff50746ea34830ffa11b14dc0356"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_kiva_model_8h.html#aa4c109eff106cf22169394f4fc6357bc">KivaModel_ErrCode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_kiva_model_8h.html#a8590ff50746ea34830ffa11b14dc0356">KivaModel_getKivaCountryQty</a> (const <a class="el" href="struct_kiva_model.html">KivaModel</a> *this, int *)</td></tr>
 <tr class="separator:a8590ff50746ea34830ffa11b14dc0356"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7c814be17e8b4da51627f1338d2dd3f4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_kiva_model_8h.html#aa4c109eff106cf22169394f4fc6357bc">KivaModel_ErrCode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_kiva_model_8h.html#a7c814be17e8b4da51627f1338d2dd3f4">KivaModel_getKivaCountryName</a> (const <a class="el" href="struct_kiva_model.html">KivaModel</a> *this, const char *, const char **)</td></tr>
@@ -441,6 +443,48 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a class="anchor" id="af9ea2fff8efd2965932456c4c9dafc6a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="_kiva_model_8h.html#aa4c109eff106cf22169394f4fc6357bc">KivaModel_ErrCode</a> KivaModel_getLenderCountryCodes </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="struct_kiva_model.html">KivaModel</a> *&#160;</td>
+          <td class="paramname"><em>this</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const bool&#160;</td>
+          <td class="paramname"><em>support</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char **&#160;</td>
+          <td class="paramname"><em>countryCodes</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Gets a list of country codes relative to the registered lender. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">this</td><td>Pointer to <a class="el" href="struct_kiva_model.html">KivaModel</a>; must be already allocated </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">support</td><td>If true, returns a list of country codes that registered lender has supported with loans. If false, returns a list of country codes that the registered lender has NOT yet supported with loans. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">countryCodes</td><td>If countries exist that meet the support criteria relative to the lender in this <a class="el" href="struct_kiva_model.html">KivaModel</a>, then this parameter will be replaced with a pointer to a string of comma- separated country codes. Must be NULL upon entry to this function. If there are no countries that meet the criteria, then this parameter will remain NULL. <em>Ownership of this string is transferred to the caller after this function call. Caller owns (and must free) the memory associated with countryCodes (if the string is not NULL).</em> </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>KIVA_MODEL_SUCCESS on success KIVA_MODEL_INVALID_INPUT_ERR if countryCodes is not NULL on entry </dd></dl>
+<p>&lt; Arbitrary start size </p>
 
 </div>
 </div>

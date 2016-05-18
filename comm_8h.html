@@ -172,8 +172,8 @@ Functions</h2></td></tr>
 <tr class="separator:a59afc3904fa73fece5c655d782d42efb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af6d147624e80153bc57e8e5b65125d5c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="comm_8h.html#af6d147624e80153bc57e8e5b65125d5c">comm_close</a> ()</td></tr>
 <tr class="separator:af6d147624e80153bc57e8e5b65125d5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5d114fc9b2d50ea606d8f6c270c58c09"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="comm_8h.html#a5d114fc9b2d50ea606d8f6c270c58c09">comm_sendMessage</a> (const <a class="el" href="comm_8h.html#ad4843d812d90ec4f7e8726a2755f8e7c">MsgKey</a>)</td></tr>
-<tr class="separator:a5d114fc9b2d50ea606d8f6c270c58c09"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aadf17ceeef5b7955fcf569cd5a9e6209"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="comm_8h.html#aadf17ceeef5b7955fcf569cd5a9e6209">comm_sendMsgCstr</a> (const <a class="el" href="comm_8h.html#ad4843d812d90ec4f7e8726a2755f8e7c">MsgKey</a>, const char *payload)</td></tr>
+<tr class="separator:aadf17ceeef5b7955fcf569cd5a9e6209"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6a67f0d244db4a95d9a14bbcf10a601d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="comm_8h.html#a6a67f0d244db4a95d9a14bbcf10a601d">comm_setHandlers</a> (const <a class="el" href="struct_comm_handlers.html">CommHandlers</a>)</td></tr>
 <tr class="memdesc:a6a67f0d244db4a95d9a14bbcf10a601d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set our callback handlers.  <a href="#a6a67f0d244db4a95d9a14bbcf10a601d">More...</a><br /></td></tr>
 <tr class="separator:a6a67f0d244db4a95d9a14bbcf10a601d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -340,16 +340,26 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a5d114fc9b2d50ea606d8f6c270c58c09"></a>
+<a class="anchor" id="aadf17ceeef5b7955fcf569cd5a9e6209"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void comm_sendMessage </td>
+          <td class="memname">void comm_sendMsgCstr </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="comm_8h.html#ad4843d812d90ec4f7e8726a2755f8e7c">MsgKey</a>&#160;</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>payload</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">

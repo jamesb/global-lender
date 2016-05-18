@@ -113,8 +113,8 @@ Include dependency graph for comm.c:</div>
 Functions</h2></td></tr>
 <tr class="memitem:a87c01b16b317aca22cef29395aa4c98c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="comm_8c.html#a87c01b16b317aca22cef29395aa4c98c">comm_pebkitReady</a> ()</td></tr>
 <tr class="separator:a87c01b16b317aca22cef29395aa4c98c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a937c368ffb1f8b4170e5482d7d4b0a86"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="comm_8c.html#a937c368ffb1f8b4170e5482d7d4b0a86">comm_sendMessage</a> (const <a class="el" href="comm_8h.html#ad4843d812d90ec4f7e8726a2755f8e7c">MsgKey</a> msgKey)</td></tr>
-<tr class="separator:a937c368ffb1f8b4170e5482d7d4b0a86"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af070817cbed1f2591e12a451806e5665"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="comm_8c.html#af070817cbed1f2591e12a451806e5665">comm_sendMsgCstr</a> (const <a class="el" href="comm_8h.html#ad4843d812d90ec4f7e8726a2755f8e7c">MsgKey</a> msgKey, const char *payload)</td></tr>
+<tr class="separator:af070817cbed1f2591e12a451806e5665"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acdbf689a7d2f037d961c48487f786e4a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="comm_8c.html#acdbf689a7d2f037d961c48487f786e4a">comm_getPreferredLoans</a> ()</td></tr>
 <tr class="memdesc:acdbf689a7d2f037d961c48487f786e4a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Requests PebbleKit to send a list of preferred loans for the lender.  <a href="#acdbf689a7d2f037d961c48487f786e4a">More...</a><br /></td></tr>
 <tr class="separator:acdbf689a7d2f037d961c48487f786e4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -189,16 +189,26 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a937c368ffb1f8b4170e5482d7d4b0a86"></a>
+<a class="anchor" id="af070817cbed1f2591e12a451806e5665"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void comm_sendMessage </td>
+          <td class="memname">void comm_sendMsgCstr </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="comm_8h.html#ad4843d812d90ec4f7e8726a2755f8e7c">MsgKey</a>&#160;</td>
-          <td class="paramname"><em>msgKey</em></td><td>)</td>
+          <td class="paramname"><em>msgKey</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>payload</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">

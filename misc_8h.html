@@ -114,6 +114,7 @@ This graph shows which files directly or indirectly include this file:</div>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
 <tr class="memitem:a42b76163fda3d9c91ca7a2965ddd534c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="misc_8h.html#a42b76163fda3d9c91ca7a2965ddd534c">HEAP_LOG_0</a>()&#160;&#160;&#160;<a class="el" href="wnd_countries_8c.html#a19cc34ebde0b2378e48ce60bc92c0a5c">APP_LOG</a>(APP_LOG_LEVEL_DEBUG, &quot;Free Heap: %zu b, Used Heap: %zu b&quot;, heap_bytes_free(), heap_bytes_used())</td></tr>
+<tr class="memdesc:a42b76163fda3d9c91ca7a2965ddd534c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prints the free and used heap sizes to the app log, with or without an additional c-string argument to append.  <a href="#a42b76163fda3d9c91ca7a2965ddd534c">More...</a><br /></td></tr>
 <tr class="separator:a42b76163fda3d9c91ca7a2965ddd534c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a624c31c83b16aef7fba84400a2a1fc9c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="misc_8h.html#a624c31c83b16aef7fba84400a2a1fc9c">HEAP_LOG_1</a>(str)&#160;&#160;&#160;if (str != NULL) { <a class="el" href="wnd_countries_8c.html#a19cc34ebde0b2378e48ce60bc92c0a5c">APP_LOG</a>(APP_LOG_LEVEL_DEBUG, &quot;Free Heap: %zu b, Used Heap: %zu b -- %s&quot;, heap_bytes_free(), heap_bytes_used(), str); }</td></tr>
 <tr class="separator:a624c31c83b16aef7fba84400a2a1fc9c"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -121,6 +122,9 @@ Macros</h2></td></tr>
 <tr class="separator:a8ff1830422a3ba9663c5a8a8985f3850"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0a5985e6b62833172138422d55e12cea"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="misc_8h.html#a0a5985e6b62833172138422d55e12cea">HEAP_LOG</a>(...)&#160;&#160;&#160;<a class="el" href="misc_8h.html#a8ff1830422a3ba9663c5a8a8985f3850">GET_MACRO</a>(_0, ##__VA_ARGS__, <a class="el" href="misc_8h.html#a624c31c83b16aef7fba84400a2a1fc9c">HEAP_LOG_1</a>, <a class="el" href="misc_8h.html#a42b76163fda3d9c91ca7a2965ddd534c">HEAP_LOG_0</a>)(__VA_ARGS__)</td></tr>
 <tr class="separator:a0a5985e6b62833172138422d55e12cea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af8573d75240f683404d842a3bb0c92a5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="misc_8h.html#af8573d75240f683404d842a3bb0c92a5">strxlen</a>(str)&#160;&#160;&#160;(str==NULL?0:strlen(str))</td></tr>
+<tr class="memdesc:af8573d75240f683404d842a3bb0c92a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the length of the specified string, or 0 if NULL.  <a href="#af8573d75240f683404d842a3bb0c92a5">More...</a><br /></td></tr>
+<tr class="separator:af8573d75240f683404d842a3bb0c92a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
@@ -197,6 +201,8 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Prints the free and used heap sizes to the app log, with or without an additional c-string argument to append. </p>
+
 </div>
 </div>
 <a class="anchor" id="a624c31c83b16aef7fba84400a2a1fc9c"></a>
@@ -212,6 +218,24 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="af8573d75240f683404d842a3bb0c92a5"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define strxlen</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">str</td><td>)</td>
+          <td>&#160;&#160;&#160;(str==NULL?0:strlen(str))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the length of the specified string, or 0 if NULL. </p>
 
 </div>
 </div>
