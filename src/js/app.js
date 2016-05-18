@@ -383,19 +383,18 @@ Pebble.addEventListener('ready',
  **************************************************************************/
 Pebble.addEventListener('appmessage',
   function(e) {
-    console.log("AppMessage received!");
+    console.log("AppMessage received: " + JSON.stringify(e.payload));
+    var dict = e.payload;
 
-    if ('KEY_GET_LENDER_INFO' in e.payload) {
+    if ('KEY_GET_LENDER_INFO' in dict) {
       getLenderInfo();
       getLoansForLender();
-
-    } else if ('KEY_GET_PREFERRED_LOANS' in e.payload) {
-      var prefCC = "KE,PH,TH";
+    } else if ('KEY_GET_PREFERRED_LOANS' in dict) {
+      var prefCC = dict['KEY_GET_PREFERRED_LOANS'];
       var maxResults = 10;
       getPreferredLoans(prefCC, maxResults);
-
     } else {
-      console.log("Unrecognized app message: " + JSON.stringify(e.payload));
+      console.log("Unrecognized app message: " + JSON.stringify(dict));
     }
 
 

@@ -3,7 +3,7 @@
 
 
 /**************************************************************************
- * Stylizes the text layer to the spec 
+ * Stylizes the text layer to the spec
  **************************************************************************/
 void textLayer_stylize(TextLayer* textLayer, const GColor bgcolor, const GColor txtColor,
                        const GTextAlignment txtAlign, const GFont txtFont) {

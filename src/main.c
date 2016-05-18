@@ -26,7 +26,7 @@ static void tick_handler(struct tm *tick_time, TimeUnits units_changed) {
 
   // Get update every 30 minutes
   if(tick_time->tm_min % 30 == 0) {
-    comm_sendMessage(KEY_GET_LENDER_INFO);
+    comm_sendMsgCstr(KEY_GET_LENDER_INFO, NULL);
   }
 }
 

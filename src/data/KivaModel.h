@@ -37,6 +37,7 @@ KivaModel_ErrCode KivaModel_getLenderLoc(const KivaModel* this, char**);
 KivaModel_ErrCode KivaModel_getLenderLoanQty(const KivaModel* this, int*);
 
 KivaModel_ErrCode KivaModel_getLenderCountryQty(const KivaModel* this, int*);
+KivaModel_ErrCode KivaModel_getLenderCountryCodes(const KivaModel* this, const bool, char**);
 KivaModel_ErrCode KivaModel_getKivaCountryQty(const KivaModel* this, int*);
 KivaModel_ErrCode KivaModel_getKivaCountryName(const KivaModel* this, const char*, const char**);
 

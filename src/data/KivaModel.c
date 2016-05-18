@@ -107,7 +107,7 @@ static KivaModel_ErrCode KivaModel_CountryRec_destroy(CountryRec* this) {
 /////////////////////////////////////////////////////////////////////////////
 /// Constructor
 /// @param[in]      lenderId   Pointer to the lender ID C-string. Identifies
-///       the lender uniquely on kiva.org. <em>Ownership is not transferred 
+///       the lender uniquely on kiva.org. <em>Ownership is not transferred
 ///       to this function, so the caller is still responsible for freeing
 ///       this variable.</em>
 /////////////////////////////////////////////////////////////////////////////
@@ -160,7 +160,7 @@ KivaModel_ErrCode KivaModel_destroy(KivaModel* this) {
 /// Internal initialization
 /// @param[in,out]  this  Pointer to KivaModel; must be already allocated
 /// @param[in]      lenderId   Pointer to the lender ID C-string. Identifies
-///       the lender uniquely on kiva.org. <em>Ownership is not transferred 
+///       the lender uniquely on kiva.org. <em>Ownership is not transferred
 ///       to this function, so the caller is still responsible for freeing
 ///       this variable.</em>
 /////////////////////////////////////////////////////////////////////////////
@@ -190,7 +190,7 @@ KivaModel_ErrCode KivaModel_init(KivaModel* this, const char* lenderId) {
 /// will be NULL or empty until it is reloaded.
 /// @param[in,out]  this  Pointer to KivaModel; must be already allocated
 /// @param[in]      lenderId   Pointer to the lender ID C-string. Identifies
-///       the lender uniquely on kiva.org. <em>Ownership is not transferred 
+///       the lender uniquely on kiva.org. <em>Ownership is not transferred
 ///       to this function, so the caller is still responsible for freeing
 ///       this variable.</em>
 /////////////////////////////////////////////////////////////////////////////
@@ -198,10 +198,10 @@ KivaModel_ErrCode KivaModel_setLenderId(KivaModel* this, const char* lenderId) {
   KIVA_MODEL_RETURN_IF_NULL(this);
 
   if (lenderId == NULL) { return KIVA_MODEL_INVALID_INPUT_ERR; }
-  if ( (this->lenderInfo.id != NULL) && (strcmp(lenderId, this->lenderInfo.id) == 0) ) { 
+  if ( (this->lenderInfo.id != NULL) && (strcmp(lenderId, this->lenderInfo.id) == 0) ) {
     return KIVA_MODEL_SUCCESS;
   }
-  
+
   size_t bufsize = strlen(lenderId)+1;
   char* tmp = realloc(this->lenderInfo.id, bufsize);
   if (tmp == NULL) { return KIVA_MODEL_OUT_OF_MEMORY_ERR; }
@@ -212,7 +212,7 @@ KivaModel_ErrCode KivaModel_setLenderId(KivaModel* this, const char* lenderId) {
   if (this->lenderInfo.name != NULL) { free(this->lenderInfo.name); this->lenderInfo.name = NULL; }
   if (this->lenderInfo.loc != NULL)  { free(this->lenderInfo.loc);  this->lenderInfo.loc = NULL; }
   this->lenderInfo.loanQty = 0;
-  
+
   // Reset the CountryRec lender-dependent fields to NULL
   CountryRec* cntry = NULL;
   for (cntry=this->kivaCountries; cntry!=NULL; cntry=cntry->hh.next) {
@@ -226,9 +226,9 @@ KivaModel_ErrCode KivaModel_setLenderId(KivaModel* this, const char* lenderId) {
 /////////////////////////////////////////////////////////////////////////////
 /// Sets the lender name for the registered lender.
 /// @param[in,out]  this  Pointer to KivaModel; must be already allocated
-/// @param[in]      lenderName   Pointer to the lender name C-string, as it 
+/// @param[in]      lenderName   Pointer to the lender name C-string, as it
 ///       is written on kiva.org. This may be a first name and last name,
-///       but is not limited to that format. <em>Ownership is not transferred 
+///       but is not limited to that format. <em>Ownership is not transferred
 ///       to this function, so the caller is still responsible for freeing
 ///       this variable.</em>
 /////////////////////////////////////////////////////////////////////////////
@@ -252,9 +252,9 @@ KivaModel_ErrCode KivaModel_setLenderName(KivaModel* this, const char* lenderNam
 /////////////////////////////////////////////////////////////////////////////
 /// Sets the lender location for the registered lender.
 /// @param[in,out]  this  Pointer to KivaModel; must be already allocated
-/// @param[in]      lenderName   Pointer to the lender location C-string, as 
+/// @param[in]      lenderName   Pointer to the lender location C-string, as
 ///       it appears on kiva.org. This is a free format text field.
-///       <em>Ownership is not transferred to this function, so the caller 
+///       <em>Ownership is not transferred to this function, so the caller
 ///       is still responsible for freeing this variable.</em>
 /////////////////////////////////////////////////////////////////////////////
 KivaModel_ErrCode KivaModel_setLenderLoc(KivaModel* this, const char* lenderLoc) {
@@ -323,7 +323,7 @@ KivaModel_ErrCode KivaModel_addLenderCountry(KivaModel* this, const char* countr
     if (cntry == NULL) {
       return KIVA_MODEL_NULL_POINTER_ERR;
     }
-    
+
     // This country wasn't in the Kiva list. Mark it as inactive.
     cntry->kivaActive = false;
   }
@@ -384,7 +384,7 @@ KivaModel_ErrCode KivaModel_getLenderLoc(const KivaModel* this, char** lenderLoc
 
 
 /////////////////////////////////////////////////////////////////////////////
-/// Gets the quantity of loans by the registered lender. 
+/// Gets the quantity of loans by the registered lender.
 /// @param[in,out]  this  Pointer to KivaModel; must be already allocated
 /// @param[out]     lenderQty   Pointer to the lender loan quantity int
 ///       variable
@@ -404,7 +404,7 @@ KivaModel_ErrCode KivaModel_getLenderLoanQty(const KivaModel* this, int* lenderL
 /////////////////////////////////////////////////////////////////////////////
 KivaModel_ErrCode KivaModel_getKivaCountryQty(const KivaModel* this, int* kivaCountryQty) {
   KIVA_MODEL_RETURN_IF_NULL(this);
-  
+
   int kivaCntryCount = 0;
   CountryRec* cntry = NULL;
   for (cntry=this->kivaCountries; cntry!=NULL; cntry=cntry->hh.next) {
@@ -414,20 +414,20 @@ KivaModel_ErrCode KivaModel_getKivaCountryQty(const KivaModel* this, int* kivaCo
     }
   }
   *kivaCountryQty = kivaCntryCount;
-  
+
   return KIVA_MODEL_SUCCESS;
 }
 
 
 /////////////////////////////////////////////////////////////////////////////
-/// Gets the quantity of countries supported by the registered lender. 
+/// Gets the quantity of countries supported by the registered lender.
 /// @param[in,out]  this  Pointer to KivaModel; must be already allocated
 /// @param[out]     lenderCountryQty   Pointer to the lender country quantity
 ///       int variable
 /////////////////////////////////////////////////////////////////////////////
 KivaModel_ErrCode KivaModel_getLenderCountryQty(const KivaModel* this, int* lenderCountryQty) {
   KIVA_MODEL_RETURN_IF_NULL(this);
-  
+
   int lenderCntryCount = 0;
   CountryRec* cntry = NULL;
   for (cntry=this->kivaCountries; cntry!=NULL; cntry=cntry->hh.next) {
@@ -437,10 +437,74 @@ KivaModel_ErrCode KivaModel_getLenderCountryQty(const KivaModel* this, int* lend
     }
   }
   *lenderCountryQty = lenderCntryCount;
-  
+
   return KIVA_MODEL_SUCCESS;
 }
 
+
+/////////////////////////////////////////////////////////////////////////////
+/// Gets a list of country codes relative to the registered lender.
+/// @param[in,out]  this  Pointer to KivaModel; must be already allocated
+/// @param[in]      support  If true, returns a list of country codes that
+///       registered lender has supported with loans. If false, returns a
+///       list of country codes that the registered lender has NOT yet
+///       supported with loans.
+/// @param[out]     countryCodes  If countries exist that meet the support
+///       criteria relative to the lender in this KivaModel, then this
+///       parameter will be replaced with a pointer to a string of comma-
+///       separated country codes. Must be NULL upon entry to this function.
+///       If there are no countries that meet the criteria, then this
+///       parameter will remain NULL. <em>Ownership of this string is
+///       transferred to the caller after this function call. Caller owns
+///       (and must free) the memory associated with countryCodes
+///       (if the string is not NULL).</em>
+/// @return  KIVA_MODEL_SUCCESS on success
+///          KIVA_MODEL_INVALID_INPUT_ERR if countryCodes is not NULL on entry
+/////////////////////////////////////////////////////////////////////////////
+KivaModel_ErrCode KivaModel_getLenderCountryCodes(const KivaModel* this, const bool support, char** countryCodes) {
+  KIVA_MODEL_RETURN_IF_NULL(this);
+  if (*countryCodes != NULL) { return KIVA_MODEL_INVALID_INPUT_ERR; }
+
+  const char* sep = ",";
+
+  char* lenderCntryCodes = NULL;
+  size_t bufsize = 16;    ///< Arbitrary start size
+  size_t buflen = 0;
+
+  if ( (lenderCntryCodes = (char*) calloc(bufsize, sizeof(char))) == NULL) { goto lowmem; }
+
+  CountryRec* cntry = NULL;
+  for (cntry=this->kivaCountries; cntry!=NULL; cntry=cntry->hh.next) {
+    if (cntry->lenderSupport == support) {
+      buflen = strxlen(lenderCntryCodes);
+      size_t reqdSize = (buflen + strxlen(cntry->id) + strxlen(sep) + 1);
+
+      if (bufsize < reqdSize) {
+        while (bufsize < reqdSize) bufsize = bufsize * 2;
+        char* tmp = NULL;
+        if ( (tmp = realloc(lenderCntryCodes, bufsize)) == NULL) { goto lowmem; }
+        lenderCntryCodes = tmp;
+      }
+      lenderCntryCodes = strncat(lenderCntryCodes, cntry->id, bufsize - buflen - 1);
+      buflen = strxlen(lenderCntryCodes);
+      lenderCntryCodes = strncat(lenderCntryCodes, sep, bufsize - buflen - 1);
+      buflen = strxlen(lenderCntryCodes);
+    }
+  }
+
+  // Remove the trailing separator
+  buflen = strxlen(lenderCntryCodes);
+  if (lenderCntryCodes != NULL && (buflen > strxlen(sep))) {
+    lenderCntryCodes[buflen - strxlen(sep)] = 0;
+  }
+
+  *countryCodes = lenderCntryCodes;
+  return KIVA_MODEL_SUCCESS;
+
+lowmem:
+  if (lenderCntryCodes != NULL) { free(lenderCntryCodes); }
+  return KIVA_MODEL_OUT_OF_MEMORY_ERR;
+}
 
 
 

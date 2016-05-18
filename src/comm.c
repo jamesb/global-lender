@@ -88,7 +88,7 @@ static void inbox_received_callback(DictionaryIterator *iterator, void *context)
         APP_LOG(APP_LOG_LEVEL_ERROR, "Error getting Kiva country quantity from data model: %s", KivaModel_getErrMsg(kmret));
     }
     APP_LOG(APP_LOG_LEVEL_INFO, "Kiva active country total: %d", kivaCountryQty);
-    comm_sendMessage(KEY_GET_LENDER_INFO);
+    comm_sendMsgCstr(KEY_GET_LENDER_INFO, NULL);
   }
 
   if ( (tuple = dict_find(iterator, KEY_LENDER_ID)) != NULL ) {
@@ -212,20 +212,28 @@ bool comm_pebkitReady() {
 /**************************************************************************
  * Request data from PebbleKit.
  **************************************************************************/
-void comm_sendMessage(const MsgKey msgKey) {
+void comm_sendMsgCstr(const MsgKey msgKey, const char* payload) {
   if (!pebkitReady) {
     APP_LOG(APP_LOG_LEVEL_WARNING, "Tried to send a message from the watch before PebbleKit JS is ready.");
     return;
   }
 
-  DictionaryIterator *iter;
-  AppMessageResult result = app_message_outbox_begin(&iter);
-  if(result != APP_MSG_OK) {
+  // Declare the dictionary's iterator
+  DictionaryIterator *outIter;
+
+  // Prepare the outbox buffer for this message
+  AppMessageResult result = app_message_outbox_begin(&outIter);
+  if (result == APP_MSG_OK) {
+    dict_write_cstring(outIter, msgKey, payload);
+
+    // Send this message
+    result = app_message_outbox_send();
+    if(result != APP_MSG_OK) {
+      APP_LOG(APP_LOG_LEVEL_ERROR, "Error sending the outbox: %d", (int)result);
+    }
+  } else {
     // The outbox cannot be used right now
     APP_LOG(APP_LOG_LEVEL_ERROR, "Error preparing the outbox: %d", (int)result);
-  } else {
-    dict_write_uint8(iter, msgKey, 0);
-    app_message_outbox_send();
   }
 }
 
@@ -234,7 +242,21 @@ void comm_sendMessage(const MsgKey msgKey) {
 /// Requests PebbleKit to send a list of preferred loans for the lender.
 /////////////////////////////////////////////////////////////////////////////
 void comm_getPreferredLoans() {
-    comm_sendMessage(KEY_GET_PREFERRED_LOANS);
+    if (dataModel == NULL) {
+      APP_LOG(APP_LOG_LEVEL_ERROR, "Kiva Model is not yet initialized.");
+      return;
+    }
+
+    KivaModel_ErrCode kmret;
+    char* countryCodes = NULL;
+    if ( (kmret = KivaModel_getLenderCountryCodes(dataModel, false, &countryCodes)) != KIVA_MODEL_SUCCESS) {
+      APP_LOG(APP_LOG_LEVEL_ERROR, "Could not retrieve lender country codes: %s", KivaModel_getErrMsg(kmret));
+      return;
+    }
+
+    APP_LOG(APP_LOG_LEVEL_DEBUG, "Get loans for country codes: %s", countryCodes);
+    comm_sendMsgCstr(KEY_GET_PREFERRED_LOANS, countryCodes);
+    free(countryCodes);
 }
 
 

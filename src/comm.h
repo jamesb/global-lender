@@ -47,7 +47,7 @@ bool comm_pebkitReady();
 void comm_open();
 void comm_close();
 
-void comm_sendMessage(const MsgKey);
+void comm_sendMsgCstr(const MsgKey, const char* payload);
 void comm_setHandlers(const CommHandlers);
 
 void comm_getPreferredLoans();
