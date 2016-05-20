@@ -184,33 +184,36 @@ static void inbox_received_callback(DictionaryIterator *iterator, void *context)
     if (!unloadTupleStr(&loanSetBuf, bufsize, tuple, readable)) {
       APP_LOG(APP_LOG_LEVEL_ERROR, "Error in unloadTupleStr.");
     } else {
-      ProcessingState* state = data_processor_create(loanSetBuf, '|');
-      uint8_t num_fields = data_processor_count(state);
-      APP_LOG(APP_LOG_LEVEL_INFO, "Found %d loans of interest.", num_fields/6);
-      char** strings = malloc(sizeof(char*) * num_fields);
-      for (uint8_t n = 0; n < num_fields; n += 6) {
-        uint32_t id =        data_processor_get_int(state);
-        char* name =         data_processor_get_string(state);
-        char* use =          data_processor_get_string(state);
-        char* countryCode =  data_processor_get_string(state);
-        uint16_t fundedAmt = data_processor_get_int(state);
-        uint16_t loanAmt =   data_processor_get_int(state);
-        APP_LOG(APP_LOG_LEVEL_INFO, "0:[%ld] 1:[%s] 2:[%s] 3:[%s] 4:[%d] 5:[%d]", id, name, use, countryCode, fundedAmt, loanAmt);
-        if ( (kmret = KivaModel_addPreferredLoan(dataModel, (LoanInfo) {
-                .id =          id,
-                .name =        name,
-                .use =         use,
-                .countryCode = countryCode,
-                .fundedAmt =   fundedAmt,
-                .loanAmt =     loanAmt
-              })) != KIVA_MODEL_SUCCESS) {
-            APP_LOG(APP_LOG_LEVEL_ERROR, "Error adding preferred loan to data model: %s", KivaModel_getErrMsg(kmret));
+      if ( (kmret = KivaModel_clearPreferredLoans(dataModel)) != KIVA_MODEL_SUCCESS) {
+        APP_LOG(APP_LOG_LEVEL_ERROR, "Error clearing preferred loan list: %s", KivaModel_getErrMsg(kmret));
+      } else {
+        ProcessingState* state = data_processor_create(loanSetBuf, '|');
+        uint8_t num_fields = data_processor_count(state);
+        APP_LOG(APP_LOG_LEVEL_INFO, "Found %d loans of interest.", num_fields/6);
+        for (uint8_t n = 0; n < num_fields; n += 6) {
+          uint32_t id =        data_processor_get_int(state);
+          char* name =         data_processor_get_string(state);
+          char* use =          data_processor_get_string(state);
+          char* countryCode =  data_processor_get_string(state);
+          uint16_t fundedAmt = data_processor_get_int(state);
+          uint16_t loanAmt =   data_processor_get_int(state);
+          APP_LOG(APP_LOG_LEVEL_INFO, "0:[%ld] 1:[%s] 2:[%s] 3:[%s] 4:[%d] 5:[%d]", id, name, use, countryCode, fundedAmt, loanAmt);
+          if ( (kmret = KivaModel_addPreferredLoan(dataModel, (LoanInfo) {
+                  .id =          id,
+                  .name =        name,
+                  .use =         use,
+                  .countryCode = countryCode,
+                  .fundedAmt =   fundedAmt,
+                  .loanAmt =     loanAmt
+                })) != KIVA_MODEL_SUCCESS) {
+              APP_LOG(APP_LOG_LEVEL_ERROR, "Error adding preferred loan to data model: %s", KivaModel_getErrMsg(kmret));
+          }
+          free(name);
+          free(use);
+          free(countryCode);
         }
-        free(name);
-        free(use);
-        free(countryCode);
+        free(state);
       }
-      free(state);
     }
     free(loanSetBuf); loanSetBuf = NULL;
   }

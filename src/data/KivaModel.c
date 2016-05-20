@@ -226,13 +226,8 @@ KivaModel_ErrCode KivaModel_destroy(KivaModel* this) {
   HEAP_LOG("Freed kivaCountries and its data.");
 
   // Free memory for this->prefLoans and its data
-  LoanRec* loanRec = NULL; LoanRec* tmpLoan = NULL;
-  HASH_ITER(hh, this->prefLoans, loanRec, tmpLoan) {
-    if ( (kmret = KivaModel_LoanRec_destroy(loanRec)) != KIVA_MODEL_SUCCESS) {
-      APP_LOG(APP_LOG_LEVEL_ERROR, "Error trying to destroy a loan record: %s", KivaModel_getErrMsg(kmret));
-    }
-    HASH_DEL(this->prefLoans, loanRec);
-    loanRec = NULL;
+  if ( (kmret = KivaModel_clearPreferredLoans(this)) != KIVA_MODEL_SUCCESS) {
+    APP_LOG(APP_LOG_LEVEL_ERROR, "Error freeing preferred loan list: %s", KivaModel_getErrMsg(kmret));
   }
   HEAP_LOG("Freed prefLoans and its data.");
 
@@ -598,6 +593,30 @@ lowmem:
 }
 
 
+
+
+/////////////////////////////////////////////////////////////////////////////
+/// Clears the list of preferred loans, freeing all heap-allocated members
+/// of LoanInfo data.
+/// Preferred loans are a list of fundraising loans in which the lender has
+/// indicated an interest.
+/// @param[in,out]  this  Pointer to KivaModel; must be already allocated
+/////////////////////////////////////////////////////////////////////////////
+KivaModel_ErrCode KivaModel_clearPreferredLoans(KivaModel* this) {
+  KIVA_MODEL_RETURN_IF_NULL(this);
+  KivaModel_ErrCode kmret;
+
+  LoanRec* loanRec = NULL; LoanRec* tmpLoan = NULL;
+  HASH_ITER(hh, this->prefLoans, loanRec, tmpLoan) {
+    if ( (kmret = KivaModel_LoanRec_destroy(loanRec)) != KIVA_MODEL_SUCCESS) {
+      APP_LOG(APP_LOG_LEVEL_ERROR, "Error trying to destroy a loan record: %s", KivaModel_getErrMsg(kmret));
+    }
+    HASH_DEL(this->prefLoans, loanRec);
+    loanRec = NULL;
+  }
+
+  return KIVA_MODEL_SUCCESS;
+}
 
 
 /////////////////////////////////////////////////////////////////////////////
