@@ -105,6 +105,86 @@ static KivaModel_ErrCode KivaModel_CountryRec_destroy(CountryRec* this) {
 
 
 /////////////////////////////////////////////////////////////////////////////
+/// Allocates a LoanRec pointer.
+/// @param[out]     loan  double-pointer to LoanRec; must be NULL on entry
+/////////////////////////////////////////////////////////////////////////////
+static KivaModel_ErrCode KivaModel_LoanRec_create(LoanRec** loan) {
+  if (*loan != NULL) { return KIVA_MODEL_INVALID_INPUT_ERR; }
+
+  *loan = (LoanRec*) malloc(sizeof(LoanRec));
+  if (*loan == NULL) { goto lowmem; }
+  (*loan)->data.name = NULL;
+  (*loan)->data.use = NULL;
+  (*loan)->data.countryCode = NULL;
+
+  return KIVA_MODEL_SUCCESS;
+
+lowmem:
+  if (*loan != NULL) { free(*loan); }
+  return KIVA_MODEL_OUT_OF_MEMORY_ERR;
+}
+
+
+/////////////////////////////////////////////////////////////////////////////
+/// Initializes a LoanRec pointer and its members.
+/// @param[in,out]  this  Pointer to LoanRec; must be already
+///       allocated upon entry, but heap-allocated members must be NULL
+/// @param[in]      loanInfo  A fully initialized LoanInfo variable. All heap-
+///       allocated members are expected to be non-NULL, allocated and
+///       populated with data.
+/////////////////////////////////////////////////////////////////////////////
+static KivaModel_ErrCode KivaModel_LoanRec_init(LoanRec* this, const LoanInfo loanInfo) {
+  KIVA_MODEL_RETURN_IF_NULL(this);
+  if (this->data.name != NULL) {
+    APP_LOG(APP_LOG_LEVEL_ERROR, "LoanRec name must be NULL.");
+    return KIVA_MODEL_INVALID_INPUT_ERR;
+  }
+  if (this->data.use != NULL) {
+    APP_LOG(APP_LOG_LEVEL_ERROR, "LoanRec use must be NULL.");
+    return KIVA_MODEL_INVALID_INPUT_ERR;
+  }
+  if (this->data.countryCode != NULL) {
+    APP_LOG(APP_LOG_LEVEL_ERROR, "LoanRec country code must be NULL.");
+    return KIVA_MODEL_INVALID_INPUT_ERR;
+  }
+
+  if ( (this->data.name = malloc(strlen(loanInfo.name) + 1)) == NULL) { goto lowmem; }
+  strcpy(this->data.name, loanInfo.name);
+
+  if ( (this->data.use = malloc(strlen(loanInfo.use) + 1)) == NULL) { goto lowmem; }
+  strcpy(this->data.use, loanInfo.use);
+
+  if ( (this->data.countryCode = malloc(strlen(loanInfo.countryCode) + 1)) == NULL) { goto lowmem; }
+  strcpy(this->data.countryCode, loanInfo.countryCode);
+
+  return KIVA_MODEL_SUCCESS;
+
+lowmem:
+  if (this->data.name != NULL) { free(this->data.name); this->data.name = NULL; }
+  if (this->data.use != NULL) { free(this->data.use);   this->data.use = NULL; }
+  if (this->data.countryCode != NULL) { free(this->data.countryCode);   this->data.countryCode = NULL; }
+  return KIVA_MODEL_OUT_OF_MEMORY_ERR;
+}
+
+
+/////////////////////////////////////////////////////////////////////////////
+/// Frees all memory associated with a LoanRec pointer.
+/// @param[in,out]  this  Pointer to LoanRec; must be already allocated
+/////////////////////////////////////////////////////////////////////////////
+static KivaModel_ErrCode KivaModel_LoanRec_destroy(LoanRec* this) {
+  KIVA_MODEL_RETURN_IF_NULL(this);
+  //HEAP_LOG("Freeing LoanRec");
+  if (this->data.name != NULL) { free(this->data.name); this->data.name = NULL; }
+  if (this->data.use != NULL) { free(this->data.use); this->data.use = NULL; }
+  if (this->data.countryCode != NULL) { free(this->data.countryCode); this->data.countryCode = NULL; }
+  free(this); this = NULL;
+  return KIVA_MODEL_SUCCESS;
+}
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////
 /// Constructor
 /// @param[in]      lenderId   Pointer to the lender ID C-string. Identifies
 ///       the lender uniquely on kiva.org. <em>Ownership is not transferred
@@ -135,8 +215,8 @@ KivaModel_ErrCode KivaModel_destroy(KivaModel* this) {
   KivaModel_ErrCode kmret;
 
   // Free memory for this->kivaCountries and its data
-  CountryRec* cntry = NULL; CountryRec* tmp = NULL;
-  HASH_ITER(hh, this->kivaCountries, cntry, tmp) {
+  CountryRec* cntry = NULL; CountryRec* tmpCntry = NULL;
+  HASH_ITER(hh, this->kivaCountries, cntry, tmpCntry) {
     if ( (kmret = KivaModel_CountryRec_destroy(cntry)) != KIVA_MODEL_SUCCESS) {
       APP_LOG(APP_LOG_LEVEL_ERROR, "Error trying to destroy a country record: %s", KivaModel_getErrMsg(kmret));
     }
@@ -144,6 +224,17 @@ KivaModel_ErrCode KivaModel_destroy(KivaModel* this) {
     cntry = NULL;
   }
   HEAP_LOG("Freed kivaCountries and its data.");
+
+  // Free memory for this->prefLoans and its data
+  LoanRec* loanRec = NULL; LoanRec* tmpLoan = NULL;
+  HASH_ITER(hh, this->prefLoans, loanRec, tmpLoan) {
+    if ( (kmret = KivaModel_LoanRec_destroy(loanRec)) != KIVA_MODEL_SUCCESS) {
+      APP_LOG(APP_LOG_LEVEL_ERROR, "Error trying to destroy a loan record: %s", KivaModel_getErrMsg(kmret));
+    }
+    HASH_DEL(this->prefLoans, loanRec);
+    loanRec = NULL;
+  }
+  HEAP_LOG("Freed prefLoans and its data.");
 
   if (this->lenderInfo.loc != NULL)  { free(this->lenderInfo.loc);  this->lenderInfo.loc = NULL; }
   if (this->lenderInfo.name != NULL) { free(this->lenderInfo.name); this->lenderInfo.name = NULL; }
@@ -508,6 +599,50 @@ lowmem:
 
 
 
+
+/////////////////////////////////////////////////////////////////////////////
+/// Adds a new loan to the list of preferred loans.
+/// Preferred loans are a list of fundraising loans in which the lender has
+/// indicated an interest.
+/// The heap-allocated members of loanInfo are copied; <em>ownership of those
+/// parameters is not transferred by this function. The caller is still
+/// responsible for freeing that data.</em>
+/// @param[in,out]  this  Pointer to KivaModel; must be already allocated
+/// @param[in]      loanInfo  information about the preferred loan
+/////////////////////////////////////////////////////////////////////////////
+KivaModel_ErrCode KivaModel_addPreferredLoan(KivaModel* this, const LoanInfo loanInfo) {
+  KIVA_MODEL_RETURN_IF_NULL(this);
+  KivaModel_ErrCode kmret;
+
+  LoanRec *newLoanRec = NULL;
+  if ( (kmret = KivaModel_LoanRec_create(&newLoanRec)) != KIVA_MODEL_SUCCESS) {
+    APP_LOG(APP_LOG_LEVEL_ERROR, "Could not create new loan record (%ld): %s", loanInfo.id, KivaModel_getErrMsg(kmret));
+    return kmret;
+  }
+  if ( (kmret = KivaModel_LoanRec_init(newLoanRec, loanInfo)) != KIVA_MODEL_SUCCESS) {
+    APP_LOG(APP_LOG_LEVEL_ERROR, "Could not initialize new loan record (%ld): %s", loanInfo.id, KivaModel_getErrMsg(kmret));
+    KivaModel_LoanRec_destroy(newLoanRec);  newLoanRec = NULL;
+    return kmret;
+  }
+
+  LoanRec *loanRec = NULL;
+  HASH_FIND_INT(this->prefLoans, &loanInfo.id, loanRec);
+
+  if (loanRec == NULL) {
+    // Value of loanInfo.id is not already a key in the hash table; add new record.
+    //HEAP_LOG("adding new record...");
+    HASH_ADD_INT(this->prefLoans, data.id, newLoanRec);
+  } else {
+    // Value of loanInfo.id was already a key in the hash table; replace it.
+    HASH_ADD_INT(this->prefLoans, data.id, newLoanRec);
+    HASH_DEL(this->prefLoans, loanRec);
+    if (loanRec != NULL) { KivaModel_LoanRec_destroy(loanRec);  loanRec = NULL; }
+    else {
+      APP_LOG(APP_LOG_LEVEL_WARNING, "This shouldn't happen. The LoanRec we just found (%ld) is no longer in the hash.", loanInfo.id);
+    }
+  }
+  return KIVA_MODEL_SUCCESS;
+}
 
 
 

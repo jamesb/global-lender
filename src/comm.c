@@ -62,11 +62,10 @@ static void inbox_received_callback(DictionaryIterator *iterator, void *context)
     size_t bufsize = strlen(tuple->value->cstring)+1;
     char* countrySetBuf = NULL;
     countrySetBuf = malloc(bufsize);
-    APP_LOG(APP_LOG_LEVEL_DEBUG, "About to deserialize countries!");
+    APP_LOG(APP_LOG_LEVEL_DEBUG, "About to deserialize Kiva countries!");
     if (!unloadTupleStr(&countrySetBuf, bufsize, tuple, readable)) {
       APP_LOG(APP_LOG_LEVEL_ERROR, "Error in unloadTupleStr.");
     } else {
-      APP_LOG(APP_LOG_LEVEL_INFO, "%s are %s", readable, countrySetBuf);
       ProcessingState* state = data_processor_create(countrySetBuf, '|');
       uint8_t num_strings = data_processor_count(state);
       char** strings = malloc(sizeof(char*) * num_strings);
@@ -154,11 +153,10 @@ static void inbox_received_callback(DictionaryIterator *iterator, void *context)
     size_t bufsize = strlen(tuple->value->cstring)+1;
     char* countrySetBuf = NULL;
     countrySetBuf = malloc(bufsize);
-    APP_LOG(APP_LOG_LEVEL_DEBUG, "About to deserialize countries!");
+    APP_LOG(APP_LOG_LEVEL_DEBUG, "About to deserialize lender countries!");
     if (!unloadTupleStr(&countrySetBuf, bufsize, tuple, readable)) {
       APP_LOG(APP_LOG_LEVEL_ERROR, "Error in unloadTupleStr.");
     } else {
-      APP_LOG(APP_LOG_LEVEL_INFO, "%s are %s", readable, countrySetBuf);
       ProcessingState* state = data_processor_create(countrySetBuf, '|');
       uint8_t num_strings = data_processor_count(state);
       char** strings = malloc(sizeof(char*) * num_strings);
@@ -175,6 +173,46 @@ static void inbox_received_callback(DictionaryIterator *iterator, void *context)
       free(state);
     }
     free(countrySetBuf); countrySetBuf = NULL;
+  }
+
+  if ( (tuple = dict_find(iterator, KEY_LOAN_SET)) != NULL ) {
+    const char* readable = "Preferred Loans";
+    size_t bufsize = strlen(tuple->value->cstring)+1;
+    char* loanSetBuf = NULL;
+    loanSetBuf = malloc(bufsize);
+    APP_LOG(APP_LOG_LEVEL_DEBUG, "About to deserialize loans!");
+    if (!unloadTupleStr(&loanSetBuf, bufsize, tuple, readable)) {
+      APP_LOG(APP_LOG_LEVEL_ERROR, "Error in unloadTupleStr.");
+    } else {
+      ProcessingState* state = data_processor_create(loanSetBuf, '|');
+      uint8_t num_fields = data_processor_count(state);
+      APP_LOG(APP_LOG_LEVEL_INFO, "Found %d loans of interest.", num_fields/6);
+      char** strings = malloc(sizeof(char*) * num_fields);
+      for (uint8_t n = 0; n < num_fields; n += 6) {
+        uint32_t id =        data_processor_get_int(state);
+        char* name =         data_processor_get_string(state);
+        char* use =          data_processor_get_string(state);
+        char* countryCode =  data_processor_get_string(state);
+        uint16_t fundedAmt = data_processor_get_int(state);
+        uint16_t loanAmt =   data_processor_get_int(state);
+        APP_LOG(APP_LOG_LEVEL_INFO, "0:[%ld] 1:[%s] 2:[%s] 3:[%s] 4:[%d] 5:[%d]", id, name, use, countryCode, fundedAmt, loanAmt);
+        if ( (kmret = KivaModel_addPreferredLoan(dataModel, (LoanInfo) {
+                .id =          id,
+                .name =        name,
+                .use =         use,
+                .countryCode = countryCode,
+                .fundedAmt =   fundedAmt,
+                .loanAmt =     loanAmt
+              })) != KIVA_MODEL_SUCCESS) {
+            APP_LOG(APP_LOG_LEVEL_ERROR, "Error adding preferred loan to data model: %s", KivaModel_getErrMsg(kmret));
+        }
+        free(name);
+        free(use);
+        free(countryCode);
+      }
+      free(state);
+    }
+    free(loanSetBuf); loanSetBuf = NULL;
   }
 
   if (!commHandlers.notifyView) {
@@ -249,7 +287,7 @@ void comm_getPreferredLoans() {
 
     KivaModel_ErrCode kmret;
     char* countryCodes = NULL;
-    if ( (kmret = KivaModel_getLenderCountryCodes(dataModel, false, &countryCodes)) != KIVA_MODEL_SUCCESS) {
+    if ( (kmret = KivaModel_getLenderCountryCodes(dataModel, true, &countryCodes)) != KIVA_MODEL_SUCCESS) {
       APP_LOG(APP_LOG_LEVEL_ERROR, "Could not retrieve lender country codes: %s", KivaModel_getErrMsg(kmret));
       return;
     }
