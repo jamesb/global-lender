@@ -1,10 +1,10 @@
 var searchData=
 [
-  ['name',['name',['../struct_lender_info.html#a5ac083a645d964373f022d03df4849c8',1,'LenderInfo::name()'],['../struct_country_rec.html#a5ac083a645d964373f022d03df4849c8',1,'CountryRec::name()']]],
-  ['next',['next',['../struct_u_t__hash__handle.html#a75b19ffcca77bfc647ff02695958fd95',1,'UT_hash_handle']]],
-  ['noexpand',['noexpand',['../struct_u_t__hash__table.html#a35073018f3ebb189c76eed44ff19899a',1,'UT_hash_table']]],
-  ['nonideal_5fitems',['nonideal_items',['../struct_u_t__hash__table.html#a57d93a760aeccec5dad6fac71e9d92ad',1,'UT_hash_table']]],
-  ['notifyview',['notifyView',['../struct_comm_handlers.html#a1ef1282c238cfc22ed32e057560fd7fd',1,'CommHandlers']]],
-  ['num_5fbuckets',['num_buckets',['../struct_u_t__hash__table.html#a5f0f25a07827aacb7af4ba2fc4afb5fe',1,'UT_hash_table']]],
-  ['num_5fitems',['num_items',['../struct_u_t__hash__table.html#a0f665ec9c648f93c0c529372051e79e7',1,'UT_hash_table']]]
+  ['lenderid',['lenderId',['../app_8js.html#a5e4bf1d89e1aae83b014c99c4dfeacc3',1,'app.js']]],
+  ['lenderinfo',['lenderInfo',['../struct_kiva_model.html#a3c040d87149160141fb03f8954c27707',1,'KivaModel']]],
+  ['lendersupport',['lenderSupport',['../struct_country_rec.html#a72d0363c35a5fdd1c5ac0476df42be31',1,'CountryRec']]],
+  ['loanamt',['loanAmt',['../struct_loan_info.html#a76179ef34646908eb9e046ebd7db934f',1,'LoanInfo']]],
+  ['loanqty',['loanQty',['../struct_lender_info.html#a6e6444c4e529345cfd7f3fceefc83a30',1,'LenderInfo']]],
+  ['loc',['loc',['../struct_lender_info.html#a812afb8f638270498a3d484bbbf0b79d',1,'LenderInfo']]],
+  ['log2_5fnum_5fbuckets',['log2_num_buckets',['../struct_u_t__hash__table.html#a1e4983525460bc9180bbb5e7b404cdbb',1,'UT_hash_table']]]
 ];

@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['data',['data',['../struct_loan_rec.html#a8110e09aa2c765f29c30b336d4027ab3',1,'LoanRec']]],
   ['data_2dprocessor_2ec',['data-processor.c',['../data-processor_8c.html',1,'']]],
   ['data_2dprocessor_2eh',['data-processor.h',['../data-processor_8h.html',1,'']]],
   ['data_5fdelim',['data_delim',['../struct_processing_state.html#a86e4c8d52bda6f671af05599473b2ee8',1,'ProcessingState']]],

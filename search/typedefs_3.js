@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['msgkey',['MsgKey',['../comm_8h.html#a62c86b93b49ea9f777a157c9aa3eb995',1,'comm.h']]]
+  ['loaninfo',['LoanInfo',['../_kiva_model_8h.html#adc7a59da5aa3de6f387a0ad1962fa76e',1,'KivaModel.h']]],
+  ['loanrec',['LoanRec',['../_kiva_model___internal_8h.html#a9a99324f552cecab221f70d663fe01db',1,'KivaModel_Internal.h']]]
 ];

@@ -96,11 +96,13 @@ Collaboration diagram for KivaModel:</div>
 <div class="dyncontent">
 <div class="center"><img src="struct_kiva_model__coll__graph.png" border="0" usemap="#_kiva_model_coll__map" alt="Collaboration graph"/></div>
 <map name="_kiva_model_coll__map" id="_kiva_model_coll__map">
-<area shape="rect" id="node2" href="struct_lender_info.html" title="LenderInfo" alt="" coords="5,97,88,124"/>
-<area shape="rect" id="node3" href="struct_country_rec.html" title="CountryRec" alt="" coords="113,97,205,124"/>
-<area shape="rect" id="node4" href="struct_u_t__hash__handle.html" title="UT_hash_handle" alt="" coords="231,7,351,33"/>
-<area shape="rect" id="node5" href="struct_u_t__hash__table.html" title="UT_hash_table" alt="" coords="305,187,415,213"/>
-<area shape="rect" id="node6" href="struct_u_t__hash__bucket.html" title="UT_hash_bucket" alt="" coords="299,97,421,124"/>
+<area shape="rect" id="node2" href="struct_loan_rec.html" title="LoanRec" alt="" coords="5,97,80,124"/>
+<area shape="rect" id="node3" href="struct_loan_info.html" title="LoanInfo" alt="" coords="7,7,79,33"/>
+<area shape="rect" id="node4" href="struct_u_t__hash__handle.html" title="UT_hash_handle" alt="" coords="292,7,412,33"/>
+<area shape="rect" id="node5" href="struct_u_t__hash__table.html" title="UT_hash_table" alt="" coords="366,187,477,213"/>
+<area shape="rect" id="node6" href="struct_u_t__hash__bucket.html" title="UT_hash_bucket" alt="" coords="465,97,586,124"/>
+<area shape="rect" id="node8" href="struct_country_rec.html" title="CountryRec" alt="" coords="211,97,303,124"/>
+<area shape="rect" id="node7" href="struct_lender_info.html" title="LenderInfo" alt="" coords="104,97,187,124"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -110,6 +112,8 @@ Data Fields</h2></td></tr>
 <tr class="separator:a3c040d87149160141fb03f8954c27707"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8aaa4107d9eefbe83d05cb7cc4583254"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_country_rec.html">CountryRec</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_kiva_model.html#a8aaa4107d9eefbe83d05cb7cc4583254">kivaCountries</a></td></tr>
 <tr class="separator:a8aaa4107d9eefbe83d05cb7cc4583254"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af76a72bc18756020838f9726aa385798"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_loan_rec.html">LoanRec</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_kiva_model.html#af76a72bc18756020838f9726aa385798">prefLoans</a></td></tr>
+<tr class="separator:af76a72bc18756020838f9726aa385798"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Field Documentation</h2>
 <a class="anchor" id="a8aaa4107d9eefbe83d05cb7cc4583254"></a>
@@ -130,6 +134,18 @@ Data Fields</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">struct <a class="el" href="struct_lender_info.html">LenderInfo</a> lenderInfo</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="af76a72bc18756020838f9726aa385798"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_loan_rec.html">LoanRec</a>* prefLoans</td>
         </tr>
       </table>
 </div><div class="memdoc">

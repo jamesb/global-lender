@@ -11,5 +11,6 @@ var searchData=
   ['comm_5fsethandlers',['comm_setHandlers',['../comm_8c.html#a3115da531fdbd2796722295d90b1e4af',1,'comm_setHandlers(const CommHandlers cmh):&#160;comm.c'],['../comm_8h.html#a6a67f0d244db4a95d9a14bbcf10a601d',1,'comm_setHandlers(const CommHandlers):&#160;comm.c']]],
   ['commhandlers',['CommHandlers',['../struct_comm_handlers.html',1,'CommHandlers'],['../comm_8h.html#a1771a82e459e44bd4f3729c3c06af84c',1,'CommHandlers():&#160;comm.h']]],
   ['count',['count',['../struct_u_t__hash__bucket.html#a6a9e89d63eb610dfe238b0a840979421',1,'UT_hash_bucket']]],
+  ['countrycode',['countryCode',['../struct_loan_info.html#a033c3f3912cea0209d275453c9cfcbb8',1,'LoanInfo']]],
   ['countryrec',['CountryRec',['../struct_country_rec.html',1,'CountryRec'],['../_kiva_model___internal_8h.html#a09dfd12d1e1d6a8eda4f99bafc299ee1',1,'CountryRec():&#160;KivaModel_Internal.h']]]
 ];

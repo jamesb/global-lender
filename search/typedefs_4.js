@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['notifyviewhandler',['NotifyViewHandler',['../comm_8h.html#a12f08c1d050a15390f3094fbdb985685',1,'comm.h']]]
+  ['msgkey',['MsgKey',['../comm_8h.html#a62c86b93b49ea9f777a157c9aa3eb995',1,'comm.h']]]
 ];

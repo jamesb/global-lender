@@ -148,6 +148,8 @@ Functions</h2></td></tr>
 <tr class="separator:a709a045189f43a7c9d8d920623a57a3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a79ae87d50b5d2c5404b3d23479bdb3d8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_kiva_model_8h.html#aa4c109eff106cf22169394f4fc6357bc">KivaModel_ErrCode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_kiva_model_8c.html#a79ae87d50b5d2c5404b3d23479bdb3d8">KivaModel_getLenderCountryCodes</a> (const <a class="el" href="struct_kiva_model.html">KivaModel</a> *this, const bool support, char **countryCodes)</td></tr>
 <tr class="separator:a79ae87d50b5d2c5404b3d23479bdb3d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a00da7281b1894cb4d586ff19fb78a634"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_kiva_model_8h.html#aa4c109eff106cf22169394f4fc6357bc">KivaModel_ErrCode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_kiva_model_8c.html#a00da7281b1894cb4d586ff19fb78a634">KivaModel_addPreferredLoan</a> (<a class="el" href="struct_kiva_model.html">KivaModel</a> *this, const <a class="el" href="struct_loan_info.html">LoanInfo</a> loanInfo)</td></tr>
+<tr class="separator:a00da7281b1894cb4d586ff19fb78a634"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aecd5f37650d70a85a3d3aca6d7c39780"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_kiva_model_8h.html#aa4c109eff106cf22169394f4fc6357bc">KivaModel_ErrCode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_kiva_model_8c.html#aecd5f37650d70a85a3d3aca6d7c39780">KivaModel_addKivaCountry</a> (<a class="el" href="struct_kiva_model.html">KivaModel</a> *this, const char *countryId, const char *countryName)</td></tr>
 <tr class="separator:aecd5f37650d70a85a3d3aca6d7c39780"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8c9797b0b5c15e92fe9f48738249008d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_kiva_model_8h.html#aa4c109eff106cf22169394f4fc6357bc">KivaModel_ErrCode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_kiva_model_8c.html#a8c9797b0b5c15e92fe9f48738249008d">KivaModel_getKivaCountryName</a> (const <a class="el" href="struct_kiva_model.html">KivaModel</a> *this, const char *countryId, const char **countryName)</td></tr>
@@ -247,6 +249,39 @@ Functions</h2></td></tr>
     <tr><td class="paramdir">[in,out]</td><td class="paramname">this</td><td>Pointer to <a class="el" href="struct_kiva_model.html">KivaModel</a>; must be already allocated </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">countryId</td><td>ID of the country to add; a two-character ISO-3361 country code. <em>Ownership is not transferred from the caller, so the caller should free this variable.</em> If the countryId is not yet in the list of recognized Kiva countries, then it will be added to the hash. </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">countryName</td><td>Name of the country to add. If countryId is already a recognized Kiva country, then the countryName will be ignored. If the countryId is not yet in the list of countries that this <a class="el" href="struct_kiva_model.html">KivaModel</a> recognizes, then this will be the new country name for this ID. If NULL, then the countryId will be used as the name. <em>Ownership is not transferred from the caller, so the caller should free this variable.</em> </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a00da7281b1894cb4d586ff19fb78a634"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="_kiva_model_8h.html#aa4c109eff106cf22169394f4fc6357bc">KivaModel_ErrCode</a> KivaModel_addPreferredLoan </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_kiva_model.html">KivaModel</a> *&#160;</td>
+          <td class="paramname"><em>this</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="struct_loan_info.html">LoanInfo</a>&#160;</td>
+          <td class="paramname"><em>loanInfo</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Adds a new loan to the list of preferred loans. Preferred loans are a list of fundraising loans in which the lender has indicated an interest. The heap-allocated members of loanInfo are copied; <em>ownership of those parameters is not transferred by this function. The caller is still responsible for freeing that data.</em> </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">this</td><td>Pointer to <a class="el" href="struct_kiva_model.html">KivaModel</a>; must be already allocated </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">loanInfo</td><td>information about the preferred loan </td></tr>
   </table>
   </dd>
 </dl>

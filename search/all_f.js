@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['tail',['tail',['../struct_u_t__hash__table.html#af2d4a4fd9335f9813df1ecd3d7124f24',1,'UT_hash_table']]],
-  ['tbl',['tbl',['../struct_u_t__hash__handle.html#af0deeb3fe5f35a4c85d105090b498c8d',1,'UT_hash_handle']]],
-  ['textlayer_5fstylize',['textLayer_stylize',['../misc_8c.html#a12735d734270b9bbfe1616d61d42e31d',1,'textLayer_stylize(TextLayer *textLayer, const GColor bgcolor, const GColor txtColor, const GTextAlignment txtAlign, const GFont txtFont):&#160;misc.c'],['../misc_8h.html#ac03bdde1351009a9f004c301144bdd85',1,'textLayer_stylize(TextLayer *, const GColor, const GColor, const GTextAlignment, const GFont):&#160;misc.c']]]
+  ['signature',['signature',['../struct_u_t__hash__table.html#acd2a6284879dded65f0b8daa7c68485a',1,'UT_hash_table']]],
+  ['strxcpy',['strxcpy',['../misc_8c.html#af4df0e73abf84eedd72e5a3e75e67935',1,'strxcpy(char *buffer, size_t bufsize, const char *source, const char *readable):&#160;misc.c'],['../misc_8h.html#af4df0e73abf84eedd72e5a3e75e67935',1,'strxcpy(char *buffer, size_t bufsize, const char *source, const char *readable):&#160;misc.c']]],
+  ['strxlen',['strxlen',['../misc_8h.html#af8573d75240f683404d842a3bb0c92a5',1,'misc.h']]]
 ];

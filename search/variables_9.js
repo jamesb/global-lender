@@ -1,9 +1,10 @@
 var searchData=
 [
-  ['lenderid',['lenderId',['../app_8js.html#a5e4bf1d89e1aae83b014c99c4dfeacc3',1,'app.js']]],
-  ['lenderinfo',['lenderInfo',['../struct_kiva_model.html#a3c040d87149160141fb03f8954c27707',1,'KivaModel']]],
-  ['lendersupport',['lenderSupport',['../struct_country_rec.html#a72d0363c35a5fdd1c5ac0476df42be31',1,'CountryRec']]],
-  ['loanqty',['loanQty',['../struct_lender_info.html#a68b13e9a8bb93c56a712d72f0ab08be6',1,'LenderInfo']]],
-  ['loc',['loc',['../struct_lender_info.html#a812afb8f638270498a3d484bbbf0b79d',1,'LenderInfo']]],
-  ['log2_5fnum_5fbuckets',['log2_num_buckets',['../struct_u_t__hash__table.html#a1e4983525460bc9180bbb5e7b404cdbb',1,'UT_hash_table']]]
+  ['key',['key',['../struct_u_t__hash__handle.html#ab5c000aec752f2206131e183daf5efbf',1,'UT_hash_handle']]],
+  ['keylen',['keylen',['../struct_u_t__hash__handle.html#a4563ea2b1ae1597aa9fd62e005d447b4',1,'UT_hash_handle']]],
+  ['kivaactive',['kivaActive',['../struct_country_rec.html#a1f6060a7216079a5dc1203bb2caa3d93',1,'CountryRec']]],
+  ['kivaappid',['kivaAppId',['../app_8js.html#aca27c5aeb2c7a53c422651acbed41d64',1,'app.js']]],
+  ['kivaappidparam',['kivaAppIdParam',['../app_8js.html#a8c4e967627ef2f5784f60cd1ad02267d',1,'app.js']]],
+  ['kivacc',['kivaCC',['../app_8js.html#ae55147f775040cba33aa39fe52ce5a42',1,'app.js']]],
+  ['kivacountries',['kivaCountries',['../struct_kiva_model.html#a8aaa4107d9eefbe83d05cb7cc4583254',1,'KivaModel']]]
 ];

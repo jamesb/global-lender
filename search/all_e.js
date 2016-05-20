@@ -1,6 +1,7 @@
 var searchData=
 [
-  ['signature',['signature',['../struct_u_t__hash__table.html#acd2a6284879dded65f0b8daa7c68485a',1,'UT_hash_table']]],
-  ['strxcpy',['strxcpy',['../misc_8c.html#af4df0e73abf84eedd72e5a3e75e67935',1,'strxcpy(char *buffer, size_t bufsize, const char *source, const char *readable):&#160;misc.c'],['../misc_8h.html#af4df0e73abf84eedd72e5a3e75e67935',1,'strxcpy(char *buffer, size_t bufsize, const char *source, const char *readable):&#160;misc.c']]],
-  ['strxlen',['strxlen',['../misc_8h.html#af8573d75240f683404d842a3bb0c92a5',1,'misc.h']]]
+  ['pagearray',['pageArray',['../app_8js.html#a2021cfe05b76494e9da6899b136dbda0',1,'app.js']]],
+  ['prefloans',['prefLoans',['../struct_kiva_model.html#af76a72bc18756020838f9726aa385798',1,'KivaModel']]],
+  ['prev',['prev',['../struct_u_t__hash__handle.html#af714e69444763fb9a76ec901a014baf1',1,'UT_hash_handle']]],
+  ['processingstate',['ProcessingState',['../struct_processing_state.html',1,'ProcessingState'],['../data-processor_8h.html#a2399f3af1122ead65fb0df2166113f7b',1,'ProcessingState():&#160;data-processor.h']]]
 ];

@@ -1,0 +1,6 @@
+<map id="LoanRec" name="LoanRec">
+<area shape="rect" id="node2" href="$struct_loan_info.html" title="LoanInfo" alt="" coords="5,7,77,33"/>
+<area shape="rect" id="node3" href="$struct_u_t__hash__handle.html" title="UT_hash_handle" alt="" coords="128,7,248,33"/>
+<area shape="rect" id="node4" href="$struct_u_t__hash__table.html" title="UT_hash_table" alt="" coords="191,187,302,213"/>
+<area shape="rect" id="node5" href="$struct_u_t__hash__bucket.html" title="UT_hash_bucket" alt="" coords="186,97,307,124"/>
+</map>
