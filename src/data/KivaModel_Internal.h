@@ -33,4 +33,4 @@ struct KivaModel {
 };
 
 
-KivaModel_ErrCode KivaModel_init(KivaModel* this, const char*);
+MagPebApp_ErrCode KivaModel_init(KivaModel* this, const char*);

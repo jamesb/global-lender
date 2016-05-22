@@ -50,7 +50,7 @@ static bool unloadTupleLong(long int* buffer, Tuple* tuple, const char* readable
 static void inbox_received_callback(DictionaryIterator *iterator, void *context) {
   APP_LOG(APP_LOG_LEVEL_INFO, "Inbox receive successful.");
 
-  KivaModel_ErrCode kmret;
+  MagPebApp_ErrCode mpaRet;
   Tuple *tuple = NULL;
   if ( (tuple = dict_find(iterator, KEY_PEBKIT_READY)) != NULL ) {
     // PebbleKit JS is ready! Safe to send messages
@@ -72,8 +72,8 @@ static void inbox_received_callback(DictionaryIterator *iterator, void *context)
       for (uint8_t n = 0; n < num_strings; n += 2) {
         strings[n] = data_processor_get_string(state);
         strings[n+1] = data_processor_get_string(state);
-        if ( (kmret = KivaModel_addKivaCountry(dataModel, strings[n], strings[n+1])) != KIVA_MODEL_SUCCESS) {
-            APP_LOG(APP_LOG_LEVEL_ERROR, "Error adding Kiva country to data model: %s", KivaModel_getErrMsg(kmret));
+        if ( (mpaRet = KivaModel_addKivaCountry(dataModel, strings[n], strings[n+1])) != MPA_SUCCESS) {
+            APP_LOG(APP_LOG_LEVEL_ERROR, "Error adding Kiva country to data model: %s", MagPebApp_getErrMsg(mpaRet));
         }
         free(strings[n]);
         free(strings[n+1]);
@@ -83,8 +83,8 @@ static void inbox_received_callback(DictionaryIterator *iterator, void *context)
     }
     free(countrySetBuf); countrySetBuf = NULL;
     int kivaCountryQty = 0;
-    if ( (kmret = KivaModel_getKivaCountryQty(dataModel, &kivaCountryQty)) != KIVA_MODEL_SUCCESS) {
-        APP_LOG(APP_LOG_LEVEL_ERROR, "Error getting Kiva country quantity from data model: %s", KivaModel_getErrMsg(kmret));
+    if ( (mpaRet = KivaModel_getKivaCountryQty(dataModel, &kivaCountryQty)) != MPA_SUCCESS) {
+        APP_LOG(APP_LOG_LEVEL_ERROR, "Error getting Kiva country quantity from data model: %s", MagPebApp_getErrMsg(mpaRet));
     }
     APP_LOG(APP_LOG_LEVEL_INFO, "Kiva active country total: %d", kivaCountryQty);
     comm_sendMsgCstr(KEY_GET_LENDER_INFO, NULL);
@@ -99,8 +99,8 @@ static void inbox_received_callback(DictionaryIterator *iterator, void *context)
       APP_LOG(APP_LOG_LEVEL_ERROR, "Error in unloadTupleStr.");
     } else {
       APP_LOG(APP_LOG_LEVEL_INFO, "lenderIdBuf = %s", lenderIdBuf);
-      if ( (kmret = KivaModel_setLenderId(dataModel, lenderIdBuf)) != KIVA_MODEL_SUCCESS) {
-        APP_LOG(APP_LOG_LEVEL_ERROR, "Error setting %s in data model: %s", readable, KivaModel_getErrMsg(kmret));
+      if ( (mpaRet = KivaModel_setLenderId(dataModel, lenderIdBuf)) != MPA_SUCCESS) {
+        APP_LOG(APP_LOG_LEVEL_ERROR, "Error setting %s in data model: %s", readable, MagPebApp_getErrMsg(mpaRet));
       }
     }
     free(lenderIdBuf); lenderIdBuf = NULL;
@@ -115,8 +115,8 @@ static void inbox_received_callback(DictionaryIterator *iterator, void *context)
       APP_LOG(APP_LOG_LEVEL_ERROR, "Error in unloadTupleStr.");
     } else {
       APP_LOG(APP_LOG_LEVEL_INFO, "lenderNameBuf = %s", lenderNameBuf);
-      if ( (kmret = KivaModel_setLenderName(dataModel, lenderNameBuf)) != KIVA_MODEL_SUCCESS) {
-        APP_LOG(APP_LOG_LEVEL_ERROR, "Error setting %s in data model: %s", readable, KivaModel_getErrMsg(kmret));
+      if ( (mpaRet = KivaModel_setLenderName(dataModel, lenderNameBuf)) != MPA_SUCCESS) {
+        APP_LOG(APP_LOG_LEVEL_ERROR, "Error setting %s in data model: %s", readable, MagPebApp_getErrMsg(mpaRet));
       }
     }
     free(lenderNameBuf); lenderNameBuf = NULL;
@@ -131,8 +131,8 @@ static void inbox_received_callback(DictionaryIterator *iterator, void *context)
       APP_LOG(APP_LOG_LEVEL_ERROR, "Error in unloadTupleStr.");
     } else {
       APP_LOG(APP_LOG_LEVEL_INFO, "lenderLocBuf = %s", lenderLocBuf);
-      if ( (kmret = KivaModel_setLenderLoc(dataModel, lenderLocBuf)) != KIVA_MODEL_SUCCESS) {
-        APP_LOG(APP_LOG_LEVEL_ERROR, "Error setting %s in data model: %s", readable, KivaModel_getErrMsg(kmret));
+      if ( (mpaRet = KivaModel_setLenderLoc(dataModel, lenderLocBuf)) != MPA_SUCCESS) {
+        APP_LOG(APP_LOG_LEVEL_ERROR, "Error setting %s in data model: %s", readable, MagPebApp_getErrMsg(mpaRet));
       }
     }
     free(lenderLocBuf); lenderLocBuf = NULL;
@@ -142,8 +142,8 @@ static void inbox_received_callback(DictionaryIterator *iterator, void *context)
     const char* readable = "Lender Loan Quantity";
     long int lenderLoanQty = 0;
     if (unloadTupleLong(&lenderLoanQty, tuple, readable)) {
-      if ( (kmret = KivaModel_setLenderLoanQty(dataModel, (int)lenderLoanQty)) != KIVA_MODEL_SUCCESS) {
-        APP_LOG(APP_LOG_LEVEL_ERROR, "Error setting %s in data model: %s", readable, KivaModel_getErrMsg(kmret));
+      if ( (mpaRet = KivaModel_setLenderLoanQty(dataModel, (int)lenderLoanQty)) != MPA_SUCCESS) {
+        APP_LOG(APP_LOG_LEVEL_ERROR, "Error setting %s in data model: %s", readable, MagPebApp_getErrMsg(mpaRet));
       }
     }
   }
@@ -163,8 +163,8 @@ static void inbox_received_callback(DictionaryIterator *iterator, void *context)
       for (uint8_t n = 0; n < num_strings; n += 2) {
         strings[n] = data_processor_get_string(state);
         strings[n+1] = data_processor_get_string(state);
-        if ( (kmret = KivaModel_addLenderCountry(dataModel, strings[n], strings[n+1])) != KIVA_MODEL_SUCCESS) {
-            APP_LOG(APP_LOG_LEVEL_ERROR, "Error adding Lender country to data model: %s", KivaModel_getErrMsg(kmret));
+        if ( (mpaRet = KivaModel_addLenderCountry(dataModel, strings[n], strings[n+1])) != MPA_SUCCESS) {
+            APP_LOG(APP_LOG_LEVEL_ERROR, "Error adding Lender country to data model: %s", MagPebApp_getErrMsg(mpaRet));
         }
         free(strings[n]);
         free(strings[n+1]);
@@ -184,8 +184,8 @@ static void inbox_received_callback(DictionaryIterator *iterator, void *context)
     if (!unloadTupleStr(&loanSetBuf, bufsize, tuple, readable)) {
       APP_LOG(APP_LOG_LEVEL_ERROR, "Error in unloadTupleStr.");
     } else {
-      if ( (kmret = KivaModel_clearPreferredLoans(dataModel)) != KIVA_MODEL_SUCCESS) {
-        APP_LOG(APP_LOG_LEVEL_ERROR, "Error clearing preferred loan list: %s", KivaModel_getErrMsg(kmret));
+      if ( (mpaRet = KivaModel_clearPreferredLoans(dataModel)) != MPA_SUCCESS) {
+        APP_LOG(APP_LOG_LEVEL_ERROR, "Error clearing preferred loan list: %s", MagPebApp_getErrMsg(mpaRet));
       } else {
         ProcessingState* state = data_processor_create(loanSetBuf, '|');
         uint8_t num_fields = data_processor_count(state);
@@ -198,15 +198,15 @@ static void inbox_received_callback(DictionaryIterator *iterator, void *context)
           uint16_t fundedAmt = data_processor_get_int(state);
           uint16_t loanAmt =   data_processor_get_int(state);
           APP_LOG(APP_LOG_LEVEL_INFO, "0:[%ld] 1:[%s] 2:[%s] 3:[%s] 4:[%d] 5:[%d]", id, name, use, countryCode, fundedAmt, loanAmt);
-          if ( (kmret = KivaModel_addPreferredLoan(dataModel, (LoanInfo) {
+          if ( (mpaRet = KivaModel_addPreferredLoan(dataModel, (LoanInfo) {
                   .id =          id,
                   .name =        name,
                   .use =         use,
                   .countryCode = countryCode,
                   .fundedAmt =   fundedAmt,
                   .loanAmt =     loanAmt
-                })) != KIVA_MODEL_SUCCESS) {
-              APP_LOG(APP_LOG_LEVEL_ERROR, "Error adding preferred loan to data model: %s", KivaModel_getErrMsg(kmret));
+                })) != MPA_SUCCESS) {
+              APP_LOG(APP_LOG_LEVEL_ERROR, "Error adding preferred loan to data model: %s", MagPebApp_getErrMsg(mpaRet));
           }
           free(name);
           free(use);
@@ -288,10 +288,10 @@ void comm_getPreferredLoans() {
       return;
     }
 
-    KivaModel_ErrCode kmret;
+    MagPebApp_ErrCode mpaRet;
     char* countryCodes = NULL;
-    if ( (kmret = KivaModel_getLenderCountryCodes(dataModel, true, &countryCodes)) != KIVA_MODEL_SUCCESS) {
-      APP_LOG(APP_LOG_LEVEL_ERROR, "Could not retrieve lender country codes: %s", KivaModel_getErrMsg(kmret));
+    if ( (mpaRet = KivaModel_getLenderCountryCodes(dataModel, true, &countryCodes)) != MPA_SUCCESS) {
+      APP_LOG(APP_LOG_LEVEL_ERROR, "Could not retrieve lender country codes: %s", MagPebApp_getErrMsg(mpaRet));
       return;
     }
 

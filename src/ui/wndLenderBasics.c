@@ -29,42 +29,42 @@ void wndLenderBasics_updateView(const KivaModel* km) {
   if (!wndLenderBasics) return;
   if (!window_is_loaded(wndLenderBasics)) return;
 
-  KivaModel_ErrCode kmret;
+  MagPebApp_ErrCode mpaRet;
   static char* lenName = NULL;
   lenName = NULL;
-  if ( (kmret = KivaModel_getLenderName(km, &lenName)) != KIVA_MODEL_SUCCESS ) {
-      APP_LOG(APP_LOG_LEVEL_ERROR, "KivaModel error: %s", KivaModel_getErrMsg(kmret));
+  if ( (mpaRet = KivaModel_getLenderName(km, &lenName)) != MPA_SUCCESS ) {
+      APP_LOG(APP_LOG_LEVEL_ERROR, "KivaModel error: %s", MagPebApp_getErrMsg(mpaRet));
   } else {
     text_layer_set_text(lyrLenderName, lenName);
   }
 
   static char* lenLoc = NULL;
   lenLoc = NULL;
-  if ( (kmret = KivaModel_getLenderLoc(km, &lenLoc)) != KIVA_MODEL_SUCCESS ) {
-      APP_LOG(APP_LOG_LEVEL_ERROR, "Kiva Model error: %s", KivaModel_getErrMsg(kmret));
+  if ( (mpaRet = KivaModel_getLenderLoc(km, &lenLoc)) != MPA_SUCCESS ) {
+      APP_LOG(APP_LOG_LEVEL_ERROR, "Kiva Model error: %s", MagPebApp_getErrMsg(mpaRet));
   } else {
     text_layer_set_text(lyrLenderLoc, lenLoc);
   }
 
   int loanQty = 0;
-  if ( (kmret = KivaModel_getLenderLoanQty(km, &loanQty)) != KIVA_MODEL_SUCCESS) {
-    APP_LOG(APP_LOG_LEVEL_ERROR, "Kiva Model error: %s", KivaModel_getErrMsg(kmret));
+  if ( (mpaRet = KivaModel_getLenderLoanQty(km, &loanQty)) != MPA_SUCCESS) {
+    APP_LOG(APP_LOG_LEVEL_ERROR, "Kiva Model error: %s", MagPebApp_getErrMsg(mpaRet));
     return;
   }
 
   int lenderCountryQty = 0;
-  if ( (kmret = KivaModel_getLenderCountryQty(km, &lenderCountryQty)) != KIVA_MODEL_SUCCESS) {
-    APP_LOG(APP_LOG_LEVEL_ERROR, "Kiva Model error: %s", KivaModel_getErrMsg(kmret));
+  if ( (mpaRet = KivaModel_getLenderCountryQty(km, &lenderCountryQty)) != MPA_SUCCESS) {
+    APP_LOG(APP_LOG_LEVEL_ERROR, "Kiva Model error: %s", MagPebApp_getErrMsg(mpaRet));
     return;
   }
 
   int kivaCountryQty = 0;
-  if ( (kmret = KivaModel_getKivaCountryQty(km, &kivaCountryQty)) != KIVA_MODEL_SUCCESS) {
-    APP_LOG(APP_LOG_LEVEL_ERROR, "Kiva Model error: %s", KivaModel_getErrMsg(kmret));
+  if ( (mpaRet = KivaModel_getKivaCountryQty(km, &kivaCountryQty)) != MPA_SUCCESS) {
+    APP_LOG(APP_LOG_LEVEL_ERROR, "Kiva Model error: %s", MagPebApp_getErrMsg(mpaRet));
     return;
   }
 
-  long lret = 0;  
+  long lret = 0;
   static char buffer[100];
   if ( (lret = snprintf(buffer, sizeof(buffer), "%d Loans in\n%d of %d Countries", loanQty, lenderCountryQty, kivaCountryQty)) < 0) {
     APP_LOG(APP_LOG_LEVEL_ERROR, "Lender Summary string was not written correctly. Ret=%ld", lret);
