@@ -1,0 +1,16 @@
+<map id="src/libs/magpebapp.h" name="src/libs/magpebapp.h">
+<area shape="rect" id="node2" href="$_kiva_model_8h.html" title="src/data/KivaModel.h" alt="" coords="477,80,623,107"/>
+<area shape="rect" id="node12" href="$magpebapp_8c.html" title="src/libs/magpebapp.c" alt="" coords="647,80,794,107"/>
+<area shape="rect" id="node13" href="$_wnd_data_menu_8h.html" title="src/ui/WndDataMenu.h" alt="" coords="116,80,272,107"/>
+<area shape="rect" id="node3" href="$comm_8h.html" title="src/comm.h" alt="" coords="709,162,799,189"/>
+<area shape="rect" id="node4" href="$comm_8c.html" title="src/comm.c" alt="" coords="731,244,822,271"/>
+<area shape="rect" id="node6" href="$_kiva_model___internal_8h.html" title="src/data/KivaModel\l_Internal.h" alt="" coords="875,155,1009,196"/>
+<area shape="rect" id="node8" href="$wnd_main_menu_8h.html" title="src/ui/wndMainMenu.h" alt="" coords="531,162,684,189"/>
+<area shape="rect" id="node9" href="$wnd_main_menu_8c.html" title="src/ui/wndMainMenu.c" alt="" coords="187,244,340,271"/>
+<area shape="rect" id="node10" href="$wnd_lender_basics_8c.html" title="src/ui/wndLenderBasics.c" alt="" coords="367,244,539,271"/>
+<area shape="rect" id="node11" href="$wnd_lender_basics_8h.html" title="src/ui/wndLenderBasics.h" alt="" coords="283,162,455,189"/>
+<area shape="rect" id="node5" href="$main_8c.html" title="src/main.c" alt="" coords="583,244,666,271"/>
+<area shape="rect" id="node7" href="$_kiva_model_8c.html" title="src/data/KivaModel.c" alt="" coords="869,244,1015,271"/>
+<area shape="rect" id="node14" href="$_wnd_data_menu___internal_8h.html" title="src/ui/WndDataMenu\l_Internal.h" alt="" coords="11,155,156,196"/>
+<area shape="rect" id="node15" href="$_wnd_data_menu_8c.html" title="src/ui/WndDataMenu.c" alt="" coords="5,244,161,271"/>
+</map>

@@ -1,6 +1,7 @@
 <map id="src/data/KivaModel.c" name="src/data/KivaModel.c">
 <area shape="rect" id="node3" href="$_kiva_model___internal_8h.html" title="data/KivaModel_Internal.h" alt="" coords="78,80,251,107"/>
-<area shape="rect" id="node8" href="$misc_8h.html" title="misc.h" alt="" coords="275,80,337,107"/>
+<area shape="rect" id="node9" href="$misc_8h.html" title="misc.h" alt="" coords="275,80,337,107"/>
 <area shape="rect" id="node4" href="$_kiva_model_8h.html" title="data/KivaModel.h" alt="" coords="102,155,225,181"/>
-<area shape="rect" id="node5" href="$uthash_8h.html" title="libs/uthash.h" alt="" coords="249,155,345,181"/>
+<area shape="rect" id="node6" href="$uthash_8h.html" title="libs/uthash.h" alt="" coords="249,155,345,181"/>
+<area shape="rect" id="node5" href="$magpebapp_8h.html" title="libs/magpebapp.h" alt="" coords="101,229,225,256"/>
 </map>

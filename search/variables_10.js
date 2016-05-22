@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['xhrrequest',['xhrRequest',['../app_8js.html#a95e8ee81171c3c0c9478b89a196ee90b',1,'app.js']]]
+  ['window',['window',['../struct_wnd_data_menu.html#affdaa53d51accec8f5fb38ca193e3de4',1,'WndDataMenu']]]
 ];

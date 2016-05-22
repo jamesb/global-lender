@@ -1,6 +1,7 @@
 <map id="src/main.c" name="src/main.c">
 <area shape="rect" id="node3" href="$comm_8h.html" title="comm.h" alt="" coords="270,80,339,107"/>
-<area shape="rect" id="node5" href="$misc_8h.html" title="misc.h" alt="" coords="185,80,246,107"/>
-<area shape="rect" id="node6" href="$wnd_main_menu_8h.html" title="ui/wndMainMenu.h" alt="" coords="30,80,161,107"/>
+<area shape="rect" id="node6" href="$misc_8h.html" title="misc.h" alt="" coords="185,80,246,107"/>
+<area shape="rect" id="node7" href="$wnd_main_menu_8h.html" title="ui/wndMainMenu.h" alt="" coords="30,80,161,107"/>
 <area shape="rect" id="node4" href="$_kiva_model_8h.html" title="data/KivaModel.h" alt="" coords="195,155,318,181"/>
+<area shape="rect" id="node5" href="$magpebapp_8h.html" title="libs/magpebapp.h" alt="" coords="195,229,319,256"/>
 </map>

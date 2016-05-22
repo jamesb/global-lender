@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['kivamodel_2ec',['KivaModel.c',['../_kiva_model_8c.html',1,'']]],
-  ['kivamodel_2eh',['KivaModel.h',['../_kiva_model_8h.html',1,'']]],
-  ['kivamodel_5finternal_2eh',['KivaModel_Internal.h',['../_kiva_model___internal_8h.html',1,'']]]
+  ['lyrdigitime_2ec',['lyrDigitime.c',['../lyr_digitime_8c.html',1,'']]],
+  ['lyrdigitime_2eh',['lyrDigitime.h',['../lyr_digitime_8h.html',1,'']]]
 ];

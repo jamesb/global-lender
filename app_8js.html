@@ -96,25 +96,20 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ae3a96e3ac0575ac3211720af101242d6"><td class="memItemLeft" align="right" valign="top">function&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="app_8js.html#ae3a96e3ac0575ac3211720af101242d6">callKivaApiAsync</a> (url, parseFxn, maxResults)</td></tr>
-<tr class="separator:ae3a96e3ac0575ac3211720af101242d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8464c96f809401451da612058236c594"><td class="memItemLeft" align="right" valign="top">function&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="app_8js.html#a8464c96f809401451da612058236c594">callKivaApiAsync</a> (url, parseFxn, maxResults)</td></tr>
+<tr class="separator:a8464c96f809401451da612058236c594"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac6502f909d3cd81be1b6ed9339cb92ab"><td class="memItemLeft" align="right" valign="top">function&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="app_8js.html#ac6502f909d3cd81be1b6ed9339cb92ab">getLenderInfo</a> ()</td></tr>
 <tr class="separator:ac6502f909d3cd81be1b6ed9339cb92ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0349825e466fa95d3410e48f75107ef7"><td class="memItemLeft" align="right" valign="top">function&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="app_8js.html#a0349825e466fa95d3410e48f75107ef7">getLoansForLender</a> ()</td></tr>
 <tr class="separator:a0349825e466fa95d3410e48f75107ef7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2a5ff393ab80cef57c756237c6ae3a07"><td class="memItemLeft" align="right" valign="top">function&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="app_8js.html#a2a5ff393ab80cef57c756237c6ae3a07">getKivaActiveFieldPartners</a> ()</td></tr>
-<tr class="separator:a2a5ff393ab80cef57c756237c6ae3a07"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8b0faa37afaf571b79185b4910365b2e"><td class="memItemLeft" align="right" valign="top">function&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="app_8js.html#a8b0faa37afaf571b79185b4910365b2e">getPreferredLoans</a> (prefCC, maxResults)</td></tr>
 <tr class="separator:a8b0faa37afaf571b79185b4910365b2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab0c614d28be782cf186fe433406288f7"><td class="memItemLeft" align="right" valign="top">Pebble&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="app_8js.html#ab0c614d28be782cf186fe433406288f7">addEventListener</a> ('ready', function(e){console.log(&quot;PebbleKit JS ready!&quot;);Pebble.sendAppMessage({&quot;KEY_PEBKIT_READY&quot;:1});getKivaActiveFieldPartners();})</td></tr>
-<tr class="separator:ab0c614d28be782cf186fe433406288f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a412e80b9aefa6434f6a35cd2dd27398f"><td class="memItemLeft" align="right" valign="top">Pebble&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="app_8js.html#a412e80b9aefa6434f6a35cd2dd27398f">addEventListener</a> ('appmessage', function(e){console.log(&quot;AppMessage received: &quot;+JSON.stringify(e.payload));var dict=e.payload;if('<a class="el" href="comm_8h.html#ad4843d812d90ec4f7e8726a2755f8e7ca5b543121157fee3fa2afd3e3cb0d06da">KEY_GET_LENDER_INFO</a>'in dict){<a class="el" href="app_8js.html#ac6502f909d3cd81be1b6ed9339cb92ab">getLenderInfo</a>();<a class="el" href="app_8js.html#a0349825e466fa95d3410e48f75107ef7">getLoansForLender</a>();}else if('<a class="el" href="comm_8h.html#ad4843d812d90ec4f7e8726a2755f8e7cac80e553fa2772d56e66751b8e5dc4775">KEY_GET_PREFERRED_LOANS</a>'in dict){var prefCC=dict['<a class="el" href="comm_8h.html#ad4843d812d90ec4f7e8726a2755f8e7cac80e553fa2772d56e66751b8e5dc4775">KEY_GET_PREFERRED_LOANS</a>'];var maxResults=10;<a class="el" href="app_8js.html#a8b0faa37afaf571b79185b4910365b2e">getPreferredLoans</a>(prefCC, maxResults);}else{console.log(&quot;Unrecognized app message: &quot;+JSON.stringify(dict));}})</td></tr>
+<tr class="memdesc:a412e80b9aefa6434f6a35cd2dd27398f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Listen for when an AppMessage is received.  <a href="#a412e80b9aefa6434f6a35cd2dd27398f">More...</a><br /></td></tr>
+<tr class="separator:a412e80b9aefa6434f6a35cd2dd27398f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:aa7f6ce33899a1263fedda1faaf72dede"><td class="memItemLeft" align="right" valign="top">var&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="app_8js.html#aa7f6ce33899a1263fedda1faaf72dede">Iso3166</a> = require('<a class="el" href="app_8js.html#a6798151ffc4930de5f47232d26a8557a">iso3166</a>')</td></tr>
-<tr class="separator:aa7f6ce33899a1263fedda1faaf72dede"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6798151ffc4930de5f47232d26a8557a"><td class="memItemLeft" align="right" valign="top">var&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="app_8js.html#a6798151ffc4930de5f47232d26a8557a">iso3166</a> = <a class="el" href="iso3166_8js.html#aa2f2198ed9e1f96b8b0122254415e1de">Iso3166.getCountryCodes</a>()</td></tr>
-<tr class="separator:a6798151ffc4930de5f47232d26a8557a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae55147f775040cba33aa39fe52ce5a42"><td class="memItemLeft" align="right" valign="top">var&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="app_8js.html#ae55147f775040cba33aa39fe52ce5a42">kivaCC</a> = {}</td></tr>
 <tr class="separator:ae55147f775040cba33aa39fe52ce5a42"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a203e9d218c27851765106c4236a13a09"><td class="memItemLeft" align="right" valign="top">var&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="app_8js.html#a203e9d218c27851765106c4236a13a09">baseKivaUrl</a> = &quot;http://api.kivaws.org/v1/&quot;</td></tr>
@@ -130,12 +125,13 @@ Variables</h2></td></tr>
 <tr class="memitem:a2021cfe05b76494e9da6899b136dbda0"><td class="memItemLeft" align="right" valign="top">var&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="app_8js.html#a2021cfe05b76494e9da6899b136dbda0">pageArray</a> = []</td></tr>
 <tr class="separator:a2021cfe05b76494e9da6899b136dbda0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4278121f2146f44a9896ca0d9a46c827"><td class="memItemLeft" align="right" valign="top">Array prototype&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="app_8js.html#a4278121f2146f44a9896ca0d9a46c827">unique</a></td></tr>
+<tr class="memdesc:a4278121f2146f44a9896ca0d9a46c827"><td class="mdescLeft">&#160;</td><td class="mdescRight">Array extension to return the unique values of an array.  <a href="#a4278121f2146f44a9896ca0d9a46c827">More...</a><br /></td></tr>
 <tr class="separator:a4278121f2146f44a9896ca0d9a46c827"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a95e8ee81171c3c0c9478b89a196ee90b"><td class="memItemLeft" align="right" valign="top">var&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="app_8js.html#a95e8ee81171c3c0c9478b89a196ee90b">xhrRequest</a></td></tr>
 <tr class="separator:a95e8ee81171c3c0c9478b89a196ee90b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
-<a class="anchor" id="ab0c614d28be782cf186fe433406288f7"></a>
+<a class="anchor" id="a412e80b9aefa6434f6a35cd2dd27398f"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -159,29 +155,32 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Listen for when an AppMessage is received. </p>
+<p>Listen for when the watch opens communication and inform the watch that the PebbleKit end of the channel is ready. </p>
+
 </div>
 </div>
-<a class="anchor" id="ae3a96e3ac0575ac3211720af101242d6"></a>
+<a class="anchor" id="a8464c96f809401451da612058236c594"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">function callKivaApiAsync </td>
+          <td class="memname">callKivaApiAsync </td>
           <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>url</em>, </td>
+          <td class="paramtype">url&#160;</td>
+          <td class="paramname">, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>parseFxn</em>, </td>
+          <td class="paramtype">parseFxn&#160;</td>
+          <td class="paramname">, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>maxResults</em>&#160;</td>
+          <td class="paramtype">maxResults&#160;</td>
+          <td class="paramname">&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -190,21 +189,14 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="a2a5ff393ab80cef57c756237c6ae3a07"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">function getKivaActiveFieldPartners </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
+<p>Calls the Kiva API web service, parsing results by calling the function passed in as parseFxn. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">url</td><td>URL of the webservice </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">parseFxn</td><td>Function that returns a dictionary of key/value pairs that represent the information that must be passed back to the Pebble watch. Function should expect to receive an array of JSON objects (range = [0 .. n-1 pages]), one value for each page. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">maxResults</td><td>Predetermined limit to the number of results we need to fetch from the webservice. If maxResults is zero, then all results will be fetched. (If zero results is really desired, then don't call this function!) </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -271,30 +263,6 @@ Variables</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">var baseKivaUrl = &quot;http://api.kivaws.org/v1/&quot;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="aa7f6ce33899a1263fedda1faaf72dede"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">var Iso3166 = require('<a class="el" href="app_8js.html#a6798151ffc4930de5f47232d26a8557a">iso3166</a>')</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="a6798151ffc4930de5f47232d26a8557a"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">var iso3166 = <a class="el" href="iso3166_8js.html#aa2f2198ed9e1f96b8b0122254415e1de">Iso3166.getCountryCodes</a>()</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -383,6 +351,8 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">= <span class="keyword">function</span>() {</div><div class="line">    var a = [], l = this.length;</div><div class="line">    <span class="keywordflow">for</span>(var i=0; i&lt;l; i++) {</div><div class="line">      <span class="keywordflow">for</span>(var j=i+1; j&lt;l; j++)</div><div class="line">            <span class="keywordflow">if</span> (<span class="keyword">this</span>[i] === <span class="keyword">this</span>[j]) j = ++i;</div><div class="line">      a.push(<span class="keyword">this</span>[i]);</div><div class="line">    }</div><div class="line">    <span class="keywordflow">return</span> a;</div><div class="line">}</div></div><!-- fragment -->
+<p>Array extension to return the unique values of an array. </p>
+
 </div>
 </div>
 <a class="anchor" id="a95e8ee81171c3c0c9478b89a196ee90b"></a>

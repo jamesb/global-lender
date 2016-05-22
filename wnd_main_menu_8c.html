@@ -98,18 +98,19 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <code>#include &quot;<a class="el" href="misc_8h_source.html">misc.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="_kiva_model_8h_source.html">data/KivaModel.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="wnd_lender_basics_8h_source.html">ui/wndLenderBasics.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="wnd_countries_8h_source.html">ui/wndCountries.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_wnd_data_menu_8h_source.html">ui/WndDataMenu.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="wnd_main_menu_8h_source.html">ui/wndMainMenu.h</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for wndMainMenu.c:</div>
 <div class="dyncontent">
 <div class="center"><img src="wnd_main_menu_8c__incl.png" border="0" usemap="#src_2ui_2wnd_main_menu_8c" alt=""/></div>
 <map name="src_2ui_2wnd_main_menu_8c" id="src_2ui_2wnd_main_menu_8c">
-<area shape="rect" id="node3" href="misc_8h.html" title="misc.h" alt="" coords="23,80,85,107"/>
-<area shape="rect" id="node4" href="_kiva_model_8h.html" title="data/KivaModel.h" alt="" coords="271,155,394,181"/>
-<area shape="rect" id="node5" href="wnd_lender_basics_8h.html" title="ui/wndLenderBasics.h" alt="" coords="315,80,465,107"/>
-<area shape="rect" id="node6" href="wnd_countries_8h.html" title="ui/wndCountries.h" alt="" coords="489,80,616,107"/>
-<area shape="rect" id="node7" href="wnd_main_menu_8h.html" title="ui/wndMainMenu.h" alt="" coords="109,80,239,107"/>
+<area shape="rect" id="node3" href="misc_8h.html" title="misc.h" alt="" coords="165,80,226,107"/>
+<area shape="rect" id="node4" href="_kiva_model_8h.html" title="data/KivaModel.h" alt="" coords="365,155,487,181"/>
+<area shape="rect" id="node6" href="wnd_lender_basics_8h.html" title="ui/wndLenderBasics.h" alt="" coords="507,80,657,107"/>
+<area shape="rect" id="node7" href="_wnd_data_menu_8h.html" title="ui/WndDataMenu.h" alt="" coords="5,80,140,107"/>
+<area shape="rect" id="node8" href="wnd_main_menu_8h.html" title="ui/wndMainMenu.h" alt="" coords="301,80,431,107"/>
+<area shape="rect" id="node5" href="magpebapp_8h.html" title="libs/magpebapp.h" alt="" coords="216,229,340,256"/>
 </map>
 </div>
 </div><table class="memberdecls">
@@ -121,17 +122,29 @@ Macros</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
 Enumerations</h2></td></tr>
 <tr class="memitem:aeda06dd7bf5623d17fd1ff42166d0f25"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="wnd_main_menu_8c.html#aeda06dd7bf5623d17fd1ff42166d0f25">MenuItems</a> { <br />
-&#160;&#160;<a class="el" href="wnd_main_menu_8c.html#aeda06dd7bf5623d17fd1ff42166d0f25af779da58458770043e6cebe84a6209bb">MNU_ITEM_LENDER_INFO</a> = 0, 
+&#160;&#160;<a class="el" href="_wnd_data_menu_8c.html#aeda06dd7bf5623d17fd1ff42166d0f25af779da58458770043e6cebe84a6209bb">MNU_ITEM_LENDER_INFO</a> = 0, 
+<a class="el" href="_wnd_data_menu_8c.html#aeda06dd7bf5623d17fd1ff42166d0f25a354639496bce6e337c94aa725bb1d5ca">MNU_ITEM_LOANS_FOR_YOU</a>, 
+<a class="el" href="_wnd_data_menu_8c.html#aeda06dd7bf5623d17fd1ff42166d0f25a56146b9b5c8cee68ef1f82f24dce652b">MNU_ITEM_ACHIEVEMENTS</a>, 
+<a class="el" href="_wnd_data_menu_8c.html#aeda06dd7bf5623d17fd1ff42166d0f25a3d1d3974b61fcb44895236b2634df752">MNU_ITEM_TEAMS</a>, 
+<br />
+&#160;&#160;<a class="el" href="_wnd_data_menu_8c.html#aeda06dd7bf5623d17fd1ff42166d0f25a85f7bc70567d0edd6e39d9be8be43f03">MNU_ITEM_COUNTRIES</a>, 
+<a class="el" href="_wnd_data_menu_8c.html#aeda06dd7bf5623d17fd1ff42166d0f25a77777195abfe1d09819a2ed559a7b44b">MNU_ITEM_SECTORS</a>, 
+<a class="el" href="_wnd_data_menu_8c.html#aeda06dd7bf5623d17fd1ff42166d0f25a44013faf553977822ab23e37ddc95ce1">MNU_ITEM_ACTIVITIES</a>, 
+<a class="el" href="_wnd_data_menu_8c.html#aeda06dd7bf5623d17fd1ff42166d0f25ae73ffd435c201b07a0c79dcf4db2e025">MNU_ITEM_FIELD_PARTNERS</a>, 
+<br />
+&#160;&#160;<a class="el" href="_wnd_data_menu_8c.html#aeda06dd7bf5623d17fd1ff42166d0f25a6f8bd44d102ef6f2c6aa6d83f9856b74">MNU_ITEM_ACKNOWLEDGEMENTS</a>, 
+<a class="el" href="_wnd_data_menu_8c.html#aeda06dd7bf5623d17fd1ff42166d0f25af374d651f76d676414d912714e2ebee0">NUM_MENU_ITEMS</a>, 
+<a class="el" href="wnd_main_menu_8c.html#aeda06dd7bf5623d17fd1ff42166d0f25af779da58458770043e6cebe84a6209bb">MNU_ITEM_LENDER_INFO</a> = 0, 
 <a class="el" href="wnd_main_menu_8c.html#aeda06dd7bf5623d17fd1ff42166d0f25a354639496bce6e337c94aa725bb1d5ca">MNU_ITEM_LOANS_FOR_YOU</a>, 
-<a class="el" href="wnd_main_menu_8c.html#aeda06dd7bf5623d17fd1ff42166d0f25a56146b9b5c8cee68ef1f82f24dce652b">MNU_ITEM_ACHIEVEMENTS</a>, 
+<br />
+&#160;&#160;<a class="el" href="wnd_main_menu_8c.html#aeda06dd7bf5623d17fd1ff42166d0f25a56146b9b5c8cee68ef1f82f24dce652b">MNU_ITEM_ACHIEVEMENTS</a>, 
 <a class="el" href="wnd_main_menu_8c.html#aeda06dd7bf5623d17fd1ff42166d0f25a3d1d3974b61fcb44895236b2634df752">MNU_ITEM_TEAMS</a>, 
-<br />
-&#160;&#160;<a class="el" href="wnd_main_menu_8c.html#aeda06dd7bf5623d17fd1ff42166d0f25a85f7bc70567d0edd6e39d9be8be43f03">MNU_ITEM_COUNTRIES</a>, 
+<a class="el" href="wnd_main_menu_8c.html#aeda06dd7bf5623d17fd1ff42166d0f25a85f7bc70567d0edd6e39d9be8be43f03">MNU_ITEM_COUNTRIES</a>, 
 <a class="el" href="wnd_main_menu_8c.html#aeda06dd7bf5623d17fd1ff42166d0f25a77777195abfe1d09819a2ed559a7b44b">MNU_ITEM_SECTORS</a>, 
-<a class="el" href="wnd_main_menu_8c.html#aeda06dd7bf5623d17fd1ff42166d0f25a44013faf553977822ab23e37ddc95ce1">MNU_ITEM_ACTIVITIES</a>, 
-<a class="el" href="wnd_main_menu_8c.html#aeda06dd7bf5623d17fd1ff42166d0f25ae73ffd435c201b07a0c79dcf4db2e025">MNU_ITEM_FIELD_PARTNERS</a>, 
 <br />
-&#160;&#160;<a class="el" href="wnd_main_menu_8c.html#aeda06dd7bf5623d17fd1ff42166d0f25a6f8bd44d102ef6f2c6aa6d83f9856b74">MNU_ITEM_ACKNOWLEDGEMENTS</a>, 
+&#160;&#160;<a class="el" href="wnd_main_menu_8c.html#aeda06dd7bf5623d17fd1ff42166d0f25a44013faf553977822ab23e37ddc95ce1">MNU_ITEM_ACTIVITIES</a>, 
+<a class="el" href="wnd_main_menu_8c.html#aeda06dd7bf5623d17fd1ff42166d0f25ae73ffd435c201b07a0c79dcf4db2e025">MNU_ITEM_FIELD_PARTNERS</a>, 
+<a class="el" href="wnd_main_menu_8c.html#aeda06dd7bf5623d17fd1ff42166d0f25a6f8bd44d102ef6f2c6aa6d83f9856b74">MNU_ITEM_ACKNOWLEDGEMENTS</a>, 
 <a class="el" href="wnd_main_menu_8c.html#aeda06dd7bf5623d17fd1ff42166d0f25af374d651f76d676414d912714e2ebee0">NUM_MENU_ITEMS</a>
 <br />
  }</td></tr>
@@ -168,12 +181,32 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">enum <a class="el" href="wnd_main_menu_8c.html#aeda06dd7bf5623d17fd1ff42166d0f25">MenuItems</a></td>
+          <td class="memname">enum <a class="el" href="_wnd_data_menu_8c.html#aeda06dd7bf5623d17fd1ff42166d0f25">MenuItems</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a class="anchor" id="aeda06dd7bf5623d17fd1ff42166d0f25af779da58458770043e6cebe84a6209bb"></a>MNU_ITEM_LENDER_INFO&#160;</td><td class="fielddoc">
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="aeda06dd7bf5623d17fd1ff42166d0f25a354639496bce6e337c94aa725bb1d5ca"></a>MNU_ITEM_LOANS_FOR_YOU&#160;</td><td class="fielddoc">
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="aeda06dd7bf5623d17fd1ff42166d0f25a56146b9b5c8cee68ef1f82f24dce652b"></a>MNU_ITEM_ACHIEVEMENTS&#160;</td><td class="fielddoc">
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="aeda06dd7bf5623d17fd1ff42166d0f25a3d1d3974b61fcb44895236b2634df752"></a>MNU_ITEM_TEAMS&#160;</td><td class="fielddoc">
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="aeda06dd7bf5623d17fd1ff42166d0f25a85f7bc70567d0edd6e39d9be8be43f03"></a>MNU_ITEM_COUNTRIES&#160;</td><td class="fielddoc">
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="aeda06dd7bf5623d17fd1ff42166d0f25a77777195abfe1d09819a2ed559a7b44b"></a>MNU_ITEM_SECTORS&#160;</td><td class="fielddoc">
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="aeda06dd7bf5623d17fd1ff42166d0f25a44013faf553977822ab23e37ddc95ce1"></a>MNU_ITEM_ACTIVITIES&#160;</td><td class="fielddoc">
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="aeda06dd7bf5623d17fd1ff42166d0f25ae73ffd435c201b07a0c79dcf4db2e025"></a>MNU_ITEM_FIELD_PARTNERS&#160;</td><td class="fielddoc">
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="aeda06dd7bf5623d17fd1ff42166d0f25a6f8bd44d102ef6f2c6aa6d83f9856b74"></a>MNU_ITEM_ACKNOWLEDGEMENTS&#160;</td><td class="fielddoc">
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="aeda06dd7bf5623d17fd1ff42166d0f25af374d651f76d676414d912714e2ebee0"></a>NUM_MENU_ITEMS&#160;</td><td class="fielddoc">
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="aeda06dd7bf5623d17fd1ff42166d0f25af779da58458770043e6cebe84a6209bb"></a>MNU_ITEM_LENDER_INFO&#160;</td><td class="fielddoc">
 </td></tr>
 <tr><td class="fieldname"><a class="anchor" id="aeda06dd7bf5623d17fd1ff42166d0f25a354639496bce6e337c94aa725bb1d5ca"></a>MNU_ITEM_LOANS_FOR_YOU&#160;</td><td class="fielddoc">
 </td></tr>
