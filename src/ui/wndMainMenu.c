@@ -5,7 +5,7 @@
 #include "misc.h"
 #include "data/KivaModel.h"
 #include "ui/wndLenderBasics.h"
-#include "ui/wndCountries.h"
+#include "ui/WndDataMenu.h"
 #include "ui/wndMainMenu.h"
 
 #define NUM_MENU_SECTIONS 1
@@ -31,18 +31,19 @@ static GBitmap* bmpLogo;
 static const KivaModel* kivaModel;
 static wndMainMenuHandlers myHandlers;
 
+static WndDataMenu* wndCountries;
+static WndDataMenu* wndPrefLoans;
 
-/**************************************************************************
- *
- **************************************************************************/
+
+/////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
 static uint16_t wndMainMenu_get_num_sections_callback(MenuLayer* menu_layer, void* data) {
   return NUM_MENU_SECTIONS;
 }
 
 
-/**************************************************************************
- *
- **************************************************************************/
+/////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
 static uint16_t wndMainMenu_get_num_rows_callback(MenuLayer* menu_layer, uint16_t section_index, void* data) {
   switch (section_index) {
     case 0:
@@ -53,9 +54,8 @@ static uint16_t wndMainMenu_get_num_rows_callback(MenuLayer* menu_layer, uint16_
 }
 
 
-/**************************************************************************
- *
- **************************************************************************/
+/////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
 static void wndMainMenu_draw_row_callback(GContext* ctx, const Layer* cell_layer, MenuIndex* cell_index, void* data) {
   GSize size = layer_get_frame(cell_layer).size;
   GRect drawRect = GRect(0, 0, size.w, size.h);
@@ -105,9 +105,8 @@ static void wndMainMenu_draw_row_callback(GContext* ctx, const Layer* cell_layer
 }
 
 
-/**************************************************************************
- *
- **************************************************************************/
+/////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
 static void wndMainMenu_select_callback(MenuLayer* menu_layer, MenuIndex* cell_index, void* data) {
   // Use the row to specify which item will receive the select action
   switch (cell_index->row) {
@@ -122,10 +121,11 @@ static void wndMainMenu_select_callback(MenuLayer* menu_layer, MenuIndex* cell_i
       } else {
         (*myHandlers.getPrefLoans)();
       }
+      WndDataMenu_push(wndPrefLoans);
       break;
     }
     case MNU_ITEM_COUNTRIES: {
-      wndCountries_push();
+      WndDataMenu_push(wndCountries);
       break;
     }
     case MNU_ITEM_ACKNOWLEDGEMENTS: {
@@ -142,9 +142,8 @@ static void wndMainMenu_select_callback(MenuLayer* menu_layer, MenuIndex* cell_i
 
 
 #if defined(PBL_ROUND)
-/**************************************************************************
- *
- **************************************************************************/
+/////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
 static int16_t wndMainMenu_get_cell_height_callback(MenuLayer* menu_layer, MenuIndex* cell_index, void* callback_context) {
   Layer* lyrRoot = window_get_root_layer(wndMainMenu);
   GRect bounds = layer_get_bounds(lyrRoot);
@@ -161,19 +160,18 @@ void wndMainMenu_setHandlers(const wndMainMenuHandlers wmmh) {
 }
 
 
-/**************************************************************************
- * Updates the displayed Kiva information.
- **************************************************************************/
+/////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
 void wndMainMenu_updateView(const KivaModel* km) {
   kivaModel = km;
   wndLenderBasics_updateView(kivaModel);
-  wndCountries_updateView(kivaModel);
+  WndDataMenu_updateView(wndCountries);
+  WndDataMenu_updateView(wndPrefLoans);
 }
 
 
-/**************************************************************************
- *
- **************************************************************************/
+/////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
 static void wndMainMenu_load(Window* window) {
   window_set_background_color(window, COLOR_FALLBACK(GColorDarkGreen, GColorBlack));
   Layer* lyrRoot = window_get_root_layer(window);
@@ -200,16 +198,17 @@ static void wndMainMenu_load(Window* window) {
     HEAP_LOG("after bmpLogo created");
 
     wndLenderBasics_create();
-    wndCountries_create();
+    wndCountries = WndDataMenu_create();
+    wndPrefLoans = WndDataMenu_create();
   }
 }
 
 
-/**************************************************************************
- *
- **************************************************************************/
+/////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
 static void wndMainMenu_unload(Window* window) {
-  wndCountries_destroy();
+  WndDataMenu_destroy(wndPrefLoans);
+  WndDataMenu_destroy(wndCountries);
   wndLenderBasics_destroy();
   gbitmap_destroy(bmpLogo);   bmpLogo = NULL;
 
@@ -221,9 +220,8 @@ static void wndMainMenu_unload(Window* window) {
 }
 
 
-/**************************************************************************
- *
- **************************************************************************/
+/////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
 void wndMainMenu_createPush() {
   if (wndMainMenu) {
     APP_LOG(APP_LOG_LEVEL_WARNING, "Attempting to re-create window before destroying.");
@@ -242,9 +240,8 @@ void wndMainMenu_createPush() {
 }
 
 
-/**************************************************************************
- *
- **************************************************************************/
+/////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
 void wndMainMenu_destroy() {
   if (!wndMainMenu) {
     APP_LOG(APP_LOG_LEVEL_WARNING, "Attempting to destroy a null pointer!");

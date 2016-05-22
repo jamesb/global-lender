@@ -338,9 +338,8 @@ MagPebApp_ErrCode KivaModel_setLenderLoc(KivaModel* this, const char* lenderLoc)
 }
 
 
-/**************************************************************************
- *
- **************************************************************************/
+/////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
 MagPebApp_ErrCode KivaModel_setLenderLoanQty(KivaModel* this, const int lenderLoanQty) {
   MPA_RETURN_IF_NULL(this);
   this->lenderInfo.loanQty = lenderLoanQty;

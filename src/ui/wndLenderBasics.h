@@ -8,5 +8,3 @@ void wndLenderBasics_create();
 void wndLenderBasics_push();
 void wndLenderBasics_createPush();
 void wndLenderBasics_destroy();
-
-Window* wndLenderBasics_getWindow();

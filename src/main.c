@@ -9,9 +9,9 @@
 #include "ui/wndMainMenu.h"
 
 
-/**************************************************************************
- * Callback for TickTimerService
- **************************************************************************/
+/////////////////////////////////////////////////////////////////////////////
+/// Callback for TickTimerService
+/////////////////////////////////////////////////////////////////////////////
 static void tick_handler(struct tm *tick_time, TimeUnits units_changed) {
   { // limiting timebuf in a local scope
     char timebuf[40];
@@ -31,9 +31,9 @@ static void tick_handler(struct tm *tick_time, TimeUnits units_changed) {
 }
 
 
-/**************************************************************************
- * Used for the creation of all Pebble SDK elements.
- **************************************************************************/
+/////////////////////////////////////////////////////////////////////////////
+/// Used for the creation of all Pebble SDK elements.
+/////////////////////////////////////////////////////////////////////////////
 static void init() {
   wndMainMenu_createPush();
   wndMainMenu_setHandlers( (wndMainMenuHandlers) {
@@ -50,9 +50,9 @@ static void init() {
 }
 
 
-/**************************************************************************
- * Used for the destruction of all Pebble SDK elements.
- **************************************************************************/
+/////////////////////////////////////////////////////////////////////////////
+/// Used for the destruction of all Pebble SDK elements.
+/////////////////////////////////////////////////////////////////////////////
 static void deinit() {
   wndMainMenu_destroy();
 
@@ -60,9 +60,9 @@ static void deinit() {
 }
 
 
-/**************************************************************************
- * Standard Pebble main function.
- **************************************************************************/
+/////////////////////////////////////////////////////////////////////////////
+/// Standard Pebble main function
+/////////////////////////////////////////////////////////////////////////////
 int main(void) {
   HEAP_LOG("at start");
   init();

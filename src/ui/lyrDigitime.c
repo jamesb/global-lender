@@ -10,9 +10,9 @@
 static TextLayer *lyrDigitime;
 
 
-/**************************************************************************
- * Creates the text layer and adds it to the parent layer
- **************************************************************************/
+/////////////////////////////////////////////////////////////////////////////
+/// Creates the text layer and adds it to the parent layer
+/////////////////////////////////////////////////////////////////////////////
 void lyrDigitime_create(const GRect position, Layer* lyrParent) {
   if (lyrDigitime) {
     APP_LOG(APP_LOG_LEVEL_WARNING, "Attempting to re-create layer before destroying.");
@@ -24,9 +24,9 @@ void lyrDigitime_create(const GRect position, Layer* lyrParent) {
 }
 
 
-/**************************************************************************
- * Destroys the text layer
- **************************************************************************/
+/////////////////////////////////////////////////////////////////////////////
+/// Destroys the text layer
+/////////////////////////////////////////////////////////////////////////////
 void lyrDigitime_destroy() {
   if (!lyrDigitime) {
     APP_LOG(APP_LOG_LEVEL_WARNING, "Attempting to destroy a null pointer!");
@@ -37,9 +37,9 @@ void lyrDigitime_destroy() {
 }
 
 
-/**************************************************************************
- * Stylizes the text layer to the spec 
- **************************************************************************/
+/////////////////////////////////////////////////////////////////////////////
+/// Stylizes the text layer to the spec
+/////////////////////////////////////////////////////////////////////////////
 void lyrDigitime_stylize(const GColor bgcolor, const GColor txtColor,
                                 const GTextAlignment txtAlign, const GFont txtFont) {
   if (!lyrDigitime) {
@@ -50,15 +50,15 @@ void lyrDigitime_stylize(const GColor bgcolor, const GColor txtColor,
 }
 
 
-/**************************************************************************
- * Updates the displayed time
- **************************************************************************/
+/////////////////////////////////////////////////////////////////////////////
+/// Updates the displayed time
+/////////////////////////////////////////////////////////////////////////////
 void lyrDigitime_updateTime() {
   if (!lyrDigitime) {
     APP_LOG(APP_LOG_LEVEL_WARNING, "Attempting to update the time before layer is created!");
   } else {
     // Get a tm structure
-    time_t temp = time(NULL); 
+    time_t temp = time(NULL);
     struct tm *curr_time = localtime(&temp);
 
     // Write the current hours and minutes into a buffer

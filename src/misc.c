@@ -2,9 +2,9 @@
 #include "misc.h"
 
 
-/**************************************************************************
- * Stylizes the text layer to the spec
- **************************************************************************/
+/////////////////////////////////////////////////////////////////////////////
+/// Stylizes the text layer to the spec
+/////////////////////////////////////////////////////////////////////////////
 void textLayer_stylize(TextLayer* textLayer, const GColor bgcolor, const GColor txtColor,
                        const GTextAlignment txtAlign, const GFont txtFont) {
   if (!textLayer) {
@@ -18,9 +18,9 @@ void textLayer_stylize(TextLayer* textLayer, const GColor bgcolor, const GColor 
 }
 
 
-/**************************************************************************
- * Copies a string with error handling and logging.
- **************************************************************************/
+/////////////////////////////////////////////////////////////////////////////
+/// Copies a string with error handling and logging.
+/////////////////////////////////////////////////////////////////////////////
 bool strxcpy(char* buffer, size_t bufsize, const char* source, const char* readable) {
   if (source) {
     long ret = 0;

@@ -12,9 +12,9 @@ static CommHandlers commHandlers;
 static bool pebkitReady;
 
 
-/**************************************************************************
- * Converts a tuple to a simple data type.
- **************************************************************************/
+/////////////////////////////////////////////////////////////////////////////
+/// Converts a tuple to a simple data type.
+/////////////////////////////////////////////////////////////////////////////
 static bool unloadTupleStr(char** buffer, size_t bufsize, Tuple* tuple, const char* readable) {
   if (tuple != NULL) {
     long ret = 0;
@@ -31,9 +31,9 @@ static bool unloadTupleStr(char** buffer, size_t bufsize, Tuple* tuple, const ch
 }
 
 
-/**************************************************************************
- * Converts a tuple to a simple data type.
- **************************************************************************/
+/////////////////////////////////////////////////////////////////////////////
+/// Converts a tuple to a simple data type.
+/////////////////////////////////////////////////////////////////////////////
 static bool unloadTupleLong(long int* buffer, Tuple* tuple, const char* readable) {
   if (tuple) {
     *buffer = (long int)tuple->value->int32;
@@ -44,9 +44,9 @@ static bool unloadTupleLong(long int* buffer, Tuple* tuple, const char* readable
 }
 
 
-/**************************************************************************
- * Handles callbacks from the JS component
- **************************************************************************/
+/////////////////////////////////////////////////////////////////////////////
+/// Handles callbacks from the JS component
+/////////////////////////////////////////////////////////////////////////////
 static void inbox_received_callback(DictionaryIterator *iterator, void *context) {
   APP_LOG(APP_LOG_LEVEL_INFO, "Inbox receive successful.");
 
@@ -227,32 +227,38 @@ static void inbox_received_callback(DictionaryIterator *iterator, void *context)
 }
 
 
+/////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
 static void inbox_dropped_callback(AppMessageResult reason, void *context) {
   APP_LOG(APP_LOG_LEVEL_ERROR, "Inbox receive failed! Reason: %d", (int)reason);
 }
 
 
+/////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
 static void outbox_failed_callback(DictionaryIterator *iterator, AppMessageResult reason, void *context) {
   APP_LOG(APP_LOG_LEVEL_ERROR, "Outbox send failed! Reason: %d", (int)reason);
 }
 
 
+/////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
 static void outbox_sent_callback(DictionaryIterator *iterator, void *context) {
   APP_LOG(APP_LOG_LEVEL_INFO, "Outbox send successful.");
 }
 
 
-/**************************************************************************
- * Returns whether the communication channel is ready for sending.
- **************************************************************************/
+/////////////////////////////////////////////////////////////////////////////
+/// Returns whether the communication channel is ready for sending.
+/////////////////////////////////////////////////////////////////////////////
 bool comm_pebkitReady() {
   return pebkitReady;
 }
 
 
-/**************************************************************************
- * Request data from PebbleKit.
- **************************************************************************/
+/////////////////////////////////////////////////////////////////////////////
+/// Send data to PebbleKit.
+/////////////////////////////////////////////////////////////////////////////
 void comm_sendMsgCstr(const MsgKey msgKey, const char* payload) {
   if (!pebkitReady) {
     APP_LOG(APP_LOG_LEVEL_WARNING, "Tried to send a message from the watch before PebbleKit JS is ready.");
@@ -309,9 +315,9 @@ void comm_setHandlers(const CommHandlers cmh) {
 }
 
 
-/**************************************************************************
- * Opens communication to PebbleKit and allocates memory.
- **************************************************************************/
+/////////////////////////////////////////////////////////////////////////////
+/// Opens communication to PebbleKit and allocates memory.
+/////////////////////////////////////////////////////////////////////////////
 void comm_open() {
   dataModel = NULL;
   if ( (dataModel = KivaModel_create("")) == NULL) { APP_LOG(APP_LOG_LEVEL_ERROR, "Could not initialize data model."); }
@@ -328,12 +334,13 @@ void comm_open() {
 }
 
 
-/**************************************************************************
- * Closes communication and frees memory.
- **************************************************************************/
+/////////////////////////////////////////////////////////////////////////////
+/// Closes communication and frees memory.
+/////////////////////////////////////////////////////////////////////////////
 void comm_close() {
   if (dataModel != NULL) {
     KivaModel_destroy(dataModel);  dataModel = NULL;
   }
 }
+
 

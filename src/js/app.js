@@ -14,9 +14,9 @@ var lenderId = 'jdb';
 var pageArray = [];
 
 
-/**************************************************************************
- * Array extension to return the unique values of an array.
- **************************************************************************/
+/////////////////////////////////////////////////////////////////////////////
+/// Array extension to return the unique values of an array.
+/////////////////////////////////////////////////////////////////////////////
 Array.prototype.unique = function() {
     var a = [], l = this.length;
     for(var i=0; i<l; i++) {
@@ -28,8 +28,8 @@ Array.prototype.unique = function() {
 };
 
 
-/**************************************************************************
- **************************************************************************/
+/////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
 var xhrRequest = function (method, url, callback) {
   var xhr = new XMLHttpRequest();
   xhr.onload = function () {
@@ -50,20 +50,20 @@ var xhrRequest = function (method, url, callback) {
 
 
 
-/**************************************************************************
- * Calls the Kiva API web service, parsing results by calling the function
- * passed in as parseFxn.
- * Params:
- *   url:        URL of the webservice
- *   parseFxn:   Function that returns a dictionary of key/value pairs
- *       that represent the information that must be passed back to the
- *       Pebble watch. Function should expect to receive an array of
- *       JSON objects (range = [0 .. n-1 pages]), one value for each page.
- *   maxResults: Predetermined limit to the number of results we need
- *       to fetch from the webservice. If maxResults is zero, then all
- *       results will be fetched. (If zero results is really desired, then
- *       don't call this function!)
- **************************************************************************/
+/////////////////////////////////////////////////////////////////////////////
+/// Calls the Kiva API web service, parsing results by calling the function
+/// passed in as parseFxn.
+/// @param[in]      url  URL of the webservice
+/// @param[in]      parseFxn  Function that returns a dictionary of
+///       key/value pairs that represent the information that must be
+///       passed back to the Pebble watch. Function should expect to receive
+///       an array of JSON objects (range = [0 .. n-1 pages]), one value for
+///       each page.
+/// @param[in]      maxResults  Predetermined limit to the number of results
+///       we need to fetch from the webservice. If maxResults is zero, then
+///       all results will be fetched. (If zero results is really desired,
+///       then don't call this function!)
+/////////////////////////////////////////////////////////////////////////////
 function callKivaApiAsync(url, parseFxn, maxResults) {
   // Send request
   xhrRequest('GET', url, function(responseText) {
@@ -131,8 +131,8 @@ function callKivaApiAsync(url, parseFxn, maxResults) {
 }
 
 
-/**************************************************************************
- **************************************************************************/
+/////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
 function getLenderInfo() {
   var url = baseKivaUrl + "lenders/" + lenderId + jsonExt + "?" + kivaAppIdParam;
   var maxResults = 0;
@@ -165,8 +165,8 @@ function getLenderInfo() {
 }
 
 
-/**************************************************************************
- **************************************************************************/
+/////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
 function getLoansForLender() {
   var url = baseKivaUrl + "lenders/" + lenderId + "/loans" + jsonExt + "?" + kivaAppIdParam;
   var maxResults = 0;
@@ -230,8 +230,8 @@ function getLoansForLender() {
 }
 
 
-/**************************************************************************
- **************************************************************************/
+/////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
 function getKivaActiveFieldPartners() {
   var url = baseKivaUrl + "partners" + jsonExt + "?" + kivaAppIdParam;
   var maxResults = 0;
@@ -298,8 +298,10 @@ function getKivaActiveFieldPartners() {
 
   callKivaApiAsync(url, parseFxn, maxResults);
 }
-/**************************************************************************
- **************************************************************************/
+
+
+/////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
 function getPreferredLoans(prefCC, maxResults) {
   var url = baseKivaUrl + "loans/search" + jsonExt + "?" + kivaAppIdParam + "&status=fundraising&country_code=" + prefCC;
   console.log("URL: " + url);
@@ -362,10 +364,10 @@ function getPreferredLoans(prefCC, maxResults) {
 }
 
 
-/**************************************************************************
- * Listen for when the watch opens communication and inform the watch that
- * the PebbleKit end of the channel is ready.
- **************************************************************************/
+/////////////////////////////////////////////////////////////////////////////
+/// Listen for when the watch opens communication and inform the watch that
+/// the PebbleKit end of the channel is ready.
+/////////////////////////////////////////////////////////////////////////////
 Pebble.addEventListener('ready',
   function(e) {
     console.log("PebbleKit JS ready!");
@@ -376,9 +378,9 @@ Pebble.addEventListener('ready',
 );
 
 
-/**************************************************************************
- * Listen for when an AppMessage is received.
- **************************************************************************/
+/////////////////////////////////////////////////////////////////////////////
+/// Listen for when an AppMessage is received.
+/////////////////////////////////////////////////////////////////////////////
 Pebble.addEventListener('appmessage',
   function(e) {
     console.log("AppMessage received: " + JSON.stringify(e.payload));
