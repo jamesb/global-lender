@@ -1,7 +1,5 @@
 
 // Country Codes
-var Iso3166 = require('iso3166');
-var iso3166 = Iso3166.getCountryCodes();
 var kivaCC = {};
 
 var baseKivaUrl = "http://api.kivaws.org/v1/";
@@ -204,7 +202,7 @@ function getLoansForLender() {
         if (!(countryCode in kivaCC)) {
           // JRB TODO: store the country ID and name in a delta list for sending to the watch.
           kivaCC[countryCode] = countryName;
-          console.log("(LENDER LOAN) NEW KIVA COUNTRY CODE: " + countryCode + " = " + countryName + " { ISO-3166 = " + iso3166[countryCode] + " }");
+          console.log("(LENDER LOAN) NEW KIVA COUNTRY CODE: " + countryCode + " = " + countryName");
         }
       }
     } // end page iteration
@@ -273,7 +271,7 @@ function getKivaActiveFieldPartners() {
             // JRB TODO: store the country ID and name in a delta list for sending to the watch.
             kivaCC[countryCode] = countryName;
             deltaKivaCC[countryCode] = countryName;
-            console.log("(PARTNER) NEW KIVA COUNTRY CODE: " + countryCode + " = " + countryName + " { ISO-3166 = " + iso3166[countryCode] + " }");
+            console.log("(PARTNER) NEW KIVA COUNTRY CODE: " + countryCode + " = " + countryName");
           }
         }
       }
