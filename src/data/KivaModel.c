@@ -13,13 +13,13 @@ static MagPebApp_ErrCode KivaModel_CountryRec_create(CountryRec** cntry) {
   if (*cntry != NULL) { return MPA_INVALID_INPUT_ERR; }
 
   *cntry = (CountryRec*) malloc(sizeof(CountryRec));
-  if (*cntry == NULL) { goto lowmem; }
+  if (*cntry == NULL) { goto freemem; }
   (*cntry)->id = NULL;
   (*cntry)->name = NULL;
 
   return MPA_SUCCESS;
 
-lowmem:
+freemem:
   if (*cntry != NULL) { free(*cntry); }
   return MPA_OUT_OF_MEMORY_ERR;
 }
@@ -51,15 +51,15 @@ static MagPebApp_ErrCode KivaModel_CountryRec_init(CountryRec* this, const char*
     return MPA_INVALID_INPUT_ERR;
   }
 
-  if ( (this->id = malloc(strlen(countryId) + 1)) == NULL) { goto lowmem; }
+  if ( (this->id = malloc(strlen(countryId) + 1)) == NULL) { goto freemem; }
   strcpy(this->id, countryId);
 
-  if ( (this->name = malloc(strlen(countryName) + 1)) == NULL) { goto lowmem; }
+  if ( (this->name = malloc(strlen(countryName) + 1)) == NULL) { goto freemem; }
   strcpy(this->name, countryName);
 
   return MPA_SUCCESS;
 
-lowmem:
+freemem:
   if (this->id != NULL)   { free(this->id);   this->id = NULL; }
   if (this->name != NULL) { free(this->name); this->name = NULL; }
   return MPA_OUT_OF_MEMORY_ERR;
@@ -90,14 +90,14 @@ static MagPebApp_ErrCode KivaModel_LoanRec_create(LoanRec** loan) {
   if (*loan != NULL) { return MPA_INVALID_INPUT_ERR; }
 
   *loan = (LoanRec*) malloc(sizeof(LoanRec));
-  if (*loan == NULL) { goto lowmem; }
+  if (*loan == NULL) { goto freemem; }
   (*loan)->data.name = NULL;
   (*loan)->data.use = NULL;
   (*loan)->data.countryCode = NULL;
 
   return MPA_SUCCESS;
 
-lowmem:
+freemem:
   if (*loan != NULL) { free(*loan); }
   return MPA_OUT_OF_MEMORY_ERR;
 }
@@ -126,18 +126,18 @@ static MagPebApp_ErrCode KivaModel_LoanRec_init(LoanRec* this, const LoanInfo lo
     return MPA_INVALID_INPUT_ERR;
   }
 
-  if ( (this->data.name = malloc(strlen(loanInfo.name) + 1)) == NULL) { goto lowmem; }
+  if ( (this->data.name = malloc(strlen(loanInfo.name) + 1)) == NULL) { goto freemem; }
   strcpy(this->data.name, loanInfo.name);
 
-  if ( (this->data.use = malloc(strlen(loanInfo.use) + 1)) == NULL) { goto lowmem; }
+  if ( (this->data.use = malloc(strlen(loanInfo.use) + 1)) == NULL) { goto freemem; }
   strcpy(this->data.use, loanInfo.use);
 
-  if ( (this->data.countryCode = malloc(strlen(loanInfo.countryCode) + 1)) == NULL) { goto lowmem; }
+  if ( (this->data.countryCode = malloc(strlen(loanInfo.countryCode) + 1)) == NULL) { goto freemem; }
   strcpy(this->data.countryCode, loanInfo.countryCode);
 
   return MPA_SUCCESS;
 
-lowmem:
+freemem:
   if (this->data.name != NULL) { free(this->data.name); this->data.name = NULL; }
   if (this->data.use != NULL) { free(this->data.use);   this->data.use = NULL; }
   if (this->data.countryCode != NULL) { free(this->data.countryCode);   this->data.countryCode = NULL; }
@@ -534,7 +534,7 @@ MagPebApp_ErrCode KivaModel_getLenderCountryCodes(const KivaModel* this, const b
   size_t bufsize = 16;    ///< Arbitrary start size
   size_t buflen = 0;
 
-  if ( (lenderCntryCodes = (char*) calloc(bufsize, sizeof(char))) == NULL) { goto lowmem; }
+  if ( (lenderCntryCodes = (char*) calloc(bufsize, sizeof(char))) == NULL) { goto freemem; }
 
   CountryRec* cntry = NULL;
   for (cntry=this->kivaCountries; cntry!=NULL; cntry=cntry->hh.next) {
@@ -545,7 +545,7 @@ MagPebApp_ErrCode KivaModel_getLenderCountryCodes(const KivaModel* this, const b
       if (bufsize < reqdSize) {
         while (bufsize < reqdSize) bufsize = bufsize * 2;
         char* tmp = NULL;
-        if ( (tmp = realloc(lenderCntryCodes, bufsize)) == NULL) { goto lowmem; }
+        if ( (tmp = realloc(lenderCntryCodes, bufsize)) == NULL) { goto freemem; }
         lenderCntryCodes = tmp;
       }
       lenderCntryCodes = strncat(lenderCntryCodes, cntry->id, bufsize - buflen - 1);
@@ -564,7 +564,7 @@ MagPebApp_ErrCode KivaModel_getLenderCountryCodes(const KivaModel* this, const b
   *countryCodes = lenderCntryCodes;
   return MPA_SUCCESS;
 
-lowmem:
+freemem:
   if (lenderCntryCodes != NULL) { free(lenderCntryCodes); }
   return MPA_OUT_OF_MEMORY_ERR;
 }
