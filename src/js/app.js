@@ -202,7 +202,7 @@ function getLoansForLender() {
         if (!(countryCode in kivaCC)) {
           // JRB TODO: store the country ID and name in a delta list for sending to the watch.
           kivaCC[countryCode] = countryName;
-          console.log("(LENDER LOAN) NEW KIVA COUNTRY CODE: " + countryCode + " = " + countryName");
+          console.log("(LENDER LOAN) NEW KIVA COUNTRY CODE: " + countryCode + " = " + countryName);
         }
       }
     } // end page iteration
@@ -271,7 +271,7 @@ function getKivaActiveFieldPartners() {
             // JRB TODO: store the country ID and name in a delta list for sending to the watch.
             kivaCC[countryCode] = countryName;
             deltaKivaCC[countryCode] = countryName;
-            console.log("(PARTNER) NEW KIVA COUNTRY CODE: " + countryCode + " = " + countryName");
+            console.log("(PARTNER) NEW KIVA COUNTRY CODE: " + countryCode + " = " + countryName);
           }
         }
       }

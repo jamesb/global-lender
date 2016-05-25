@@ -4,8 +4,8 @@
 
 #include "misc.h"
 #include "data/KivaModel.h"
+#include "libs/WndDataMenu.h"
 #include "ui/wndLenderBasics.h"
-#include "ui/WndDataMenu.h"
 #include "ui/wndMainMenu.h"
 
 #define NUM_MENU_SECTIONS 1
@@ -176,6 +176,7 @@ static void wndMainMenu_load(Window* window) {
   window_set_background_color(window, COLOR_FALLBACK(GColorDarkGreen, GColorBlack));
   Layer* lyrRoot = window_get_root_layer(window);
   GRect bounds = layer_get_bounds(lyrRoot);
+  MagPebApp_ErrCode mpaRet;
 
   if (lyrMainMenu) {
     APP_LOG(APP_LOG_LEVEL_WARNING, "Attempting to re-create layer before destroying.");
@@ -189,8 +190,15 @@ static void wndMainMenu_load(Window* window) {
       .get_cell_height = PBL_IF_ROUND_ELSE(wndMainMenu_get_cell_height_callback, NULL)
     });
 
-    menu_layer_set_normal_colors(lyrMainMenu, GColorBlack, GColorWhite);
-    menu_layer_set_highlight_colors(lyrMainMenu, COLOR_FALLBACK(GColorPictonBlue, GColorWhite), GColorBlack);
+    WndDataMenu_Palette colors = (WndDataMenu_Palette) {
+      .normalBack = GColorBlack,
+      .normalFore = GColorWhite,
+      .highltBack = COLOR_FALLBACK(GColorPictonBlue, GColorWhite),
+      .highltFore = GColorBlack
+    };
+
+    menu_layer_set_normal_colors(lyrMainMenu, colors.normalBack, colors.normalFore);
+    menu_layer_set_highlight_colors(lyrMainMenu, colors.highltBack, colors.highltFore);
     menu_layer_set_click_config_onto_window(lyrMainMenu, window);
     layer_add_child(lyrRoot, menu_layer_get_layer(lyrMainMenu));
 
@@ -198,8 +206,22 @@ static void wndMainMenu_load(Window* window) {
     HEAP_LOG("after bmpLogo created");
 
     wndLenderBasics_create();
+
     wndCountries = WndDataMenu_create();
+    if ( (mpaRet = WndDataMenu_setNumSections(wndCountries, 1) ) != MPA_SUCCESS) {
+        APP_LOG(APP_LOG_LEVEL_ERROR, "Could not initialize sections for country menu: %s", MagPebApp_getErrMsg(mpaRet));
+    }
+    if ( (mpaRet = WndDataMenu_setPalette(wndCountries, colors) ) != MPA_SUCCESS) {
+        APP_LOG(APP_LOG_LEVEL_WARNING, "Could not set colors for country menu: %s", MagPebApp_getErrMsg(mpaRet));
+    }
+
     wndPrefLoans = WndDataMenu_create();
+    if ( (mpaRet = WndDataMenu_setNumSections(wndPrefLoans, 1) ) != MPA_SUCCESS) {
+        APP_LOG(APP_LOG_LEVEL_ERROR, "Could not initialize sections for loan menu: %s", MagPebApp_getErrMsg(mpaRet));
+    }
+    if ( (mpaRet = WndDataMenu_setPalette(wndPrefLoans, colors) ) != MPA_SUCCESS) {
+        APP_LOG(APP_LOG_LEVEL_WARNING, "Could not set colors for loan menu: %s", MagPebApp_getErrMsg(mpaRet));
+    }
   }
 }
 
