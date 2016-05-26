@@ -216,7 +216,10 @@ static void wndMainMenu_load(Window* window) {
     }
 
     wndPrefLoans = WndDataMenu_create();
-    if ( (mpaRet = WndDataMenu_setNumSections(wndPrefLoans, 1) ) != MPA_SUCCESS) {
+    if ( (mpaRet = WndDataMenu_setNumSections(wndPrefLoans, 10) ) != MPA_SUCCESS) {
+        APP_LOG(APP_LOG_LEVEL_ERROR, "Could not initialize sections for loan menu: %s", MagPebApp_getErrMsg(mpaRet));
+    }
+    if ( (mpaRet = WndDataMenu_setNumSections(wndPrefLoans, 5) ) != MPA_SUCCESS) {
         APP_LOG(APP_LOG_LEVEL_ERROR, "Could not initialize sections for loan menu: %s", MagPebApp_getErrMsg(mpaRet));
     }
     if ( (mpaRet = WndDataMenu_setPalette(wndPrefLoans, colors) ) != MPA_SUCCESS) {
