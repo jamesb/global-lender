@@ -100,6 +100,7 @@ Include dependency graph for misc.c:</div>
 <div class="center"><img src="misc_8c__incl.png" border="0" usemap="#src_2misc_8c" alt=""/></div>
 <map name="src_2misc_8c" id="src_2misc_8c">
 <area shape="rect" id="node3" href="misc_8h.html" title="misc.h" alt="" coords="101,80,162,107"/>
+<area shape="rect" id="node4" href="magpebapp_8h.html" title="libs/magpebapp.h" alt="" coords="69,155,193,181"/>
 </map>
 </div>
 </div><table class="memberdecls">
@@ -108,12 +109,14 @@ Functions</h2></td></tr>
 <tr class="memitem:a12735d734270b9bbfe1616d61d42e31d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="misc_8c.html#a12735d734270b9bbfe1616d61d42e31d">textLayer_stylize</a> (TextLayer *textLayer, const GColor bgcolor, const GColor txtColor, const GTextAlignment txtAlign, const GFont txtFont)</td></tr>
 <tr class="memdesc:a12735d734270b9bbfe1616d61d42e31d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stylizes the text layer to the spec.  <a href="#a12735d734270b9bbfe1616d61d42e31d">More...</a><br /></td></tr>
 <tr class="separator:a12735d734270b9bbfe1616d61d42e31d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af4df0e73abf84eedd72e5a3e75e67935"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="misc_8c.html#af4df0e73abf84eedd72e5a3e75e67935">strxcpy</a> (char *buffer, size_t bufsize, const char *source, const char *readable)</td></tr>
-<tr class="memdesc:af4df0e73abf84eedd72e5a3e75e67935"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copies a string with error handling and logging.  <a href="#af4df0e73abf84eedd72e5a3e75e67935">More...</a><br /></td></tr>
-<tr class="separator:af4df0e73abf84eedd72e5a3e75e67935"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aad4b88b3cfb766df5d6f0c2607f08f0c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="misc_8c.html#aad4b88b3cfb766df5d6f0c2607f08f0c">strxcpy</a> (char *dest, size_t bufSize, const char *src, const char *readable)</td></tr>
+<tr class="memdesc:aad4b88b3cfb766df5d6f0c2607f08f0c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copies a string with error handling and logging.  <a href="#aad4b88b3cfb766df5d6f0c2607f08f0c">More...</a><br /></td></tr>
+<tr class="separator:aad4b88b3cfb766df5d6f0c2607f08f0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa871e4bad8724a0f3269810ea7eff5f0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="magpebapp_8h.html#ad93489195a8c73bb5dc1acba0185cb01">MagPebApp_ErrCode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="misc_8c.html#aa871e4bad8724a0f3269810ea7eff5f0">strxcpyalloc</a> (char **dest, const char *src)</td></tr>
+<tr class="separator:aa871e4bad8724a0f3269810ea7eff5f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
-<a class="anchor" id="af4df0e73abf84eedd72e5a3e75e67935"></a>
+<a class="anchor" id="aad4b88b3cfb766df5d6f0c2607f08f0c"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -121,19 +124,19 @@ Functions</h2></td></tr>
           <td class="memname">bool strxcpy </td>
           <td>(</td>
           <td class="paramtype">char *&#160;</td>
-          <td class="paramname"><em>buffer</em>, </td>
+          <td class="paramname"><em>dest</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">size_t&#160;</td>
-          <td class="paramname"><em>bufsize</em>, </td>
+          <td class="paramname"><em>bufSize</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const char *&#160;</td>
-          <td class="paramname"><em>source</em>, </td>
+          <td class="paramname"><em>src</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -150,6 +153,46 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Copies a string with error handling and logging. </p>
+
+</div>
+</div>
+<a class="anchor" id="aa871e4bad8724a0f3269810ea7eff5f0"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="magpebapp_8h.html#ad93489195a8c73bb5dc1acba0185cb01">MagPebApp_ErrCode</a> strxcpyalloc </td>
+          <td>(</td>
+          <td class="paramtype">char **&#160;</td>
+          <td class="paramname"><em>dest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>src</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Copies a string from src to dest, where these strings may be NULL or allocated, and (*dest) will result in a NULL or will be allocated to fit the src string.</p>
+<ul>
+<li>If (*dest) is NULL, it will malloc'd to an appropriate size to contain the string in src.</li>
+<li>If (*dest) is non-NULL, it will be realloc'd to an appropriate size to contain the string in src.</li>
+<li>If src is NULL, then (*dest) will be freed and made NULL (or dest will remain NULL if it is already NULL.</li>
+</ul>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">src</td><td>The source string. May be NULL, or it may be a previously-allocated string, or a string literal. If it is a string, it must be null-terminated. </td></tr>
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">dest</td><td>Pointer to the destination char*. The char* may be NULL, or it may be a previously-allocated string. If it is a string, it must be null-terminated upon entry. Upon exit, the char* pointed to by dest is guaranteed to be either NULL or null-terminated. <em>If the char* pointed to by dest is not NULL on exit, then the caller is responsible for freeing it.</em></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>MPA_SUCCESS on success MPA_NULL_POINTER_ERR if the dest double-pointer is NULL. MPA_OUT_OF_MEMORY_ERR if memory could not be allocated for dest </dd></dl>
 
 </div>
 </div>

@@ -51,6 +51,7 @@ var searchData=
   ['hash_5fsrt',['HASH_SRT',['../uthash_8h.html#a388b4071dcff005154f431d3d3025fbd',1,'uthash.h']]],
   ['hash_5fto_5fbkt',['HASH_TO_BKT',['../uthash_8h.html#a4d7691544128a6ef265f3e4fa5ed3113',1,'uthash.h']]],
   ['hashv',['hashv',['../struct_u_t__hash__handle.html#ae73531e09ac884600d96a71ad9afbfa4',1,'UT_hash_handle']]],
+  ['headertitle',['headerTitle',['../struct_section_info.html#aa510e39b2dc315c9120ae31b6b27b949',1,'SectionInfo']]],
   ['heap_5flog',['HEAP_LOG',['../misc_8h.html#a0a5985e6b62833172138422d55e12cea',1,'misc.h']]],
   ['heap_5flog_5f0',['HEAP_LOG_0',['../misc_8h.html#a42b76163fda3d9c91ca7a2965ddd534c',1,'misc.h']]],
   ['heap_5flog_5f1',['HEAP_LOG_1',['../misc_8h.html#a624c31c83b16aef7fba84400a2a1fc9c',1,'misc.h']]],
@@ -58,5 +59,7 @@ var searchData=
   ['hh_5fhead',['hh_head',['../struct_u_t__hash__bucket.html#a32d33f384f3c99c1fd80202e1cd64c0c',1,'UT_hash_bucket']]],
   ['hh_5fnext',['hh_next',['../struct_u_t__hash__handle.html#a42ef2993dcaaebd656c4a40d174e0c78',1,'UT_hash_handle']]],
   ['hh_5fprev',['hh_prev',['../struct_u_t__hash__handle.html#a079301c7093356547fb4601a85503c01',1,'UT_hash_handle']]],
-  ['hho',['hho',['../struct_u_t__hash__table.html#af7a888099092eb93f240f1b2bfcc2708',1,'UT_hash_table']]]
+  ['hho',['hho',['../struct_u_t__hash__table.html#af7a888099092eb93f240f1b2bfcc2708',1,'UT_hash_table']]],
+  ['highltback',['highltBack',['../struct_wnd_data_menu___palette.html#a2a7c036130af77858e3cd5aad627e8df',1,'WndDataMenu_Palette']]],
+  ['highltfore',['highltFore',['../struct_wnd_data_menu___palette.html#a761d2af3fe5d1bdb6fc5755914a037bb',1,'WndDataMenu_Palette']]]
 ];

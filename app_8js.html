@@ -96,12 +96,14 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a8464c96f809401451da612058236c594"><td class="memItemLeft" align="right" valign="top">function&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="app_8js.html#a8464c96f809401451da612058236c594">callKivaApiAsync</a> (url, parseFxn, maxResults)</td></tr>
-<tr class="separator:a8464c96f809401451da612058236c594"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae3a96e3ac0575ac3211720af101242d6"><td class="memItemLeft" align="right" valign="top">function&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="app_8js.html#ae3a96e3ac0575ac3211720af101242d6">callKivaApiAsync</a> (url, parseFxn, maxResults)</td></tr>
+<tr class="separator:ae3a96e3ac0575ac3211720af101242d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac6502f909d3cd81be1b6ed9339cb92ab"><td class="memItemLeft" align="right" valign="top">function&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="app_8js.html#ac6502f909d3cd81be1b6ed9339cb92ab">getLenderInfo</a> ()</td></tr>
 <tr class="separator:ac6502f909d3cd81be1b6ed9339cb92ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0349825e466fa95d3410e48f75107ef7"><td class="memItemLeft" align="right" valign="top">function&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="app_8js.html#a0349825e466fa95d3410e48f75107ef7">getLoansForLender</a> ()</td></tr>
 <tr class="separator:a0349825e466fa95d3410e48f75107ef7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2a5ff393ab80cef57c756237c6ae3a07"><td class="memItemLeft" align="right" valign="top">function&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="app_8js.html#a2a5ff393ab80cef57c756237c6ae3a07">getKivaActiveFieldPartners</a> ()</td></tr>
+<tr class="separator:a2a5ff393ab80cef57c756237c6ae3a07"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8b0faa37afaf571b79185b4910365b2e"><td class="memItemLeft" align="right" valign="top">function&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="app_8js.html#a8b0faa37afaf571b79185b4910365b2e">getPreferredLoans</a> (prefCC, maxResults)</td></tr>
 <tr class="separator:a8b0faa37afaf571b79185b4910365b2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a412e80b9aefa6434f6a35cd2dd27398f"><td class="memItemLeft" align="right" valign="top">Pebble&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="app_8js.html#a412e80b9aefa6434f6a35cd2dd27398f">addEventListener</a> ('appmessage', function(e){console.log(&quot;AppMessage received: &quot;+JSON.stringify(e.payload));var dict=e.payload;if('<a class="el" href="comm_8h.html#ad4843d812d90ec4f7e8726a2755f8e7ca5b543121157fee3fa2afd3e3cb0d06da">KEY_GET_LENDER_INFO</a>'in dict){<a class="el" href="app_8js.html#ac6502f909d3cd81be1b6ed9339cb92ab">getLenderInfo</a>();<a class="el" href="app_8js.html#a0349825e466fa95d3410e48f75107ef7">getLoansForLender</a>();}else if('<a class="el" href="comm_8h.html#ad4843d812d90ec4f7e8726a2755f8e7cac80e553fa2772d56e66751b8e5dc4775">KEY_GET_PREFERRED_LOANS</a>'in dict){var prefCC=dict['<a class="el" href="comm_8h.html#ad4843d812d90ec4f7e8726a2755f8e7cac80e553fa2772d56e66751b8e5dc4775">KEY_GET_PREFERRED_LOANS</a>'];var maxResults=10;<a class="el" href="app_8js.html#a8b0faa37afaf571b79185b4910365b2e">getPreferredLoans</a>(prefCC, maxResults);}else{console.log(&quot;Unrecognized app message: &quot;+JSON.stringify(dict));}})</td></tr>
@@ -160,27 +162,27 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a8464c96f809401451da612058236c594"></a>
+<a class="anchor" id="ae3a96e3ac0575ac3211720af101242d6"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">callKivaApiAsync </td>
+          <td class="memname">function callKivaApiAsync </td>
           <td>(</td>
-          <td class="paramtype">url&#160;</td>
-          <td class="paramname">, </td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>url</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">parseFxn&#160;</td>
-          <td class="paramname">, </td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>parseFxn</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">maxResults&#160;</td>
-          <td class="paramname">&#160;</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>maxResults</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -197,6 +199,21 @@ Variables</h2></td></tr>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a class="anchor" id="a2a5ff393ab80cef57c756237c6ae3a07"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">function getKivaActiveFieldPartners </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
 
 </div>
 </div>

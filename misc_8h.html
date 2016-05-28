@@ -93,19 +93,28 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="title">misc.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><div class="dynheader">
+<div class="textblock"><code>#include &quot;<a class="el" href="magpebapp_8h_source.html">libs/magpebapp.h</a>&quot;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Include dependency graph for misc.h:</div>
+<div class="dyncontent">
+<div class="center"><img src="misc_8h__incl.png" border="0" usemap="#src_2misc_8h" alt=""/></div>
+<map name="src_2misc_8h" id="src_2misc_8h">
+<area shape="rect" id="node2" href="magpebapp_8h.html" title="libs/magpebapp.h" alt="" coords="5,80,129,107"/>
+</map>
+</div>
+</div><div class="textblock"><div class="dynheader">
 This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
 <div class="center"><img src="misc_8h__dep__incl.png" border="0" usemap="#src_2misc_8hdep" alt=""/></div>
 <map name="src_2misc_8hdep" id="src_2misc_8hdep">
 <area shape="rect" id="node2" href="comm_8c.html" title="src/comm.c" alt="" coords="5,80,96,107"/>
 <area shape="rect" id="node3" href="_kiva_model_8c.html" title="src/data/KivaModel.c" alt="" coords="121,80,266,107"/>
-<area shape="rect" id="node4" href="main_8c.html" title="src/main.c" alt="" coords="291,80,373,107"/>
-<area shape="rect" id="node5" href="misc_8c.html" title="src/misc.c" alt="" coords="397,80,480,107"/>
-<area shape="rect" id="node6" href="lyr_digitime_8c.html" title="src/ui/lyrDigitime.c" alt="" coords="504,80,635,107"/>
-<area shape="rect" id="node7" href="_wnd_data_menu_8c.html" title="src/ui/WndDataMenu.c" alt="" coords="659,80,815,107"/>
-<area shape="rect" id="node8" href="wnd_lender_basics_8c.html" title="src/ui/wndLenderBasics.c" alt="" coords="839,80,1011,107"/>
-<area shape="rect" id="node9" href="wnd_main_menu_8c.html" title="src/ui/wndMainMenu.c" alt="" coords="1035,80,1189,107"/>
+<area shape="rect" id="node4" href="_wnd_data_menu_8c.html" title="src/libs/WndDataMenu.c" alt="" coords="290,80,457,107"/>
+<area shape="rect" id="node5" href="main_8c.html" title="src/main.c" alt="" coords="480,80,563,107"/>
+<area shape="rect" id="node6" href="misc_8c.html" title="src/misc.c" alt="" coords="587,80,669,107"/>
+<area shape="rect" id="node7" href="lyr_digitime_8c.html" title="src/ui/lyrDigitime.c" alt="" coords="693,80,824,107"/>
+<area shape="rect" id="node8" href="wnd_lender_basics_8c.html" title="src/ui/wndLenderBasics.c" alt="" coords="849,80,1021,107"/>
+<area shape="rect" id="node9" href="wnd_main_menu_8c.html" title="src/ui/wndMainMenu.c" alt="" coords="1045,80,1198,107"/>
 </map>
 </div>
 </div>
@@ -113,10 +122,10 @@ This graph shows which files directly or indirectly include this file:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:a42b76163fda3d9c91ca7a2965ddd534c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="misc_8h.html#a42b76163fda3d9c91ca7a2965ddd534c">HEAP_LOG_0</a>()&#160;&#160;&#160;<a class="el" href="lyr_digitime_8c.html#a19cc34ebde0b2378e48ce60bc92c0a5c">APP_LOG</a>(APP_LOG_LEVEL_DEBUG, &quot;Free Heap: %zu b, Used Heap: %zu b&quot;, heap_bytes_free(), heap_bytes_used())</td></tr>
+<tr class="memitem:a42b76163fda3d9c91ca7a2965ddd534c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="misc_8h.html#a42b76163fda3d9c91ca7a2965ddd534c">HEAP_LOG_0</a>()&#160;&#160;&#160;<a class="el" href="wnd_main_menu_8c.html#a19cc34ebde0b2378e48ce60bc92c0a5c">APP_LOG</a>(APP_LOG_LEVEL_DEBUG, &quot;Free Heap: %zu b, Used Heap: %zu b&quot;, heap_bytes_free(), heap_bytes_used())</td></tr>
 <tr class="memdesc:a42b76163fda3d9c91ca7a2965ddd534c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prints the free and used heap sizes to the app log, with or without an additional c-string argument to append.  <a href="#a42b76163fda3d9c91ca7a2965ddd534c">More...</a><br /></td></tr>
 <tr class="separator:a42b76163fda3d9c91ca7a2965ddd534c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a624c31c83b16aef7fba84400a2a1fc9c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="misc_8h.html#a624c31c83b16aef7fba84400a2a1fc9c">HEAP_LOG_1</a>(str)&#160;&#160;&#160;if (str != NULL) { <a class="el" href="lyr_digitime_8c.html#a19cc34ebde0b2378e48ce60bc92c0a5c">APP_LOG</a>(APP_LOG_LEVEL_DEBUG, &quot;Free Heap: %zu b, Used Heap: %zu b -- %s&quot;, heap_bytes_free(), heap_bytes_used(), str); }</td></tr>
+<tr class="memitem:a624c31c83b16aef7fba84400a2a1fc9c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="misc_8h.html#a624c31c83b16aef7fba84400a2a1fc9c">HEAP_LOG_1</a>(str)&#160;&#160;&#160;if (str != NULL) { <a class="el" href="wnd_main_menu_8c.html#a19cc34ebde0b2378e48ce60bc92c0a5c">APP_LOG</a>(APP_LOG_LEVEL_DEBUG, &quot;Free Heap: %zu b, Used Heap: %zu b -- %s&quot;, heap_bytes_free(), heap_bytes_used(), str); }</td></tr>
 <tr class="separator:a624c31c83b16aef7fba84400a2a1fc9c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8ff1830422a3ba9663c5a8a8985f3850"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="misc_8h.html#a8ff1830422a3ba9663c5a8a8985f3850">GET_MACRO</a>(_0,  _1,  NAME, ...)&#160;&#160;&#160;NAME</td></tr>
 <tr class="separator:a8ff1830422a3ba9663c5a8a8985f3850"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -134,6 +143,8 @@ Functions</h2></td></tr>
 <tr class="memitem:af4df0e73abf84eedd72e5a3e75e67935"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="misc_8h.html#af4df0e73abf84eedd72e5a3e75e67935">strxcpy</a> (char *buffer, size_t bufsize, const char *source, const char *readable)</td></tr>
 <tr class="memdesc:af4df0e73abf84eedd72e5a3e75e67935"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copies a string with error handling and logging.  <a href="#af4df0e73abf84eedd72e5a3e75e67935">More...</a><br /></td></tr>
 <tr class="separator:af4df0e73abf84eedd72e5a3e75e67935"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa871e4bad8724a0f3269810ea7eff5f0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="magpebapp_8h.html#ad93489195a8c73bb5dc1acba0185cb01">MagPebApp_ErrCode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="misc_8h.html#aa871e4bad8724a0f3269810ea7eff5f0">strxcpyalloc</a> (char **dest, const char *src)</td></tr>
+<tr class="separator:aa871e4bad8724a0f3269810ea7eff5f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
 <a class="anchor" id="a8ff1830422a3ba9663c5a8a8985f3850"></a>
@@ -198,7 +209,7 @@ Functions</h2></td></tr>
           <td class="memname">#define HEAP_LOG_0</td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
-          <td>&#160;&#160;&#160;<a class="el" href="lyr_digitime_8c.html#a19cc34ebde0b2378e48ce60bc92c0a5c">APP_LOG</a>(APP_LOG_LEVEL_DEBUG, &quot;Free Heap: %zu b, Used Heap: %zu b&quot;, heap_bytes_free(), heap_bytes_used())</td>
+          <td>&#160;&#160;&#160;<a class="el" href="wnd_main_menu_8c.html#a19cc34ebde0b2378e48ce60bc92c0a5c">APP_LOG</a>(APP_LOG_LEVEL_DEBUG, &quot;Free Heap: %zu b, Used Heap: %zu b&quot;, heap_bytes_free(), heap_bytes_used())</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -216,7 +227,7 @@ Functions</h2></td></tr>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname">str</td><td>)</td>
-          <td>&#160;&#160;&#160;if (str != NULL) { <a class="el" href="lyr_digitime_8c.html#a19cc34ebde0b2378e48ce60bc92c0a5c">APP_LOG</a>(APP_LOG_LEVEL_DEBUG, &quot;Free Heap: %zu b, Used Heap: %zu b -- %s&quot;, heap_bytes_free(), heap_bytes_used(), str); }</td>
+          <td>&#160;&#160;&#160;if (str != NULL) { <a class="el" href="wnd_main_menu_8c.html#a19cc34ebde0b2378e48ce60bc92c0a5c">APP_LOG</a>(APP_LOG_LEVEL_DEBUG, &quot;Free Heap: %zu b, Used Heap: %zu b -- %s&quot;, heap_bytes_free(), heap_bytes_used(), str); }</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -279,6 +290,46 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Copies a string with error handling and logging. </p>
+
+</div>
+</div>
+<a class="anchor" id="aa871e4bad8724a0f3269810ea7eff5f0"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="magpebapp_8h.html#ad93489195a8c73bb5dc1acba0185cb01">MagPebApp_ErrCode</a> strxcpyalloc </td>
+          <td>(</td>
+          <td class="paramtype">char **&#160;</td>
+          <td class="paramname"><em>dest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>src</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Copies a string from src to dest, where these strings may be NULL or allocated, and (*dest) will result in a NULL or will be allocated to fit the src string.</p>
+<ul>
+<li>If (*dest) is NULL, it will malloc'd to an appropriate size to contain the string in src.</li>
+<li>If (*dest) is non-NULL, it will be realloc'd to an appropriate size to contain the string in src.</li>
+<li>If src is NULL, then (*dest) will be freed and made NULL (or dest will remain NULL if it is already NULL.</li>
+</ul>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">src</td><td>The source string. May be NULL, or it may be a previously-allocated string, or a string literal. If it is a string, it must be null-terminated. </td></tr>
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">dest</td><td>Pointer to the destination char*. The char* may be NULL, or it may be a previously-allocated string. If it is a string, it must be null-terminated upon entry. Upon exit, the char* pointed to by dest is guaranteed to be either NULL or null-terminated. <em>If the char* pointed to by dest is not NULL on exit, then the caller is responsible for freeing it.</em></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>MPA_SUCCESS on success MPA_NULL_POINTER_ERR if the dest double-pointer is NULL. MPA_OUT_OF_MEMORY_ERR if memory could not be allocated for dest </dd></dl>
 
 </div>
 </div>

@@ -1,9 +1,12 @@
 var searchData=
 [
   ['hashv',['hashv',['../struct_u_t__hash__handle.html#ae73531e09ac884600d96a71ad9afbfa4',1,'UT_hash_handle']]],
+  ['headertitle',['headerTitle',['../struct_section_info.html#aa510e39b2dc315c9120ae31b6b27b949',1,'SectionInfo']]],
   ['hh',['hh',['../struct_country_rec.html#a67d3d81a4f9a9622b0befade8d131661',1,'CountryRec::hh()'],['../struct_loan_rec.html#a67d3d81a4f9a9622b0befade8d131661',1,'LoanRec::hh()']]],
   ['hh_5fhead',['hh_head',['../struct_u_t__hash__bucket.html#a32d33f384f3c99c1fd80202e1cd64c0c',1,'UT_hash_bucket']]],
   ['hh_5fnext',['hh_next',['../struct_u_t__hash__handle.html#a42ef2993dcaaebd656c4a40d174e0c78',1,'UT_hash_handle']]],
   ['hh_5fprev',['hh_prev',['../struct_u_t__hash__handle.html#a079301c7093356547fb4601a85503c01',1,'UT_hash_handle']]],
-  ['hho',['hho',['../struct_u_t__hash__table.html#af7a888099092eb93f240f1b2bfcc2708',1,'UT_hash_table']]]
+  ['hho',['hho',['../struct_u_t__hash__table.html#af7a888099092eb93f240f1b2bfcc2708',1,'UT_hash_table']]],
+  ['highltback',['highltBack',['../struct_wnd_data_menu___palette.html#a2a7c036130af77858e3cd5aad627e8df',1,'WndDataMenu_Palette']]],
+  ['highltfore',['highltFore',['../struct_wnd_data_menu___palette.html#a761d2af3fe5d1bdb6fc5755914a037bb',1,'WndDataMenu_Palette']]]
 ];

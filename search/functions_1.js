@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['callkivaapiasync',['callKivaApiAsync',['../app_8js.html#a8464c96f809401451da612058236c594',1,'app.js']]],
+  ['callkivaapiasync',['callKivaApiAsync',['../app_8js.html#ae3a96e3ac0575ac3211720af101242d6',1,'app.js']]],
   ['comm_5fclose',['comm_close',['../comm_8c.html#af6d147624e80153bc57e8e5b65125d5c',1,'comm_close():&#160;comm.c'],['../comm_8h.html#af6d147624e80153bc57e8e5b65125d5c',1,'comm_close():&#160;comm.c']]],
   ['comm_5fgetpreferredloans',['comm_getPreferredLoans',['../comm_8c.html#acdbf689a7d2f037d961c48487f786e4a',1,'comm_getPreferredLoans():&#160;comm.c'],['../comm_8h.html#acdbf689a7d2f037d961c48487f786e4a',1,'comm_getPreferredLoans():&#160;comm.c']]],
   ['comm_5fopen',['comm_open',['../comm_8c.html#a59afc3904fa73fece5c655d782d42efb',1,'comm_open():&#160;comm.c'],['../comm_8h.html#a59afc3904fa73fece5c655d782d42efb',1,'comm_open():&#160;comm.c']]],

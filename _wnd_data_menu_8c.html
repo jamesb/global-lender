@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.11"/>
-<title>Global Lender: src/ui/WndDataMenu.c File Reference</title>
+<title>Global Lender: src/libs/WndDataMenu.c File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -82,149 +82,173 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_da5c6b39c0a2f54e57df6799511cd3ab.html">ui</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_87a455bccb09a92130c26a11a880c98a.html">libs</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#define-members">Macros</a> &#124;
-<a href="#enum-members">Enumerations</a> &#124;
-<a href="#func-members">Functions</a>  </div>
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
 <div class="title">WndDataMenu.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &lt;pebble.h&gt;</code><br />
 <code>#include &quot;<a class="el" href="misc_8h_source.html">misc.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="_wnd_data_menu___internal_8h_source.html">ui/WndDataMenu_Internal.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_wnd_data_menu___internal_8h_source.html">libs/WndDataMenu_Internal.h</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for WndDataMenu.c:</div>
 <div class="dyncontent">
-<div class="center"><img src="_wnd_data_menu_8c__incl.png" border="0" usemap="#src_2ui_2_wnd_data_menu_8c" alt=""/></div>
-<map name="src_2ui_2_wnd_data_menu_8c" id="src_2ui_2_wnd_data_menu_8c">
-<area shape="rect" id="node3" href="misc_8h.html" title="misc.h" alt="" coords="53,80,114,107"/>
-<area shape="rect" id="node4" href="_wnd_data_menu___internal_8h.html" title="ui/WndDataMenu_Internal.h" alt="" coords="138,80,322,107"/>
-<area shape="rect" id="node5" href="_wnd_data_menu_8h.html" title="ui/WndDataMenu.h" alt="" coords="163,155,297,181"/>
-<area shape="rect" id="node6" href="magpebapp_8h.html" title="libs/magpebapp.h" alt="" coords="176,229,300,256"/>
+<div class="center"><img src="_wnd_data_menu_8c__incl.png" border="0" usemap="#src_2libs_2_wnd_data_menu_8c" alt=""/></div>
+<map name="src_2libs_2_wnd_data_menu_8c" id="src_2libs_2_wnd_data_menu_8c">
+<area shape="rect" id="node3" href="misc_8h.html" title="misc.h" alt="" coords="246,155,307,181"/>
+<area shape="rect" id="node5" href="_wnd_data_menu___internal_8h.html" title="libs/WndDataMenu_Internal.h" alt="" coords="31,80,226,107"/>
+<area shape="rect" id="node4" href="magpebapp_8h.html" title="libs/magpebapp.h" alt="" coords="157,229,281,256"/>
+<area shape="rect" id="node6" href="_wnd_data_menu_8h.html" title="libs/WndDataMenu.h" alt="" coords="78,155,222,181"/>
 </map>
 </div>
 </div><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
-Macros</h2></td></tr>
-<tr class="memitem:abcefc74a988790f43649ce1c61024abe"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_wnd_data_menu_8c.html#abcefc74a988790f43649ce1c61024abe">NUM_MENU_SECTIONS</a>&#160;&#160;&#160;1</td></tr>
-<tr class="separator:abcefc74a988790f43649ce1c61024abe"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
-Enumerations</h2></td></tr>
-<tr class="memitem:aeda06dd7bf5623d17fd1ff42166d0f25"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_wnd_data_menu_8c.html#aeda06dd7bf5623d17fd1ff42166d0f25">MenuItems</a> { <br />
-&#160;&#160;<a class="el" href="_wnd_data_menu_8c.html#aeda06dd7bf5623d17fd1ff42166d0f25af779da58458770043e6cebe84a6209bb">MNU_ITEM_LENDER_INFO</a> = 0, 
-<a class="el" href="_wnd_data_menu_8c.html#aeda06dd7bf5623d17fd1ff42166d0f25a354639496bce6e337c94aa725bb1d5ca">MNU_ITEM_LOANS_FOR_YOU</a>, 
-<a class="el" href="_wnd_data_menu_8c.html#aeda06dd7bf5623d17fd1ff42166d0f25a56146b9b5c8cee68ef1f82f24dce652b">MNU_ITEM_ACHIEVEMENTS</a>, 
-<a class="el" href="_wnd_data_menu_8c.html#aeda06dd7bf5623d17fd1ff42166d0f25a3d1d3974b61fcb44895236b2634df752">MNU_ITEM_TEAMS</a>, 
-<br />
-&#160;&#160;<a class="el" href="_wnd_data_menu_8c.html#aeda06dd7bf5623d17fd1ff42166d0f25a85f7bc70567d0edd6e39d9be8be43f03">MNU_ITEM_COUNTRIES</a>, 
-<a class="el" href="_wnd_data_menu_8c.html#aeda06dd7bf5623d17fd1ff42166d0f25a77777195abfe1d09819a2ed559a7b44b">MNU_ITEM_SECTORS</a>, 
-<a class="el" href="_wnd_data_menu_8c.html#aeda06dd7bf5623d17fd1ff42166d0f25a44013faf553977822ab23e37ddc95ce1">MNU_ITEM_ACTIVITIES</a>, 
-<a class="el" href="_wnd_data_menu_8c.html#aeda06dd7bf5623d17fd1ff42166d0f25ae73ffd435c201b07a0c79dcf4db2e025">MNU_ITEM_FIELD_PARTNERS</a>, 
-<br />
-&#160;&#160;<a class="el" href="_wnd_data_menu_8c.html#aeda06dd7bf5623d17fd1ff42166d0f25a6f8bd44d102ef6f2c6aa6d83f9856b74">MNU_ITEM_ACKNOWLEDGEMENTS</a>, 
-<a class="el" href="_wnd_data_menu_8c.html#aeda06dd7bf5623d17fd1ff42166d0f25af374d651f76d676414d912714e2ebee0">NUM_MENU_ITEMS</a>, 
-<a class="el" href="wnd_main_menu_8c.html#aeda06dd7bf5623d17fd1ff42166d0f25af779da58458770043e6cebe84a6209bb">MNU_ITEM_LENDER_INFO</a> = 0, 
-<a class="el" href="wnd_main_menu_8c.html#aeda06dd7bf5623d17fd1ff42166d0f25a354639496bce6e337c94aa725bb1d5ca">MNU_ITEM_LOANS_FOR_YOU</a>, 
-<br />
-&#160;&#160;<a class="el" href="wnd_main_menu_8c.html#aeda06dd7bf5623d17fd1ff42166d0f25a56146b9b5c8cee68ef1f82f24dce652b">MNU_ITEM_ACHIEVEMENTS</a>, 
-<a class="el" href="wnd_main_menu_8c.html#aeda06dd7bf5623d17fd1ff42166d0f25a3d1d3974b61fcb44895236b2634df752">MNU_ITEM_TEAMS</a>, 
-<a class="el" href="wnd_main_menu_8c.html#aeda06dd7bf5623d17fd1ff42166d0f25a85f7bc70567d0edd6e39d9be8be43f03">MNU_ITEM_COUNTRIES</a>, 
-<a class="el" href="wnd_main_menu_8c.html#aeda06dd7bf5623d17fd1ff42166d0f25a77777195abfe1d09819a2ed559a7b44b">MNU_ITEM_SECTORS</a>, 
-<br />
-&#160;&#160;<a class="el" href="wnd_main_menu_8c.html#aeda06dd7bf5623d17fd1ff42166d0f25a44013faf553977822ab23e37ddc95ce1">MNU_ITEM_ACTIVITIES</a>, 
-<a class="el" href="wnd_main_menu_8c.html#aeda06dd7bf5623d17fd1ff42166d0f25ae73ffd435c201b07a0c79dcf4db2e025">MNU_ITEM_FIELD_PARTNERS</a>, 
-<a class="el" href="wnd_main_menu_8c.html#aeda06dd7bf5623d17fd1ff42166d0f25a6f8bd44d102ef6f2c6aa6d83f9856b74">MNU_ITEM_ACKNOWLEDGEMENTS</a>, 
-<a class="el" href="wnd_main_menu_8c.html#aeda06dd7bf5623d17fd1ff42166d0f25af374d651f76d676414d912714e2ebee0">NUM_MENU_ITEMS</a>
-<br />
- }</td></tr>
-<tr class="separator:aeda06dd7bf5623d17fd1ff42166d0f25"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:ad933d1a041af8bb24bc41f2f28ae8ab7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="magpebapp_8h.html#ad93489195a8c73bb5dc1acba0185cb01">MagPebApp_ErrCode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_wnd_data_menu_8c.html#ad933d1a041af8bb24bc41f2f28ae8ab7">WndDataMenu_updateView</a> (<a class="el" href="struct_wnd_data_menu.html">WndDataMenu</a> *this)</td></tr>
 <tr class="separator:ad933d1a041af8bb24bc41f2f28ae8ab7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac8f3ac6e77badc3905509a8b9ea4b19b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="magpebapp_8h.html#ad93489195a8c73bb5dc1acba0185cb01">MagPebApp_ErrCode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_wnd_data_menu_8c.html#ac8f3ac6e77badc3905509a8b9ea4b19b">WndDataMenu_setNumSections</a> (<a class="el" href="struct_wnd_data_menu.html">WndDataMenu</a> *this, const uint16_t numSections)</td></tr>
+<tr class="separator:ac8f3ac6e77badc3905509a8b9ea4b19b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1c0cf696e2c509de8dd8a1567d9195e3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="magpebapp_8h.html#ad93489195a8c73bb5dc1acba0185cb01">MagPebApp_ErrCode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_wnd_data_menu_8c.html#a1c0cf696e2c509de8dd8a1567d9195e3">WndDataMenu_setSectionTitle</a> (<a class="el" href="struct_wnd_data_menu.html">WndDataMenu</a> *this, const uint16_t sectIdx, const char *headerTitle)</td></tr>
+<tr class="separator:a1c0cf696e2c509de8dd8a1567d9195e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a83637fe9cac8f37373a691b9a8281bdf"><td class="memItemLeft" align="right" valign="top"><a class="el" href="magpebapp_8h.html#ad93489195a8c73bb5dc1acba0185cb01">MagPebApp_ErrCode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_wnd_data_menu_8c.html#a83637fe9cac8f37373a691b9a8281bdf">WndDataMenu_buildSection</a> (<a class="el" href="struct_wnd_data_menu.html">WndDataMenu</a> *this, const uint16_t sectIdx, const uint16_t numRows, const char *headerTitle)</td></tr>
+<tr class="separator:a83637fe9cac8f37373a691b9a8281bdf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a21b164a4ccd36479aad73e7dd779cd58"><td class="memItemLeft" align="right" valign="top"><a class="el" href="magpebapp_8h.html#ad93489195a8c73bb5dc1acba0185cb01">MagPebApp_ErrCode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_wnd_data_menu_8c.html#a21b164a4ccd36479aad73e7dd779cd58">WndDataMenu_buildRow</a> (<a class="el" href="struct_wnd_data_menu.html">WndDataMenu</a> *this, const uint16_t sectIdx, const uint16_t rowIdx, const char *rowTitle, const char *rowSubtitle)</td></tr>
+<tr class="separator:a21b164a4ccd36479aad73e7dd779cd58"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac3c478fd670d83fd238c15fc71b2383a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="magpebapp_8h.html#ad93489195a8c73bb5dc1acba0185cb01">MagPebApp_ErrCode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_wnd_data_menu_8c.html#ac3c478fd670d83fd238c15fc71b2383a">WndDataMenu_setPalette</a> (<a class="el" href="struct_wnd_data_menu.html">WndDataMenu</a> *this, const <a class="el" href="struct_wnd_data_menu___palette.html">WndDataMenu_Palette</a> pal)</td></tr>
+<tr class="separator:ac3c478fd670d83fd238c15fc71b2383a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a36564f5fa27639c1a10ceb615faa76ca"><td class="memItemLeft" align="right" valign="top"><a class="el" href="magpebapp_8h.html#ad93489195a8c73bb5dc1acba0185cb01">MagPebApp_ErrCode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_wnd_data_menu_8c.html#a36564f5fa27639c1a10ceb615faa76ca">WndDataMenu_push</a> (<a class="el" href="struct_wnd_data_menu.html">WndDataMenu</a> *this)</td></tr>
 <tr class="separator:a36564f5fa27639c1a10ceb615faa76ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4dc16b2c682b562401ea534929f6815b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_wnd_data_menu.html">WndDataMenu</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_wnd_data_menu_8c.html#a4dc16b2c682b562401ea534929f6815b">WndDataMenu_create</a> ()</td></tr>
+<tr class="memdesc:a4dc16b2c682b562401ea534929f6815b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a data menu window and pushes it on the window stack.  <a href="#a4dc16b2c682b562401ea534929f6815b">More...</a><br /></td></tr>
 <tr class="separator:a4dc16b2c682b562401ea534929f6815b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a267e141eedea9da17a3d346e63874084"><td class="memItemLeft" align="right" valign="top"><a class="el" href="magpebapp_8h.html#ad93489195a8c73bb5dc1acba0185cb01">MagPebApp_ErrCode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_wnd_data_menu_8c.html#a267e141eedea9da17a3d346e63874084">WndDataMenu_init</a> (<a class="el" href="struct_wnd_data_menu.html">WndDataMenu</a> *this)</td></tr>
+<tr class="separator:a267e141eedea9da17a3d346e63874084"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af1b29ccf1c899e0ef2d44c83e1612e77"><td class="memItemLeft" align="right" valign="top"><a class="el" href="magpebapp_8h.html#ad93489195a8c73bb5dc1acba0185cb01">MagPebApp_ErrCode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_wnd_data_menu_8c.html#af1b29ccf1c899e0ef2d44c83e1612e77">WndDataMenu_destroy</a> (<a class="el" href="struct_wnd_data_menu.html">WndDataMenu</a> *this)</td></tr>
 <tr class="separator:af1b29ccf1c899e0ef2d44c83e1612e77"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a57e5bffe04056f7fc8912f247f180625"><td class="memItemLeft" align="right" valign="top">const uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_wnd_data_menu_8c.html#a57e5bffe04056f7fc8912f247f180625">WndDataMenu_defaultNumSections</a> = 1</td></tr>
+<tr class="separator:a57e5bffe04056f7fc8912f247f180625"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8826b2715ea07f8e6b0157ea4b5238f1"><td class="memItemLeft" align="right" valign="top">const uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_wnd_data_menu_8c.html#a8826b2715ea07f8e6b0157ea4b5238f1">WndDataMenu_defaultNumRows</a> = 1</td></tr>
+<tr class="separator:a8826b2715ea07f8e6b0157ea4b5238f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1abfcfd623fcbfca0df0665181d5b6e2"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_wnd_data_menu_8c.html#a1abfcfd623fcbfca0df0665181d5b6e2">WndDataMenu_defaultRowTitle</a> = &quot;Please wait...&quot;</td></tr>
+<tr class="separator:a1abfcfd623fcbfca0df0665181d5b6e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Macro Definition Documentation</h2>
-<a class="anchor" id="abcefc74a988790f43649ce1c61024abe"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define NUM_MENU_SECTIONS&#160;&#160;&#160;1</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<h2 class="groupheader">Enumeration Type Documentation</h2>
-<a class="anchor" id="aeda06dd7bf5623d17fd1ff42166d0f25"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">enum <a class="el" href="_wnd_data_menu_8c.html#aeda06dd7bf5623d17fd1ff42166d0f25">MenuItems</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a class="anchor" id="aeda06dd7bf5623d17fd1ff42166d0f25af779da58458770043e6cebe84a6209bb"></a>MNU_ITEM_LENDER_INFO&#160;</td><td class="fielddoc">
-</td></tr>
-<tr><td class="fieldname"><a class="anchor" id="aeda06dd7bf5623d17fd1ff42166d0f25a354639496bce6e337c94aa725bb1d5ca"></a>MNU_ITEM_LOANS_FOR_YOU&#160;</td><td class="fielddoc">
-</td></tr>
-<tr><td class="fieldname"><a class="anchor" id="aeda06dd7bf5623d17fd1ff42166d0f25a56146b9b5c8cee68ef1f82f24dce652b"></a>MNU_ITEM_ACHIEVEMENTS&#160;</td><td class="fielddoc">
-</td></tr>
-<tr><td class="fieldname"><a class="anchor" id="aeda06dd7bf5623d17fd1ff42166d0f25a3d1d3974b61fcb44895236b2634df752"></a>MNU_ITEM_TEAMS&#160;</td><td class="fielddoc">
-</td></tr>
-<tr><td class="fieldname"><a class="anchor" id="aeda06dd7bf5623d17fd1ff42166d0f25a85f7bc70567d0edd6e39d9be8be43f03"></a>MNU_ITEM_COUNTRIES&#160;</td><td class="fielddoc">
-</td></tr>
-<tr><td class="fieldname"><a class="anchor" id="aeda06dd7bf5623d17fd1ff42166d0f25a77777195abfe1d09819a2ed559a7b44b"></a>MNU_ITEM_SECTORS&#160;</td><td class="fielddoc">
-</td></tr>
-<tr><td class="fieldname"><a class="anchor" id="aeda06dd7bf5623d17fd1ff42166d0f25a44013faf553977822ab23e37ddc95ce1"></a>MNU_ITEM_ACTIVITIES&#160;</td><td class="fielddoc">
-</td></tr>
-<tr><td class="fieldname"><a class="anchor" id="aeda06dd7bf5623d17fd1ff42166d0f25ae73ffd435c201b07a0c79dcf4db2e025"></a>MNU_ITEM_FIELD_PARTNERS&#160;</td><td class="fielddoc">
-</td></tr>
-<tr><td class="fieldname"><a class="anchor" id="aeda06dd7bf5623d17fd1ff42166d0f25a6f8bd44d102ef6f2c6aa6d83f9856b74"></a>MNU_ITEM_ACKNOWLEDGEMENTS&#160;</td><td class="fielddoc">
-</td></tr>
-<tr><td class="fieldname"><a class="anchor" id="aeda06dd7bf5623d17fd1ff42166d0f25af374d651f76d676414d912714e2ebee0"></a>NUM_MENU_ITEMS&#160;</td><td class="fielddoc">
-</td></tr>
-<tr><td class="fieldname"><a class="anchor" id="aeda06dd7bf5623d17fd1ff42166d0f25af779da58458770043e6cebe84a6209bb"></a>MNU_ITEM_LENDER_INFO&#160;</td><td class="fielddoc">
-</td></tr>
-<tr><td class="fieldname"><a class="anchor" id="aeda06dd7bf5623d17fd1ff42166d0f25a354639496bce6e337c94aa725bb1d5ca"></a>MNU_ITEM_LOANS_FOR_YOU&#160;</td><td class="fielddoc">
-</td></tr>
-<tr><td class="fieldname"><a class="anchor" id="aeda06dd7bf5623d17fd1ff42166d0f25a56146b9b5c8cee68ef1f82f24dce652b"></a>MNU_ITEM_ACHIEVEMENTS&#160;</td><td class="fielddoc">
-</td></tr>
-<tr><td class="fieldname"><a class="anchor" id="aeda06dd7bf5623d17fd1ff42166d0f25a3d1d3974b61fcb44895236b2634df752"></a>MNU_ITEM_TEAMS&#160;</td><td class="fielddoc">
-</td></tr>
-<tr><td class="fieldname"><a class="anchor" id="aeda06dd7bf5623d17fd1ff42166d0f25a85f7bc70567d0edd6e39d9be8be43f03"></a>MNU_ITEM_COUNTRIES&#160;</td><td class="fielddoc">
-</td></tr>
-<tr><td class="fieldname"><a class="anchor" id="aeda06dd7bf5623d17fd1ff42166d0f25a77777195abfe1d09819a2ed559a7b44b"></a>MNU_ITEM_SECTORS&#160;</td><td class="fielddoc">
-</td></tr>
-<tr><td class="fieldname"><a class="anchor" id="aeda06dd7bf5623d17fd1ff42166d0f25a44013faf553977822ab23e37ddc95ce1"></a>MNU_ITEM_ACTIVITIES&#160;</td><td class="fielddoc">
-</td></tr>
-<tr><td class="fieldname"><a class="anchor" id="aeda06dd7bf5623d17fd1ff42166d0f25ae73ffd435c201b07a0c79dcf4db2e025"></a>MNU_ITEM_FIELD_PARTNERS&#160;</td><td class="fielddoc">
-</td></tr>
-<tr><td class="fieldname"><a class="anchor" id="aeda06dd7bf5623d17fd1ff42166d0f25a6f8bd44d102ef6f2c6aa6d83f9856b74"></a>MNU_ITEM_ACKNOWLEDGEMENTS&#160;</td><td class="fielddoc">
-</td></tr>
-<tr><td class="fieldname"><a class="anchor" id="aeda06dd7bf5623d17fd1ff42166d0f25af374d651f76d676414d912714e2ebee0"></a>NUM_MENU_ITEMS&#160;</td><td class="fielddoc">
-</td></tr>
-</table>
-
-</div>
-</div>
 <h2 class="groupheader">Function Documentation</h2>
+<a class="anchor" id="a21b164a4ccd36479aad73e7dd779cd58"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="magpebapp_8h.html#ad93489195a8c73bb5dc1acba0185cb01">MagPebApp_ErrCode</a> WndDataMenu_buildRow </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_wnd_data_menu.html">WndDataMenu</a> *&#160;</td>
+          <td class="paramname"><em>this</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const uint16_t&#160;</td>
+          <td class="paramname"><em>sectIdx</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const uint16_t&#160;</td>
+          <td class="paramname"><em>rowIdx</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>rowTitle</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>rowSubtitle</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Sets up a row in a section of this data menu.</p>
+<p>A call to this function must be preceded by a call to buildSection to allocate the number of rows in this data menu section (default is 1).</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">this</td><td>Pointer to the <a class="el" href="struct_wnd_data_menu.html">WndDataMenu</a> "object"; must be already allocated. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">sectIdx</td><td>The index of the section that this function will build. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">rowIdx</td><td>The index of the row that this function will build. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">rowTitle</td><td>The title for this row. May be NULL. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">rowSubtitle</td><td>The subtitle for this section. May be NULL.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>MPA_SUCCESS on success MPA_INVALID_INPUT_ERR if sectIdx is not a valid section index or rowIdx is not a valid row index in that section. MPA_NULL_POINTER_ERR if parameters this or this-&gt;sections are NULL upon entry. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a83637fe9cac8f37373a691b9a8281bdf"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="magpebapp_8h.html#ad93489195a8c73bb5dc1acba0185cb01">MagPebApp_ErrCode</a> WndDataMenu_buildSection </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_wnd_data_menu.html">WndDataMenu</a> *&#160;</td>
+          <td class="paramname"><em>this</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const uint16_t&#160;</td>
+          <td class="paramname"><em>sectIdx</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const uint16_t&#160;</td>
+          <td class="paramname"><em>numRows</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>headerTitle</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Sets up a section of this data menu.</p>
+<p>A call to this function may be preceded by a call to setNumSections to indicate the number of sections in this data menu (default is 1). A call to this function should be followed by a call buildRow to setup the rows within this section.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">this</td><td>Pointer to the <a class="el" href="struct_wnd_data_menu.html">WndDataMenu</a> "object"; must be already allocated. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">sectIdx</td><td>The index of the section that this function will build. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">numRows</td><td>Indicates the number of rows this section will contain. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">headerTitle</td><td>The title for this section. May be NULL.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>MPA_SUCCESS on success MPA_INVALID_INPUT_ERR if sectIdx is not a valid section index MPA_NULL_POINTER_ERR if parameters this or this-&gt;sections are NULL upon entry. </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="a4dc16b2c682b562401ea534929f6815b"></a>
 <div class="memitem">
 <div class="memproto">
@@ -237,12 +261,8 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Creates a data menu window and pushes it on the window stack. </p><dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in,out]</td><td class="paramname">this</td><td>Pointer to the <a class="el" href="struct_wnd_data_menu.html">WndDataMenu</a> "object"; must be NULL </td></tr>
-  </table>
-  </dd>
-</dl>
+
+<p>Creates a data menu window and pushes it on the window stack. </p>
 
 </div>
 </div>
@@ -262,6 +282,28 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a267e141eedea9da17a3d346e63874084"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="magpebapp_8h.html#ad93489195a8c73bb5dc1acba0185cb01">MagPebApp_ErrCode</a> WndDataMenu_init </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_wnd_data_menu.html">WndDataMenu</a> *&#160;</td>
+          <td class="paramname"><em>this</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Internal initialization </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">this</td><td>Pointer to <a class="el" href="struct_wnd_data_menu.html">WndDataMenu</a>; must be already allocated </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a class="anchor" id="a36564f5fa27639c1a10ceb615faa76ca"></a>
 <div class="memitem">
 <div class="memproto">
@@ -278,6 +320,107 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="ac8f3ac6e77badc3905509a8b9ea4b19b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="magpebapp_8h.html#ad93489195a8c73bb5dc1acba0185cb01">MagPebApp_ErrCode</a> WndDataMenu_setNumSections </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_wnd_data_menu.html">WndDataMenu</a> *&#160;</td>
+          <td class="paramname"><em>this</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const uint16_t&#160;</td>
+          <td class="paramname"><em>numSections</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Sets the number of sections for this data menu. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">this</td><td>Pointer to the <a class="el" href="struct_wnd_data_menu.html">WndDataMenu</a> "object"; must be already allocated. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">num</td><td>Number of sections </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="ac3c478fd670d83fd238c15fc71b2383a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="magpebapp_8h.html#ad93489195a8c73bb5dc1acba0185cb01">MagPebApp_ErrCode</a> WndDataMenu_setPalette </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_wnd_data_menu.html">WndDataMenu</a> *&#160;</td>
+          <td class="paramname"><em>this</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="struct_wnd_data_menu___palette.html">WndDataMenu_Palette</a>&#160;</td>
+          <td class="paramname"><em>pal</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a1c0cf696e2c509de8dd8a1567d9195e3"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="magpebapp_8h.html#ad93489195a8c73bb5dc1acba0185cb01">MagPebApp_ErrCode</a> WndDataMenu_setSectionTitle </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_wnd_data_menu.html">WndDataMenu</a> *&#160;</td>
+          <td class="paramname"><em>this</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const uint16_t&#160;</td>
+          <td class="paramname"><em>sectIdx</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>headerTitle</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Sets the title for a section of this data menu.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">this</td><td>Pointer to the <a class="el" href="struct_wnd_data_menu.html">WndDataMenu</a> "object"; must be already allocated. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">sectIdx</td><td>The index of the section that this function will build. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">headerTitle</td><td>The title for this section. May be NULL.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>MPA_SUCCESS on success MPA_INVALID_INPUT_ERR if sectIdx is not a valid section index MPA_NULL_POINTER_ERR if parameters this or this-&gt;sections are NULL upon entry. </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="ad933d1a041af8bb24bc41f2f28ae8ab7"></a>
 <div class="memitem">
 <div class="memproto">
@@ -288,6 +431,43 @@ Functions</h2></td></tr>
           <td class="paramtype"><a class="el" href="struct_wnd_data_menu.html">WndDataMenu</a> *&#160;</td>
           <td class="paramname"><em>this</em></td><td>)</td>
           <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a class="anchor" id="a8826b2715ea07f8e6b0157ea4b5238f1"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const uint16_t WndDataMenu_defaultNumRows = 1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a57e5bffe04056f7fc8912f247f180625"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const uint16_t WndDataMenu_defaultNumSections = 1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a1abfcfd623fcbfca0df0665181d5b6e2"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const char* WndDataMenu_defaultRowTitle = &quot;Please wait...&quot;</td>
         </tr>
       </table>
 </div><div class="memdoc">

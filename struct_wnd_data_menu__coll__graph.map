@@ -1,0 +1,4 @@
+<map id="WndDataMenu" name="WndDataMenu">
+<area shape="rect" id="node2" href="$struct_wnd_data_menu___palette.html" title="WndDataMenu_Palette" alt="" coords="5,5,163,32"/>
+<area shape="rect" id="node3" href="$struct_section_info.html" title="SectionInfo" alt="" coords="187,5,275,32"/>
+</map>

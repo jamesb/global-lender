@@ -1,10 +1,10 @@
 <map id="src/misc.h" name="src/misc.h">
 <area shape="rect" id="node2" href="$comm_8c.html" title="src/comm.c" alt="" coords="5,80,96,107"/>
 <area shape="rect" id="node3" href="$_kiva_model_8c.html" title="src/data/KivaModel.c" alt="" coords="121,80,266,107"/>
-<area shape="rect" id="node4" href="$main_8c.html" title="src/main.c" alt="" coords="291,80,373,107"/>
-<area shape="rect" id="node5" href="$misc_8c.html" title="src/misc.c" alt="" coords="397,80,480,107"/>
-<area shape="rect" id="node6" href="$lyr_digitime_8c.html" title="src/ui/lyrDigitime.c" alt="" coords="504,80,635,107"/>
-<area shape="rect" id="node7" href="$_wnd_data_menu_8c.html" title="src/ui/WndDataMenu.c" alt="" coords="659,80,815,107"/>
-<area shape="rect" id="node8" href="$wnd_lender_basics_8c.html" title="src/ui/wndLenderBasics.c" alt="" coords="839,80,1011,107"/>
-<area shape="rect" id="node9" href="$wnd_main_menu_8c.html" title="src/ui/wndMainMenu.c" alt="" coords="1035,80,1189,107"/>
+<area shape="rect" id="node4" href="$_wnd_data_menu_8c.html" title="src/libs/WndDataMenu.c" alt="" coords="290,80,457,107"/>
+<area shape="rect" id="node5" href="$main_8c.html" title="src/main.c" alt="" coords="480,80,563,107"/>
+<area shape="rect" id="node6" href="$misc_8c.html" title="src/misc.c" alt="" coords="587,80,669,107"/>
+<area shape="rect" id="node7" href="$lyr_digitime_8c.html" title="src/ui/lyrDigitime.c" alt="" coords="693,80,824,107"/>
+<area shape="rect" id="node8" href="$wnd_lender_basics_8c.html" title="src/ui/wndLenderBasics.c" alt="" coords="849,80,1021,107"/>
+<area shape="rect" id="node9" href="$wnd_main_menu_8c.html" title="src/ui/wndMainMenu.c" alt="" coords="1045,80,1198,107"/>
 </map>

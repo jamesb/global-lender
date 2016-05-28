@@ -1,17 +1,6 @@
 var searchData=
 [
-  ['uint32_5ft',['uint32_t',['../uthash_8h.html#a435d1572bf3f880d55459d9805097f62',1,'uthash.h']]],
-  ['uint8_5ft',['uint8_t',['../uthash_8h.html#aba7bc1797add20fe3efdf37ced1182c5',1,'uthash.h']]],
-  ['unique',['unique',['../app_8js.html#a4278121f2146f44a9896ca0d9a46c827',1,'app.js']]],
-  ['use',['use',['../struct_loan_info.html#a60c491795181244f81512da7afe9fa94',1,'LoanInfo']]],
-  ['ut_5fhash_5fbucket',['UT_hash_bucket',['../struct_u_t__hash__bucket.html',1,'UT_hash_bucket'],['../uthash_8h.html#a3ba3da0ca59a082c35a0d6b52e803ddf',1,'UT_hash_bucket():&#160;uthash.h']]],
-  ['ut_5fhash_5fhandle',['UT_hash_handle',['../struct_u_t__hash__handle.html',1,'UT_hash_handle'],['../uthash_8h.html#a0e3a99ed9f776349720d0c362f956fb6',1,'UT_hash_handle():&#160;uthash.h']]],
-  ['ut_5fhash_5ftable',['UT_hash_table',['../struct_u_t__hash__table.html',1,'UT_hash_table'],['../uthash_8h.html#a0758074b9942c2ad076610b3e0ce548e',1,'UT_hash_table():&#160;uthash.h']]],
-  ['uthash_2eh',['uthash.h',['../uthash_8h.html',1,'']]],
-  ['uthash_5fexpand_5ffyi',['uthash_expand_fyi',['../uthash_8h.html#a86ea78714da520989a6f7a764b4d71b4',1,'uthash.h']]],
-  ['uthash_5ffatal',['uthash_fatal',['../uthash_8h.html#a03b52301b0ed976b6981ef33613320c1',1,'uthash.h']]],
-  ['uthash_5ffree',['uthash_free',['../uthash_8h.html#a56cdf8c254fc700332c8e6a7263b4657',1,'uthash.h']]],
-  ['uthash_5fmalloc',['uthash_malloc',['../uthash_8h.html#a861013aff36c0448f1888a2b0b5836d8',1,'uthash.h']]],
-  ['uthash_5fnoexpand_5ffyi',['uthash_noexpand_fyi',['../uthash_8h.html#a7cc237d8f87de3836b5390856cfc5c86',1,'uthash.h']]],
-  ['uthash_5fversion',['UTHASH_VERSION',['../uthash_8h.html#aa56cef9cb86dc1f4b5d27ee3a691077e',1,'uthash.h']]]
+  ['tail',['tail',['../struct_u_t__hash__table.html#af2d4a4fd9335f9813df1ecd3d7124f24',1,'UT_hash_table']]],
+  ['tbl',['tbl',['../struct_u_t__hash__handle.html#af0deeb3fe5f35a4c85d105090b498c8d',1,'UT_hash_handle']]],
+  ['textlayer_5fstylize',['textLayer_stylize',['../misc_8c.html#a12735d734270b9bbfe1616d61d42e31d',1,'textLayer_stylize(TextLayer *textLayer, const GColor bgcolor, const GColor txtColor, const GTextAlignment txtAlign, const GFont txtFont):&#160;misc.c'],['../misc_8h.html#ac03bdde1351009a9f004c301144bdd85',1,'textLayer_stylize(TextLayer *, const GColor, const GColor, const GTextAlignment, const GFont):&#160;misc.c']]]
 ];

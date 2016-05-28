@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['callkivaapiasync',['callKivaApiAsync',['../app_8js.html#a8464c96f809401451da612058236c594',1,'app.js']]],
+  ['callkivaapiasync',['callKivaApiAsync',['../app_8js.html#ae3a96e3ac0575ac3211720af101242d6',1,'app.js']]],
   ['comm_2ec',['comm.c',['../comm_8c.html',1,'']]],
   ['comm_2eh',['comm.h',['../comm_8h.html',1,'']]],
   ['comm_5fclose',['comm_close',['../comm_8c.html#af6d147624e80153bc57e8e5b65125d5c',1,'comm_close():&#160;comm.c'],['../comm_8h.html#af6d147624e80153bc57e8e5b65125d5c',1,'comm_close():&#160;comm.c']]],
