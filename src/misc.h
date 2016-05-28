@@ -1,5 +1,7 @@
 #pragma once
 
+#include "libs/magpebapp.h"
+
 /////////////////////////////////////////////////////////////////////////////
 /// Prints the free and used heap sizes to the app log, with or without an additional c-string argument to append.
 /////////////////////////////////////////////////////////////////////////////
@@ -19,3 +21,4 @@ void textLayer_stylize(TextLayer*, const GColor, const GColor, const GTextAlignm
 
 
 bool strxcpy(char* buffer, size_t bufsize, const char* source, const char* readable);
+MagPebApp_ErrCode strxcpyalloc(char** dest, const char* src);

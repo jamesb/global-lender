@@ -1,6 +1,8 @@
 #include <pebble.h>
 
 // Deactivate APP_LOG in this file.
+#undef APP_LOG
+#define APP_LOG(...)
 
 #include "misc.h"
 #include "data/KivaModel.h"
@@ -63,17 +65,27 @@ static void wndMainMenu_draw_row_callback(GContext* ctx, const Layer* cell_layer
   switch (cell_index->section) {
     case 0: {
       switch (cell_index->row) {
+
         case MNU_ITEM_LENDER_INFO:
+#if defined(PBL_ROUND)
           if (menu_cell_layer_is_highlighted(cell_layer)) {
             graphics_draw_bitmap_in_rect(ctx, bmpLogo, drawRect);
-            graphics_context_set_stroke_color(ctx, COLOR_FALLBACK(GColorPictonBlue, GColorWhite));
-            graphics_context_set_stroke_width(ctx, 6);
-            graphics_context_set_antialiased(ctx, true);
-            graphics_draw_round_rect(ctx, drawRect, 3);
           } else {
             menu_cell_basic_draw(ctx, cell_layer, "Global Lender", NULL, NULL);
           }
+#else
+          graphics_draw_bitmap_in_rect(ctx, bmpLogo, drawRect);
+#endif
+
+          if (menu_cell_layer_is_highlighted(cell_layer)) {
+            graphics_context_set_stroke_color(ctx, COLOR_FALLBACK(GColorPictonBlue, GColorWhite));
+            graphics_context_set_stroke_width(ctx, 4);
+            graphics_context_set_antialiased(ctx, true);
+            graphics_draw_round_rect(ctx, drawRect, 3);
+          }
+
           break;
+
         case MNU_ITEM_LOANS_FOR_YOU:
           menu_cell_basic_draw(ctx, cell_layer, "Loans for You", NULL, NULL);
           break;
@@ -216,11 +228,20 @@ static void wndMainMenu_load(Window* window) {
     }
 
     wndPrefLoans = WndDataMenu_create();
-    if ( (mpaRet = WndDataMenu_setNumSections(wndPrefLoans, 10) ) != MPA_SUCCESS) {
+    if ( (mpaRet = WndDataMenu_setNumSections(wndPrefLoans, 1) ) != MPA_SUCCESS) {
         APP_LOG(APP_LOG_LEVEL_ERROR, "Could not initialize sections for loan menu: %s", MagPebApp_getErrMsg(mpaRet));
     }
-    if ( (mpaRet = WndDataMenu_setNumSections(wndPrefLoans, 5) ) != MPA_SUCCESS) {
-        APP_LOG(APP_LOG_LEVEL_ERROR, "Could not initialize sections for loan menu: %s", MagPebApp_getErrMsg(mpaRet));
+    if ( (mpaRet = WndDataMenu_buildSection(wndPrefLoans, 0, 3, "Loans for You") ) != MPA_SUCCESS) {
+        APP_LOG(APP_LOG_LEVEL_ERROR, "Could not build section for loan menu: %s", MagPebApp_getErrMsg(mpaRet));
+    }
+    if ( (mpaRet = WndDataMenu_buildRow(wndPrefLoans, 0, 0, "Maryamu", "to purchase improved farm inputs that will increase farm yields") ) != MPA_SUCCESS) {
+        APP_LOG(APP_LOG_LEVEL_ERROR, "Could not build row for loan menu: %s", MagPebApp_getErrMsg(mpaRet));
+    }
+    if ( (mpaRet = WndDataMenu_buildRow(wndPrefLoans, 0, 1, "Ismael", "to pay for the maintenance for his tricycle.") ) != MPA_SUCCESS) {
+        APP_LOG(APP_LOG_LEVEL_ERROR, "Could not build row for loan menu: %s", MagPebApp_getErrMsg(mpaRet));
+    }
+    if ( (mpaRet = WndDataMenu_buildRow(wndPrefLoans, 0, 2, "Gladys", "to buy tea leaves to sell.") ) != MPA_SUCCESS) {
+        APP_LOG(APP_LOG_LEVEL_ERROR, "Could not build row for loan menu: %s", MagPebApp_getErrMsg(mpaRet));
     }
     if ( (mpaRet = WndDataMenu_setPalette(wndPrefLoans, colors) ) != MPA_SUCCESS) {
         APP_LOG(APP_LOG_LEVEL_WARNING, "Could not set colors for loan menu: %s", MagPebApp_getErrMsg(mpaRet));
