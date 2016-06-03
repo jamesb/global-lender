@@ -42,9 +42,11 @@ void data_processor_init(char* data, char delim) {
 
 ProcessingState* data_processor_create(char* data, char delim) {
   ProcessingState* state = malloc(sizeof(ProcessingState));
-  state->data_start = data;
-  state->data_pos = data;
-  state->data_delim = delim;
+  if (state != NULL) {
+    state->data_start = data;
+    state->data_pos = data;
+    state->data_delim = delim;
+  }
   return state;
 }
 
@@ -93,9 +95,11 @@ char* data_processor_get_string(ProcessingState* state) {
     str_len += 1;
   }
   char* tmp = malloc(str_len + 1);
-  strncpy(tmp, data_block_start, str_len + 1);
-  tmp[str_len] = '\0';
-  state->data_pos++;
+  if (tmp != NULL) {
+    strncpy(tmp, data_block_start, str_len + 1);
+    tmp[str_len] = '\0';
+    state->data_pos++;
+  }
   return tmp;
   return NULL;
 }
