@@ -66,7 +66,7 @@ ProcessingState* data_processor_get_global(void) {
   return global;
 }
 
-uint8_t data_processor_count(ProcessingState* state) {
+uint16_t data_processor_count(ProcessingState* state) {
   if (NULL == state) {
     return 0;
   }
@@ -74,12 +74,13 @@ uint8_t data_processor_count(ProcessingState* state) {
     return 0;
   }
   char* pos = state->data_start;
-  uint8_t count = 0;
+  uint16_t count = 0;
   while (*pos != '\0') {
     if (*pos == state->data_delim) {
       count += 1;
     }
     pos++;
+    if (count == 0xfffe) { return ++count; }
   }
   return ++count;
 }
