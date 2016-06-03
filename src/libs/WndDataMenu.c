@@ -1,6 +1,8 @@
 #include <pebble.h>
 
 // Deactivate APP_LOG in this file.
+//#undef APP_LOG
+//#define APP_LOG(...)
 
 #include "misc.h"
 #include "libs/WndDataMenu_Internal.h"
