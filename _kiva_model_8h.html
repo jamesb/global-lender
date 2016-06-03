@@ -126,6 +126,8 @@ This graph shows which files directly or indirectly include this file:</div>
 Data Structures</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_loan_info.html">LoanInfo</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_kiva_model___pref_loan___c_iter.html">KivaModel_PrefLoan_CIter</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
@@ -133,6 +135,8 @@ Typedefs</h2></td></tr>
 <tr class="separator:ac10211667a9098d43053243e3b4559a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adc7a59da5aa3de6f387a0ad1962fa76e"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="struct_loan_info.html">LoanInfo</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_kiva_model_8h.html#adc7a59da5aa3de6f387a0ad1962fa76e">LoanInfo</a></td></tr>
 <tr class="separator:adc7a59da5aa3de6f387a0ad1962fa76e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a115476ad838cbd609f0b8816286fd41d"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="struct_kiva_model___pref_loan___c_iter.html">KivaModel_PrefLoan_CIter</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_kiva_model_8h.html#a115476ad838cbd609f0b8816286fd41d">KivaModel_PrefLoan_CIter</a></td></tr>
+<tr class="separator:a115476ad838cbd609f0b8816286fd41d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
@@ -172,6 +176,12 @@ Functions</h2></td></tr>
 <tr class="separator:a15ebb8ca21ede9d7f1e9c6926c579189"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a457e2442266a5a5a5ea9a91c28b2ecd7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="magpebapp_8h.html#ad93489195a8c73bb5dc1acba0185cb01">MagPebApp_ErrCode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_kiva_model_8h.html#a457e2442266a5a5a5ea9a91c28b2ecd7">KivaModel_getKivaCountryName</a> (const <a class="el" href="struct_kiva_model.html">KivaModel</a> *this, const char *, const char **)</td></tr>
 <tr class="separator:a457e2442266a5a5a5ea9a91c28b2ecd7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aca405d83b18a4054a08a4ffc90bdfdbd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="magpebapp_8h.html#ad93489195a8c73bb5dc1acba0185cb01">MagPebApp_ErrCode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_kiva_model_8h.html#aca405d83b18a4054a08a4ffc90bdfdbd">KivaModel_getPreferredLoanQty</a> (const <a class="el" href="struct_kiva_model.html">KivaModel</a> *this, uint16_t *)</td></tr>
+<tr class="separator:aca405d83b18a4054a08a4ffc90bdfdbd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad70e6793ce16955f0c96cbdf87d9cab8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_kiva_model___pref_loan___c_iter.html">KivaModel_PrefLoan_CIter</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_kiva_model_8h.html#ad70e6793ce16955f0c96cbdf87d9cab8">KivaModel_firstPrefLoan</a> (const <a class="el" href="struct_kiva_model.html">KivaModel</a> *this)</td></tr>
+<tr class="separator:ad70e6793ce16955f0c96cbdf87d9cab8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae39d60c937fce559327f88feb6f831bc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_kiva_model___pref_loan___c_iter.html">KivaModel_PrefLoan_CIter</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_kiva_model_8h.html#ae39d60c937fce559327f88feb6f831bc">KivaModel_nextPrefLoan</a> (const <a class="el" href="struct_kiva_model.html">KivaModel</a> *this, <a class="el" href="struct_kiva_model___pref_loan___c_iter.html">KivaModel_PrefLoan_CIter</a> *)</td></tr>
+<tr class="separator:ae39d60c937fce559327f88feb6f831bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Typedef Documentation</h2>
 <a class="anchor" id="ac10211667a9098d43053243e3b4559a0"></a>
@@ -180,6 +190,18 @@ Functions</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">typedef struct <a class="el" href="struct_kiva_model.html">KivaModel</a> <a class="el" href="struct_kiva_model.html">KivaModel</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a115476ad838cbd609f0b8816286fd41d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef struct <a class="el" href="struct_kiva_model___pref_loan___c_iter.html">KivaModel_PrefLoan_CIter</a>  <a class="el" href="struct_kiva_model___pref_loan___c_iter.html">KivaModel_PrefLoan_CIter</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -378,6 +400,34 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="ad70e6793ce16955f0c96cbdf87d9cab8"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_kiva_model___pref_loan___c_iter.html">KivaModel_PrefLoan_CIter</a>* KivaModel_firstPrefLoan </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="struct_kiva_model.html">KivaModel</a> *&#160;</td>
+          <td class="paramname"><em>this</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Used to iterate through the list of preferred loans.</p>
+<div class="fragment"><div class="line"><span class="keywordflow">for</span> (<a class="code" href="struct_kiva_model___pref_loan___c_iter.html">KivaModel_PrefLoan_CIter</a>* plIter = <a class="code" href="_kiva_model_8c.html#ad70e6793ce16955f0c96cbdf87d9cab8">KivaModel_firstPrefLoan</a>(kivaModel),</div><div class="line">     plIter != NULL; plIter = <a class="code" href="_kiva_model_8c.html#a69e916d237d63c0475d60ae8ffcfb383">KivaModel_nextPrefLoan</a>(kivaModel, plIter)) {</div><div class="line">  printf(<span class="stringliteral">&quot;Loan #%d Name: %s\n&quot;</span>, plIter-&gt;idx, plIter-&gt;data-&gt;name);</div><div class="line">}</div></div><!-- fragment --><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">this</td><td>Pointer to <a class="el" href="struct_kiva_model.html">KivaModel</a>; must be already allocated</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>NULL if there are no preferred loans in this <a class="el" href="struct_kiva_model.html">KivaModel</a> a valid iterator for the first preferred loan in this <a class="el" href="struct_kiva_model.html">KivaModel</a> <em>If a valid iterator, is returned, ownership of the iterator pointer's memory is transferred to the caller, and the caller is responsible for freeing it, in one of the following ways:</em><ul>
+<li>Calling <a class="el" href="_kiva_model_8c.html#a69e916d237d63c0475d60ae8ffcfb383">KivaModel_nextPrefLoan()</a> until a NULL is returned.</li>
+<li>Calling KivaModel_donePrefLoan() </li>
+</ul>
+</dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="a457e2442266a5a5a5ea9a91c28b2ecd7"></a>
 <div class="memitem">
 <div class="memproto">
@@ -490,7 +540,6 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>MPA_SUCCESS on success MPA_INVALID_INPUT_ERR if countryCodes is not NULL on entry </dd></dl>
-<p>&lt; Arbitrary start size </p>
 
 </div>
 </div>
@@ -656,6 +705,76 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a class="anchor" id="aca405d83b18a4054a08a4ffc90bdfdbd"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="magpebapp_8h.html#ad93489195a8c73bb5dc1acba0185cb01">MagPebApp_ErrCode</a> KivaModel_getPreferredLoanQty </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="struct_kiva_model.html">KivaModel</a> *&#160;</td>
+          <td class="paramname"><em>this</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint16_t *&#160;</td>
+          <td class="paramname"><em>prefLoanQty</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Returns the number of preferred loans stored in this model.</p>
+<p>Preferred loans are a list of fundraising loans in which the lender has indicated an interest.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">this</td><td>Pointer to <a class="el" href="struct_kiva_model.html">KivaModel</a>; must be already allocated </td></tr>
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">prefLoanQty</td><td>The quantity of preferred loans stored</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>MPA_SUCCESS on success MPA_NULL_POINTER_ERR if this is NULL </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ae39d60c937fce559327f88feb6f831bc"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_kiva_model___pref_loan___c_iter.html">KivaModel_PrefLoan_CIter</a>* KivaModel_nextPrefLoan </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="struct_kiva_model.html">KivaModel</a> *&#160;</td>
+          <td class="paramname"><em>this</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="struct_kiva_model___pref_loan___c_iter.html">KivaModel_PrefLoan_CIter</a> *&#160;</td>
+          <td class="paramname"><em>plIter</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Used to iterate through the list of preferred loans.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">this</td><td>Pointer to <a class="el" href="struct_kiva_model.html">KivaModel</a>; must be already allocated</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>NULL if there are no more preferred loans in this <a class="el" href="struct_kiva_model.html">KivaModel</a> a valid LoanInfo* for the next preferred loan in this <a class="el" href="struct_kiva_model.html">KivaModel</a> </dd></dl>
 
 </div>
 </div>
