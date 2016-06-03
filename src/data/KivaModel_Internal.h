@@ -26,6 +26,8 @@ typedef struct LoanRec {
 } LoanRec;
 
 
+
+
 struct KivaModel {
   struct LenderInfo lenderInfo;
   CountryRec* kivaCountries;

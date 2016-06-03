@@ -17,6 +17,13 @@ typedef struct LoanInfo {
 } LoanInfo;
 
 
+typedef struct KivaModel_PrefLoan_CIter {
+  const LoanInfo* data;     ///< pointer to the LoanInfo struct this iterator points to
+  uint16_t        idx;      ///< enumerates the iteration count, starting with zero
+  const void*     internal; ///< internal state used by KivaModel -- clients: do not touch <!-- LoanRec* -->
+} KivaModel_PrefLoan_CIter;
+
+
 
 
 KivaModel* KivaModel_create(const char*);
@@ -44,4 +51,9 @@ MagPebApp_ErrCode KivaModel_getLenderCountryQty(const KivaModel* this, int*);
 MagPebApp_ErrCode KivaModel_getLenderCountryCodes(const KivaModel* this, const bool, char**);
 MagPebApp_ErrCode KivaModel_getKivaCountryQty(const KivaModel* this, int*);
 MagPebApp_ErrCode KivaModel_getKivaCountryName(const KivaModel* this, const char*, const char**);
+
+MagPebApp_ErrCode KivaModel_getPreferredLoanQty(const KivaModel* this, uint16_t*);
+KivaModel_PrefLoan_CIter* KivaModel_firstPrefLoan(const KivaModel* this);
+KivaModel_PrefLoan_CIter* KivaModel_nextPrefLoan(const KivaModel* this, KivaModel_PrefLoan_CIter*);
+
 

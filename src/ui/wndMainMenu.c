@@ -120,7 +120,7 @@ static void wndMainMenu_draw_row_callback(GContext* ctx, const Layer* cell_layer
 /////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
 static void wndMainMenu_select_callback(MenuLayer* menu_layer, MenuIndex* cell_index, void* data) {
-  // Use the row to specify which item will receive the select action
+
   switch (cell_index->row) {
     case MNU_ITEM_LENDER_INFO: {
       wndLenderBasics_push();
@@ -133,6 +133,7 @@ static void wndMainMenu_select_callback(MenuLayer* menu_layer, MenuIndex* cell_i
       } else {
         (*myHandlers.getPrefLoans)();
       }
+
       WndDataMenu_push(wndPrefLoans);
       break;
     }
@@ -176,9 +177,45 @@ void wndMainMenu_setHandlers(const wndMainMenuHandlers wmmh) {
 /////////////////////////////////////////////////////////////////////////////
 void wndMainMenu_updateView(const KivaModel* km) {
   kivaModel = km;
-  wndLenderBasics_updateView(kivaModel);
-  WndDataMenu_updateView(wndCountries);
-  WndDataMenu_updateView(wndPrefLoans);
+  MagPebApp_ErrCode mpaRet = MPA_SUCCESS;
+
+  MenuIndex sel = menu_layer_get_selected_index(lyrMainMenu);
+
+  switch (sel.row) {
+    case MNU_ITEM_LOANS_FOR_YOU: {
+      uint16_t prefLoanQty = 0;
+      if ( (mpaRet = KivaModel_getPreferredLoanQty(kivaModel, &prefLoanQty) ) != MPA_SUCCESS) {
+          APP_LOG(APP_LOG_LEVEL_ERROR, "Error getting number of preferred loans: %s", MagPebApp_getErrMsg(mpaRet));
+      }
+      if ( (mpaRet = WndDataMenu_buildSection(wndPrefLoans, 0, prefLoanQty, "Loans for You") ) != MPA_SUCCESS) {
+          APP_LOG(APP_LOG_LEVEL_ERROR, "Could not build section for loan menu: %s", MagPebApp_getErrMsg(mpaRet));
+      }
+
+      for (KivaModel_PrefLoan_CIter* plIter = KivaModel_firstPrefLoan(kivaModel);
+           plIter != NULL; plIter = KivaModel_nextPrefLoan(kivaModel, plIter)) {
+        long lret = 0;
+        const uint8_t bufsize = 30;
+        char buffer[bufsize];
+        if ( (lret = snprintf(buffer, bufsize, "$%d of $%d funded", plIter->data->fundedAmt, plIter->data->loanAmt)) < 0) {
+          APP_LOG(APP_LOG_LEVEL_ERROR, "Error in sprintf. Ret=%ld", lret);
+        } else if ((size_t)lret >= bufsize) {
+          APP_LOG(APP_LOG_LEVEL_WARNING, "String truncated by sprintf. %ld characters required.", lret);
+        }
+        if ( (mpaRet = WndDataMenu_buildRow(wndPrefLoans, 0, plIter->idx, plIter->data->name, buffer) ) != MPA_SUCCESS) {
+            APP_LOG(APP_LOG_LEVEL_ERROR, "Could not build row for loan menu: %s", MagPebApp_getErrMsg(mpaRet));
+        }
+      }
+      WndDataMenu_updateView(wndPrefLoans);
+      break;
+    }
+    case MNU_ITEM_LENDER_INFO: {
+      wndLenderBasics_updateView(kivaModel);
+      break;
+    }
+    case MNU_ITEM_COUNTRIES: {
+      WndDataMenu_updateView(wndCountries);
+    }
+  }
 }
 
 
@@ -188,7 +225,7 @@ static void wndMainMenu_load(Window* window) {
   window_set_background_color(window, COLOR_FALLBACK(GColorDarkGreen, GColorBlack));
   Layer* lyrRoot = window_get_root_layer(window);
   GRect bounds = layer_get_bounds(lyrRoot);
-  MagPebApp_ErrCode mpaRet;
+  MagPebApp_ErrCode mpaRet = MPA_SUCCESS;
 
   if (lyrMainMenu) {
     APP_LOG(APP_LOG_LEVEL_WARNING, "Attempting to re-create layer before destroying.");
@@ -230,18 +267,6 @@ static void wndMainMenu_load(Window* window) {
     wndPrefLoans = WndDataMenu_create();
     if ( (mpaRet = WndDataMenu_setNumSections(wndPrefLoans, 1) ) != MPA_SUCCESS) {
         APP_LOG(APP_LOG_LEVEL_ERROR, "Could not initialize sections for loan menu: %s", MagPebApp_getErrMsg(mpaRet));
-    }
-    if ( (mpaRet = WndDataMenu_buildSection(wndPrefLoans, 0, 3, "Loans for You") ) != MPA_SUCCESS) {
-        APP_LOG(APP_LOG_LEVEL_ERROR, "Could not build section for loan menu: %s", MagPebApp_getErrMsg(mpaRet));
-    }
-    if ( (mpaRet = WndDataMenu_buildRow(wndPrefLoans, 0, 0, "Maryamu", "to purchase improved farm inputs that will increase farm yields") ) != MPA_SUCCESS) {
-        APP_LOG(APP_LOG_LEVEL_ERROR, "Could not build row for loan menu: %s", MagPebApp_getErrMsg(mpaRet));
-    }
-    if ( (mpaRet = WndDataMenu_buildRow(wndPrefLoans, 0, 1, "Ismael", "to pay for the maintenance for his tricycle.") ) != MPA_SUCCESS) {
-        APP_LOG(APP_LOG_LEVEL_ERROR, "Could not build row for loan menu: %s", MagPebApp_getErrMsg(mpaRet));
-    }
-    if ( (mpaRet = WndDataMenu_buildRow(wndPrefLoans, 0, 2, "Gladys", "to buy tea leaves to sell.") ) != MPA_SUCCESS) {
-        APP_LOG(APP_LOG_LEVEL_ERROR, "Could not build row for loan menu: %s", MagPebApp_getErrMsg(mpaRet));
     }
     if ( (mpaRet = WndDataMenu_setPalette(wndPrefLoans, colors) ) != MPA_SUCCESS) {
         APP_LOG(APP_LOG_LEVEL_WARNING, "Could not set colors for loan menu: %s", MagPebApp_getErrMsg(mpaRet));

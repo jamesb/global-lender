@@ -53,12 +53,208 @@ static bool unloadTupleLong(long int* buffer, Tuple* tuple, const char* readable
 
 
 /////////////////////////////////////////////////////////////////////////////
+/// Deserializes a KEY_KIVA_COUNTRY_SET tuple.
+///
+/// @param[in]      tuple  This tuple must be non-null and its key must
+///       match KEY_KIVA_COUNTRY_SET.
+///
+/// @return  MPA_SUCCESS on success
+///          MPA_NULL_POINTER_ERR if parameters tuple or ... is
+///            NULL upon entry.
+///          MPA_OUT_OF_MEMORY_ERR if a memory allocation fails
+///
+/////////////////////////////////////////////////////////////////////////////
+static MagPebApp_ErrCode unloadKivaCountrySet(Tuple* tuple) {
+  MPA_RETURN_IF_NULL(tuple);
+
+  size_t bufsize = strlen(tuple->value->cstring)+1;
+  const char* readable = "Kiva-Served Countries";
+  char* countrySetBuf = NULL;
+  ProcessingState* state = NULL;
+  uint16_t num_strings = 0;
+  uint16_t idx = 0;
+  char** strings = NULL;
+  MagPebApp_ErrCode mpaRet = MPA_SUCCESS;
+
+  if ( (countrySetBuf = malloc(bufsize)) == NULL) { goto freemem; }
+
+  APP_LOG(APP_LOG_LEVEL_DEBUG, "About to deserialize Kiva countries!");
+
+  if (!unloadTupleStr(&countrySetBuf, bufsize, tuple, readable)) {
+    APP_LOG(APP_LOG_LEVEL_ERROR, "Error in unloadTupleStr.");
+    goto freemem;
+  }
+
+  if ( (state = data_processor_create(countrySetBuf, '|')) == NULL) { goto freemem; }
+  num_strings = data_processor_count(state);
+  if ( (strings = calloc(num_strings, sizeof(*strings))) == NULL) { goto freemem; }
+
+  for (idx = 0; idx < num_strings; idx += 2) {
+    strings[idx] = data_processor_get_string(state);
+    if (strings[idx] == NULL) { goto freemem; }
+
+    strings[idx+1] = data_processor_get_string(state);
+    if (strings[idx+1] == NULL) {goto freemem; }
+
+    if ( (mpaRet = KivaModel_addKivaCountry(dataModel, strings[idx], strings[idx+1])) != MPA_SUCCESS) {
+        APP_LOG(APP_LOG_LEVEL_ERROR, "Error adding Kiva country to data model: %s", MagPebApp_getErrMsg(mpaRet));
+    }
+
+    if (strings[idx+1] != NULL) {
+      free(strings[idx+1]);  strings[idx+1] = NULL;
+    }
+    if (strings[idx] != NULL) {
+      free(strings[idx]);  strings[idx] = NULL;
+    }
+  }
+
+  if (strings != NULL) {
+    free(strings);  strings = NULL;
+  }
+  if (state != NULL) {
+    free(state);  state = NULL;
+  }
+  if (countrySetBuf != NULL) {
+    free(countrySetBuf); countrySetBuf = NULL;
+  }
+
+  int kivaCountryQty = 0;
+  if ( (mpaRet = KivaModel_getKivaCountryQty(dataModel, &kivaCountryQty)) != MPA_SUCCESS) {
+      APP_LOG(APP_LOG_LEVEL_ERROR, "Error getting Kiva country quantity from data model: %s", MagPebApp_getErrMsg(mpaRet));
+  }
+  APP_LOG(APP_LOG_LEVEL_INFO, "Kiva active country total: %d", kivaCountryQty);
+
+  return MPA_SUCCESS;
+
+freemem:
+  for (idx = 0; idx < num_strings; idx ++) {
+    if (strings[idx] != NULL) {
+      free(strings[idx]);  strings[idx] = NULL;
+    }
+  }
+  if (strings != NULL) {
+    free(strings);  strings = NULL;
+  }
+  if (state != NULL) {
+    free(state);  state = NULL;
+  }
+  if (countrySetBuf != NULL) {
+    free(countrySetBuf);  countrySetBuf = NULL;
+  }
+
+  return MPA_OUT_OF_MEMORY_ERR;
+}
+
+
+/////////////////////////////////////////////////////////////////////////////
+/// Deserializes a KEY_KIVA_COUNTRY_SET tuple.
+///
+/// @param[in]      tuple  This tuple must be non-null and its key must
+///       match KEY_KIVA_COUNTRY_SET.
+///
+/// @return  MPA_SUCCESS on success
+///          MPA_NULL_POINTER_ERR if parameters tuple or ... is
+///            NULL upon entry.
+///          MPA_OUT_OF_MEMORY_ERR if a memory allocation fails
+///
+/////////////////////////////////////////////////////////////////////////////
+static MagPebApp_ErrCode unloadPreferredLoanSet(Tuple* tuple) {
+  MPA_RETURN_IF_NULL(tuple);
+
+  size_t bufsize = strlen(tuple->value->cstring)+1;
+  const char* readable = "Preferred Loans";
+  char* loanSetBuf = NULL;
+  ProcessingState* state = NULL;
+  uint16_t num_fields = 0;
+  uint16_t idx = 0;
+  char* name = NULL;
+  char* use = NULL;
+  char* countryCode = NULL;
+  MagPebApp_ErrCode mpaRet = MPA_SUCCESS;
+
+
+  if ( (loanSetBuf = malloc(bufsize)) == NULL) { goto freemem; }
+
+  APP_LOG(APP_LOG_LEVEL_DEBUG, "About to deserialize loans!");
+
+  if (!unloadTupleStr(&loanSetBuf, bufsize, tuple, readable)) {
+    APP_LOG(APP_LOG_LEVEL_ERROR, "Error in unloadTupleStr.");
+    goto freemem;
+  }
+
+  if ( (mpaRet = KivaModel_clearPreferredLoans(dataModel)) != MPA_SUCCESS) {
+    APP_LOG(APP_LOG_LEVEL_ERROR, "Error clearing preferred loan list: %s", MagPebApp_getErrMsg(mpaRet));
+    return mpaRet;
+  }
+
+  if ( (state = data_processor_create(loanSetBuf, '|')) == NULL) { goto freemem; }
+  num_fields = data_processor_count(state);
+  APP_LOG(APP_LOG_LEVEL_INFO, "Found %d loans of interest. (%d fields)", num_fields/6, num_fields);
+  for (idx = 0; idx < num_fields; idx += 6) {
+    uint32_t id =        data_processor_get_int(state);
+    name =               data_processor_get_string(state);
+    use =                data_processor_get_string(state);
+    countryCode =        data_processor_get_string(state);
+    uint16_t fundedAmt = data_processor_get_int(state);
+    uint16_t loanAmt =   data_processor_get_int(state);
+    APP_LOG(APP_LOG_LEVEL_INFO, "[%ld] [%s] [%s] [%d] [%d] [%s]", id, name, countryCode, fundedAmt, loanAmt, use);
+    if ( (mpaRet = KivaModel_addPreferredLoan(dataModel, (LoanInfo) {
+            .id =          id,
+            .name =        name,
+            .use =         use,
+            .countryCode = countryCode,
+            .fundedAmt =   fundedAmt,
+            .loanAmt =     loanAmt
+          })) != MPA_SUCCESS) {
+        APP_LOG(APP_LOG_LEVEL_ERROR, "Error adding preferred loan to data model: %s", MagPebApp_getErrMsg(mpaRet));
+    }
+    if (name != NULL) {
+      free(name);  name = NULL;
+    }
+    if (use != NULL) {
+      free(use);  use = NULL;
+    }
+    if (countryCode != NULL) {
+      free(countryCode);  countryCode = NULL;
+    }
+  }
+  if (state != NULL) {
+    free(state);  state = NULL;
+  }
+  if (loanSetBuf != NULL) {
+    free(loanSetBuf);  loanSetBuf = NULL;
+  }
+
+  return MPA_SUCCESS;
+
+freemem:
+  if (name != NULL) {
+    free(name);  name = NULL;
+  }
+  if (use != NULL) {
+    free(use);  use = NULL;
+  }
+  if (countryCode != NULL) {
+    free(countryCode);  countryCode = NULL;
+  }
+  if (state != NULL) {
+    free(state);  state = NULL;
+  }
+  if (loanSetBuf != NULL) {
+    free(loanSetBuf);  loanSetBuf = NULL;
+  }
+
+  return MPA_OUT_OF_MEMORY_ERR;
+}
+
+
+/////////////////////////////////////////////////////////////////////////////
 /// Handles callbacks from the JS component
 /////////////////////////////////////////////////////////////////////////////
 static void inbox_received_callback(DictionaryIterator *iterator, void *context) {
   APP_LOG(APP_LOG_LEVEL_INFO, "Inbox receive successful.");
 
-  MagPebApp_ErrCode mpaRet;
+  MagPebApp_ErrCode mpaRet = MPA_SUCCESS;
   Tuple *tuple = NULL;
   if ( (tuple = dict_find(iterator, KEY_PEBKIT_READY)) != NULL ) {
     // PebbleKit JS is ready! Safe to send messages
@@ -66,35 +262,11 @@ static void inbox_received_callback(DictionaryIterator *iterator, void *context)
   }
 
   if ( (tuple = dict_find(iterator, KEY_KIVA_COUNTRY_SET)) != NULL ) {
-    const char* readable = "Kiva-Served Countries";
-    size_t bufsize = strlen(tuple->value->cstring)+1;
-    char* countrySetBuf = NULL;
-    countrySetBuf = malloc(bufsize);
-    APP_LOG(APP_LOG_LEVEL_DEBUG, "About to deserialize Kiva countries!");
-    if (!unloadTupleStr(&countrySetBuf, bufsize, tuple, readable)) {
-      APP_LOG(APP_LOG_LEVEL_ERROR, "Error in unloadTupleStr.");
-    } else {
-      ProcessingState* state = data_processor_create(countrySetBuf, '|');
-      uint8_t num_strings = data_processor_count(state);
-      char** strings = malloc(sizeof(char*) * num_strings);
-      for (uint8_t n = 0; n < num_strings; n += 2) {
-        strings[n] = data_processor_get_string(state);
-        strings[n+1] = data_processor_get_string(state);
-        if ( (mpaRet = KivaModel_addKivaCountry(dataModel, strings[n], strings[n+1])) != MPA_SUCCESS) {
-            APP_LOG(APP_LOG_LEVEL_ERROR, "Error adding Kiva country to data model: %s", MagPebApp_getErrMsg(mpaRet));
-        }
-        free(strings[n]);
-        free(strings[n+1]);
-      }
-      free(strings);
-      free(state);
+    if ( (mpaRet = unloadKivaCountrySet(tuple)) != MPA_SUCCESS) {
+      APP_LOG(APP_LOG_LEVEL_ERROR, "Error retrieving Kiva-served countries: %s", MagPebApp_getErrMsg(mpaRet));
+      return;
     }
-    free(countrySetBuf); countrySetBuf = NULL;
-    int kivaCountryQty = 0;
-    if ( (mpaRet = KivaModel_getKivaCountryQty(dataModel, &kivaCountryQty)) != MPA_SUCCESS) {
-        APP_LOG(APP_LOG_LEVEL_ERROR, "Error getting Kiva country quantity from data model: %s", MagPebApp_getErrMsg(mpaRet));
-    }
-    APP_LOG(APP_LOG_LEVEL_INFO, "Kiva active country total: %d", kivaCountryQty);
+    // Get Lender info
     comm_sendMsgCstr(KEY_GET_LENDER_INFO, NULL);
   }
 
@@ -166,9 +338,9 @@ static void inbox_received_callback(DictionaryIterator *iterator, void *context)
       APP_LOG(APP_LOG_LEVEL_ERROR, "Error in unloadTupleStr.");
     } else {
       ProcessingState* state = data_processor_create(countrySetBuf, '|');
-      uint8_t num_strings = data_processor_count(state);
+      uint16_t num_strings = data_processor_count(state);
       char** strings = malloc(sizeof(char*) * num_strings);
-      for (uint8_t n = 0; n < num_strings; n += 2) {
+      for (uint16_t n = 0; n < num_strings; n += 2) {
         strings[n] = data_processor_get_string(state);
         strings[n+1] = data_processor_get_string(state);
         if ( (mpaRet = KivaModel_addLenderCountry(dataModel, strings[n], strings[n+1])) != MPA_SUCCESS) {
@@ -184,46 +356,10 @@ static void inbox_received_callback(DictionaryIterator *iterator, void *context)
   }
 
   if ( (tuple = dict_find(iterator, KEY_LOAN_SET)) != NULL ) {
-    const char* readable = "Preferred Loans";
-    size_t bufsize = strlen(tuple->value->cstring)+1;
-    char* loanSetBuf = NULL;
-    loanSetBuf = malloc(bufsize);
-    APP_LOG(APP_LOG_LEVEL_DEBUG, "About to deserialize loans!");
-    if (!unloadTupleStr(&loanSetBuf, bufsize, tuple, readable)) {
-      APP_LOG(APP_LOG_LEVEL_ERROR, "Error in unloadTupleStr.");
-    } else {
-      if ( (mpaRet = KivaModel_clearPreferredLoans(dataModel)) != MPA_SUCCESS) {
-        APP_LOG(APP_LOG_LEVEL_ERROR, "Error clearing preferred loan list: %s", MagPebApp_getErrMsg(mpaRet));
-      } else {
-        ProcessingState* state = data_processor_create(loanSetBuf, '|');
-        uint8_t num_fields = data_processor_count(state);
-        APP_LOG(APP_LOG_LEVEL_INFO, "Found %d loans of interest.", num_fields/6);
-        for (uint8_t n = 0; n < num_fields; n += 6) {
-          uint32_t id =        data_processor_get_int(state);
-          char* name =         data_processor_get_string(state);
-          char* use =          data_processor_get_string(state);
-          char* countryCode =  data_processor_get_string(state);
-          uint16_t fundedAmt = data_processor_get_int(state);
-          uint16_t loanAmt =   data_processor_get_int(state);
-          APP_LOG(APP_LOG_LEVEL_INFO, "0:[%ld] 1:[%s] 2:[%s] 3:[%s] 4:[%d] 5:[%d]", id, name, use, countryCode, fundedAmt, loanAmt);
-          if ( (mpaRet = KivaModel_addPreferredLoan(dataModel, (LoanInfo) {
-                  .id =          id,
-                  .name =        name,
-                  .use =         use,
-                  .countryCode = countryCode,
-                  .fundedAmt =   fundedAmt,
-                  .loanAmt =     loanAmt
-                })) != MPA_SUCCESS) {
-              APP_LOG(APP_LOG_LEVEL_ERROR, "Error adding preferred loan to data model: %s", MagPebApp_getErrMsg(mpaRet));
-          }
-          free(name);
-          free(use);
-          free(countryCode);
-        }
-        free(state);
-      }
+    if ( (mpaRet = unloadPreferredLoanSet(tuple)) != MPA_SUCCESS) {
+      APP_LOG(APP_LOG_LEVEL_ERROR, "Error retrieving preferred loans: %s", MagPebApp_getErrMsg(mpaRet));
+      return;
     }
-    free(loanSetBuf); loanSetBuf = NULL;
   }
 
   if (!commHandlers.notifyView) {

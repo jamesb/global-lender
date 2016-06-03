@@ -140,6 +140,10 @@ static MagPebApp_ErrCode KivaModel_LoanRec_init(LoanRec* this, const LoanInfo lo
   if ( (this->data.countryCode = malloc(strlen(loanInfo.countryCode) + 1)) == NULL) { goto freemem; }
   strcpy(this->data.countryCode, loanInfo.countryCode);
 
+  this->data.id = loanInfo.id;
+  this->data.fundedAmt = loanInfo.fundedAmt;
+  this->data.loanAmt = loanInfo.loanAmt;
+
   return MPA_SUCCESS;
 
 freemem:
@@ -536,10 +540,10 @@ MagPebApp_ErrCode KivaModel_getLenderCountryCodes(const KivaModel* this, const b
   const char* sep = ",";
 
   char* lenderCntryCodes = NULL;
-  size_t bufsize = 16;    ///< Arbitrary start size
+  size_t bufsize = 16;    // Arbitrary start size
   size_t buflen = 0;
 
-  if ( (lenderCntryCodes = (char*) calloc(bufsize, sizeof(char))) == NULL) { goto freemem; }
+  if ( (lenderCntryCodes = calloc(bufsize, sizeof(*lenderCntryCodes))) == NULL) { goto freemem; }
 
   CountryRec* cntry = NULL;
   for (cntry=this->kivaCountries; cntry!=NULL; cntry=cntry->hh.next) {
@@ -602,6 +606,33 @@ MagPebApp_ErrCode KivaModel_clearPreferredLoans(KivaModel* this) {
 
 
 /////////////////////////////////////////////////////////////////////////////
+/// Returns the number of preferred loans stored in this model.
+///
+/// Preferred loans are a list of fundraising loans in which the lender has
+/// indicated an interest.
+///
+/// @param[in,out]  this  Pointer to KivaModel; must be already allocated
+/// @param[in,out]  prefLoanQty  The quantity of preferred loans stored
+///
+/// @return
+///   MPA_SUCCESS on success
+///   MPA_NULL_POINTER_ERR if this is NULL
+/////////////////////////////////////////////////////////////////////////////
+MagPebApp_ErrCode KivaModel_getPreferredLoanQty(const KivaModel* this, uint16_t* prefLoanQty) {
+  MPA_RETURN_IF_NULL(this);
+
+  uint16_t prefLoanCount = 0;
+  LoanRec* loan = NULL;
+  for (loan=this->prefLoans; loan!=NULL; loan=loan->hh.next) {
+    prefLoanCount++;
+  }
+  *prefLoanQty = prefLoanCount;
+
+  return MPA_SUCCESS;
+}
+
+
+/////////////////////////////////////////////////////////////////////////////
 /// Adds a new loan to the list of preferred loans.
 /// Preferred loans are a list of fundraising loans in which the lender has
 /// indicated an interest.
@@ -646,6 +677,78 @@ MagPebApp_ErrCode KivaModel_addPreferredLoan(KivaModel* this, const LoanInfo loa
 }
 
 
+/////////////////////////////////////////////////////////////////////////////
+/// Used to iterate through the list of preferred loans.
+///
+/// \code{.c}
+/// for (KivaModel_PrefLoan_CIter* plIter = KivaModel_firstPrefLoan(kivaModel),
+///      plIter != NULL; plIter = KivaModel_nextPrefLoan(kivaModel, plIter)) {
+///   printf("Loan #%d Name: %s\n", plIter->idx, plIter->data->name);
+/// }
+/// \endcode
+///
+/// @param[in,out]  this  Pointer to KivaModel; must be already allocated
+///
+/// @return
+///    NULL if there are no preferred loans in this KivaModel
+///    a valid iterator for the first preferred loan in this KivaModel
+///    <em>If a valid iterator, is returned, ownership of the iterator
+///    pointer's memory is transferred to the caller, and the caller is
+///    responsible for freeing it, in one of the following ways:</em>
+///    - Calling KivaModel_nextPrefLoan() until a NULL is returned.
+///    - Calling KivaModel_donePrefLoan()
+/////////////////////////////////////////////////////////////////////////////
+KivaModel_PrefLoan_CIter* KivaModel_firstPrefLoan(const KivaModel* this) {
+  if (this == NULL) return NULL;
+
+  KivaModel_PrefLoan_CIter* plIter = calloc(1, sizeof(*plIter));
+  if (plIter == NULL) return NULL;
+  plIter->idx = 0;
+  plIter->internal = (void*) this->prefLoans;
+
+APP_LOG(APP_LOG_LEVEL_DEBUG, "plIter: #%d (%p)", plIter->idx, plIter);
+  if (plIter->internal == NULL) {
+    free(plIter);
+    plIter = NULL;
+  } else {
+    plIter->data = &((LoanRec*) plIter->internal)->data;
+  }
+APP_LOG(APP_LOG_LEVEL_DEBUG, "plIter: #%d (%p)", plIter->idx, plIter);
+  return plIter;
+}
+
+
+/////////////////////////////////////////////////////////////////////////////
+/// Used to iterate through the list of preferred loans.
+///
+/// @param[in,out]  this  Pointer to KivaModel; must be already allocated
+///
+/// @return
+///    NULL if there are no more preferred loans in this KivaModel
+///    a valid LoanInfo* for the next preferred loan in this KivaModel
+/////////////////////////////////////////////////////////////////////////////
+KivaModel_PrefLoan_CIter* KivaModel_nextPrefLoan(const KivaModel* this, KivaModel_PrefLoan_CIter* plIter) {
+  // JRB TODO: Do I really need KivaModel* passed in here?
+  if (this == NULL) return NULL;
+
+  if (plIter != NULL) {
+    LoanRec* incoming = (LoanRec*) plIter->internal;
+    plIter->internal = (void*) incoming->hh.next;
+    plIter->idx++;
+
+    if (plIter->internal == NULL) {
+      free(plIter);
+      plIter = NULL;
+    } else {
+      plIter->data = &((LoanRec*) plIter->internal)->data;
+    }
+  }
+
+  return plIter;
+}
+
+
+// JRB TODO: Implement KivaModel_donePrefLoan() -- destructor
 
 
 /////////////////////////////////////////////////////////////////////////////
