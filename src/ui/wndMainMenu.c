@@ -188,7 +188,7 @@ void wndMainMenu_updateView(const KivaModel* km) {
           APP_LOG(APP_LOG_LEVEL_ERROR, "Error getting number of preferred loans: %s", MagPebApp_getErrMsg(mpaRet));
       }
       if ( (mpaRet = WndDataMenu_buildSection(wndPrefLoans, 0, prefLoanQty, "Loans for You") ) != MPA_SUCCESS) {
-          APP_LOG(APP_LOG_LEVEL_ERROR, "Could not build section for loan menu: %s", MagPebApp_getErrMsg(mpaRet));
+          APP_LOG(APP_LOG_LEVEL_ERROR, "Could not build section: %s", MagPebApp_getErrMsg(mpaRet));
       }
 
       for (KivaModel_PrefLoan_CIter* plIter = KivaModel_firstPrefLoan(kivaModel);
@@ -202,7 +202,7 @@ void wndMainMenu_updateView(const KivaModel* km) {
           APP_LOG(APP_LOG_LEVEL_WARNING, "String truncated by sprintf. %ld characters required.", lret);
         }
         if ( (mpaRet = WndDataMenu_buildRow(wndPrefLoans, 0, plIter->idx, plIter->data->name, buffer) ) != MPA_SUCCESS) {
-            APP_LOG(APP_LOG_LEVEL_ERROR, "Could not build row for loan menu: %s", MagPebApp_getErrMsg(mpaRet));
+            APP_LOG(APP_LOG_LEVEL_ERROR, "Could not build row: %s", MagPebApp_getErrMsg(mpaRet));
         }
       }
       WndDataMenu_updateView(wndPrefLoans);
@@ -258,18 +258,18 @@ static void wndMainMenu_load(Window* window) {
 
     wndCountries = WndDataMenu_create();
     if ( (mpaRet = WndDataMenu_setNumSections(wndCountries, 1) ) != MPA_SUCCESS) {
-        APP_LOG(APP_LOG_LEVEL_ERROR, "Could not initialize sections for country menu: %s", MagPebApp_getErrMsg(mpaRet));
+        APP_LOG(APP_LOG_LEVEL_ERROR, "Could not set colors: %s", MagPebApp_getErrMsg(mpaRet));
     }
     if ( (mpaRet = WndDataMenu_setPalette(wndCountries, colors) ) != MPA_SUCCESS) {
-        APP_LOG(APP_LOG_LEVEL_WARNING, "Could not set colors for country menu: %s", MagPebApp_getErrMsg(mpaRet));
+        APP_LOG(APP_LOG_LEVEL_WARNING, "Could not set colors: %s", MagPebApp_getErrMsg(mpaRet));
     }
 
     wndPrefLoans = WndDataMenu_create();
     if ( (mpaRet = WndDataMenu_setNumSections(wndPrefLoans, 1) ) != MPA_SUCCESS) {
-        APP_LOG(APP_LOG_LEVEL_ERROR, "Could not initialize sections for loan menu: %s", MagPebApp_getErrMsg(mpaRet));
+        APP_LOG(APP_LOG_LEVEL_ERROR, "Could not initialize sections: %s", MagPebApp_getErrMsg(mpaRet));
     }
     if ( (mpaRet = WndDataMenu_setPalette(wndPrefLoans, colors) ) != MPA_SUCCESS) {
-        APP_LOG(APP_LOG_LEVEL_WARNING, "Could not set colors for loan menu: %s", MagPebApp_getErrMsg(mpaRet));
+        APP_LOG(APP_LOG_LEVEL_WARNING, "Could not set colors: %s", MagPebApp_getErrMsg(mpaRet));
     }
   }
 }

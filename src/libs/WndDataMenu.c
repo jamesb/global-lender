@@ -31,7 +31,7 @@ static MagPebApp_ErrCode WndDataMenu_SectionInfo_create(SectionInfo** section) {
   return MPA_SUCCESS;
 
 freemem:
-  APP_LOG(APP_LOG_LEVEL_ERROR, "Error in WndDataMenu_SectionInfo_create()... freeing memory.");
+  APP_LOG(APP_LOG_LEVEL_ERROR, "Error... freeing memory");
   if (*section != NULL) { free(*section);  *section = NULL; }
   return MPA_OUT_OF_MEMORY_ERR;
 }
@@ -71,15 +71,12 @@ static MagPebApp_ErrCode WndDataMenu_SectionInfo_init(SectionInfo* this) {
   MagPebApp_ErrCode mpaRet = MPA_SUCCESS;
 
   if (this->headerTitle != NULL)   {
-    APP_LOG(APP_LOG_LEVEL_ERROR, "SectionInfo headerTitle must be NULL.");
     return MPA_INVALID_INPUT_ERR;
   }
   if (this->rowTitles != NULL) {
-    APP_LOG(APP_LOG_LEVEL_ERROR, "SectionInfo rowTitles must be NULL.");
     return MPA_INVALID_INPUT_ERR;
   }
   if (this->rowSubtitles != NULL) {
-    APP_LOG(APP_LOG_LEVEL_ERROR, "SectionInfo rowSubtitles must be NULL.");
     return MPA_INVALID_INPUT_ERR;
   }
 
@@ -96,7 +93,7 @@ static MagPebApp_ErrCode WndDataMenu_SectionInfo_init(SectionInfo* this) {
   return MPA_SUCCESS;
 
 freemem:
-  APP_LOG(APP_LOG_LEVEL_ERROR, "Error in WndDataMenu_SectionInfo_init()... freeing memory.");
+  APP_LOG(APP_LOG_LEVEL_ERROR, "Error... freeing memory");
   if ( (mpaRet = WndDataMenu_SectionInfo_destroy(this)) != MPA_SUCCESS) {
     APP_LOG(APP_LOG_LEVEL_ERROR, "Error destroying SectionInfo: %s", MagPebApp_getErrMsg(mpaRet));
   }
@@ -292,7 +289,7 @@ static void WndDataMenu_load(Window* window) {
   return;  // success
 
 freemem:
-  APP_LOG(APP_LOG_LEVEL_ERROR, "Error in WndDataMenu_load()... freeing memory.");
+  APP_LOG(APP_LOG_LEVEL_ERROR, "Error... freeing memory");
   if (this->lyrDataMenu != NULL) {
     menu_layer_destroy(this->lyrDataMenu);
     this->lyrDataMenu = NULL;
@@ -394,7 +391,7 @@ MagPebApp_ErrCode WndDataMenu_setNumSections(WndDataMenu* this, const uint16_t n
   return MPA_SUCCESS;
 
 freemem:
-  APP_LOG(APP_LOG_LEVEL_ERROR, "Error in setNumSections(this, %d)... freeing memory.", numSections);
+  APP_LOG(APP_LOG_LEVEL_ERROR, "Error... freeing memory");
   if (numSections > this->numSections) {
     for (uint16_t sectIdx=this->numSections; sectIdx < numSections; sectIdx++) {
       if (this->sections[sectIdx] != NULL) {
@@ -445,7 +442,7 @@ MagPebApp_ErrCode WndDataMenu_setSectionTitle(WndDataMenu* this, const uint16_t 
 
 
 freemem:
-  APP_LOG(APP_LOG_LEVEL_ERROR, "Error in WndDataMenu_setSectionTitle()... freeing memory.");
+  APP_LOG(APP_LOG_LEVEL_ERROR, "Error... freeing memory");
   if (theSect->headerTitle != NULL) {
     free(theSect->headerTitle);
     theSect->headerTitle = NULL;
@@ -540,7 +537,7 @@ MagPebApp_ErrCode WndDataMenu_buildSection(WndDataMenu* this, const uint16_t sec
   return MPA_SUCCESS;
 
 freemem:
-  APP_LOG(APP_LOG_LEVEL_ERROR, "Error in buildSection()... freeing memory.");
+  APP_LOG(APP_LOG_LEVEL_ERROR, "Error... freeing memory");
   if (tmpRT != NULL) {
     free(tmpRT);  tmpRT = NULL;
   }
@@ -601,7 +598,7 @@ MagPebApp_ErrCode WndDataMenu_buildRow(WndDataMenu* this, const uint16_t sectIdx
 
 
 freemem:
-  APP_LOG(APP_LOG_LEVEL_ERROR, "Error in buildRow()... freeing memory.");
+  APP_LOG(APP_LOG_LEVEL_ERROR, "Error... freeing memory");
   if (theSect->rowTitles[rowIdx] != NULL) {
     free(theSect->rowTitles[rowIdx]);
     theSect->rowTitles[rowIdx] = NULL;
@@ -650,7 +647,7 @@ WndDataMenu* WndDataMenu_create() {
   return this;  // success
 
 freemem:
-  APP_LOG(APP_LOG_LEVEL_ERROR, "Error in WndDataMenu_create()... freeing memory.");
+  APP_LOG(APP_LOG_LEVEL_ERROR, "Error... freeing memory");
   if (this != NULL) { free(this);  this=NULL; }
   return this;
 }
@@ -696,7 +693,7 @@ MagPebApp_ErrCode WndDataMenu_init(WndDataMenu* this) {
   return MPA_SUCCESS;
 
 freemem:
-  APP_LOG(APP_LOG_LEVEL_ERROR, "Error in WndDataMenu_init()... freeing memory.");
+  APP_LOG(APP_LOG_LEVEL_ERROR, "Error... freeing memory");
   if (this->window != NULL) {
     window_destroy(this->window);
     this->window = NULL;

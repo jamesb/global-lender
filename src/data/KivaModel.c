@@ -184,7 +184,7 @@ KivaModel* KivaModel_create(const char* lenderId) {
 
   KivaModel* newKivaModel = malloc(sizeof(KivaModel));
   if ( (mpaRet = KivaModel_init(newKivaModel, lenderId)) != MPA_SUCCESS) {
-    APP_LOG(APP_LOG_LEVEL_ERROR, "Could not initialize Kiva Model: %s", MagPebApp_getErrMsg(mpaRet));
+    APP_LOG(APP_LOG_LEVEL_ERROR, "Could not initialize: %s", MagPebApp_getErrMsg(mpaRet));
     KivaModel_destroy(newKivaModel);  newKivaModel = NULL;
   }
 
@@ -205,24 +205,20 @@ MagPebApp_ErrCode KivaModel_destroy(KivaModel* this) {
   CountryRec* cntry = NULL; CountryRec* tmpCntry = NULL;
   HASH_ITER(hh, this->kivaCountries, cntry, tmpCntry) {
     if ( (mpaRet = KivaModel_CountryRec_destroy(cntry)) != MPA_SUCCESS) {
-      APP_LOG(APP_LOG_LEVEL_ERROR, "Error trying to destroy a country record: %s", MagPebApp_getErrMsg(mpaRet));
+      APP_LOG(APP_LOG_LEVEL_ERROR, "Error destroying: %s", MagPebApp_getErrMsg(mpaRet));
     }
     HASH_DEL(this->kivaCountries, cntry);
     cntry = NULL;
   }
-  HEAP_LOG("Freed kivaCountries and its data.");
 
   // Free memory for this->prefLoans and its data
   if ( (mpaRet = KivaModel_clearPreferredLoans(this)) != MPA_SUCCESS) {
     APP_LOG(APP_LOG_LEVEL_ERROR, "Error freeing preferred loan list: %s", MagPebApp_getErrMsg(mpaRet));
   }
-  HEAP_LOG("Freed prefLoans and its data.");
 
   if (this->lenderInfo.loc != NULL)  { free(this->lenderInfo.loc);  this->lenderInfo.loc = NULL; }
   if (this->lenderInfo.name != NULL) { free(this->lenderInfo.name); this->lenderInfo.name = NULL; }
   if (this->lenderInfo.id != NULL)   { free(this->lenderInfo.id);   this->lenderInfo.id = NULL; }
-
-  HEAP_LOG("Freed lenderInfo and its data.");
 
   free(this); this = NULL;
   return MPA_SUCCESS;
@@ -250,7 +246,7 @@ MagPebApp_ErrCode KivaModel_init(KivaModel* this, const char* lenderId) {
   this->kivaCountries = NULL;
 
   if ( (mpaRet = KivaModel_setLenderId(this, lenderId)) != MPA_SUCCESS) {
-    APP_LOG(APP_LOG_LEVEL_ERROR, "Could not set Lender ID. Destroying Kiva model.");
+    APP_LOG(APP_LOG_LEVEL_ERROR, "Error... freeing memory");
     KivaModel_destroy(this);  this = NULL;
   }
 
@@ -595,7 +591,7 @@ MagPebApp_ErrCode KivaModel_clearPreferredLoans(KivaModel* this) {
   LoanRec* loanRec = NULL; LoanRec* tmpLoan = NULL;
   HASH_ITER(hh, this->prefLoans, loanRec, tmpLoan) {
     if ( (mpaRet = KivaModel_LoanRec_destroy(loanRec)) != MPA_SUCCESS) {
-      APP_LOG(APP_LOG_LEVEL_ERROR, "Error trying to destroy a loan record: %s", MagPebApp_getErrMsg(mpaRet));
+      APP_LOG(APP_LOG_LEVEL_ERROR, "Error destroying: %s", MagPebApp_getErrMsg(mpaRet));
     }
     HASH_DEL(this->prefLoans, loanRec);
     loanRec = NULL;
@@ -648,11 +644,11 @@ MagPebApp_ErrCode KivaModel_addPreferredLoan(KivaModel* this, const LoanInfo loa
 
   LoanRec *newLoanRec = NULL;
   if ( (mpaRet = KivaModel_LoanRec_create(&newLoanRec)) != MPA_SUCCESS) {
-    APP_LOG(APP_LOG_LEVEL_ERROR, "Could not create new loan record (%ld): %s", loanInfo.id, MagPebApp_getErrMsg(mpaRet));
+    APP_LOG(APP_LOG_LEVEL_ERROR, "Could not create (%ld): %s", loanInfo.id, MagPebApp_getErrMsg(mpaRet));
     return mpaRet;
   }
   if ( (mpaRet = KivaModel_LoanRec_init(newLoanRec, loanInfo)) != MPA_SUCCESS) {
-    APP_LOG(APP_LOG_LEVEL_ERROR, "Could not initialize new loan record (%ld): %s", loanInfo.id, MagPebApp_getErrMsg(mpaRet));
+    APP_LOG(APP_LOG_LEVEL_ERROR, "Could not initialize (%ld): %s", loanInfo.id, MagPebApp_getErrMsg(mpaRet));
     KivaModel_LoanRec_destroy(newLoanRec);  newLoanRec = NULL;
     return mpaRet;
   }
@@ -767,11 +763,11 @@ MagPebApp_ErrCode KivaModel_addKivaCountry(KivaModel* this, const char* countryI
 
   CountryRec *newCntry = NULL;
   if ( (mpaRet = KivaModel_CountryRec_create(&newCntry)) != MPA_SUCCESS) {
-    APP_LOG(APP_LOG_LEVEL_ERROR, "Could not create new country record (%s): %s", countryId, MagPebApp_getErrMsg(mpaRet));
+    APP_LOG(APP_LOG_LEVEL_ERROR, "Could not create (%s): %s", countryId, MagPebApp_getErrMsg(mpaRet));
     return mpaRet;
   }
   if ( (mpaRet = KivaModel_CountryRec_init(newCntry, countryId, countryName)) != MPA_SUCCESS) {
-    APP_LOG(APP_LOG_LEVEL_ERROR, "Could not initialize new country record (%s): %s", countryId, MagPebApp_getErrMsg(mpaRet));
+    APP_LOG(APP_LOG_LEVEL_ERROR, "Could not initialize (%s): %s", countryId, MagPebApp_getErrMsg(mpaRet));
     KivaModel_CountryRec_destroy(newCntry);  newCntry = NULL;
     return mpaRet;
   }

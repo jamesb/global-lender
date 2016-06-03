@@ -102,7 +102,7 @@ MagPebApp_ErrCode strxcpyalloc(char** dest, const char* src) {
 
 
 freemem:
-  APP_LOG(APP_LOG_LEVEL_ERROR, "Error in strxcpyalloc()... freeing memory.");
+  APP_LOG(APP_LOG_LEVEL_ERROR, "Error... freeing memory");
   if ((*dest) != NULL) {
     free((*dest));
     (*dest) = NULL;

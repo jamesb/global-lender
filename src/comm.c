@@ -78,8 +78,6 @@ static MagPebApp_ErrCode unloadKivaCountrySet(Tuple* tuple) {
 
   if ( (countrySetBuf = malloc(bufsize)) == NULL) { goto freemem; }
 
-  APP_LOG(APP_LOG_LEVEL_DEBUG, "About to deserialize Kiva countries!");
-
   if (!unloadTupleStr(&countrySetBuf, bufsize, tuple, readable)) {
     APP_LOG(APP_LOG_LEVEL_ERROR, "Error in unloadTupleStr.");
     goto freemem;
@@ -174,8 +172,6 @@ static MagPebApp_ErrCode unloadPreferredLoanSet(Tuple* tuple) {
 
 
   if ( (loanSetBuf = malloc(bufsize)) == NULL) { goto freemem; }
-
-  APP_LOG(APP_LOG_LEVEL_DEBUG, "About to deserialize loans!");
 
   if (!unloadTupleStr(&loanSetBuf, bufsize, tuple, readable)) {
     APP_LOG(APP_LOG_LEVEL_ERROR, "Error in unloadTupleStr.");
@@ -333,7 +329,6 @@ static void inbox_received_callback(DictionaryIterator *iterator, void *context)
     size_t bufsize = strlen(tuple->value->cstring)+1;
     char* countrySetBuf = NULL;
     countrySetBuf = malloc(bufsize);
-    APP_LOG(APP_LOG_LEVEL_DEBUG, "About to deserialize lender countries!");
     if (!unloadTupleStr(&countrySetBuf, bufsize, tuple, readable)) {
       APP_LOG(APP_LOG_LEVEL_ERROR, "Error in unloadTupleStr.");
     } else {
@@ -440,7 +435,7 @@ void comm_getPreferredLoans() {
 
     MagPebApp_ErrCode mpaRet;
     char* countryCodes = NULL;
-    if ( (mpaRet = KivaModel_getLenderCountryCodes(dataModel, true, &countryCodes)) != MPA_SUCCESS) {
+    if ( (mpaRet = KivaModel_getLenderCountryCodes(dataModel, false, &countryCodes)) != MPA_SUCCESS) {
       APP_LOG(APP_LOG_LEVEL_ERROR, "Could not retrieve lender country codes: %s", MagPebApp_getErrMsg(mpaRet));
       return;
     }
