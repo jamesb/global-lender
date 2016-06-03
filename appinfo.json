@@ -43,7 +43,6 @@
     "sdkVersion": "3",
     "shortName": "GLend",
     "targetPlatforms": [
-        "aplite",
         "basalt",
         "chalk"
     ],
