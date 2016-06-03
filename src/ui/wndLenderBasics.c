@@ -68,7 +68,7 @@ void wndLenderBasics_updateView(const KivaModel* km) {
   static char buffer[100];
   if ( (lret = snprintf(buffer, sizeof(buffer), "%d Loans in\n%d of %d Countries", loanQty, lenderCountryQty, kivaCountryQty)) < 0) {
     APP_LOG(APP_LOG_LEVEL_ERROR, "Lender Summary string was not written correctly. Ret=%ld", lret);
-  } else if ((size_t)lret > sizeof(buffer)) {
+  } else if ((size_t)lret >= sizeof(buffer)) {
     APP_LOG(APP_LOG_LEVEL_WARNING, "Lender Summary string was truncated. %ld characters required.", lret);
   } else {
     text_layer_set_text(lyrLenderLoanSummary, buffer);

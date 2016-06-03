@@ -20,12 +20,16 @@ static bool pebkitReady;
 /// Converts a tuple to a simple data type.
 /////////////////////////////////////////////////////////////////////////////
 static bool unloadTupleStr(char** buffer, size_t bufsize, Tuple* tuple, const char* readable) {
+  if (*buffer == NULL) {
+    APP_LOG(APP_LOG_LEVEL_ERROR, "unloadTupleStr: Cannot write to null buffer!");
+    return false;
+  }
   if (tuple != NULL) {
     long ret = 0;
     if ((ret = snprintf(*buffer, bufsize, "%s", tuple->value->cstring)) < 0) {
       APP_LOG(APP_LOG_LEVEL_ERROR, "%s string was not written correctly. Ret=%ld", readable, ret);
       return false;
-    } else if ((size_t)ret > bufsize) {
+    } else if ((size_t)ret >= bufsize) {
       APP_LOG(APP_LOG_LEVEL_WARNING, "%s string was truncated. %ld characters required.", readable, ret);
     }
     APP_LOG(APP_LOG_LEVEL_DEBUG, "unloadTupleStr %s: %s", readable, *buffer);

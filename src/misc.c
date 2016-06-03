@@ -27,7 +27,7 @@ bool strxcpy(char* dest, size_t bufSize, const char* src, const char* readable) 
     if ((ret = snprintf(dest, bufSize, "%s", src)) < 0) {
       APP_LOG(APP_LOG_LEVEL_ERROR, "%s string output error. snprintf=%ld", readable, ret);
       return false;
-    } else if ((size_t)ret > bufSize) {
+    } else if ((size_t)ret >= bufSize) {
       APP_LOG(APP_LOG_LEVEL_WARNING, "%s string was truncated. %ld characters required.", readable, ret);
     }
     return true;
