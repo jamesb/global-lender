@@ -118,23 +118,14 @@ Include dependency graph for wndMainMenu.c:</div>
 Macros</h2></td></tr>
 <tr class="memitem:abcefc74a988790f43649ce1c61024abe"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="wnd_main_menu_8c.html#abcefc74a988790f43649ce1c61024abe">NUM_MENU_SECTIONS</a>&#160;&#160;&#160;1</td></tr>
 <tr class="separator:abcefc74a988790f43649ce1c61024abe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a29a6c439f183166f4ebd4290aad99558"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="wnd_main_menu_8c.html#a29a6c439f183166f4ebd4290aad99558">LOAN_MSG_SZ</a>&#160;&#160;&#160;32</td></tr>
+<tr class="separator:a29a6c439f183166f4ebd4290aad99558"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
 Enumerations</h2></td></tr>
-<tr class="memitem:aeda06dd7bf5623d17fd1ff42166d0f25"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="wnd_main_menu_8c.html#aeda06dd7bf5623d17fd1ff42166d0f25">MenuItems</a> { <br />
-&#160;&#160;<a class="el" href="wnd_main_menu_8c.html#aeda06dd7bf5623d17fd1ff42166d0f25af779da58458770043e6cebe84a6209bb">MNU_ITEM_LENDER_INFO</a> = 0, 
+<tr class="memitem:aeda06dd7bf5623d17fd1ff42166d0f25"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="wnd_main_menu_8c.html#aeda06dd7bf5623d17fd1ff42166d0f25">MenuItems</a> { <a class="el" href="wnd_main_menu_8c.html#aeda06dd7bf5623d17fd1ff42166d0f25af779da58458770043e6cebe84a6209bb">MNU_ITEM_LENDER_INFO</a> = 0, 
 <a class="el" href="wnd_main_menu_8c.html#aeda06dd7bf5623d17fd1ff42166d0f25a354639496bce6e337c94aa725bb1d5ca">MNU_ITEM_LOANS_FOR_YOU</a>, 
-<a class="el" href="wnd_main_menu_8c.html#aeda06dd7bf5623d17fd1ff42166d0f25a56146b9b5c8cee68ef1f82f24dce652b">MNU_ITEM_ACHIEVEMENTS</a>, 
-<a class="el" href="wnd_main_menu_8c.html#aeda06dd7bf5623d17fd1ff42166d0f25a3d1d3974b61fcb44895236b2634df752">MNU_ITEM_TEAMS</a>, 
-<br />
-&#160;&#160;<a class="el" href="wnd_main_menu_8c.html#aeda06dd7bf5623d17fd1ff42166d0f25a85f7bc70567d0edd6e39d9be8be43f03">MNU_ITEM_COUNTRIES</a>, 
-<a class="el" href="wnd_main_menu_8c.html#aeda06dd7bf5623d17fd1ff42166d0f25a77777195abfe1d09819a2ed559a7b44b">MNU_ITEM_SECTORS</a>, 
-<a class="el" href="wnd_main_menu_8c.html#aeda06dd7bf5623d17fd1ff42166d0f25a44013faf553977822ab23e37ddc95ce1">MNU_ITEM_ACTIVITIES</a>, 
-<a class="el" href="wnd_main_menu_8c.html#aeda06dd7bf5623d17fd1ff42166d0f25ae73ffd435c201b07a0c79dcf4db2e025">MNU_ITEM_FIELD_PARTNERS</a>, 
-<br />
-&#160;&#160;<a class="el" href="wnd_main_menu_8c.html#aeda06dd7bf5623d17fd1ff42166d0f25a6f8bd44d102ef6f2c6aa6d83f9856b74">MNU_ITEM_ACKNOWLEDGEMENTS</a>, 
 <a class="el" href="wnd_main_menu_8c.html#aeda06dd7bf5623d17fd1ff42166d0f25af374d651f76d676414d912714e2ebee0">NUM_MENU_ITEMS</a>
-<br />
  }</td></tr>
 <tr class="separator:aeda06dd7bf5623d17fd1ff42166d0f25"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -143,14 +134,28 @@ Functions</h2></td></tr>
 <tr class="memitem:a3101a46dc232beec35dee7831ffea912"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="wnd_main_menu_8c.html#a3101a46dc232beec35dee7831ffea912">wndMainMenu_setHandlers</a> (const <a class="el" href="structwnd_main_menu_handlers.html">wndMainMenuHandlers</a> wmmh)</td></tr>
 <tr class="memdesc:a3101a46dc232beec35dee7831ffea912"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set our callback handlers.  <a href="#a3101a46dc232beec35dee7831ffea912">More...</a><br /></td></tr>
 <tr class="separator:a3101a46dc232beec35dee7831ffea912"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae9e9947eced24e6a81663f2eb6ef3ed1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="wnd_main_menu_8c.html#ae9e9947eced24e6a81663f2eb6ef3ed1">wndMainMenu_updateView</a> (const <a class="el" href="struct_kiva_model.html">KivaModel</a> *km)</td></tr>
-<tr class="separator:ae9e9947eced24e6a81663f2eb6ef3ed1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac8b4c7cfa0f0e0d947f21fe14bdf00d6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="wnd_main_menu_8c.html#ac8b4c7cfa0f0e0d947f21fe14bdf00d6">wndMainMenu_updateClock</a> (struct tm *in_time)</td></tr>
+<tr class="separator:ac8b4c7cfa0f0e0d947f21fe14bdf00d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a965e23b3be670af739b7de76f5c53fc6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="wnd_main_menu_8c.html#a965e23b3be670af739b7de76f5c53fc6">wndMainMenu_updateData</a> (const <a class="el" href="struct_kiva_model.html">KivaModel</a> *km)</td></tr>
+<tr class="separator:a965e23b3be670af739b7de76f5c53fc6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a25cd873e5e6ac7ea08fef75d3f1f0cdd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="wnd_main_menu_8c.html#a25cd873e5e6ac7ea08fef75d3f1f0cdd">wndMainMenu_createPush</a> ()</td></tr>
 <tr class="separator:a25cd873e5e6ac7ea08fef75d3f1f0cdd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5b762df2ccb5007a5c9b549c1855868d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="wnd_main_menu_8c.html#a5b762df2ccb5007a5c9b549c1855868d">wndMainMenu_destroy</a> ()</td></tr>
 <tr class="separator:a5b762df2ccb5007a5c9b549c1855868d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
+<a class="anchor" id="a29a6c439f183166f4ebd4290aad99558"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define LOAN_MSG_SZ&#160;&#160;&#160;32</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="abcefc74a988790f43649ce1c61024abe"></a>
 <div class="memitem">
 <div class="memproto">
@@ -177,20 +182,6 @@ Functions</h2></td></tr>
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a class="anchor" id="aeda06dd7bf5623d17fd1ff42166d0f25af779da58458770043e6cebe84a6209bb"></a>MNU_ITEM_LENDER_INFO&#160;</td><td class="fielddoc">
 </td></tr>
 <tr><td class="fieldname"><a class="anchor" id="aeda06dd7bf5623d17fd1ff42166d0f25a354639496bce6e337c94aa725bb1d5ca"></a>MNU_ITEM_LOANS_FOR_YOU&#160;</td><td class="fielddoc">
-</td></tr>
-<tr><td class="fieldname"><a class="anchor" id="aeda06dd7bf5623d17fd1ff42166d0f25a56146b9b5c8cee68ef1f82f24dce652b"></a>MNU_ITEM_ACHIEVEMENTS&#160;</td><td class="fielddoc">
-</td></tr>
-<tr><td class="fieldname"><a class="anchor" id="aeda06dd7bf5623d17fd1ff42166d0f25a3d1d3974b61fcb44895236b2634df752"></a>MNU_ITEM_TEAMS&#160;</td><td class="fielddoc">
-</td></tr>
-<tr><td class="fieldname"><a class="anchor" id="aeda06dd7bf5623d17fd1ff42166d0f25a85f7bc70567d0edd6e39d9be8be43f03"></a>MNU_ITEM_COUNTRIES&#160;</td><td class="fielddoc">
-</td></tr>
-<tr><td class="fieldname"><a class="anchor" id="aeda06dd7bf5623d17fd1ff42166d0f25a77777195abfe1d09819a2ed559a7b44b"></a>MNU_ITEM_SECTORS&#160;</td><td class="fielddoc">
-</td></tr>
-<tr><td class="fieldname"><a class="anchor" id="aeda06dd7bf5623d17fd1ff42166d0f25a44013faf553977822ab23e37ddc95ce1"></a>MNU_ITEM_ACTIVITIES&#160;</td><td class="fielddoc">
-</td></tr>
-<tr><td class="fieldname"><a class="anchor" id="aeda06dd7bf5623d17fd1ff42166d0f25ae73ffd435c201b07a0c79dcf4db2e025"></a>MNU_ITEM_FIELD_PARTNERS&#160;</td><td class="fielddoc">
-</td></tr>
-<tr><td class="fieldname"><a class="anchor" id="aeda06dd7bf5623d17fd1ff42166d0f25a6f8bd44d102ef6f2c6aa6d83f9856b74"></a>MNU_ITEM_ACKNOWLEDGEMENTS&#160;</td><td class="fielddoc">
 </td></tr>
 <tr><td class="fieldname"><a class="anchor" id="aeda06dd7bf5623d17fd1ff42166d0f25af374d651f76d676414d912714e2ebee0"></a>NUM_MENU_ITEMS&#160;</td><td class="fielddoc">
 </td></tr>
@@ -247,12 +238,28 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="ae9e9947eced24e6a81663f2eb6ef3ed1"></a>
+<a class="anchor" id="ac8b4c7cfa0f0e0d947f21fe14bdf00d6"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void wndMainMenu_updateView </td>
+          <td class="memname">void wndMainMenu_updateClock </td>
+          <td>(</td>
+          <td class="paramtype">struct tm *&#160;</td>
+          <td class="paramname"><em>in_time</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a965e23b3be670af739b7de76f5c53fc6"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void wndMainMenu_updateData </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="struct_kiva_model.html">KivaModel</a> *&#160;</td>
           <td class="paramname"><em>km</em></td><td>)</td>

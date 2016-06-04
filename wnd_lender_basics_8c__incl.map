@@ -1,7 +1,7 @@
 <map id="src/ui/wndLenderBasics.c" name="src/ui/wndLenderBasics.c">
-<area shape="rect" id="node3" href="$_kiva_model_8h.html" title="data/KivaModel.h" alt="" coords="163,155,286,181"/>
-<area shape="rect" id="node5" href="$misc_8h.html" title="misc.h" alt="" coords="310,155,371,181"/>
+<area shape="rect" id="node3" href="$_kiva_model_8h.html" title="data/KivaModel.h" alt="" coords="149,155,271,181"/>
+<area shape="rect" id="node5" href="$misc_8h.html" title="misc.h" alt="" coords="295,155,357,181"/>
 <area shape="rect" id="node6" href="$wnd_lender_basics_8h.html" title="ui/wndLenderBasics.h" alt="" coords="152,80,303,107"/>
-<area shape="rect" id="node7" href="$lyr_digitime_8h.html" title="ui/lyrDigitime.h" alt="" coords="378,80,487,107"/>
-<area shape="rect" id="node4" href="$magpebapp_8h.html" title="libs/magpebapp.h" alt="" coords="220,229,344,256"/>
+<area shape="rect" id="node7" href="$lyr_digitime_8h.html" title="ui/lyrDigitime.h" alt="" coords="381,155,490,181"/>
+<area shape="rect" id="node4" href="$magpebapp_8h.html" title="libs/magpebapp.h" alt="" coords="264,229,388,256"/>
 </map>

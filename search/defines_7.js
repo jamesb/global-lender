@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['strxlen',['strxlen',['../misc_8h.html#af8573d75240f683404d842a3bb0c92a5',1,'misc.h']]]
+  ['num_5fmenu_5fsections',['NUM_MENU_SECTIONS',['../wnd_main_menu_8c.html#abcefc74a988790f43649ce1c61024abe',1,'wndMainMenu.c']]]
 ];

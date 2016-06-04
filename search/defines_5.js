@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['mpa_5freturn_5fif_5fnull',['MPA_RETURN_IF_NULL',['../magpebapp_8h.html#a35e456cfa723d5bd367d2c1ea2715f82',1,'magpebapp.h']]]
+  ['loan_5fmsg_5fsz',['LOAN_MSG_SZ',['../wnd_main_menu_8c.html#a29a6c439f183166f4ebd4290aad99558',1,'wndMainMenu.c']]]
 ];

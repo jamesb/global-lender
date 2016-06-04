@@ -1,7 +1,9 @@
 var searchData=
 [
+  ['lendercountryqty',['lenderCountryQty',['../struct_kiva_model___modified.html#a09750581d0e088a235ddd1d226b3f245',1,'KivaModel_Modified']]],
   ['lenderid',['lenderId',['../app_8js.html#a5e4bf1d89e1aae83b014c99c4dfeacc3',1,'app.js']]],
   ['lenderinfo',['lenderInfo',['../struct_kiva_model.html#a3c040d87149160141fb03f8954c27707',1,'KivaModel']]],
+  ['lenderloanqty',['lenderLoanQty',['../struct_kiva_model___modified.html#abfa89acc06097bb10a5ce8b8ec1a3dc9',1,'KivaModel_Modified']]],
   ['lendersupport',['lenderSupport',['../struct_country_rec.html#a72d0363c35a5fdd1c5ac0476df42be31',1,'CountryRec']]],
   ['loanamt',['loanAmt',['../struct_loan_info.html#a76179ef34646908eb9e046ebd7db934f',1,'LoanInfo']]],
   ['loanqty',['loanQty',['../struct_lender_info.html#a6e6444c4e529345cfd7f3fceefc83a30',1,'LenderInfo']]],

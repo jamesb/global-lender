@@ -1,8 +1,11 @@
 var searchData=
 [
+  ['lendercountryqty',['lenderCountryQty',['../struct_kiva_model___modified.html#a09750581d0e088a235ddd1d226b3f245',1,'KivaModel_Modified']]],
   ['lenderid',['lenderId',['../app_8js.html#a5e4bf1d89e1aae83b014c99c4dfeacc3',1,'app.js']]],
   ['lenderinfo',['LenderInfo',['../struct_lender_info.html',1,'LenderInfo'],['../struct_kiva_model.html#a3c040d87149160141fb03f8954c27707',1,'KivaModel::lenderInfo()']]],
+  ['lenderloanqty',['lenderLoanQty',['../struct_kiva_model___modified.html#abfa89acc06097bb10a5ce8b8ec1a3dc9',1,'KivaModel_Modified']]],
   ['lendersupport',['lenderSupport',['../struct_country_rec.html#a72d0363c35a5fdd1c5ac0476df42be31',1,'CountryRec']]],
+  ['loan_5fmsg_5fsz',['LOAN_MSG_SZ',['../wnd_main_menu_8c.html#a29a6c439f183166f4ebd4290aad99558',1,'wndMainMenu.c']]],
   ['loanamt',['loanAmt',['../struct_loan_info.html#a76179ef34646908eb9e046ebd7db934f',1,'LoanInfo']]],
   ['loaninfo',['LoanInfo',['../struct_loan_info.html',1,'LoanInfo'],['../_kiva_model_8h.html#adc7a59da5aa3de6f387a0ad1962fa76e',1,'LoanInfo():&#160;KivaModel.h']]],
   ['loanqty',['loanQty',['../struct_lender_info.html#a6e6444c4e529345cfd7f3fceefc83a30',1,'LenderInfo']]],
@@ -14,6 +17,7 @@ var searchData=
   ['lyrdigitime_2eh',['lyrDigitime.h',['../lyr_digitime_8h.html',1,'']]],
   ['lyrdigitime_5fcreate',['lyrDigitime_create',['../lyr_digitime_8c.html#aa2ae71b97a082f8247ae0f150f705e9d',1,'lyrDigitime_create(const GRect position, Layer *lyrParent):&#160;lyrDigitime.c'],['../lyr_digitime_8h.html#aa2ae71b97a082f8247ae0f150f705e9d',1,'lyrDigitime_create(const GRect position, Layer *lyrParent):&#160;lyrDigitime.c']]],
   ['lyrdigitime_5fdestroy',['lyrDigitime_destroy',['../lyr_digitime_8c.html#a905f8b6a3caeba9c6599a41e6665afc4',1,'lyrDigitime_destroy():&#160;lyrDigitime.c'],['../lyr_digitime_8h.html#a905f8b6a3caeba9c6599a41e6665afc4',1,'lyrDigitime_destroy():&#160;lyrDigitime.c']]],
-  ['lyrdigitime_5fstylize',['lyrDigitime_stylize',['../lyr_digitime_8c.html#a8fad1257f78f5b57f76712e840a69dfc',1,'lyrDigitime_stylize(const GColor bgcolor, const GColor txtColor, const GTextAlignment txtAlign, const GFont txtFont):&#160;lyrDigitime.c'],['../lyr_digitime_8h.html#aff16a931c3c9ec6c1974fab3bc40d648',1,'lyrDigitime_stylize(const GColor, const GColor, const GTextAlignment, const GFont):&#160;lyrDigitime.c']]],
-  ['lyrdigitime_5fupdatetime',['lyrDigitime_updateTime',['../lyr_digitime_8c.html#a26bc4f9de4a03902019fc5afd3e2be67',1,'lyrDigitime_updateTime():&#160;lyrDigitime.c'],['../lyr_digitime_8h.html#a26bc4f9de4a03902019fc5afd3e2be67',1,'lyrDigitime_updateTime():&#160;lyrDigitime.c']]]
+  ['lyrdigitime_5fgetlayer',['lyrDigitime_getLayer',['../lyr_digitime_8c.html#a09711c61c07a7207f5cfffa6557e41e3',1,'lyrDigitime_getLayer():&#160;lyrDigitime.c'],['../lyr_digitime_8h.html#a09711c61c07a7207f5cfffa6557e41e3',1,'lyrDigitime_getLayer():&#160;lyrDigitime.c']]],
+  ['lyrdigitime_5fstylize',['lyrDigitime_stylize',['../lyr_digitime_8c.html#a7c12dd369256606bf1a7aba9a45c665f',1,'lyrDigitime_stylize(const GColor bgcolor, const GColor txtColor, const GTextAlignment txtAlign, const GFont txtFont):&#160;lyrDigitime.c'],['../lyr_digitime_8h.html#ae8bbcfe7e545074a9e7f2970e4aee484',1,'lyrDigitime_stylize(const GColor, const GColor, const GTextAlignment, const GFont):&#160;lyrDigitime.c']]],
+  ['lyrdigitime_5fupdatetime',['lyrDigitime_updateTime',['../lyr_digitime_8c.html#a39e4fe7fa4bc538b03373774043b796b',1,'lyrDigitime_updateTime(struct tm *in_time):&#160;lyrDigitime.c'],['../lyr_digitime_8h.html#a5f0e970b7c9d9b5648c8fcf43abd7d81',1,'lyrDigitime_updateTime(struct tm *):&#160;lyrDigitime.c']]]
 ];

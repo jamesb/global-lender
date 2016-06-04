@@ -126,8 +126,10 @@ Data Structures</h2></td></tr>
 Typedefs</h2></td></tr>
 <tr class="memitem:a62c86b93b49ea9f777a157c9aa3eb995"><td class="memItemLeft" align="right" valign="top">typedef enum <a class="el" href="comm_8h.html#ad4843d812d90ec4f7e8726a2755f8e7c">MsgKey</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="comm_8h.html#a62c86b93b49ea9f777a157c9aa3eb995">MsgKey</a></td></tr>
 <tr class="separator:a62c86b93b49ea9f777a157c9aa3eb995"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a12f08c1d050a15390f3094fbdb985685"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="comm_8h.html#a12f08c1d050a15390f3094fbdb985685">NotifyViewHandler</a>) (const <a class="el" href="struct_kiva_model.html">KivaModel</a> *)</td></tr>
-<tr class="separator:a12f08c1d050a15390f3094fbdb985685"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6fdc64fc8c43aab5e22af46cba145a7e"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="comm_8h.html#a6fdc64fc8c43aab5e22af46cba145a7e">UpdateViewClockHandler</a>) (struct tm *)</td></tr>
+<tr class="separator:a6fdc64fc8c43aab5e22af46cba145a7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a361e466219ea832c5392cf64516022fd"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="comm_8h.html#a361e466219ea832c5392cf64516022fd">UpdateViewDataHandler</a>) (const <a class="el" href="struct_kiva_model.html">KivaModel</a> *)</td></tr>
+<tr class="separator:a361e466219ea832c5392cf64516022fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1771a82e459e44bd4f3729c3c06af84c"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="struct_comm_handlers.html">CommHandlers</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="comm_8h.html#a1771a82e459e44bd4f3729c3c06af84c">CommHandlers</a></td></tr>
 <tr class="separator:a1771a82e459e44bd4f3729c3c06af84c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -179,6 +181,9 @@ Functions</h2></td></tr>
 <tr class="memitem:aadf17ceeef5b7955fcf569cd5a9e6209"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="comm_8h.html#aadf17ceeef5b7955fcf569cd5a9e6209">comm_sendMsgCstr</a> (const <a class="el" href="comm_8h.html#ad4843d812d90ec4f7e8726a2755f8e7c">MsgKey</a>, const char *payload)</td></tr>
 <tr class="memdesc:aadf17ceeef5b7955fcf569cd5a9e6209"><td class="mdescLeft">&#160;</td><td class="mdescRight">Send data to PebbleKit.  <a href="#aadf17ceeef5b7955fcf569cd5a9e6209">More...</a><br /></td></tr>
 <tr class="separator:aadf17ceeef5b7955fcf569cd5a9e6209"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a432db731798158090a2eb1e312954b98"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="comm_8h.html#a432db731798158090a2eb1e312954b98">comm_tickHandler</a> (struct tm *tick_time, TimeUnits units_changed)</td></tr>
+<tr class="memdesc:a432db731798158090a2eb1e312954b98"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback for TickTimerService.  <a href="#a432db731798158090a2eb1e312954b98">More...</a><br /></td></tr>
+<tr class="separator:a432db731798158090a2eb1e312954b98"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6a67f0d244db4a95d9a14bbcf10a601d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="comm_8h.html#a6a67f0d244db4a95d9a14bbcf10a601d">comm_setHandlers</a> (const <a class="el" href="struct_comm_handlers.html">CommHandlers</a>)</td></tr>
 <tr class="memdesc:a6a67f0d244db4a95d9a14bbcf10a601d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set our callback handlers.  <a href="#a6a67f0d244db4a95d9a14bbcf10a601d">More...</a><br /></td></tr>
 <tr class="separator:a6a67f0d244db4a95d9a14bbcf10a601d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -211,12 +216,24 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a12f08c1d050a15390f3094fbdb985685"></a>
+<a class="anchor" id="a6fdc64fc8c43aab5e22af46cba145a7e"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">typedef void(* NotifyViewHandler) (const <a class="el" href="struct_kiva_model.html">KivaModel</a> *)</td>
+          <td class="memname">typedef void(* UpdateViewClockHandler) (struct tm *)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a361e466219ea832c5392cf64516022fd"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef void(* UpdateViewDataHandler) (const <a class="el" href="struct_kiva_model.html">KivaModel</a> *)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -394,6 +411,34 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Set our callback handlers. </p>
+
+</div>
+</div>
+<a class="anchor" id="a432db731798158090a2eb1e312954b98"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void comm_tickHandler </td>
+          <td>(</td>
+          <td class="paramtype">struct tm *&#160;</td>
+          <td class="paramname"><em>tick_time</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">TimeUnits&#160;</td>
+          <td class="paramname"><em>units_changed</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Callback for TickTimerService. </p>
 
 </div>
 </div>

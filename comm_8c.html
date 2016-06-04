@@ -121,6 +121,9 @@ Functions</h2></td></tr>
 <tr class="memitem:acdbf689a7d2f037d961c48487f786e4a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="comm_8c.html#acdbf689a7d2f037d961c48487f786e4a">comm_getPreferredLoans</a> ()</td></tr>
 <tr class="memdesc:acdbf689a7d2f037d961c48487f786e4a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Requests PebbleKit to send a list of preferred loans for the lender.  <a href="#acdbf689a7d2f037d961c48487f786e4a">More...</a><br /></td></tr>
 <tr class="separator:acdbf689a7d2f037d961c48487f786e4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a432db731798158090a2eb1e312954b98"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="comm_8c.html#a432db731798158090a2eb1e312954b98">comm_tickHandler</a> (struct tm *tick_time, TimeUnits units_changed)</td></tr>
+<tr class="memdesc:a432db731798158090a2eb1e312954b98"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback for TickTimerService.  <a href="#a432db731798158090a2eb1e312954b98">More...</a><br /></td></tr>
+<tr class="separator:a432db731798158090a2eb1e312954b98"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3115da531fdbd2796722295d90b1e4af"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="comm_8c.html#a3115da531fdbd2796722295d90b1e4af">comm_setHandlers</a> (const <a class="el" href="struct_comm_handlers.html">CommHandlers</a> cmh)</td></tr>
 <tr class="memdesc:a3115da531fdbd2796722295d90b1e4af"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set our callback handlers.  <a href="#a3115da531fdbd2796722295d90b1e4af">More...</a><br /></td></tr>
 <tr class="separator:a3115da531fdbd2796722295d90b1e4af"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -243,6 +246,34 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Set our callback handlers. </p>
+
+</div>
+</div>
+<a class="anchor" id="a432db731798158090a2eb1e312954b98"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void comm_tickHandler </td>
+          <td>(</td>
+          <td class="paramtype">struct tm *&#160;</td>
+          <td class="paramname"><em>tick_time</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">TimeUnits&#160;</td>
+          <td class="paramname"><em>units_changed</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Callback for TickTimerService. </p>
 
 </div>
 </div>
