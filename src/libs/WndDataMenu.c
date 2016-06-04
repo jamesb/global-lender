@@ -492,32 +492,36 @@ MagPebApp_ErrCode WndDataMenu_buildSection(WndDataMenu* this, const uint16_t sec
 
     // Deallocate rows, if requested
     if (numRows < theSect->numRows) {
-      for (uint16_t rowIdx=theSect->numRows - 1; rowIdx >= numRows; --rowIdx) {
+      for (uint16_t rowIdx=theSect->numRows - 1; rowIdx >= numRows; rowIdx--) {
         if (theSect->rowTitles[rowIdx] != NULL) {
           free(theSect->rowTitles[rowIdx]);  theSect->rowTitles[rowIdx] = NULL;
         }
         if (theSect->rowSubtitles[rowIdx] != NULL) {
           free(theSect->rowSubtitles[rowIdx]);  theSect->rowSubtitles[rowIdx] = NULL;
         }
+        // Prevent unsigned int underflow
+        if (rowIdx == 0) break;
       }
     }
 
-    tmpRT = realloc(theSect->rowTitles, numRows * sizeof(*tmpRT));
-    if (tmpRT == NULL) {
-      APP_LOG(APP_LOG_LEVEL_ERROR, "Insufficient memory");
-      goto freemem;
-    }
+    if (numRows > 0) {
+      tmpRT = realloc(theSect->rowTitles, numRows * sizeof(*tmpRT));
+      if (tmpRT == NULL) {
+        APP_LOG(APP_LOG_LEVEL_ERROR, "Insufficient memory");
+        goto freemem;
+      }
 
-    tmpRS = realloc(theSect->rowSubtitles, numRows * sizeof(*tmpRS));
-    if (tmpRS == NULL) {
-      APP_LOG(APP_LOG_LEVEL_ERROR, "Insufficient memory");
-      goto freemem;
-    }
+      tmpRS = realloc(theSect->rowSubtitles, numRows * sizeof(*tmpRS));
+      if (tmpRS == NULL) {
+        APP_LOG(APP_LOG_LEVEL_ERROR, "Insufficient memory");
+        goto freemem;
+      }
 
-    theSect->rowTitles = tmpRT;
-    theSect->rowSubtitles = tmpRS;
-    tmpRT = NULL;
-    tmpRS = NULL;
+      theSect->rowTitles = tmpRT;
+      theSect->rowSubtitles = tmpRS;
+      tmpRT = NULL;
+      tmpRS = NULL;
+    }
 
     // Initialize rows, if more rows requested
     if (numRows > theSect->numRows) {
