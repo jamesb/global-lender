@@ -1,9 +1,10 @@
 #pragma once
 
-void lyrDigitime_create(const GRect position, Layer* lyrParent); 
-  
+#include "libs/magpebapp.h"
+
+void lyrDigitime_create(const GRect position, Layer* lyrParent);
 void lyrDigitime_destroy();
+TextLayer* lyrDigitime_getLayer();
 
-void lyrDigitime_stylize(const GColor, const GColor, const GTextAlignment, const GFont); 
-
-void lyrDigitime_updateTime();
+MagPebApp_ErrCode lyrDigitime_stylize(const GColor, const GColor, const GTextAlignment, const GFont);
+MagPebApp_ErrCode lyrDigitime_updateTime(struct tm*);

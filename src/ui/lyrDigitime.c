@@ -16,11 +16,12 @@ static TextLayer *lyrDigitime;
 void lyrDigitime_create(const GRect position, Layer* lyrParent) {
   if (lyrDigitime) {
     APP_LOG(APP_LOG_LEVEL_WARNING, "Attempting to re-create layer before destroying.");
-  } else {
-    lyrDigitime = text_layer_create(position);
-    text_layer_set_text(lyrDigitime, "00:00");
-    layer_add_child(lyrParent, text_layer_get_layer(lyrDigitime));
+    return;
   }
+  lyrDigitime = text_layer_create(position);
+  text_layer_set_text(lyrDigitime, "00:00");
+  lyrDigitime_updateTime(NULL);
+  layer_add_child(lyrParent, text_layer_get_layer(lyrDigitime));
 }
 
 
@@ -38,36 +39,48 @@ void lyrDigitime_destroy() {
 
 
 /////////////////////////////////////////////////////////////////////////////
+/// Returns the digital time layer
+/////////////////////////////////////////////////////////////////////////////
+TextLayer* lyrDigitime_getLayer() {
+  return lyrDigitime;
+}
+
+
+/////////////////////////////////////////////////////////////////////////////
 /// Stylizes the text layer to the spec
 /////////////////////////////////////////////////////////////////////////////
-void lyrDigitime_stylize(const GColor bgcolor, const GColor txtColor,
+MagPebApp_ErrCode lyrDigitime_stylize(const GColor bgcolor, const GColor txtColor,
                                 const GTextAlignment txtAlign, const GFont txtFont) {
-  if (!lyrDigitime) {
-    APP_LOG(APP_LOG_LEVEL_WARNING, "Attempting to stylize before layer is created!");
-  } else {
-    textLayer_stylize(lyrDigitime, bgcolor, txtColor, txtAlign, txtFont);
-  }
+  MPA_RETURN_IF_NULL(lyrDigitime);
+  textLayer_stylize(lyrDigitime, bgcolor, txtColor, txtAlign, txtFont);
+
+  return MPA_SUCCESS;
 }
 
 
 /////////////////////////////////////////////////////////////////////////////
 /// Updates the displayed time
 /////////////////////////////////////////////////////////////////////////////
-void lyrDigitime_updateTime() {
-  if (!lyrDigitime) {
-    APP_LOG(APP_LOG_LEVEL_WARNING, "Attempting to update the time before layer is created!");
+MagPebApp_ErrCode lyrDigitime_updateTime(struct tm* in_time) {
+  MPA_RETURN_IF_NULL(lyrDigitime);
+  struct tm* curr_time = NULL;
+
+  if (in_time != NULL) {
+    curr_time = in_time;
   } else {
     // Get a tm structure
     time_t temp = time(NULL);
-    struct tm *curr_time = localtime(&temp);
-
-    // Write the current hours and minutes into a buffer
-    static char buffer[10];
-    strftime(buffer, sizeof(buffer), clock_is_24h_style() ?
-        "%H:%M" : "%l:%M %p", curr_time);
-
-    // Display this time on the TextLayer
-    text_layer_set_text(lyrDigitime, buffer);
+    curr_time = localtime(&temp);
   }
+
+  // Write the current hours and minutes into a buffer
+  static char buffer[10];
+  strftime(buffer, sizeof(buffer), clock_is_24h_style() ?
+      "%H:%M" : "%l:%M %p", curr_time);
+
+  // Display this time on the TextLayer
+  text_layer_set_text(lyrDigitime, buffer);
+
+  return MPA_SUCCESS;
 }
 

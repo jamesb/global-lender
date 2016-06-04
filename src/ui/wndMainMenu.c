@@ -175,7 +175,24 @@ void wndMainMenu_setHandlers(const wndMainMenuHandlers wmmh) {
 
 /////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
-void wndMainMenu_updateView(const KivaModel* km) {
+void wndMainMenu_updateClock(struct tm* in_time) {
+  struct tm* curr_time = NULL;
+
+  if (in_time != NULL) {
+    curr_time = in_time;
+  } else {
+    // Get a tm structure
+    time_t temp = time(NULL);
+    curr_time = localtime(&temp);
+  }
+
+  wndLenderBasics_updateTime(curr_time);
+}
+
+
+/////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
+void wndMainMenu_updateData(const KivaModel* km) {
   kivaModel = km;
   MagPebApp_ErrCode mpaRet = MPA_SUCCESS;
 
@@ -229,49 +246,54 @@ static void wndMainMenu_load(Window* window) {
 
   if (lyrMainMenu) {
     APP_LOG(APP_LOG_LEVEL_WARNING, "Attempting to re-create layer before destroying.");
-  } else {
-    lyrMainMenu = menu_layer_create(bounds);
-    menu_layer_set_callbacks(lyrMainMenu, NULL, (MenuLayerCallbacks) {
-      .get_num_sections = wndMainMenu_get_num_sections_callback,
-      .get_num_rows = wndMainMenu_get_num_rows_callback,
-      .draw_row = wndMainMenu_draw_row_callback,
-      .select_click = wndMainMenu_select_callback,
-      .get_cell_height = PBL_IF_ROUND_ELSE(wndMainMenu_get_cell_height_callback, NULL)
-    });
-
-    WndDataMenu_Palette colors = (WndDataMenu_Palette) {
-      .normalBack = GColorBlack,
-      .normalFore = GColorWhite,
-      .highltBack = COLOR_FALLBACK(GColorPictonBlue, GColorWhite),
-      .highltFore = GColorBlack
-    };
-
-    menu_layer_set_normal_colors(lyrMainMenu, colors.normalBack, colors.normalFore);
-    menu_layer_set_highlight_colors(lyrMainMenu, colors.highltBack, colors.highltFore);
-    menu_layer_set_click_config_onto_window(lyrMainMenu, window);
-    layer_add_child(lyrRoot, menu_layer_get_layer(lyrMainMenu));
-
-    bmpLogo = gbitmap_create_with_resource(RESOURCE_ID_IMG_LOGO_WIDE);
-    HEAP_LOG("after bmpLogo created");
-
-    wndLenderBasics_create();
-
-    wndCountries = WndDataMenu_create();
-    if ( (mpaRet = WndDataMenu_setNumSections(wndCountries, 1) ) != MPA_SUCCESS) {
-        APP_LOG(APP_LOG_LEVEL_ERROR, "Could not set colors: %s", MagPebApp_getErrMsg(mpaRet));
-    }
-    if ( (mpaRet = WndDataMenu_setPalette(wndCountries, colors) ) != MPA_SUCCESS) {
-        APP_LOG(APP_LOG_LEVEL_WARNING, "Could not set colors: %s", MagPebApp_getErrMsg(mpaRet));
-    }
-
-    wndPrefLoans = WndDataMenu_create();
-    if ( (mpaRet = WndDataMenu_setNumSections(wndPrefLoans, 1) ) != MPA_SUCCESS) {
-        APP_LOG(APP_LOG_LEVEL_ERROR, "Could not initialize sections: %s", MagPebApp_getErrMsg(mpaRet));
-    }
-    if ( (mpaRet = WndDataMenu_setPalette(wndPrefLoans, colors) ) != MPA_SUCCESS) {
-        APP_LOG(APP_LOG_LEVEL_WARNING, "Could not set colors: %s", MagPebApp_getErrMsg(mpaRet));
-    }
+    return;
   }
+
+  if (!strxcpy(loanMsg, LOAN_MSG_SZ, "Please wait...", NULL)) { return; }
+
+  lyrMainMenu = menu_layer_create(bounds);
+  menu_layer_set_callbacks(lyrMainMenu, NULL, (MenuLayerCallbacks) {
+    .get_num_sections = wndMainMenu_get_num_sections_callback,
+    .get_num_rows = wndMainMenu_get_num_rows_callback,
+    .draw_row = wndMainMenu_draw_row_callback,
+    .select_click = wndMainMenu_select_callback,
+    .get_cell_height = PBL_IF_ROUND_ELSE(wndMainMenu_get_cell_height_callback, NULL)
+  });
+
+  WndDataMenu_Palette colors = (WndDataMenu_Palette) {
+    .normalBack = GColorBlack,
+    .normalFore = GColorWhite,
+    .highltBack = COLOR_FALLBACK(GColorPictonBlue, GColorWhite),
+    .highltFore = GColorBlack
+  };
+
+  menu_layer_set_normal_colors(lyrMainMenu, colors.normalBack, colors.normalFore);
+  menu_layer_set_highlight_colors(lyrMainMenu, colors.highltBack, colors.highltFore);
+  menu_layer_set_click_config_onto_window(lyrMainMenu, window);
+  layer_add_child(lyrRoot, menu_layer_get_layer(lyrMainMenu));
+
+  bmpLogo = gbitmap_create_with_resource(RESOURCE_ID_IMG_LOGO_WIDE);
+  HEAP_LOG("after bmpLogo created");
+
+  wndLenderBasics_create();
+
+  wndCountries = WndDataMenu_create();
+  if ( (mpaRet = WndDataMenu_setNumSections(wndCountries, 1) ) != MPA_SUCCESS) {
+      APP_LOG(APP_LOG_LEVEL_ERROR, "Could not set colors: %s", MagPebApp_getErrMsg(mpaRet));
+  }
+  if ( (mpaRet = WndDataMenu_setPalette(wndCountries, colors) ) != MPA_SUCCESS) {
+      APP_LOG(APP_LOG_LEVEL_WARNING, "Could not set colors: %s", MagPebApp_getErrMsg(mpaRet));
+  }
+
+  wndPrefLoans = WndDataMenu_create();
+  if ( (mpaRet = WndDataMenu_setNumSections(wndPrefLoans, 1) ) != MPA_SUCCESS) {
+      APP_LOG(APP_LOG_LEVEL_ERROR, "Could not initialize sections: %s", MagPebApp_getErrMsg(mpaRet));
+  }
+  if ( (mpaRet = WndDataMenu_setPalette(wndPrefLoans, colors) ) != MPA_SUCCESS) {
+      APP_LOG(APP_LOG_LEVEL_WARNING, "Could not set colors: %s", MagPebApp_getErrMsg(mpaRet));
+  }
+
+  wndMainMenu_updateClock(NULL);
 }
 
 

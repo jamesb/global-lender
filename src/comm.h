@@ -33,13 +33,18 @@ typedef enum MsgKey {
 
 
 
-// NotifyViewHandler is a pointer to a function that takes a single
+// UpdateViewClockHandler is a pointer to a function that takes a single
+// parameter (struct tm pointer) and returns nothing.
+typedef void (*UpdateViewClockHandler)(struct tm*);
+
+// UpdateViewDataHandler is a pointer to a function that takes a single
 // parameter (const KivaModel pointer) and returns nothing.
-typedef void (*NotifyViewHandler)(const KivaModel*);
+typedef void (*UpdateViewDataHandler)(const KivaModel*);
 
 // CommHandlers is a struct that contains the values of the handlers.
 typedef struct CommHandlers {
-  NotifyViewHandler notifyView;     ///< Function that Comm calls to notify the View of a data model update.
+  UpdateViewClockHandler updateViewClock;     ///< Function that Comm calls to notify the View of a clock update.
+  UpdateViewDataHandler  updateViewData;      ///< Function that Comm calls to notify the View of a data model update.
 } CommHandlers;
 
 
@@ -48,6 +53,7 @@ void comm_open();
 void comm_close();
 
 void comm_sendMsgCstr(const MsgKey, const char* payload);
+void comm_tickHandler(struct tm *tick_time, TimeUnits units_changed);
 void comm_setHandlers(const CommHandlers);
 
 void comm_getPreferredLoans();

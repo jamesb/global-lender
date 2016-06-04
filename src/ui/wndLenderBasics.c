@@ -17,8 +17,22 @@ static TextLayer* lyrLenderLoanSummary;
 /////////////////////////////////////////////////////////////////////////////
 /// Updates the displayed digital time
 /////////////////////////////////////////////////////////////////////////////
-void wndLenderBasics_updateTime() {
-  lyrDigitime_updateTime();
+void wndLenderBasics_updateTime(struct tm* in_time) {
+  MagPebApp_ErrCode mpaRet = MPA_SUCCESS;
+  struct tm* curr_time = NULL;
+
+  if (in_time != NULL) {
+    curr_time = in_time;
+  } else {
+    // Get a tm structure
+    time_t temp = time(NULL);
+    curr_time = localtime(&temp);
+  }
+
+  if (lyrDigitime_getLayer() != NULL && (mpaRet = lyrDigitime_updateTime(curr_time)) != MPA_SUCCESS) {
+    APP_LOG(APP_LOG_LEVEL_ERROR, "MPA error: %s", MagPebApp_getErrMsg(mpaRet));
+  }
+
 }
 
 
@@ -33,7 +47,7 @@ void wndLenderBasics_updateView(const KivaModel* km) {
   static char* lenName = NULL;
   lenName = NULL;
   if ( (mpaRet = KivaModel_getLenderName(km, &lenName)) != MPA_SUCCESS ) {
-      APP_LOG(APP_LOG_LEVEL_ERROR, "KivaModel error: %s", MagPebApp_getErrMsg(mpaRet));
+      APP_LOG(APP_LOG_LEVEL_ERROR, "MPA error: %s", MagPebApp_getErrMsg(mpaRet));
   } else {
     text_layer_set_text(lyrLenderName, lenName);
   }
@@ -41,26 +55,26 @@ void wndLenderBasics_updateView(const KivaModel* km) {
   static char* lenLoc = NULL;
   lenLoc = NULL;
   if ( (mpaRet = KivaModel_getLenderLoc(km, &lenLoc)) != MPA_SUCCESS ) {
-      APP_LOG(APP_LOG_LEVEL_ERROR, "Kiva Model error: %s", MagPebApp_getErrMsg(mpaRet));
+      APP_LOG(APP_LOG_LEVEL_ERROR, "MPA error: %s", MagPebApp_getErrMsg(mpaRet));
   } else {
     text_layer_set_text(lyrLenderLoc, lenLoc);
   }
 
   int loanQty = 0;
   if ( (mpaRet = KivaModel_getLenderLoanQty(km, &loanQty)) != MPA_SUCCESS) {
-    APP_LOG(APP_LOG_LEVEL_ERROR, "Kiva Model error: %s", MagPebApp_getErrMsg(mpaRet));
+    APP_LOG(APP_LOG_LEVEL_ERROR, "MPA error: %s", MagPebApp_getErrMsg(mpaRet));
     return;
   }
 
   int lenderCountryQty = 0;
   if ( (mpaRet = KivaModel_getLenderCountryQty(km, &lenderCountryQty)) != MPA_SUCCESS) {
-    APP_LOG(APP_LOG_LEVEL_ERROR, "Kiva Model error: %s", MagPebApp_getErrMsg(mpaRet));
+    APP_LOG(APP_LOG_LEVEL_ERROR, "MPA error: %s", MagPebApp_getErrMsg(mpaRet));
     return;
   }
 
   int kivaCountryQty = 0;
   if ( (mpaRet = KivaModel_getKivaCountryQty(km, &kivaCountryQty)) != MPA_SUCCESS) {
-    APP_LOG(APP_LOG_LEVEL_ERROR, "Kiva Model error: %s", MagPebApp_getErrMsg(mpaRet));
+    APP_LOG(APP_LOG_LEVEL_ERROR, "MPA error: %s", MagPebApp_getErrMsg(mpaRet));
     return;
   }
 
@@ -141,15 +155,17 @@ static void wndLenderBasics_unload(Window* window) {
 void wndLenderBasics_create() {
   if (wndLenderBasics) {
     APP_LOG(APP_LOG_LEVEL_WARNING, "Attempting to re-create window before destroying.");
-  } else {
-    wndLenderBasics = window_create();
-
-    // Set handlers to manage the elements inside the Window
-    window_set_window_handlers(wndLenderBasics, (WindowHandlers) {
-      .load =   wndLenderBasics_load,
-      .unload = wndLenderBasics_unload
-    });
+    return;
   }
+  wndLenderBasics = window_create();
+
+  // Set handlers to manage the elements inside the Window
+  window_set_window_handlers(wndLenderBasics, (WindowHandlers) {
+    .load =   wndLenderBasics_load,
+    .unload = wndLenderBasics_unload
+  });
+
+  wndLenderBasics_updateTime(NULL);
 }
 
 

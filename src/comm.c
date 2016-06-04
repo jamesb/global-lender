@@ -357,10 +357,10 @@ static void inbox_received_callback(DictionaryIterator *iterator, void *context)
     }
   }
 
-  if (!commHandlers.notifyView) {
+  if (!commHandlers.updateViewData) {
     APP_LOG(APP_LOG_LEVEL_ERROR, "Attempted operation on NULL pointer.");
   } else {
-    (*commHandlers.notifyView)(dataModel);
+    (*commHandlers.updateViewData)(dataModel);
   }
 
 }
@@ -443,6 +443,34 @@ void comm_getPreferredLoans() {
     APP_LOG(APP_LOG_LEVEL_DEBUG, "Get loans for country codes: %s", countryCodes);
     comm_sendMsgCstr(KEY_GET_PREFERRED_LOANS, countryCodes);
     free(countryCodes);
+}
+
+
+/////////////////////////////////////////////////////////////////////////////
+/// Callback for TickTimerService
+/////////////////////////////////////////////////////////////////////////////
+void comm_tickHandler(struct tm *tick_time, TimeUnits units_changed) {
+  { // limiting timebuf in a local scope
+    const size_t bufsize = 40;
+    char timebuf[bufsize];
+    size_t ret = 0;
+
+    if ( (ret = strftime(timebuf, bufsize, "%a, %d %b %Y %T %z", tick_time)) == 0) {
+      APP_LOG(APP_LOG_LEVEL_ERROR, "Error returned: %d", ret);
+      return;
+    }
+    HEAP_LOG("tick_handler");
+  }
+
+  if (!commHandlers.updateViewClock) {
+    APP_LOG(APP_LOG_LEVEL_ERROR, "Attempted operation on NULL pointer.");
+  }
+  (*commHandlers.updateViewClock)(tick_time);
+
+  // Get update every 30 minutes
+  if(tick_time->tm_min % 30 == 0) {
+    comm_sendMsgCstr(KEY_GET_LENDER_INFO, NULL);
+  }
 }
 
 

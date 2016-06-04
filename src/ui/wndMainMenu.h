@@ -15,6 +15,7 @@ typedef struct wndMainMenuHandlers {
 
 void wndMainMenu_setHandlers(const wndMainMenuHandlers);
 
-void wndMainMenu_updateView(const KivaModel*);
+void wndMainMenu_updateClock(struct tm*);
+void wndMainMenu_updateData(const KivaModel*);
 void wndMainMenu_createPush();
 void wndMainMenu_destroy();
