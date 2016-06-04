@@ -15,6 +15,7 @@
 enum MenuItems {
   MNU_ITEM_LENDER_INFO = 0,
   MNU_ITEM_LOANS_FOR_YOU,
+#if 0
   MNU_ITEM_ACHIEVEMENTS,
   MNU_ITEM_TEAMS,
   MNU_ITEM_COUNTRIES,
@@ -22,16 +23,20 @@ enum MenuItems {
   MNU_ITEM_ACTIVITIES,
   MNU_ITEM_FIELD_PARTNERS,
   MNU_ITEM_ACKNOWLEDGEMENTS,
+#endif
 
   NUM_MENU_ITEMS
 };
 
+
+#define LOAN_MSG_SZ 32
 
 static Window* wndMainMenu;
 static MenuLayer* lyrMainMenu;
 static GBitmap* bmpLogo;
 static const KivaModel* kivaModel;
 static wndMainMenuHandlers myHandlers;
+static char loanMsg[LOAN_MSG_SZ];
 
 static WndDataMenu* wndCountries;
 static WndDataMenu* wndPrefLoans;
@@ -87,8 +92,9 @@ static void wndMainMenu_draw_row_callback(GContext* ctx, const Layer* cell_layer
           break;
 
         case MNU_ITEM_LOANS_FOR_YOU:
-          menu_cell_basic_draw(ctx, cell_layer, "Loans for You", NULL, NULL);
+          menu_cell_basic_draw(ctx, cell_layer, loanMsg, NULL, NULL);
           break;
+#if 0
         case MNU_ITEM_ACHIEVEMENTS:
           menu_cell_basic_draw(ctx, cell_layer, "Achievements", NULL, NULL);
           break;
@@ -110,6 +116,7 @@ static void wndMainMenu_draw_row_callback(GContext* ctx, const Layer* cell_layer
         case MNU_ITEM_ACKNOWLEDGEMENTS:
           menu_cell_basic_draw(ctx, cell_layer, "Acknowledgements", NULL, NULL);
           break;
+#endif
       }
       break;
     }
@@ -120,6 +127,8 @@ static void wndMainMenu_draw_row_callback(GContext* ctx, const Layer* cell_layer
 /////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
 static void wndMainMenu_select_callback(MenuLayer* menu_layer, MenuIndex* cell_index, void* data) {
+  MagPebApp_ErrCode mpaRet = MPA_SUCCESS;
+  uint16_t prefLoanQty = 0;
 
   switch (cell_index->row) {
     case MNU_ITEM_LENDER_INFO: {
@@ -134,9 +143,16 @@ static void wndMainMenu_select_callback(MenuLayer* menu_layer, MenuIndex* cell_i
         (*myHandlers.getPrefLoans)();
       }
 
-      WndDataMenu_push(wndPrefLoans);
+      if ( (mpaRet = KivaModel_getPreferredLoanQty(kivaModel, &prefLoanQty) ) != MPA_SUCCESS) {
+          APP_LOG(APP_LOG_LEVEL_ERROR, "Error getting number of preferred loans: %s", MagPebApp_getErrMsg(mpaRet));
+      }
+      if (prefLoanQty > 0) {
+        WndDataMenu_push(wndPrefLoans);
+      }
+
       break;
     }
+#if 0
     case MNU_ITEM_COUNTRIES: {
       WndDataMenu_push(wndCountries);
       break;
@@ -150,6 +166,7 @@ static void wndMainMenu_select_callback(MenuLayer* menu_layer, MenuIndex* cell_i
 
       break;
     }
+#endif
   }
 }
 
@@ -195,7 +212,25 @@ void wndMainMenu_updateClock(struct tm* in_time) {
 void wndMainMenu_updateData(const KivaModel* km) {
   kivaModel = km;
   MagPebApp_ErrCode mpaRet = MPA_SUCCESS;
+  KivaModel_Modified mods;
+  uint16_t prefLoanQty = 0;
 
+  if ( (mpaRet = KivaModel_getMods(kivaModel, &mods) ) != MPA_SUCCESS) {
+      APP_LOG(APP_LOG_LEVEL_ERROR, "MPA error: %s", MagPebApp_getErrMsg(mpaRet));
+  }
+
+  if (mods.preferredLoanQty) {
+    if ( (mpaRet = KivaModel_getPreferredLoanQty(kivaModel, &prefLoanQty) ) != MPA_SUCCESS) {
+        APP_LOG(APP_LOG_LEVEL_ERROR, "Error getting number of preferred loans: %s", MagPebApp_getErrMsg(mpaRet));
+    }
+    if (prefLoanQty > 0) {
+      if (!strxcpy(loanMsg, LOAN_MSG_SZ, "Loans for You!", NULL)) { return; }
+    } else {
+      if (!strxcpy(loanMsg, LOAN_MSG_SZ, "No Loans Found", NULL)) { return; }
+    }
+  }
+
+  menu_layer_reload_data(lyrMainMenu);
   MenuIndex sel = menu_layer_get_selected_index(lyrMainMenu);
 
   switch (sel.row) {
@@ -229,10 +264,13 @@ void wndMainMenu_updateData(const KivaModel* km) {
       wndLenderBasics_updateView(kivaModel);
       break;
     }
+#if 0
     case MNU_ITEM_COUNTRIES: {
       WndDataMenu_updateView(wndCountries);
     }
+#endif
   }
+
 }
 
 

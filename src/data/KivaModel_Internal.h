@@ -32,6 +32,8 @@ struct KivaModel {
   struct LenderInfo lenderInfo;
   CountryRec* kivaCountries;
   LoanRec* prefLoans;
+
+  KivaModel_Modified* mods;
 };
 
 

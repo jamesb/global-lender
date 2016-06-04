@@ -24,6 +24,12 @@ typedef struct KivaModel_PrefLoan_CIter {
 } KivaModel_PrefLoan_CIter;
 
 
+typedef struct KivaModel_Modified {
+  unsigned int kivaCountryQty     : 1;
+  unsigned int lenderCountryQty   : 1;
+  unsigned int lenderLoanQty      : 1;
+  unsigned int preferredLoanQty   : 1;
+} KivaModel_Modified;
 
 
 KivaModel* KivaModel_create(const char*);
@@ -42,6 +48,8 @@ MagPebApp_ErrCode KivaModel_addPreferredLoan(KivaModel* this, const LoanInfo);
 MagPebApp_ErrCode KivaModel_clearPreferredLoans(KivaModel* this);
 
 // Getters
+MagPebApp_ErrCode KivaModel_getMods(const KivaModel* this, KivaModel_Modified*);
+
 MagPebApp_ErrCode KivaModel_getLenderId(const KivaModel* this, char**);
 MagPebApp_ErrCode KivaModel_getLenderName(const KivaModel* this, char**);
 MagPebApp_ErrCode KivaModel_getLenderLoc(const KivaModel* this, char**);

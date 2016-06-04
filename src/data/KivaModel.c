@@ -17,7 +17,7 @@
 static MagPebApp_ErrCode KivaModel_CountryRec_create(CountryRec** cntry) {
   if (*cntry != NULL) { return MPA_INVALID_INPUT_ERR; }
 
-  *cntry = (CountryRec*) malloc(sizeof(CountryRec));
+  *cntry = (CountryRec*) malloc(sizeof(**cntry));
   if (*cntry == NULL) { goto freemem; }
   (*cntry)->id = NULL;
   (*cntry)->name = NULL;
@@ -94,7 +94,7 @@ static MagPebApp_ErrCode KivaModel_CountryRec_destroy(CountryRec* this) {
 static MagPebApp_ErrCode KivaModel_LoanRec_create(LoanRec** loan) {
   if (*loan != NULL) { return MPA_INVALID_INPUT_ERR; }
 
-  *loan = (LoanRec*) malloc(sizeof(LoanRec));
+  *loan = (LoanRec*) malloc(sizeof(**loan));
   if (*loan == NULL) { goto freemem; }
   (*loan)->data.name = NULL;
   (*loan)->data.use = NULL;
@@ -182,7 +182,7 @@ KivaModel* KivaModel_create(const char* lenderId) {
   APP_LOG(APP_LOG_LEVEL_DEBUG, "Creating KivaModel [%s]", lenderId);
   int mpaRet;
 
-  KivaModel* newKivaModel = malloc(sizeof(KivaModel));
+  KivaModel* newKivaModel = malloc(sizeof(*newKivaModel));
   if ( (mpaRet = KivaModel_init(newKivaModel, lenderId)) != MPA_SUCCESS) {
     APP_LOG(APP_LOG_LEVEL_ERROR, "Could not initialize: %s", MagPebApp_getErrMsg(mpaRet));
     KivaModel_destroy(newKivaModel);  newKivaModel = NULL;
@@ -201,6 +201,11 @@ MagPebApp_ErrCode KivaModel_destroy(KivaModel* this) {
   APP_LOG(APP_LOG_LEVEL_DEBUG, "Destroying KivaModel [%s]", this->lenderInfo.id);
   MagPebApp_ErrCode mpaRet;
 
+  // Free memory for this->prefLoans and its data
+  if ( (mpaRet = KivaModel_clearPreferredLoans(this)) != MPA_SUCCESS) {
+    APP_LOG(APP_LOG_LEVEL_ERROR, "Error freeing preferred loan list: %s", MagPebApp_getErrMsg(mpaRet));
+  }
+
   // Free memory for this->kivaCountries and its data
   CountryRec* cntry = NULL; CountryRec* tmpCntry = NULL;
   HASH_ITER(hh, this->kivaCountries, cntry, tmpCntry) {
@@ -211,14 +216,13 @@ MagPebApp_ErrCode KivaModel_destroy(KivaModel* this) {
     cntry = NULL;
   }
 
-  // Free memory for this->prefLoans and its data
-  if ( (mpaRet = KivaModel_clearPreferredLoans(this)) != MPA_SUCCESS) {
-    APP_LOG(APP_LOG_LEVEL_ERROR, "Error freeing preferred loan list: %s", MagPebApp_getErrMsg(mpaRet));
-  }
-
   if (this->lenderInfo.loc != NULL)  { free(this->lenderInfo.loc);  this->lenderInfo.loc = NULL; }
   if (this->lenderInfo.name != NULL) { free(this->lenderInfo.name); this->lenderInfo.name = NULL; }
   if (this->lenderInfo.id != NULL)   { free(this->lenderInfo.id);   this->lenderInfo.id = NULL; }
+
+  if (this->mods != NULL) {
+    free(this->mods);  this->mods = NULL;
+  }
 
   free(this); this = NULL;
   return MPA_SUCCESS;
@@ -238,18 +242,40 @@ MagPebApp_ErrCode KivaModel_init(KivaModel* this, const char* lenderId) {
   APP_LOG(APP_LOG_LEVEL_DEBUG, "Initializing KivaModel [%s]", lenderId);
   MagPebApp_ErrCode mpaRet;
 
+  if ( (this->mods = calloc(1, sizeof(*this->mods))) == NULL) { goto freemem; }
+
   this->lenderInfo.id = NULL;
   this->lenderInfo.name = NULL;
   this->lenderInfo.loc = NULL;
   this->lenderInfo.loanQty = 0;
 
-  this->kivaCountries = NULL;
+  if ( (mpaRet = KivaModel_setLenderId(this, lenderId)) != MPA_SUCCESS) { goto freemem; }
 
-  if ( (mpaRet = KivaModel_setLenderId(this, lenderId)) != MPA_SUCCESS) {
-    APP_LOG(APP_LOG_LEVEL_ERROR, "Error... freeing memory");
+  this->kivaCountries = NULL;
+  this->prefLoans = NULL;
+
+  return MPA_SUCCESS;
+
+freemem:
+  APP_LOG(APP_LOG_LEVEL_ERROR, "Error... freeing memory");
+  if (this->mods != NULL) {
+    free(this->mods);  this->mods = NULL;
+  }
+  if (this != NULL) {
     KivaModel_destroy(this);  this = NULL;
   }
+  return MPA_OUT_OF_MEMORY_ERR;
+}
 
+
+/////////////////////////////////////////////////////////////////////////////
+/// Indicates which parts of the data model were modified since the last
+/// time the data was retrieved from a "getter" member function.
+/////////////////////////////////////////////////////////////////////////////
+MagPebApp_ErrCode KivaModel_getMods(const KivaModel* this, KivaModel_Modified* mods) {
+  MPA_RETURN_IF_NULL(this);
+  MPA_RETURN_IF_NULL(this->mods);
+  (*mods) = (*this->mods);
   return MPA_SUCCESS;
 }
 
@@ -347,7 +373,9 @@ MagPebApp_ErrCode KivaModel_setLenderLoc(KivaModel* this, const char* lenderLoc)
 /////////////////////////////////////////////////////////////////////////////
 MagPebApp_ErrCode KivaModel_setLenderLoanQty(KivaModel* this, const int lenderLoanQty) {
   MPA_RETURN_IF_NULL(this);
+  MPA_RETURN_IF_NULL(this->mods);
   this->lenderInfo.loanQty = lenderLoanQty;
+  this->mods->lenderLoanQty = 1;
   return MPA_SUCCESS;
 }
 
@@ -370,6 +398,7 @@ MagPebApp_ErrCode KivaModel_setLenderLoanQty(KivaModel* this, const int lenderLo
 /////////////////////////////////////////////////////////////////////////////
 MagPebApp_ErrCode KivaModel_addLenderCountry(KivaModel* this, const char* countryId, const char* countryName) {
   MPA_RETURN_IF_NULL(this);
+  MPA_RETURN_IF_NULL(this->mods);
   MagPebApp_ErrCode mpaRet;
 
   CountryRec *cntry = NULL;
@@ -386,6 +415,7 @@ MagPebApp_ErrCode KivaModel_addLenderCountry(KivaModel* this, const char* countr
       APP_LOG(APP_LOG_LEVEL_ERROR, "Error adding new country (%s): %s", countryId, MagPebApp_getErrMsg(mpaRet));
       return mpaRet;
     }
+    this->mods->lenderCountryQty = 1;
 
     HASH_FIND_STR(this->kivaCountries, countryId, cntry);
     if (cntry == NULL) {
@@ -459,7 +489,9 @@ MagPebApp_ErrCode KivaModel_getLenderLoc(const KivaModel* this, char** lenderLoc
 /////////////////////////////////////////////////////////////////////////////
 MagPebApp_ErrCode KivaModel_getLenderLoanQty(const KivaModel* this, int* lenderLoanQty) {
   MPA_RETURN_IF_NULL(this);
+  MPA_RETURN_IF_NULL(this->mods);
   *lenderLoanQty = this->lenderInfo.loanQty;
+  this->mods->lenderLoanQty = 0;
   return MPA_SUCCESS;
 }
 
@@ -472,6 +504,7 @@ MagPebApp_ErrCode KivaModel_getLenderLoanQty(const KivaModel* this, int* lenderL
 /////////////////////////////////////////////////////////////////////////////
 MagPebApp_ErrCode KivaModel_getKivaCountryQty(const KivaModel* this, int* kivaCountryQty) {
   MPA_RETURN_IF_NULL(this);
+  MPA_RETURN_IF_NULL(this->mods);
 
   int kivaCntryCount = 0;
   CountryRec* cntry = NULL;
@@ -482,6 +515,7 @@ MagPebApp_ErrCode KivaModel_getKivaCountryQty(const KivaModel* this, int* kivaCo
     }
   }
   *kivaCountryQty = kivaCntryCount;
+  this->mods->kivaCountryQty = 0;
 
   return MPA_SUCCESS;
 }
@@ -495,6 +529,7 @@ MagPebApp_ErrCode KivaModel_getKivaCountryQty(const KivaModel* this, int* kivaCo
 /////////////////////////////////////////////////////////////////////////////
 MagPebApp_ErrCode KivaModel_getLenderCountryQty(const KivaModel* this, int* lenderCountryQty) {
   MPA_RETURN_IF_NULL(this);
+  MPA_RETURN_IF_NULL(this->mods);
 
   int lenderCntryCount = 0;
   CountryRec* cntry = NULL;
@@ -505,6 +540,7 @@ MagPebApp_ErrCode KivaModel_getLenderCountryQty(const KivaModel* this, int* lend
     }
   }
   *lenderCountryQty = lenderCntryCount;
+  this->mods->lenderCountryQty = 0;
 
   return MPA_SUCCESS;
 }
@@ -586,7 +622,8 @@ freemem:
 /////////////////////////////////////////////////////////////////////////////
 MagPebApp_ErrCode KivaModel_clearPreferredLoans(KivaModel* this) {
   MPA_RETURN_IF_NULL(this);
-  MagPebApp_ErrCode mpaRet;
+  MPA_RETURN_IF_NULL(this->mods);
+  MagPebApp_ErrCode mpaRet = MPA_SUCCESS;
 
   LoanRec* loanRec = NULL; LoanRec* tmpLoan = NULL;
   HASH_ITER(hh, this->prefLoans, loanRec, tmpLoan) {
@@ -596,6 +633,7 @@ MagPebApp_ErrCode KivaModel_clearPreferredLoans(KivaModel* this) {
     HASH_DEL(this->prefLoans, loanRec);
     loanRec = NULL;
   }
+  this->mods->preferredLoanQty = 1;
 
   return MPA_SUCCESS;
 }
@@ -616,6 +654,7 @@ MagPebApp_ErrCode KivaModel_clearPreferredLoans(KivaModel* this) {
 /////////////////////////////////////////////////////////////////////////////
 MagPebApp_ErrCode KivaModel_getPreferredLoanQty(const KivaModel* this, uint16_t* prefLoanQty) {
   MPA_RETURN_IF_NULL(this);
+  MPA_RETURN_IF_NULL(this->mods);
 
   uint16_t prefLoanCount = 0;
   LoanRec* loan = NULL;
@@ -623,6 +662,7 @@ MagPebApp_ErrCode KivaModel_getPreferredLoanQty(const KivaModel* this, uint16_t*
     prefLoanCount++;
   }
   *prefLoanQty = prefLoanCount;
+  this->mods->preferredLoanQty = 0;
 
   return MPA_SUCCESS;
 }
@@ -669,6 +709,7 @@ MagPebApp_ErrCode KivaModel_addPreferredLoan(KivaModel* this, const LoanInfo loa
       APP_LOG(APP_LOG_LEVEL_WARNING, "This shouldn't happen. The LoanRec we just found (%ld) is no longer in the hash.", loanInfo.id);
     }
   }
+  this->mods->preferredLoanQty = 1;
   return MPA_SUCCESS;
 }
 
@@ -759,7 +800,8 @@ KivaModel_PrefLoan_CIter* KivaModel_nextPrefLoan(const KivaModel* this, KivaMode
 /////////////////////////////////////////////////////////////////////////////
 MagPebApp_ErrCode KivaModel_addKivaCountry(KivaModel* this, const char* countryId, const char* countryName) {
   MPA_RETURN_IF_NULL(this);
-  MagPebApp_ErrCode mpaRet;
+  MPA_RETURN_IF_NULL(this->mods);
+  MagPebApp_ErrCode mpaRet = MPA_SUCCESS;
 
   CountryRec *newCntry = NULL;
   if ( (mpaRet = KivaModel_CountryRec_create(&newCntry)) != MPA_SUCCESS) {
@@ -779,6 +821,7 @@ MagPebApp_ErrCode KivaModel_addKivaCountry(KivaModel* this, const char* countryI
     // Value of countryId is not already a key in the hash table; add new record.
     //HEAP_LOG("adding new record...");
     HASH_ADD_KEYPTR(hh, this->kivaCountries, newCntry->id, strlen(newCntry->id), newCntry);
+    this->mods->kivaCountryQty = 1;
   } else {
     // Value of countryId was already a key in the hash table; replace it.
     HASH_ADD_KEYPTR(hh, this->kivaCountries, newCntry->id, strlen(newCntry->id), newCntry);

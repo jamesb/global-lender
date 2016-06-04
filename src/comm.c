@@ -348,6 +348,7 @@ static void inbox_received_callback(DictionaryIterator *iterator, void *context)
       free(state);
     }
     free(countrySetBuf); countrySetBuf = NULL;
+    comm_getPreferredLoans();
   }
 
   if ( (tuple = dict_find(iterator, KEY_LOAN_SET)) != NULL ) {

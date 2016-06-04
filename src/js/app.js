@@ -330,7 +330,7 @@ function getPreferredLoans(prefCC, maxResults) {
       loanQty = json.paging.total;
 
       // Iterate through each loan.
-      for (var lidx = 0; lidx < pageSize && (pageSize * pageIter + lidx) < loanQty; lidx++) {
+      for (var lidx = 0; lidx < Math.min(maxResults, pageSize) && (pageSize * pageIter + lidx) < loanQty; lidx++) {
         loanId = json.loans[lidx].id;
         name = json.loans[lidx].name;
         use = json.loans[lidx].use;
