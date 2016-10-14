@@ -1,6 +1,6 @@
 #include <pebble.h>
-#include "data/KivaModel.h"
-#include "libs/uthash.h"
+#include "KivaModel.h"
+#include "../libs/uthash.h"
 
 
 struct LenderInfo {

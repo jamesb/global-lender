@@ -1,11 +1,13 @@
 #include <pebble.h>
 
 // Deactivate APP_LOG in this file.
+//#undef APP_LOG
+//#define APP_LOG(...)
 
-#include "data/KivaModel.h"
-#include "misc.h"
-#include "ui/wndLenderBasics.h"
-#include "ui/lyrDigitime.h"
+#include "../data/KivaModel.h"
+#include "../misc.h"
+#include "wndLenderBasics.h"
+#include "lyrDigitime.h"
 
 static Window* wndLenderBasics;
 

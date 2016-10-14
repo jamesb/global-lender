@@ -1,8 +1,8 @@
 #include <pebble.h>
 
 // Deactivate APP_LOG in this file.
-#undef APP_LOG
-#define APP_LOG(...)
+//#undef APP_LOG
+//#define APP_LOG(...)
 
 #include "comm.h"
 #include "misc.h"
@@ -15,6 +15,7 @@
 static void init() {
   wndMainMenu_createPush();
   wndMainMenu_setHandlers( (wndMainMenuHandlers) {
+    .getLenderInfo = comm_getLenderInfo,
     .getPrefLoans = comm_getPreferredLoans
   });
 

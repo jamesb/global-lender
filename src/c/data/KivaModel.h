@@ -1,6 +1,7 @@
 #pragma once
 
-#include "libs/magpebapp.h"
+#include <pebble.h>
+#include "../libs/magpebapp.h"
 
 
 // Model struct typedef

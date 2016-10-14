@@ -1,3 +1,7 @@
+var Clay = require('pebble-clay');
+var clayConfig = require('./config');
+var clay = new Clay(clayConfig);
+
 
 // Country Codes
 var kivaCC = {};
@@ -6,7 +10,6 @@ var baseKivaUrl = "http://api.kivaws.org/v1/";
 var jsonExt = ".json";
 var kivaAppId = 'com.magnosity.global-lender';
 var kivaAppIdParam = "appId=" + kivaAppId;
-var lenderId = 'jdb';
 
 
 // Global variable to store results from multi-page API calls
@@ -72,7 +75,7 @@ function callKivaApiAsync(url, parseFxn, maxResults) {
       var dictionary = {};
       var allReceived = true;
       if (json.code) {
-        console.log("RESPONSE ERROR " + json.code + ": " + json.message);
+        console.log("RESPONSE ERROR for " + url + "\n   " + json.code + ": " + json.message);
         // JRB TODO: Need to create a dictionary key to send an error message to Pebble for display to user.
       } else {
         if (!json.paging) {
@@ -85,7 +88,7 @@ function callKivaApiAsync(url, parseFxn, maxResults) {
           var pageTotal = parseInt(json.paging.pages, 10);
 
           var pageLimit;
-          if (maxResults == 0) pageLimit = pageTotal;
+          if (maxResults === 0) pageLimit = pageTotal;
           else pageLimit = Math.ceil(maxResults / pageSize);
 
           console.log("Received page " + pageNum + " of " + pageLimit + " (" + pageTotal + ")");
@@ -133,7 +136,11 @@ function callKivaApiAsync(url, parseFxn, maxResults) {
 
 /////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
-function getLenderInfo() {
+function getLenderInfo(lenderId) {
+  if (!lenderId) {
+    console.log("Called getLenderInfo() with a blank lender ID!");
+    return;
+  }
   var url = baseKivaUrl + "lenders/" + lenderId + jsonExt + "?" + kivaAppIdParam;
   var maxResults = 0;
 
@@ -153,10 +160,9 @@ function getLenderInfo() {
 
     // Assemble dictionary using our keys
     dictionary = {
-      "KEY_LENDER_ID"          : lenderId,
-      "KEY_LENDER_NAME"        : lenderName,
-      "KEY_LENDER_LOC"         : lenderLoc,
-      "KEY_LENDER_LOAN_QTY"    : lenderLoanQty
+      "LENDER_NAME"        : lenderName,
+      "LENDER_LOC"         : lenderLoc,
+      "LENDER_LOAN_QTY"    : lenderLoanQty
     };
     return dictionary;
   };
@@ -167,7 +173,11 @@ function getLenderInfo() {
 
 /////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
-function getLoansForLender() {
+function getLoansForLender(lenderId) {
+  if (!lenderId) {
+    console.log("Called getLoansForLender() with a blank lender ID!");
+    return;
+  }
   var url = baseKivaUrl + "lenders/" + lenderId + "/loans" + jsonExt + "?" + kivaAppIdParam;
   var maxResults = 0;
 
@@ -187,15 +197,21 @@ function getLoansForLender() {
       pageTotal = parseInt(json.paging.pages, 10);
 
       var pageLimit;
-      if (maxResults == 0) pageLimit = pageTotal;
-      else pageLimit = Math.ceil(maxResults / pageSize);
+      var idxLimit;
+      if (maxResults === 0) {
+        pageLimit = pageTotal;
+        idxLimit = pageSize;
+      } else {
+        pageLimit = Math.ceil(maxResults / pageSize);
+        idxLimit = Math.min(maxResults, pageSize);
+      }
 
       console.log("Parsing page " + pageNum + " of " + pageLimit + " (" + pageTotal + ")");
 
       lenderLoanQty = json.paging.total;
 
       // Iterate through each loan.
-      for (var lidx = 0; lidx < pageSize && (pageSize * pageIter + lidx) < lenderLoanQty; lidx++) {
+      for (var lidx = 0; lidx < idxLimit && (pageSize * pageIter + lidx) < lenderLoanQty; lidx++) {
         var countryCode = json.loans[lidx].location.country_code;
         var countryName = json.loans[lidx].location.country;
         lenderCC[countryCode] = countryName;
@@ -218,9 +234,8 @@ function getLoansForLender() {
 
     // Assemble dictionary using our keys
     dictionary = {
-      "KEY_LENDER_ID"          : lenderId,
-      "KEY_LENDER_LOAN_QTY"    : lenderLoanQty,
-      "KEY_LENDER_COUNTRY_SET" : lenderCCFlat
+      "LENDER_LOAN_QTY"    : lenderLoanQty,
+      "LENDER_COUNTRY_SET" : lenderCCFlat
     };
 
     return dictionary;
@@ -252,15 +267,21 @@ function getKivaActiveFieldPartners() {
       pageTotal = parseInt(json.paging.pages, 10);
 
       var pageLimit;
-      if (maxResults == 0) pageLimit = pageTotal;
-      else pageLimit = Math.ceil(maxResults / pageSize);
+      var idxLimit;
+      if (maxResults === 0) {
+        pageLimit = pageTotal;
+        idxLimit = pageSize;
+      } else {
+        pageLimit = Math.ceil(maxResults / pageSize);
+        idxLimit = Math.min(maxResults, pageSize);
+      }
 
       console.log("Parsing page " + pageNum + " of " + pageLimit + " (" + pageTotal + ")");
 
       partnerQty = json.paging.total;
 
       // Iterate through each partner.
-      for (var pidx = 0; pidx < pageSize && (pageSize * pageIter + pidx) < partnerQty; pidx++) {
+      for (var pidx = 0; pidx < idxLimit && (pageSize * pageIter + pidx) < partnerQty; pidx++) {
         var partnerCountryQty = json.partners[pidx].countries.length;
         var partnerStatus = json.partners[pidx].status;
 
@@ -271,7 +292,7 @@ function getKivaActiveFieldPartners() {
             // JRB TODO: store the country ID and name in a delta list for sending to the watch.
             kivaCC[countryCode] = countryName;
             deltaKivaCC[countryCode] = countryName;
-            console.log("(PARTNER) NEW KIVA COUNTRY CODE: " + countryCode + " = " + countryName);
+//            console.log("(PARTNER) NEW KIVA COUNTRY CODE: " + countryCode + " = " + countryName);
           }
         }
       }
@@ -290,7 +311,7 @@ function getKivaActiveFieldPartners() {
 
     // Assemble dictionary using our keys
     dictionary = {
-      "KEY_KIVA_COUNTRY_SET" : deltaKivaCCFlat
+      "KIVA_COUNTRY_SET" : deltaKivaCCFlat
     };
 
     return dictionary;
@@ -312,7 +333,7 @@ function getPreferredLoans(prefCC, maxResults) {
     // pageNum range = [1 .. n pages];   pageIter range = [0 .. n-1 pages]
     var pageNum, pageSize, pageTotal, pageIter;
     var loansFlat = "";
-    var loanId, name, use, countryCode, fundedAmt, loanAmt;
+    var loanQty, loanId, name, use, countryCode, fundedAmt, loanAmt;
 
     for (pageIter=0; pageIter < Object.keys(jsonPageArray).length; pageIter++) {
       json = JSON.parse(jsonPageArray[pageIter]);
@@ -322,15 +343,21 @@ function getPreferredLoans(prefCC, maxResults) {
       pageTotal = parseInt(json.paging.pages, 10);
 
       var pageLimit;
-      if (maxResults == 0) pageLimit = pageTotal;
-      else pageLimit = Math.ceil(maxResults / pageSize);
+      var idxLimit;
+      if (maxResults === 0) {
+        pageLimit = pageTotal;
+        idxLimit = pageSize;
+      } else {
+        pageLimit = Math.ceil(maxResults / pageSize);
+        idxLimit = Math.min(maxResults, pageSize);
+      }
 
       console.log("Parsing page " + pageNum + " of " + pageLimit + " (" + pageTotal + ")");
 
       loanQty = json.paging.total;
 
       // Iterate through each loan.
-      for (var lidx = 0; lidx < Math.min(maxResults, pageSize) && (pageSize * pageIter + lidx) < loanQty; lidx++) {
+      for (var lidx = 0; lidx < idxLimit && (pageSize * pageIter + lidx) < loanQty; lidx++) {
         loanId = json.loans[lidx].id;
         name = json.loans[lidx].name;
         use = json.loans[lidx].use;
@@ -354,7 +381,7 @@ function getPreferredLoans(prefCC, maxResults) {
 
     // Assemble dictionary using our keys
     dictionary = {
-      "KEY_LOAN_SET" : loansFlat
+      "LOAN_SET" : loansFlat
     };
 
     return dictionary;
@@ -365,20 +392,6 @@ function getPreferredLoans(prefCC, maxResults) {
 
 
 /////////////////////////////////////////////////////////////////////////////
-/// Listen for when the watch opens communication and inform the watch that
-/// the PebbleKit end of the channel is ready.
-/////////////////////////////////////////////////////////////////////////////
-Pebble.addEventListener('ready',
-  function(e) {
-    console.log("PebbleKit JS ready!");
-    Pebble.sendAppMessage({"KEY_PEBKIT_READY": 1});
-
-    getKivaActiveFieldPartners();
-  }
-);
-
-
-/////////////////////////////////////////////////////////////////////////////
 /// Listen for when an AppMessage is received.
 /////////////////////////////////////////////////////////////////////////////
 Pebble.addEventListener('appmessage',
@@ -386,11 +399,12 @@ Pebble.addEventListener('appmessage',
     console.log("AppMessage received: " + JSON.stringify(e.payload));
     var dict = e.payload;
 
-    if ('KEY_GET_LENDER_INFO' in dict) {
-      getLenderInfo();
-      getLoansForLender();
-    } else if ('KEY_GET_PREFERRED_LOANS' in dict) {
-      var prefCC = dict['KEY_GET_PREFERRED_LOANS'];
+    if ('GET_LENDER_INFO' in dict) {
+      var lenderId = dict['GET_LENDER_INFO'];
+      getLenderInfo(lenderId);
+      getLoansForLender(lenderId);
+    } else if ('GET_PREFERRED_LOANS' in dict) {
+      var prefCC = dict['GET_PREFERRED_LOANS'];
       var maxResults = 10;
       getPreferredLoans(prefCC, maxResults);
     } else {
@@ -400,3 +414,18 @@ Pebble.addEventListener('appmessage',
 
   }
 );
+
+
+/////////////////////////////////////////////////////////////////////////////
+/// Listen for when the watch opens communication and inform the watch that
+/// the PebbleKit end of the channel is ready.
+/////////////////////////////////////////////////////////////////////////////
+Pebble.addEventListener('ready',
+  function(e) {
+    console.log("PebbleKit JS ready!");
+    Pebble.sendAppMessage({"PEBKIT_READY": 1});
+
+    getKivaActiveFieldPartners();
+  }
+);
+

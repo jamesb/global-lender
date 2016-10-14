@@ -1,0 +1,72 @@
+{
+    "author": "James Bernsen",
+    "dependencies": {
+        "pebble-clay": "^1.0.2"
+    },
+    "keywords": [],
+    "name": "glend",
+    "pebble": {
+        "capabilities": [
+            "configurable"
+        ],
+        "displayName": "Global Lender",
+        "enableMultiJS": true,
+        "messageKeys": [
+            "PEBKIT_READY",
+            "PEBBLE_READY",
+            "GET_LENDER_INFO",
+            "GET_PREFERRED_LOANS",
+            "KIVA_COUNTRY_SET",
+            "KIVA_SECTOR_SET",
+            "KIVA_ACTIVITY_SET",
+            "KIVA_FIELD_PARTNER_SET",
+            "APP_ACHIEVEMENT_SET",
+            "LENDER_ID",
+            "LENDER_NAME",
+            "LENDER_LOC",
+            "LENDER_LOAN_QTY",
+            "LENDER_TEAM_SET",
+            "LENDER_COUNTRY_SET",
+            "LENDER_SECTOR_SET",
+            "LENDER_ACTIVITY_SET",
+            "LENDER_FIELD_PARTNER_SET",
+            "LENDER_TARGET_LOAN_SET",
+            "LENDER_ACHIEVEMENT_SET",
+            "LOAN_SET",
+            "PUT_LOANS_IN_BASKET"
+        ],
+        "projectType": "native",
+        "resources": {
+            "media": [
+                {
+                    "file": "images/GlobeLauncherIcon.png",
+                    "menuIcon": true,
+                    "name": "IMG_GLOBE_LAUNCHER",
+                    "targetPlatforms": [
+                        "aplite",
+                        "basalt",
+                        "chalk",
+                        "diorite"
+                    ],
+                    "type": "bitmap"
+                },
+                {
+                    "file": "images/Horizon Logo.png",
+                    "name": "IMG_LOGO_WIDE",
+                    "targetPlatforms": null,
+                    "type": "bitmap"
+                }
+            ]
+        },
+        "sdkVersion": "3",
+        "targetPlatforms": [
+            "basalt",
+            "chalk"
+        ],
+        "uuid": "1f32154d-fbda-454a-a183-726c9865e8f1",
+        "watchapp": {
+            "watchface": false
+        }
+    },
+    "version": "1.0.0"
+}

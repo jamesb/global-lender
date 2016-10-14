@@ -1,6 +1,5 @@
 #pragma once
 
-
 #define MPA_RETURN_IF_NULL(var)                                               \
     if (var == NULL) {                                                        \
       APP_LOG(APP_LOG_LEVEL_ERROR, "Attempted operation on NULL pointer.");   \
@@ -16,6 +15,9 @@ typedef enum MagPebApp_ErrCode {
   MPA_STRING_ERR,
   MPA_INVALID_INPUT_ERR,
   MPA_OUT_OF_MEMORY_ERR,
+  MPA_EMPTY_ERR,
+  MPA_FULL_ERR,
+  MPA_OVERFLOW_ERR,
 
   MPA_LAST_ERRCODE
 } MagPebApp_ErrCode;

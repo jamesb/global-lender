@@ -4,11 +4,12 @@
 //#undef APP_LOG
 //#define APP_LOG(...)
 
-#include "misc.h"
-#include "data/KivaModel.h"
-#include "libs/WndDataMenu.h"
-#include "ui/wndLenderBasics.h"
-#include "ui/wndMainMenu.h"
+#include "../misc.h"
+#include "../data/KivaModel.h"
+#include "../libs/WndDataMenu.h"
+
+#include "wndLenderBasics.h"
+#include "wndMainMenu.h"
 
 #define NUM_MENU_SECTIONS 1
 
@@ -132,6 +133,12 @@ static void wndMainMenu_select_callback(MenuLayer* menu_layer, MenuIndex* cell_i
 
   switch (cell_index->row) {
     case MNU_ITEM_LENDER_INFO: {
+      if (!myHandlers.getLenderInfo) {
+        APP_LOG(APP_LOG_LEVEL_ERROR, "Attempted operation on NULL pointer.");
+      } else {
+        (*myHandlers.getLenderInfo)();
+      }
+
       wndLenderBasics_push();
       wndLenderBasics_updateView(kivaModel);
       break;

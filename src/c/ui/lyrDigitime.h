@@ -1,6 +1,6 @@
 #pragma once
 
-#include "libs/magpebapp.h"
+#include "../libs/magpebapp.h"
 
 void lyrDigitime_create(const GRect position, Layer* lyrParent);
 void lyrDigitime_destroy();

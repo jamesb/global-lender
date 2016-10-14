@@ -1,6 +1,6 @@
 #pragma once
 #include <pebble.h>
-#include "libs/magpebapp.h"
+#include "magpebapp.h"
 
 
 typedef struct WndDataMenu_Palette {

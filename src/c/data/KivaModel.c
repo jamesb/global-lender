@@ -1,11 +1,11 @@
 #include <pebble.h>
 
 // Deactivate APP_LOG in this file.
-//#undef APP_LOG
-//#define APP_LOG(...)
+#undef APP_LOG
+#define APP_LOG(...)
 
-#include "data/KivaModel_Internal.h"
-#include "misc.h"
+#include "KivaModel_Internal.h"
+#include "../misc.h"
 
 
 

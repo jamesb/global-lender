@@ -1,5 +1,5 @@
 #include <pebble.h>
-#include "libs/WndDataMenu.h"
+#include "WndDataMenu.h"
 
 
 typedef struct SectionInfo {

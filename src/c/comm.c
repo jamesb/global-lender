@@ -9,11 +9,40 @@
 #include "comm.h"
 #include "data/KivaModel.h"
 #include "libs/data-processor.h"
+#include "libs/RingBuffer.h"
 
 
 static KivaModel* dataModel;
 static CommHandlers commHandlers;
+static RingBuffer* sendBuffer;
+static AppTimer* sendRetryTimer;
+static uint8_t sendRetryCount;
 static bool pebkitReady;
+
+const uint8_t MAX_SEND_RETRIES = 5;
+const uint8_t SEND_BUF_SIZE = 10;
+
+
+/////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
+static Message* comm_msg_create(uint32_t msgKey, void* payload) {
+  Message* newMsg = malloc(sizeof(*newMsg));
+  if (newMsg == NULL) return NULL;
+  
+  newMsg->key = msgKey;
+  newMsg->payload = payload;
+  return newMsg;
+}
+
+
+/////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
+static void comm_msg_destroy(Message* msg) {
+  if (msg != NULL) {
+    free(msg);
+    msg = NULL;
+  }
+}
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -53,10 +82,10 @@ static bool unloadTupleLong(long int* buffer, Tuple* tuple, const char* readable
 
 
 /////////////////////////////////////////////////////////////////////////////
-/// Deserializes a KEY_KIVA_COUNTRY_SET tuple.
+/// Deserializes a MESSAGE_KEY_KIVA_COUNTRY_SET tuple.
 ///
 /// @param[in]      tuple  This tuple must be non-null and its key must
-///       match KEY_KIVA_COUNTRY_SET.
+///       match MESSAGE_KEY_KIVA_COUNTRY_SET.
 ///
 /// @return  MPA_SUCCESS on success
 ///          MPA_NULL_POINTER_ERR if parameters tuple or ... is
@@ -67,15 +96,16 @@ static bool unloadTupleLong(long int* buffer, Tuple* tuple, const char* readable
 static MagPebApp_ErrCode unloadKivaCountrySet(Tuple* tuple) {
   MPA_RETURN_IF_NULL(tuple);
 
-  size_t bufsize = strlen(tuple->value->cstring)+1;
   const char* readable = "Kiva-Served Countries";
   char* countrySetBuf = NULL;
   ProcessingState* state = NULL;
   uint16_t num_strings = 0;
   uint16_t idx = 0;
   char** strings = NULL;
-  MagPebApp_ErrCode mpaRet = MPA_SUCCESS;
+  MagPebApp_ErrCode mpaRet = MPA_SUCCESS, myret = MPA_OUT_OF_MEMORY_ERR;
 
+  size_t bufsize = strlen(tuple->value->cstring)+1;
+  if (bufsize == 1) { myret = MPA_INVALID_INPUT_ERR; goto freemem; }
   if ( (countrySetBuf = malloc(bufsize)) == NULL) { goto freemem; }
 
   if (!unloadTupleStr(&countrySetBuf, bufsize, tuple, readable)) {
@@ -85,6 +115,7 @@ static MagPebApp_ErrCode unloadKivaCountrySet(Tuple* tuple) {
 
   if ( (state = data_processor_create(countrySetBuf, '|')) == NULL) { goto freemem; }
   num_strings = data_processor_count(state);
+  if (num_strings == 0) { myret = MPA_INVALID_INPUT_ERR; goto freemem; }
   if ( (strings = calloc(num_strings, sizeof(*strings))) == NULL) { goto freemem; }
 
   for (idx = 0; idx < num_strings; idx += 2) {
@@ -140,15 +171,15 @@ freemem:
     free(countrySetBuf);  countrySetBuf = NULL;
   }
 
-  return MPA_OUT_OF_MEMORY_ERR;
+  return myret;
 }
 
 
 /////////////////////////////////////////////////////////////////////////////
-/// Deserializes a KEY_KIVA_COUNTRY_SET tuple.
+/// Deserializes a MESSAGE_KEY_KIVA_COUNTRY_SET tuple.
 ///
 /// @param[in]      tuple  This tuple must be non-null and its key must
-///       match KEY_KIVA_COUNTRY_SET.
+///       match MESSAGE_KEY_KIVA_COUNTRY_SET.
 ///
 /// @return  MPA_SUCCESS on success
 ///          MPA_NULL_POINTER_ERR if parameters tuple or ... is
@@ -252,21 +283,20 @@ static void inbox_received_callback(DictionaryIterator *iterator, void *context)
 
   MagPebApp_ErrCode mpaRet = MPA_SUCCESS;
   Tuple *tuple = NULL;
-  if ( (tuple = dict_find(iterator, KEY_PEBKIT_READY)) != NULL ) {
+  if ( (tuple = dict_find(iterator, MESSAGE_KEY_PEBKIT_READY)) != NULL ) {
     // PebbleKit JS is ready! Safe to send messages
     pebkitReady = true;
+    APP_LOG(APP_LOG_LEVEL_INFO, "PebbleKit JS sent ready message!");
   }
 
-  if ( (tuple = dict_find(iterator, KEY_KIVA_COUNTRY_SET)) != NULL ) {
+  if ( (tuple = dict_find(iterator, MESSAGE_KEY_KIVA_COUNTRY_SET)) != NULL ) {
     if ( (mpaRet = unloadKivaCountrySet(tuple)) != MPA_SUCCESS) {
       APP_LOG(APP_LOG_LEVEL_ERROR, "Error retrieving Kiva-served countries: %s", MagPebApp_getErrMsg(mpaRet));
       return;
     }
-    // Get Lender info
-    comm_sendMsgCstr(KEY_GET_LENDER_INFO, NULL);
   }
 
-  if ( (tuple = dict_find(iterator, KEY_LENDER_ID)) != NULL ) {
+  if ( (tuple = dict_find(iterator, MESSAGE_KEY_LENDER_ID)) != NULL ) {
     const char* readable = "Lender Id";
     size_t bufsize = strlen(tuple->value->cstring)+1;
     char* lenderIdBuf = NULL;
@@ -280,9 +310,10 @@ static void inbox_received_callback(DictionaryIterator *iterator, void *context)
       }
     }
     free(lenderIdBuf); lenderIdBuf = NULL;
+    comm_getLenderInfo();
   }
 
-  if ( (tuple = dict_find(iterator, KEY_LENDER_NAME)) != NULL ) {
+  if ( (tuple = dict_find(iterator, MESSAGE_KEY_LENDER_NAME)) != NULL ) {
     const char* readable = "Lender Name";
     size_t bufsize = strlen(tuple->value->cstring)+1;
     char* lenderNameBuf = NULL;
@@ -298,7 +329,7 @@ static void inbox_received_callback(DictionaryIterator *iterator, void *context)
     free(lenderNameBuf); lenderNameBuf = NULL;
   }
 
-  if ( (tuple = dict_find(iterator, KEY_LENDER_LOC)) != NULL ) {
+  if ( (tuple = dict_find(iterator, MESSAGE_KEY_LENDER_LOC)) != NULL ) {
     const char* readable = "Lender Location";
     size_t bufsize = strlen(tuple->value->cstring)+1;
     char* lenderLocBuf = NULL;
@@ -314,7 +345,7 @@ static void inbox_received_callback(DictionaryIterator *iterator, void *context)
     free(lenderLocBuf); lenderLocBuf = NULL;
   }
 
-  if ( (tuple = dict_find(iterator, KEY_LENDER_LOAN_QTY)) != NULL ) {
+  if ( (tuple = dict_find(iterator, MESSAGE_KEY_LENDER_LOAN_QTY)) != NULL ) {
     const char* readable = "Lender Loan Quantity";
     long int lenderLoanQty = 0;
     if (unloadTupleLong(&lenderLoanQty, tuple, readable)) {
@@ -324,7 +355,7 @@ static void inbox_received_callback(DictionaryIterator *iterator, void *context)
     }
   }
 
-  if ( (tuple = dict_find(iterator, KEY_LENDER_COUNTRY_SET)) != NULL ) {
+  if ( (tuple = dict_find(iterator, MESSAGE_KEY_LENDER_COUNTRY_SET)) != NULL ) {
     const char* readable = "Lender-Supported Countries";
     size_t bufsize = strlen(tuple->value->cstring)+1;
     char* countrySetBuf = NULL;
@@ -351,7 +382,7 @@ static void inbox_received_callback(DictionaryIterator *iterator, void *context)
     comm_getPreferredLoans();
   }
 
-  if ( (tuple = dict_find(iterator, KEY_LOAN_SET)) != NULL ) {
+  if ( (tuple = dict_find(iterator, MESSAGE_KEY_LOAN_SET)) != NULL ) {
     if ( (mpaRet = unloadPreferredLoanSet(tuple)) != MPA_SUCCESS) {
       APP_LOG(APP_LOG_LEVEL_ERROR, "Error retrieving preferred loans: %s", MagPebApp_getErrMsg(mpaRet));
       return;
@@ -397,10 +428,42 @@ bool comm_pebkitReady() {
 
 
 /////////////////////////////////////////////////////////////////////////////
-/// Send data to PebbleKit.
+/// Queue data and send to PebbleKit.
 /////////////////////////////////////////////////////////////////////////////
-void comm_sendMsgCstr(const MsgKey msgKey, const char* payload) {
-  if (!pebkitReady) {
+void comm_enqMsg(const Message* msg) {
+  MagPebApp_ErrCode mpaRet = MPA_SUCCESS;
+  if (msg == NULL) {
+    APP_LOG(APP_LOG_LEVEL_ERROR, "Tried to send a null message.");
+    return;
+  }
+  
+  if ( (mpaRet = RingBuffer_write(sendBuffer, (void*)msg)) != MPA_SUCCESS) {
+    APP_LOG(APP_LOG_LEVEL_ERROR, "Error buffering message: %s", MagPebApp_getErrMsg(mpaRet));
+  } else {
+    comm_sendBufMsg();
+  }
+}
+
+
+/////////////////////////////////////////////////////////////////////////////
+/// Send buffered data to PebbleKit.
+/////////////////////////////////////////////////////////////////////////////
+void comm_sendBufMsg() {
+  MagPebApp_ErrCode mpaRet = MPA_SUCCESS;
+  
+  void* data = NULL;
+  if ( (mpaRet = RingBuffer_peek(sendBuffer, &data)) != MPA_SUCCESS) {
+    APP_LOG(APP_LOG_LEVEL_ERROR, "Error reading buffered message: %s", MagPebApp_getErrMsg(mpaRet));
+    return;
+  }
+  
+  Message* msg = (Message*) data;
+  if (msg == NULL) {
+    APP_LOG(APP_LOG_LEVEL_ERROR, "Tried to send a null message.");
+    return;
+  }
+  
+  if (!comm_pebkitReady()) {
     APP_LOG(APP_LOG_LEVEL_WARNING, "Tried to send a message from the watch before PebbleKit JS is ready.");
     return;
   }
@@ -411,17 +474,100 @@ void comm_sendMsgCstr(const MsgKey msgKey, const char* payload) {
   // Prepare the outbox buffer for this message
   AppMessageResult result = app_message_outbox_begin(&outIter);
   if (result == APP_MSG_OK) {
-    dict_write_cstring(outIter, msgKey, payload);
+    dict_write_cstring(outIter, msg->key, msg->payload);
 
     // Send this message
     result = app_message_outbox_send();
-    if(result != APP_MSG_OK) {
-      APP_LOG(APP_LOG_LEVEL_ERROR, "Error sending the outbox: %d", (int)result);
+    
+    if(result == APP_MSG_OK) {
+      APP_LOG(APP_LOG_LEVEL_INFO, "Sent outbox message %d!", (int)msg->key);
+      sendRetryCount = 0;
+      RingBuffer_drop(sendBuffer);
+      if (sendRetryTimer != NULL) { app_timer_cancel(sendRetryTimer);  sendRetryTimer = NULL; }
+      return; // SUCCESS! ALL DONE
     }
+    
+    APP_LOG(APP_LOG_LEVEL_WARNING, "Error sending the outbox for message %d.  Result: %d", (int)msg->key, (int)result);
+    
   } else {
     // The outbox cannot be used right now
-    APP_LOG(APP_LOG_LEVEL_ERROR, "Error preparing the outbox: %d", (int)result);
+    APP_LOG(APP_LOG_LEVEL_WARNING, "Error preparing the outbox for message %d.  Result: %d", (int)msg->key, (int)result);
   }
+  
+  // JRB TODO: This should be moved to the outbox failed callback (and called directly from here, if needed).
+  if (sendRetryCount < MAX_SEND_RETRIES) {
+    sendRetryCount++;
+    uint16_t retryIntervalMs = (sendRetryCount * 1000);
+    APP_LOG(APP_LOG_LEVEL_INFO, "Retrying message (%d) send in %d ms...", (int)msg->key, retryIntervalMs);
+    sendRetryTimer = app_timer_register(retryIntervalMs, comm_sendBufMsg, NULL);
+  } else {
+    APP_LOG(APP_LOG_LEVEL_ERROR, "Max retries failed. Abandoning message (%d).", (int)msg->key);
+    sendRetryCount = 0;
+    RingBuffer_drop(sendBuffer);
+    if (sendRetryTimer != NULL) { app_timer_cancel(sendRetryTimer);  sendRetryTimer = NULL; }
+  }
+}
+
+
+/////////////////////////////////////////////////////////////////////////////
+/// Send data to PebbleKit.
+/////////////////////////////////////////////////////////////////////////////
+void comm_sendMsg(const Message* msg) {
+  if (msg == NULL) {
+    APP_LOG(APP_LOG_LEVEL_ERROR, "Tried to send a null message.");
+    return;
+  }
+  
+  if (!comm_pebkitReady()) {
+    APP_LOG(APP_LOG_LEVEL_WARNING, "Tried to send a message from the watch before PebbleKit JS is ready.");
+    return;
+  }
+
+  // Declare the dictionary's iterator
+  DictionaryIterator *outIter;
+
+  // Prepare the outbox buffer for this message
+  AppMessageResult result = app_message_outbox_begin(&outIter);
+  if (result == APP_MSG_OK) {
+    dict_write_cstring(outIter, msg->key, msg->payload);
+
+    // Send this message
+    result = app_message_outbox_send();
+  
+    if(result == APP_MSG_OK) {
+      APP_LOG(APP_LOG_LEVEL_INFO, "Sent outbox message %d!", (int)msg->key);
+    } else {
+      APP_LOG(APP_LOG_LEVEL_ERROR, "Error sending the outbox for message %d.  Result: %d", (int)msg->key, (int)result);
+    }
+    
+  } else {
+    // The outbox cannot be used right now
+    APP_LOG(APP_LOG_LEVEL_ERROR, "Error preparing the outbox for message %d.  Result: %d", (int)msg->key, (int)result);
+  }
+}
+
+
+/////////////////////////////////////////////////////////////////////////////
+/// Requests PebbleKit to send lender information (name, location, etc).
+/////////////////////////////////////////////////////////////////////////////
+void comm_getLenderInfo() {
+    if (dataModel == NULL) {
+      APP_LOG(APP_LOG_LEVEL_ERROR, "Kiva Model is not yet initialized.");
+      return;
+    }
+
+    MagPebApp_ErrCode mpaRet;
+    char* lenderId = NULL;
+    if ( (mpaRet = KivaModel_getLenderId(dataModel, &lenderId)) != MPA_SUCCESS) {
+      APP_LOG(APP_LOG_LEVEL_ERROR, "Could not retrieve lender ID: %s", MagPebApp_getErrMsg(mpaRet));
+      return;
+    }
+
+    // JRB TODO: Validate that lender ID is not blank.
+  
+    APP_LOG(APP_LOG_LEVEL_DEBUG, "Get lender info for ID: %s", lenderId);
+    //comm_sendMsgCstr(comm_msg_create(MESSAGE_KEY_GET_LENDER_INFO, lenderId));
+    comm_enqMsg(comm_msg_create(MESSAGE_KEY_GET_LENDER_INFO, lenderId));
 }
 
 
@@ -442,7 +588,9 @@ void comm_getPreferredLoans() {
     }
 
     APP_LOG(APP_LOG_LEVEL_DEBUG, "Get loans for country codes: %s", countryCodes);
-    comm_sendMsgCstr(KEY_GET_PREFERRED_LOANS, countryCodes);
+    //comm_sendMsgCstr(comm_msg_create(MESSAGE_KEY_GET_PREFERRED_LOANS, countryCodes));
+    comm_enqMsg(comm_msg_create(MESSAGE_KEY_GET_PREFERRED_LOANS, countryCodes));
+    // JRB TODO: Oops, this is a problem. Need to free the Message* I just created (and in numerous other places) at some point.
     free(countryCodes);
 }
 
@@ -456,7 +604,7 @@ void comm_tickHandler(struct tm *tick_time, TimeUnits units_changed) {
     char timebuf[bufsize];
     size_t ret = 0;
 
-    if ( (ret = strftime(timebuf, bufsize, "%a, %d %b %Y %T %z", tick_time)) == 0) {
+    if ( (ret = strftime(timebuf, (int)bufsize, "%a, %d %b %Y %T %z", tick_time)) == 0) {
       APP_LOG(APP_LOG_LEVEL_ERROR, "Error returned: %d", ret);
       return;
     }
@@ -470,7 +618,7 @@ void comm_tickHandler(struct tm *tick_time, TimeUnits units_changed) {
 
   // Get update every 30 minutes
   if(tick_time->tm_min % 30 == 0) {
-    comm_sendMsgCstr(KEY_GET_LENDER_INFO, NULL);
+    comm_getLenderInfo();
   }
 }
 
@@ -489,6 +637,9 @@ void comm_setHandlers(const CommHandlers cmh) {
 void comm_open() {
   dataModel = NULL;
   if ( (dataModel = KivaModel_create("")) == NULL) { APP_LOG(APP_LOG_LEVEL_ERROR, "Could not initialize data model."); }
+  
+  sendBuffer = NULL;
+  if ( (sendBuffer = RingBuffer_create(SEND_BUF_SIZE)) == NULL) { APP_LOG(APP_LOG_LEVEL_ERROR, "Could not initialize send buffer."); }
 
   // Register callbacks
   app_message_register_inbox_received(inbox_received_callback);
@@ -509,6 +660,12 @@ void comm_close() {
   if (dataModel != NULL) {
     KivaModel_destroy(dataModel);  dataModel = NULL;
   }
+  
+  if (sendBuffer != NULL) {
+    RingBuffer_destroy(sendBuffer);  sendBuffer = NULL;
+  }
+  
+  app_message_deregister_callbacks();
 }
 
 

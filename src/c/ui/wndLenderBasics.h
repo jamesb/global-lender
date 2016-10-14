@@ -1,6 +1,6 @@
 #pragma once
 
-#include "data/KivaModel.h"
+#include "../data/KivaModel.h"
 
 void wndLenderBasics_updateTime(struct tm*);
 void wndLenderBasics_updateView(const KivaModel*);
