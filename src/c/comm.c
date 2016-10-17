@@ -15,12 +15,15 @@
 static KivaModel* dataModel;
 static CommHandlers commHandlers;
 static RingBuffer* sendBuffer;
+static ClaySettings settings;
+static char** strSettings;
 static AppTimer* sendRetryTimer;
 static uint8_t sendRetryCount;
 static bool pebkitReady;
 
 const uint8_t MAX_SEND_RETRIES = 5;
 const uint8_t SEND_BUF_SIZE = 10;
+const uint32_t SETTINGS_STRUCT_KEY = 0x1000;
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -283,10 +286,18 @@ static void inbox_received_callback(DictionaryIterator *iterator, void *context)
 
   MagPebApp_ErrCode mpaRet = MPA_SUCCESS;
   Tuple *tuple = NULL;
+  
   if ( (tuple = dict_find(iterator, MESSAGE_KEY_PEBKIT_READY)) != NULL ) {
     // PebbleKit JS is ready! Safe to send messages
     pebkitReady = true;
     APP_LOG(APP_LOG_LEVEL_INFO, "PebbleKit JS sent ready message!");
+    
+    bool empty = true;
+    if ( (sendBuffer != NULL) && ( (mpaRet = RingBuffer_empty(sendBuffer, &empty)) != MPA_SUCCESS) ) {
+      APP_LOG(APP_LOG_LEVEL_ERROR, "Error checking sendBuffer: %s", MagPebApp_getErrMsg(mpaRet));
+        return;
+    }
+    if (!empty) { comm_sendBufMsg(); }
   }
 
   if ( (tuple = dict_find(iterator, MESSAGE_KEY_KIVA_COUNTRY_SET)) != NULL ) {
@@ -310,6 +321,7 @@ static void inbox_received_callback(DictionaryIterator *iterator, void *context)
       }
     }
     free(lenderIdBuf); lenderIdBuf = NULL;
+    comm_savePersistent();
     comm_getLenderInfo();
   }
 
@@ -551,23 +563,23 @@ void comm_sendMsg(const Message* msg) {
 /// Requests PebbleKit to send lender information (name, location, etc).
 /////////////////////////////////////////////////////////////////////////////
 void comm_getLenderInfo() {
-    if (dataModel == NULL) {
-      APP_LOG(APP_LOG_LEVEL_ERROR, "Kiva Model is not yet initialized.");
-      return;
-    }
+  if (dataModel == NULL) {
+    APP_LOG(APP_LOG_LEVEL_ERROR, "Kiva Model is not yet initialized.");
+    return;
+  }
 
-    MagPebApp_ErrCode mpaRet;
-    char* lenderId = NULL;
-    if ( (mpaRet = KivaModel_getLenderId(dataModel, &lenderId)) != MPA_SUCCESS) {
-      APP_LOG(APP_LOG_LEVEL_ERROR, "Could not retrieve lender ID: %s", MagPebApp_getErrMsg(mpaRet));
-      return;
-    }
+  MagPebApp_ErrCode mpaRet;
+  char* lenderId = NULL;
+  if ( (mpaRet = KivaModel_getLenderId(dataModel, &lenderId)) != MPA_SUCCESS) {
+    APP_LOG(APP_LOG_LEVEL_ERROR, "Could not retrieve lender ID: %s", MagPebApp_getErrMsg(mpaRet));
+    return;
+  }
 
-    // JRB TODO: Validate that lender ID is not blank.
+  // JRB TODO: Validate that lender ID is not blank.
   
-    APP_LOG(APP_LOG_LEVEL_DEBUG, "Get lender info for ID: %s", lenderId);
-    //comm_sendMsgCstr(comm_msg_create(MESSAGE_KEY_GET_LENDER_INFO, lenderId));
-    comm_enqMsg(comm_msg_create(MESSAGE_KEY_GET_LENDER_INFO, lenderId));
+  APP_LOG(APP_LOG_LEVEL_DEBUG, "Get lender info for ID: %s", lenderId);
+  //comm_sendMsgCstr(comm_msg_create(MESSAGE_KEY_GET_LENDER_INFO, lenderId));
+  comm_enqMsg(comm_msg_create(MESSAGE_KEY_GET_LENDER_INFO, lenderId));
 }
 
 
@@ -592,6 +604,97 @@ void comm_getPreferredLoans() {
     comm_enqMsg(comm_msg_create(MESSAGE_KEY_GET_PREFERRED_LOANS, countryCodes));
     // JRB TODO: Oops, this is a problem. Need to free the Message* I just created (and in numerous other places) at some point.
     free(countryCodes);
+}
+
+
+/////////////////////////////////////////////////////////////////////////////
+/// Saves app settings to persistent storage.
+/////////////////////////////////////////////////////////////////////////////
+void comm_savePersistent() {
+  if (dataModel == NULL) {
+    APP_LOG(APP_LOG_LEVEL_ERROR, "Kiva Model is not yet initialized.");
+    return;
+  }
+
+  persist_write_data(SETTINGS_STRUCT_KEY, &settings, sizeof(settings));
+  
+  // Write all string settings
+  MagPebApp_ErrCode mpaRet;
+  for (int keyIdx=0; keyIdx<LAST_STR_SETTING; keyIdx++) {
+    // Fetch data stored elsewhere
+    switch(keyIdx) {
+      case LENDER_ID_STR_SETTING: {
+        if (strSettings[keyIdx] != NULL) { free(strSettings[keyIdx]); strSettings[keyIdx] = NULL; }
+        if ( (mpaRet = KivaModel_getLenderId(dataModel, &strSettings[keyIdx])) != MPA_SUCCESS) {
+          APP_LOG(APP_LOG_LEVEL_ERROR, "Could not retrieve lender ID: %s", MagPebApp_getErrMsg(mpaRet));
+          return;
+        }
+        break;
+      }
+    } // end switch(keyIdx)
+    
+    // Write data to persistent memory on watch
+    status_t result = 0;
+    if ( (result = persist_write_string(keyIdx, strSettings[keyIdx])) < 0) {
+      APP_LOG(APP_LOG_LEVEL_ERROR, "Could not write string #%d to persistent storage. Error: %ld", keyIdx, result);
+    } else {
+      APP_LOG(APP_LOG_LEVEL_DEBUG, "Wrote string #%d (%s) to persistent storage.", keyIdx, strSettings[keyIdx]);
+    }
+        
+  } // end for
+  return;
+
+}
+
+
+/////////////////////////////////////////////////////////////////////////////
+/// Loads app settings from persistent storage.
+/////////////////////////////////////////////////////////////////////////////
+void comm_loadPersistent() {
+  if (dataModel == NULL) {
+    APP_LOG(APP_LOG_LEVEL_ERROR, "Kiva Model is not yet initialized.");
+    return;
+  }
+
+  if (persist_exists(SETTINGS_STRUCT_KEY)) {
+    persist_read_data(SETTINGS_STRUCT_KEY, &settings, sizeof(settings));
+  }
+  
+  // Read all string settings
+  MagPebApp_ErrCode mpaRet;
+  int keyIdx;
+  for (keyIdx=0; keyIdx<LAST_STR_SETTING; keyIdx++) {
+    if (persist_exists(keyIdx)) {
+      if (strSettings[keyIdx] != NULL) { free(strSettings[keyIdx]); strSettings[keyIdx] = NULL; }
+      int size = persist_get_size(keyIdx);
+      if ( (strSettings[keyIdx] = calloc(size, sizeof(*strSettings[keyIdx])) ) == NULL) { goto freemem; }
+      
+      // Read the string from persistent watch storage.
+      status_t result;
+      if ( (result = persist_read_string(keyIdx, strSettings[keyIdx], size)) < 0) {
+        APP_LOG(APP_LOG_LEVEL_ERROR, "Could not read string #%d from persistent storage. Error: %ld", keyIdx, result);
+      } else {
+        APP_LOG(APP_LOG_LEVEL_DEBUG, "Read string #%d (%s) from persistent storage.", keyIdx, strSettings[keyIdx]);
+      }
+        
+      switch(keyIdx) {
+        case LENDER_ID_STR_SETTING: {
+          if ( (mpaRet = KivaModel_setLenderId(dataModel, strSettings[keyIdx])) != MPA_SUCCESS) {
+            APP_LOG(APP_LOG_LEVEL_ERROR, "Error setting %s in data model: %s", "Lender ID", MagPebApp_getErrMsg(mpaRet));
+          } else {
+            comm_getLenderInfo();
+          }
+          break;
+        }
+      } // end switch(keyIdx)
+    } // end if persist_exists(keyIdx)
+  } // end for
+  
+  return;
+  
+freemem:
+  APP_LOG(APP_LOG_LEVEL_ERROR, "Error... freeing memory");
+  if (strSettings[keyIdx] != NULL) { free(strSettings[keyIdx]); strSettings[keyIdx] = NULL; }
 }
 
 
@@ -638,6 +741,13 @@ void comm_open() {
   dataModel = NULL;
   if ( (dataModel = KivaModel_create("")) == NULL) { APP_LOG(APP_LOG_LEVEL_ERROR, "Could not initialize data model."); }
   
+  strSettings = NULL;
+  if ( (strSettings = calloc(LAST_STR_SETTING, sizeof(*strSettings)) ) == NULL) { goto freemem; }
+  // Initialize each string setting to NULL.
+  for (int idx=0; idx<LAST_STR_SETTING; idx++) {
+    strSettings[idx] = NULL;
+  }
+  
   sendBuffer = NULL;
   if ( (sendBuffer = RingBuffer_create(SEND_BUF_SIZE)) == NULL) { APP_LOG(APP_LOG_LEVEL_ERROR, "Could not initialize send buffer."); }
 
@@ -650,6 +760,15 @@ void comm_open() {
   // Open AppMessage
   // JRB TODO: Consider optimizing buffer sizes in the future if memory is constrained.
   app_message_open(app_message_inbox_size_maximum(), app_message_outbox_size_maximum());
+  
+  // Don't load data (which triggers communication) until callbacks are registered and message channels are open!
+  comm_loadPersistent();
+  
+  return;
+  
+freemem:
+  APP_LOG(APP_LOG_LEVEL_ERROR, "Error... freeing memory");
+  if (strSettings != NULL) { free(strSettings);  strSettings = NULL; }
 }
 
 
@@ -663,6 +782,14 @@ void comm_close() {
   
   if (sendBuffer != NULL) {
     RingBuffer_destroy(sendBuffer);  sendBuffer = NULL;
+  }
+  
+  if (strSettings != NULL) {
+    for (int idx=0; idx<LAST_STR_SETTING; idx++) {
+      if (strSettings[idx] != NULL) { free(strSettings[idx]); strSettings[idx] = NULL; }
+    }
+    free(strSettings);
+    strSettings = NULL;
   }
   
   app_message_deregister_callbacks();

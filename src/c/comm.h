@@ -2,6 +2,19 @@
 
 #include "data/KivaModel.h"
 
+typedef struct ClaySettings {
+  uint8_t settingsVer;
+} ClaySettings;
+
+
+// Setting string definitions
+typedef enum StrSettings {
+  LENDER_ID_STR_SETTING  = 0,
+
+  LAST_STR_SETTING
+} StrSettings;
+
+
 typedef struct Message {
   uint32_t  key;
   char*     payload;
@@ -36,4 +49,5 @@ void comm_setHandlers(const CommHandlers);
 void comm_getLenderInfo();
 void comm_getPreferredLoans();
 
-
+void comm_savePersistent();
+void comm_loadPersistent();

@@ -39,6 +39,12 @@
         "resources": {
             "media": [
                 {
+                    "file": "images/Horizon Logo.png",
+                    "name": "IMG_LOGO_WIDE",
+                    "targetPlatforms": null,
+                    "type": "bitmap"
+                },
+                {
                     "file": "images/GlobeLauncherIcon.png",
                     "menuIcon": true,
                     "name": "IMG_GLOBE_LAUNCHER",
@@ -48,12 +54,6 @@
                         "chalk",
                         "diorite"
                     ],
-                    "type": "bitmap"
-                },
-                {
-                    "file": "images/Horizon Logo.png",
-                    "name": "IMG_LOGO_WIDE",
-                    "targetPlatforms": null,
                     "type": "bitmap"
                 }
             ]
