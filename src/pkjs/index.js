@@ -401,7 +401,9 @@ Pebble.addEventListener('appmessage',
 
     if ('GET_LENDER_INFO' in dict) {
       var lenderId = dict['GET_LENDER_INFO'];
+      console.log("Got lender ID (" + lenderId + ")... now getting lender info...");
       getLenderInfo(lenderId);
+      console.log("Got lender info... now getting lender's loans...");
       getLoansForLender(lenderId);
     } else if ('GET_PREFERRED_LOANS' in dict) {
       var prefCC = dict['GET_PREFERRED_LOANS'];

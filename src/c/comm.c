@@ -421,6 +421,7 @@ static void inbox_dropped_callback(AppMessageResult reason, void *context) {
 /////////////////////////////////////////////////////////////////////////////
 static void outbox_failed_callback(DictionaryIterator *iterator, AppMessageResult reason, void *context) {
   APP_LOG(APP_LOG_LEVEL_ERROR, "Outbox send failed! Reason: %d", (int)reason);
+  comm_startResendTimer();
 }
 
 
@@ -449,11 +450,17 @@ void comm_enqMsg(const Message* msg) {
     return;
   }
   
+  if (sendBuffer == NULL) {
+    APP_LOG(APP_LOG_LEVEL_ERROR, "Send buffer is null.");
+    return;
+  }
+  
   if ( (mpaRet = RingBuffer_write(sendBuffer, (void*)msg)) != MPA_SUCCESS) {
     APP_LOG(APP_LOG_LEVEL_ERROR, "Error buffering message: %s", MagPebApp_getErrMsg(mpaRet));
-  } else {
-    comm_sendBufMsg();
+    return;
   }
+  
+  comm_sendBufMsg();
 }
 
 
@@ -471,42 +478,67 @@ void comm_sendBufMsg() {
   
   Message* msg = (Message*) data;
   if (msg == NULL) {
+    APP_LOG(APP_LOG_LEVEL_ERROR, "Send buffer contained a null message.");
+    return;
+  }
+  
+  // At this point, we know there is a non-null message in the send buffer.
+  
+  // Check if PebbleKit JS is ready to receive...
+  if (!comm_pebkitReady()) {
+    APP_LOG(APP_LOG_LEVEL_WARNING, "Buffering message to phone until PebbleKit JS is ready...");
+    comm_startResendTimer();
+    return;
+  }
+
+  // Prepare the outbox buffer for this message
+  DictionaryIterator *outIter;
+  AppMessageResult result = app_message_outbox_begin(&outIter);
+  if (result != APP_MSG_OK) {
+    // The outbox cannot be used right now
+    APP_LOG(APP_LOG_LEVEL_WARNING, "Error preparing the outbox for message %d.  Result: %d", (int)msg->key, (int)result);
+    comm_startResendTimer();
+    return;
+  }
+  
+  // Ready to write to app message outbox...
+  dict_write_cstring(outIter, msg->key, msg->payload);
+
+  // Send this message
+  result = app_message_outbox_send();
+    
+  if(result != APP_MSG_OK) {
+    APP_LOG(APP_LOG_LEVEL_WARNING, "Error sending the outbox for message %d.  Result: %d", (int)msg->key, (int)result);
+    comm_startResendTimer();
+    return;
+  }
+  
+  // Successful send attempt!
+  APP_LOG(APP_LOG_LEVEL_INFO, "Sent outbox message %d!", (int)msg->key);
+  sendRetryCount = 0;
+  RingBuffer_drop(sendBuffer);
+  if (sendRetryTimer != NULL) { app_timer_cancel(sendRetryTimer);  sendRetryTimer = NULL; }
+}
+
+
+/////////////////////////////////////////////////////////////////////////////
+/// Starts a backoff timer to retry the first message in the send buffer.
+/////////////////////////////////////////////////////////////////////////////
+void comm_startResendTimer() {
+  MagPebApp_ErrCode mpaRet = MPA_SUCCESS;
+  
+  void* data = NULL;
+  if ( (mpaRet = RingBuffer_peek(sendBuffer, &data)) != MPA_SUCCESS) {
+    APP_LOG(APP_LOG_LEVEL_ERROR, "Error reading buffered message: %s", MagPebApp_getErrMsg(mpaRet));
+    return;
+  }
+  
+  Message* msg = (Message*) data;
+  if (msg == NULL) {
     APP_LOG(APP_LOG_LEVEL_ERROR, "Tried to send a null message.");
     return;
   }
   
-  if (!comm_pebkitReady()) {
-    APP_LOG(APP_LOG_LEVEL_WARNING, "Tried to send a message from the watch before PebbleKit JS is ready.");
-    return;
-  }
-
-  // Declare the dictionary's iterator
-  DictionaryIterator *outIter;
-
-  // Prepare the outbox buffer for this message
-  AppMessageResult result = app_message_outbox_begin(&outIter);
-  if (result == APP_MSG_OK) {
-    dict_write_cstring(outIter, msg->key, msg->payload);
-
-    // Send this message
-    result = app_message_outbox_send();
-    
-    if(result == APP_MSG_OK) {
-      APP_LOG(APP_LOG_LEVEL_INFO, "Sent outbox message %d!", (int)msg->key);
-      sendRetryCount = 0;
-      RingBuffer_drop(sendBuffer);
-      if (sendRetryTimer != NULL) { app_timer_cancel(sendRetryTimer);  sendRetryTimer = NULL; }
-      return; // SUCCESS! ALL DONE
-    }
-    
-    APP_LOG(APP_LOG_LEVEL_WARNING, "Error sending the outbox for message %d.  Result: %d", (int)msg->key, (int)result);
-    
-  } else {
-    // The outbox cannot be used right now
-    APP_LOG(APP_LOG_LEVEL_WARNING, "Error preparing the outbox for message %d.  Result: %d", (int)msg->key, (int)result);
-  }
-  
-  // JRB TODO: This should be moved to the outbox failed callback (and called directly from here, if needed).
   if (sendRetryCount < MAX_SEND_RETRIES) {
     sendRetryCount++;
     uint16_t retryIntervalMs = (sendRetryCount * 1000);

@@ -43,6 +43,8 @@ void comm_close();
 void comm_enqMsg(const Message*);
 void comm_sendMsg(const Message*);
 void comm_sendBufMsg();
+void comm_startResendTimer();
+
 void comm_tickHandler(struct tm *tick_time, TimeUnits units_changed);
 void comm_setHandlers(const CommHandlers);
 
