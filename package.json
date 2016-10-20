@@ -13,7 +13,7 @@
         "enableMultiJS": true,
         "messageKeys": [
             "PEBKIT_READY",
-            "PEBBLE_READY",
+            "GET_KIVA_INFO",
             "GET_LENDER_INFO",
             "GET_PREFERRED_LOANS",
             "KIVA_COUNTRY_SET",
@@ -52,7 +52,8 @@
                         "aplite",
                         "basalt",
                         "chalk",
-                        "diorite"
+                        "diorite",
+                        "emery"
                     ],
                     "type": "bitmap"
                 }

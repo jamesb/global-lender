@@ -292,6 +292,8 @@ static void inbox_received_callback(DictionaryIterator *iterator, void *context)
     pebkitReady = true;
     APP_LOG(APP_LOG_LEVEL_INFO, "PebbleKit JS sent ready message!");
     
+    comm_enqMsg(comm_msg_create(MESSAGE_KEY_GET_KIVA_INFO, ""));
+    
     bool empty = true;
     if ( (sendBuffer != NULL) && ( (mpaRet = RingBuffer_empty(sendBuffer, &empty)) != MPA_SUCCESS) ) {
       APP_LOG(APP_LOG_LEVEL_ERROR, "Error checking sendBuffer: %s", MagPebApp_getErrMsg(mpaRet));
@@ -305,6 +307,8 @@ static void inbox_received_callback(DictionaryIterator *iterator, void *context)
       APP_LOG(APP_LOG_LEVEL_ERROR, "Error retrieving Kiva-served countries: %s", MagPebApp_getErrMsg(mpaRet));
       return;
     }
+    // Ready to load saved data (like Lender ID) from persistent memory now.
+    comm_loadPersistent();
   }
 
   if ( (tuple = dict_find(iterator, MESSAGE_KEY_LENDER_ID)) != NULL ) {
@@ -443,10 +447,10 @@ bool comm_pebkitReady() {
 /////////////////////////////////////////////////////////////////////////////
 /// Queue data and send to PebbleKit.
 /////////////////////////////////////////////////////////////////////////////
-void comm_enqMsg(const Message* msg) {
+void comm_enqMsg(Message* msg) {
   MagPebApp_ErrCode mpaRet = MPA_SUCCESS;
   if (msg == NULL) {
-    APP_LOG(APP_LOG_LEVEL_ERROR, "Tried to send a null message.");
+    APP_LOG(APP_LOG_LEVEL_ERROR, "Tried to buffer a null message.");
     return;
   }
   
@@ -457,6 +461,7 @@ void comm_enqMsg(const Message* msg) {
   
   if ( (mpaRet = RingBuffer_write(sendBuffer, (void*)msg)) != MPA_SUCCESS) {
     APP_LOG(APP_LOG_LEVEL_ERROR, "Error buffering message: %s", MagPebApp_getErrMsg(mpaRet));
+    comm_msg_destroy(msg);
     return;
   }
   
@@ -517,6 +522,7 @@ void comm_sendBufMsg() {
   APP_LOG(APP_LOG_LEVEL_INFO, "Sent outbox message %d!", (int)msg->key);
   sendRetryCount = 0;
   RingBuffer_drop(sendBuffer);
+  comm_msg_destroy(msg);
   if (sendRetryTimer != NULL) { app_timer_cancel(sendRetryTimer);  sendRetryTimer = NULL; }
 }
 
@@ -535,7 +541,7 @@ void comm_startResendTimer() {
   
   Message* msg = (Message*) data;
   if (msg == NULL) {
-    APP_LOG(APP_LOG_LEVEL_ERROR, "Tried to send a null message.");
+    APP_LOG(APP_LOG_LEVEL_ERROR, "Send buffer contained a null message.");
     return;
   }
   
@@ -610,7 +616,6 @@ void comm_getLenderInfo() {
   // JRB TODO: Validate that lender ID is not blank.
   
   APP_LOG(APP_LOG_LEVEL_DEBUG, "Get lender info for ID: %s", lenderId);
-  //comm_sendMsgCstr(comm_msg_create(MESSAGE_KEY_GET_LENDER_INFO, lenderId));
   comm_enqMsg(comm_msg_create(MESSAGE_KEY_GET_LENDER_INFO, lenderId));
 }
 
@@ -632,9 +637,7 @@ void comm_getPreferredLoans() {
     }
 
     APP_LOG(APP_LOG_LEVEL_DEBUG, "Get loans for country codes: %s", countryCodes);
-    //comm_sendMsgCstr(comm_msg_create(MESSAGE_KEY_GET_PREFERRED_LOANS, countryCodes));
     comm_enqMsg(comm_msg_create(MESSAGE_KEY_GET_PREFERRED_LOANS, countryCodes));
-    // JRB TODO: Oops, this is a problem. Need to free the Message* I just created (and in numerous other places) at some point.
     free(countryCodes);
 }
 
@@ -751,8 +754,8 @@ void comm_tickHandler(struct tm *tick_time, TimeUnits units_changed) {
   }
   (*commHandlers.updateViewClock)(tick_time);
 
-  // Get update every 30 minutes
-  if(tick_time->tm_min % 30 == 0) {
+  // Get update every 10 minutes
+  if(tick_time->tm_min % 10 == 0) {
     comm_getLenderInfo();
   }
 }
@@ -792,9 +795,6 @@ void comm_open() {
   // Open AppMessage
   // JRB TODO: Consider optimizing buffer sizes in the future if memory is constrained.
   app_message_open(app_message_inbox_size_maximum(), app_message_outbox_size_maximum());
-  
-  // Don't load data (which triggers communication) until callbacks are registered and message channels are open!
-  comm_loadPersistent();
   
   return;
   

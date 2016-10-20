@@ -40,10 +40,13 @@ bool comm_pebkitReady();
 void comm_open();
 void comm_close();
 
-void comm_enqMsg(const Message*);
-void comm_sendMsg(const Message*);
+// For buffered sending
+void comm_enqMsg(Message*);
 void comm_sendBufMsg();
 void comm_startResendTimer();
+
+// For unbuffered sending
+void comm_sendMsg(const Message*);
 
 void comm_tickHandler(struct tm *tick_time, TimeUnits units_changed);
 void comm_setHandlers(const CommHandlers);

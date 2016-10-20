@@ -399,14 +399,16 @@ Pebble.addEventListener('appmessage',
     console.log("AppMessage received: " + JSON.stringify(e.payload));
     var dict = e.payload;
 
-    if ('GET_LENDER_INFO' in dict) {
-      var lenderId = dict['GET_LENDER_INFO'];
+    if ('GET_KIVA_INFO' in dict) {
+      getKivaActiveFieldPartners();
+    } else if ('GET_LENDER_INFO' in dict) {
+      var lenderId = dict.GET_LENDER_INFO;
       console.log("Got lender ID (" + lenderId + ")... now getting lender info...");
       getLenderInfo(lenderId);
       console.log("Got lender info... now getting lender's loans...");
       getLoansForLender(lenderId);
     } else if ('GET_PREFERRED_LOANS' in dict) {
-      var prefCC = dict['GET_PREFERRED_LOANS'];
+      var prefCC = dict.GET_PREFERRED_LOANS;
       var maxResults = 10;
       getPreferredLoans(prefCC, maxResults);
     } else {
@@ -426,8 +428,6 @@ Pebble.addEventListener('ready',
   function(e) {
     console.log("PebbleKit JS ready!");
     Pebble.sendAppMessage({"PEBKIT_READY": 1});
-
-    getKivaActiveFieldPartners();
   }
 );
 
