@@ -42,6 +42,8 @@ static char loanMsg[LOAN_MSG_SZ];
 static WndDataMenu* wndCountries;
 static WndDataMenu* wndPrefLoans;
 
+static uint16_t lastPrefLoanQty = 0;
+
 
 /////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
@@ -168,8 +170,8 @@ static void wndMainMenu_select_callback(MenuLayer* menu_layer, MenuIndex* cell_i
       // Matthew Tole - Data-Processor (MIT License)
       // Troy D. Hanson - uthash (BSD License)
       // Blake Swopes - Kiva Country Collector
-      // Helpful Pebble Forums posts by:
-      //   @LeFauve, @allan, @Christian Reinbacher
+      // Helpful chats and Pebble Forums posts by:
+      //   @katieberry, @LeFauve, @allan, @Christian Reinbacher
 
       break;
     }
@@ -231,10 +233,12 @@ void wndMainMenu_updateData(const KivaModel* km) {
         APP_LOG(APP_LOG_LEVEL_ERROR, "Error getting number of preferred loans: %s", MagPebApp_getErrMsg(mpaRet));
     }
     if (prefLoanQty > 0) {
+      if (lastPrefLoanQty == 0) vibes_double_pulse();
       if (!strxcpy(loanMsg, LOAN_MSG_SZ, "Loans for You!", NULL)) { return; }
     } else {
       if (!strxcpy(loanMsg, LOAN_MSG_SZ, "No Loans Found", NULL)) { return; }
     }
+    lastPrefLoanQty = prefLoanQty;
   }
 
   menu_layer_reload_data(lyrMainMenu);
