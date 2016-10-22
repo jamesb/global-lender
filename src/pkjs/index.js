@@ -1,36 +1,8 @@
 var Clay = require('pebble-clay');
 var clayConfig = require('./config');
-var clay = new Clay(clayConfig, null, { autoHandleEvents: false });
-var msgKey = require('message_keys');
+var customClay = require('./custom-clay');
+var clay = new Clay(clayConfig, customClay);
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Nothing to override here at this point.
-/////////////////////////////////////////////////////////////////////////////
-Pebble.addEventListener('showConfiguration', function(e) {
-  Pebble.openURL(clay.generateUrl());
-});
-
-/////////////////////////////////////////////////////////////////////////////
-// Clean up input before sending to watch.
-/////////////////////////////////////////////////////////////////////////////
-Pebble.addEventListener('webviewclosed', function(e) {
-  if (e && !e.response) return;
-
-  // Get the keys and values from each config item
-  var dict = clay.getSettings(e.response, true);
-  
-  // Perform data conversions
-  dict[msgKey.LENDER_ID] = dict[msgKey.LENDER_ID].trim();
-
-  // Send settings values to watch side
-  Pebble.sendAppMessage(dict, function(e) {
-    console.log('Sent config data to Pebble');
-  }, function(e) {
-    console.log('Failed to send config data!');
-    console.log(JSON.stringify(e));
-  });
-});
 
 
 

@@ -41,10 +41,7 @@ static Message* comm_msg_create(uint32_t msgKey, void* payload) {
 /////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
 static void comm_msg_destroy(Message* msg) {
-  if (msg != NULL) {
-    free(msg);
-    msg = NULL;
-  }
+  if (msg != NULL) { free(msg); msg = NULL; }
 }
 
 
@@ -132,23 +129,13 @@ static MagPebApp_ErrCode unloadKivaCountrySet(Tuple* tuple) {
         APP_LOG(APP_LOG_LEVEL_ERROR, "Error adding Kiva country to data model: %s", MagPebApp_getErrMsg(mpaRet));
     }
 
-    if (strings[idx+1] != NULL) {
-      free(strings[idx+1]);  strings[idx+1] = NULL;
-    }
-    if (strings[idx] != NULL) {
-      free(strings[idx]);  strings[idx] = NULL;
-    }
+    if (strings[idx+1] != NULL) { free(strings[idx+1]);  strings[idx+1] = NULL; }
+    if (strings[idx] != NULL) { free(strings[idx]);  strings[idx] = NULL; }
   }
 
-  if (strings != NULL) {
-    free(strings);  strings = NULL;
-  }
-  if (state != NULL) {
-    free(state);  state = NULL;
-  }
-  if (countrySetBuf != NULL) {
-    free(countrySetBuf); countrySetBuf = NULL;
-  }
+  if (strings != NULL) { free(strings);  strings = NULL; }
+  if (state != NULL) { free(state);  state = NULL; }
+  if (countrySetBuf != NULL) { free(countrySetBuf); countrySetBuf = NULL; }
 
   int kivaCountryQty = 0;
   if ( (mpaRet = KivaModel_getKivaCountryQty(dataModel, &kivaCountryQty)) != MPA_SUCCESS) {
@@ -160,19 +147,11 @@ static MagPebApp_ErrCode unloadKivaCountrySet(Tuple* tuple) {
 
 freemem:
   for (idx = 0; idx < num_strings; idx ++) {
-    if (strings[idx] != NULL) {
-      free(strings[idx]);  strings[idx] = NULL;
-    }
+    if (strings[idx] != NULL) { free(strings[idx]);  strings[idx] = NULL; }
   }
-  if (strings != NULL) {
-    free(strings);  strings = NULL;
-  }
-  if (state != NULL) {
-    free(state);  state = NULL;
-  }
-  if (countrySetBuf != NULL) {
-    free(countrySetBuf);  countrySetBuf = NULL;
-  }
+  if (strings != NULL) { free(strings);  strings = NULL; }
+  if (state != NULL) { free(state);  state = NULL; }
+  if (countrySetBuf != NULL) { free(countrySetBuf);  countrySetBuf = NULL; }
 
   return myret;
 }
@@ -238,41 +217,21 @@ static MagPebApp_ErrCode unloadPreferredLoanSet(Tuple* tuple) {
           })) != MPA_SUCCESS) {
         APP_LOG(APP_LOG_LEVEL_ERROR, "Error adding preferred loan to data model: %s", MagPebApp_getErrMsg(mpaRet));
     }
-    if (name != NULL) {
-      free(name);  name = NULL;
-    }
-    if (use != NULL) {
-      free(use);  use = NULL;
-    }
-    if (countryCode != NULL) {
-      free(countryCode);  countryCode = NULL;
-    }
+    if (name != NULL) { free(name);  name = NULL; }
+    if (use != NULL) { free(use);  use = NULL; }
+    if (countryCode != NULL) { free(countryCode);  countryCode = NULL; }
   }
-  if (state != NULL) {
-    free(state);  state = NULL;
-  }
-  if (loanSetBuf != NULL) {
-    free(loanSetBuf);  loanSetBuf = NULL;
-  }
+  if (state != NULL) { free(state);  state = NULL; }
+  if (loanSetBuf != NULL) { free(loanSetBuf);  loanSetBuf = NULL; }
 
   return MPA_SUCCESS;
 
 freemem:
-  if (name != NULL) {
-    free(name);  name = NULL;
-  }
-  if (use != NULL) {
-    free(use);  use = NULL;
-  }
-  if (countryCode != NULL) {
-    free(countryCode);  countryCode = NULL;
-  }
-  if (state != NULL) {
-    free(state);  state = NULL;
-  }
-  if (loanSetBuf != NULL) {
-    free(loanSetBuf);  loanSetBuf = NULL;
-  }
+  if (name != NULL) { free(name);  name = NULL; }
+  if (use != NULL) { free(use);  use = NULL; }
+  if (countryCode != NULL) { free(countryCode);  countryCode = NULL; }
+  if (state != NULL) { free(state);  state = NULL; }
+  if (loanSetBuf != NULL) { free(loanSetBuf);  loanSetBuf = NULL; }
 
   return MPA_OUT_OF_MEMORY_ERR;
 }
@@ -324,7 +283,7 @@ static void inbox_received_callback(DictionaryIterator *iterator, void *context)
         APP_LOG(APP_LOG_LEVEL_ERROR, "Error setting %s in data model: %s", readable, MagPebApp_getErrMsg(mpaRet));
       }
     }
-    free(lenderIdBuf); lenderIdBuf = NULL;
+    if (lenderIdBuf != NULL) { free(lenderIdBuf); lenderIdBuf = NULL; }
     comm_savePersistent();
     comm_getLenderInfo();
   }
@@ -342,7 +301,7 @@ static void inbox_received_callback(DictionaryIterator *iterator, void *context)
         APP_LOG(APP_LOG_LEVEL_ERROR, "Error setting %s in data model: %s", readable, MagPebApp_getErrMsg(mpaRet));
       }
     }
-    free(lenderNameBuf); lenderNameBuf = NULL;
+    if (lenderNameBuf != NULL) { free(lenderNameBuf); lenderNameBuf = NULL; }
   }
 
   if ( (tuple = dict_find(iterator, MESSAGE_KEY_LENDER_LOC)) != NULL ) {
@@ -358,7 +317,7 @@ static void inbox_received_callback(DictionaryIterator *iterator, void *context)
         APP_LOG(APP_LOG_LEVEL_ERROR, "Error setting %s in data model: %s", readable, MagPebApp_getErrMsg(mpaRet));
       }
     }
-    free(lenderLocBuf); lenderLocBuf = NULL;
+    if (lenderLocBuf != NULL) { free(lenderLocBuf); lenderLocBuf = NULL; }
   }
 
   if ( (tuple = dict_find(iterator, MESSAGE_KEY_LENDER_LOAN_QTY)) != NULL ) {
@@ -388,13 +347,13 @@ static void inbox_received_callback(DictionaryIterator *iterator, void *context)
         if ( (mpaRet = KivaModel_addLenderCountry(dataModel, strings[n], strings[n+1])) != MPA_SUCCESS) {
             APP_LOG(APP_LOG_LEVEL_ERROR, "Error adding Lender country to data model: %s", MagPebApp_getErrMsg(mpaRet));
         }
-        free(strings[n]);
-        free(strings[n+1]);
+        if (strings[n] != NULL) { free(strings[n]); strings[n] = NULL; }
+        if (strings[n+1] != NULL) { free(strings[n+1]); strings[n+1] = NULL; }
       }
-      free(strings);
-      free(state);
+      if (strings != NULL) { free(strings); strings = NULL; }
+      if (state != NULL) { free(state); state = NULL; }
     }
-    free(countrySetBuf); countrySetBuf = NULL;
+    if (countrySetBuf != NULL) { free(countrySetBuf); countrySetBuf = NULL; }
     comm_getPreferredLoans();
   }
 
@@ -638,7 +597,7 @@ void comm_getPreferredLoans() {
 
     APP_LOG(APP_LOG_LEVEL_DEBUG, "Get loans for country codes: %s", countryCodes);
     comm_enqMsg(comm_msg_create(MESSAGE_KEY_GET_PREFERRED_LOANS, countryCodes));
-    free(countryCodes);
+    if (countryCodes != NULL) { free(countryCodes); countryCodes = NULL; }
 }
 
 
@@ -794,7 +753,7 @@ void comm_open() {
 
   // Open AppMessage
   // JRB TODO: Consider optimizing buffer sizes in the future if memory is constrained.
-  app_message_open(app_message_inbox_size_maximum(), app_message_outbox_size_maximum());
+  app_message_open(app_message_inbox_size_maximum(), 300);
   
   return;
   
@@ -820,8 +779,7 @@ void comm_close() {
     for (int idx=0; idx<LAST_STR_SETTING; idx++) {
       if (strSettings[idx] != NULL) { free(strSettings[idx]); strSettings[idx] = NULL; }
     }
-    free(strSettings);
-    strSettings = NULL;
+    if (strSettings != NULL) { free(strSettings); strSettings = NULL; }
   }
   
   app_message_deregister_callbacks();
