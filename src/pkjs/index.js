@@ -1,3 +1,4 @@
+var appName = "Global Lender";
 var Clay = require('pebble-clay');
 var clayConfig = require('./config');
 var customClay = require('./custom-clay');
@@ -43,10 +44,12 @@ var xhrRequest = function (method, url, callback) {
   };
   xhr.onerror = function() {
     console.log("HTTP " + xhr.status + " ERROR: " + xhr.statusText);
+    Pebble.showSimpleNotificationOnPebble(appName, xhr.statusText);
     // JRB TODO: Need to create a dictionary key to send an error message to Pebble for display to user.
   };
   xhr.ontimeout = function() {
     console.log("HTTP TIMEOUT for " + url);
+    Pebble.showSimpleNotificationOnPebble(appName, "HTTP request timed out.");
     // JRB TODO: Need to create a dictionary key to send an error message to Pebble for display to user.
   };
   xhr.timeout = 10000;  // 10 sec
@@ -79,6 +82,7 @@ function callKivaApiAsync(url, parseFxn, maxResults) {
       var allReceived = true;
       if (json.code) {
         console.log("RESPONSE ERROR for " + url + "\n   " + json.code + ": " + json.message);
+        Pebble.showSimpleNotificationOnPebble(appName, json.message);
         // JRB TODO: Need to create a dictionary key to send an error message to Pebble for display to user.
       } else {
         if (!json.paging) {
