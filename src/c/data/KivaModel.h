@@ -63,6 +63,7 @@ MagPebApp_ErrCode KivaModel_getKivaCountryName(const KivaModel* this, const char
 
 MagPebApp_ErrCode KivaModel_getPreferredLoanQty(const KivaModel* this, uint16_t*);
 KivaModel_PrefLoan_CIter* KivaModel_firstPrefLoan(const KivaModel* this);
-KivaModel_PrefLoan_CIter* KivaModel_nextPrefLoan(const KivaModel* this, KivaModel_PrefLoan_CIter*);
+KivaModel_PrefLoan_CIter* KivaModel_nextPrefLoan(KivaModel_PrefLoan_CIter*);
+void KivaModel_donePrefLoan(KivaModel_PrefLoan_CIter*);
 
 

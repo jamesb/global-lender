@@ -719,7 +719,7 @@ MagPebApp_ErrCode KivaModel_addPreferredLoan(KivaModel* this, const LoanInfo loa
 ///
 /// \code{.c}
 /// for (KivaModel_PrefLoan_CIter* plIter = KivaModel_firstPrefLoan(kivaModel),
-///      plIter != NULL; plIter = KivaModel_nextPrefLoan(kivaModel, plIter)) {
+///      plIter != NULL; plIter = KivaModel_nextPrefLoan(plIter)) {
 ///   printf("Loan #%d Name: %s\n", plIter->idx, plIter->data->name);
 /// }
 /// \endcode
@@ -758,16 +758,13 @@ APP_LOG(APP_LOG_LEVEL_DEBUG, "plIter: #%d (%p)", plIter->idx, plIter);
 /////////////////////////////////////////////////////////////////////////////
 /// Used to iterate through the list of preferred loans.
 ///
-/// @param[in,out]  this  Pointer to KivaModel; must be already allocated
+/// @param[in,out]  plIter  a valid iterator to a preferred loan
 ///
 /// @return
 ///    NULL if there are no more preferred loans in this KivaModel
 ///    a valid LoanInfo* for the next preferred loan in this KivaModel
 /////////////////////////////////////////////////////////////////////////////
-KivaModel_PrefLoan_CIter* KivaModel_nextPrefLoan(const KivaModel* this, KivaModel_PrefLoan_CIter* plIter) {
-  // JRB TODO: Do I really need KivaModel* passed in here?
-  if (this == NULL) return NULL;
-
+KivaModel_PrefLoan_CIter* KivaModel_nextPrefLoan(KivaModel_PrefLoan_CIter* plIter) {
   if (plIter != NULL) {
     LoanRec* incoming = (LoanRec*) plIter->internal;
     plIter->internal = (void*) incoming->hh.next;
@@ -785,7 +782,17 @@ KivaModel_PrefLoan_CIter* KivaModel_nextPrefLoan(const KivaModel* this, KivaMode
 }
 
 
-// JRB TODO: Implement KivaModel_donePrefLoan() -- destructor
+/////////////////////////////////////////////////////////////////////////////
+/// Cleans up the iterator through the list of preferred loans.
+///
+/// @param[in,out]  plIter  a valid iterator to a preferred loan
+///
+/// @return
+///    none
+/////////////////////////////////////////////////////////////////////////////
+void KivaModel_donePrefLoan(KivaModel_PrefLoan_CIter* plIter) {
+  if (plIter != NULL) { free(plIter);  plIter = NULL; }
+}
 
 
 /////////////////////////////////////////////////////////////////////////////

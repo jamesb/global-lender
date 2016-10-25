@@ -572,8 +572,6 @@ void comm_getLenderInfo() {
     return;
   }
 
-  // JRB TODO: Validate that lender ID is not blank.
-  
   APP_LOG(APP_LOG_LEVEL_DEBUG, "Get lender info for ID: %s", lenderId);
   comm_enqMsg(comm_msg_create(MESSAGE_KEY_GET_LENDER_INFO, lenderId));
 }
@@ -752,7 +750,6 @@ void comm_open() {
   app_message_register_outbox_sent(outbox_sent_callback);
 
   // Open AppMessage
-  // JRB TODO: Consider optimizing buffer sizes in the future if memory is constrained.
   app_message_open(app_message_inbox_size_maximum(), 300);
   
   return;

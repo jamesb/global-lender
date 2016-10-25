@@ -39,7 +39,9 @@ static const KivaModel* kivaModel;
 static wndMainMenuHandlers myHandlers;
 static char loanMsg[LOAN_MSG_SZ];
 
+#if 0
 static WndDataMenu* wndCountries;
+#endif
 static WndDataMenu* wndPrefLoans;
 
 static uint16_t lastPrefLoanQty = 0;
@@ -255,7 +257,7 @@ void wndMainMenu_updateData(const KivaModel* km) {
       }
 
       for (KivaModel_PrefLoan_CIter* plIter = KivaModel_firstPrefLoan(kivaModel);
-           plIter != NULL; plIter = KivaModel_nextPrefLoan(kivaModel, plIter)) {
+           plIter != NULL; plIter = KivaModel_nextPrefLoan(plIter)) {
         long lret = 0;
         const uint8_t bufsize = 30;
         char buffer[bufsize];
@@ -326,6 +328,7 @@ static void wndMainMenu_load(Window* window) {
 
   wndLenderBasics_create();
 
+#if 0
   wndCountries = WndDataMenu_create();
   if ( (mpaRet = WndDataMenu_setNumSections(wndCountries, 1) ) != MPA_SUCCESS) {
       APP_LOG(APP_LOG_LEVEL_ERROR, "Could not set colors: %s", MagPebApp_getErrMsg(mpaRet));
@@ -333,6 +336,7 @@ static void wndMainMenu_load(Window* window) {
   if ( (mpaRet = WndDataMenu_setPalette(wndCountries, colors) ) != MPA_SUCCESS) {
       APP_LOG(APP_LOG_LEVEL_WARNING, "Could not set colors: %s", MagPebApp_getErrMsg(mpaRet));
   }
+#endif
 
   wndPrefLoans = WndDataMenu_create();
   if ( (mpaRet = WndDataMenu_setNumSections(wndPrefLoans, 1) ) != MPA_SUCCESS) {
@@ -350,7 +354,9 @@ static void wndMainMenu_load(Window* window) {
 /////////////////////////////////////////////////////////////////////////////
 static void wndMainMenu_unload(Window* window) {
   WndDataMenu_destroy(wndPrefLoans);
+#if 0
   WndDataMenu_destroy(wndCountries);
+#endif
   wndLenderBasics_destroy();
   gbitmap_destroy(bmpLogo);   bmpLogo = NULL;
 

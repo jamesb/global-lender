@@ -45,12 +45,10 @@ var xhrRequest = function (method, url, callback) {
   xhr.onerror = function() {
     console.log("HTTP " + xhr.status + " ERROR: " + xhr.statusText);
     Pebble.showSimpleNotificationOnPebble(appName, xhr.statusText);
-    // JRB TODO: Need to create a dictionary key to send an error message to Pebble for display to user.
   };
   xhr.ontimeout = function() {
     console.log("HTTP TIMEOUT for " + url);
     Pebble.showSimpleNotificationOnPebble(appName, "HTTP request timed out.");
-    // JRB TODO: Need to create a dictionary key to send an error message to Pebble for display to user.
   };
   xhr.timeout = 10000;  // 10 sec
   xhr.open(method, url);
@@ -83,7 +81,6 @@ function callKivaApiAsync(url, parseFxn, maxResults) {
       if (json.code) {
         console.log("RESPONSE ERROR for " + url + "\n   " + json.code + ": " + json.message);
         Pebble.showSimpleNotificationOnPebble(appName, json.message);
-        // JRB TODO: Need to create a dictionary key to send an error message to Pebble for display to user.
       } else {
         if (!json.paging) {
           // Single-page result processing
@@ -145,7 +142,7 @@ function callKivaApiAsync(url, parseFxn, maxResults) {
 /////////////////////////////////////////////////////////////////////////////
 function getLenderInfo(lenderId) {
   if (!lenderId) {
-    console.log("Called getLenderInfo() with a blank lender ID!");
+    Pebble.showSimpleNotificationOnPebble(appName, "Enter a Kiva Lender ID in Settings on your phone.");
     return;
   }
   var url = baseKivaUrl + "lenders/" + lenderId + jsonExt + "?" + kivaAppIdParam;
@@ -182,7 +179,7 @@ function getLenderInfo(lenderId) {
 /////////////////////////////////////////////////////////////////////////////
 function getLoansForLender(lenderId) {
   if (!lenderId) {
-    console.log("Called getLoansForLender() with a blank lender ID!");
+    Pebble.showSimpleNotificationOnPebble(appName, "Enter a Kiva Lender ID in Settings on your phone.");
     return;
   }
   var url = baseKivaUrl + "lenders/" + lenderId + "/loans" + jsonExt + "?" + kivaAppIdParam;
